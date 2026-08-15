@@ -76,10 +76,10 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>policy-violation</code> (deceptive capability claims charged under the FTC Act); contributing <code>plain-error</code> (outputs never tested against a competent attorney's work)</li>
+<li><code>root_cause</code>: policy-violation - primary: deceptive capability claims charged under the FTC Act. Contributing: plain-error (outputs never tested against a competent attorney's work)</li>
 <li><code>mechanism</code>: DoNotPay marketed its service as a substitute for a human lawyer without conducting testing to determine whether outputs matched attorney-level quality, and without hiring or retaining any attorneys to validate features. The FTC charged the claims as deceptive in its first coordinated AI enforcement sweep (Operation AI Comply, five actions announced 2024-09-25). DoNotPay settled without admitting wrongdoing.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-exploited (real product, real subscribers; regulatory outcome, no attacker)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real product, real subscribers; regulatory outcome, no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -106,7 +106,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none (no runtime telemetry at issue; case rests on marketing claims vs absence of testing, per public FTC record)</li>
-<li><code>sources</code>: ftc.gov/news-events/news/press-releases/2025/02/ftc-finalizes-order-donotpay-prohibits-deceptive-ai-lawyer-claims-imposes-monetary-relief-requires; ftc.gov/news-events/news/press-releases/2024/09/ftc-announces-crackdown-deceptive-ai-claims-schemes; ftc.gov/legal-library/browse/cases-proceedings/donotpay; abajournal.com/news/article/robot-lawyer-website-donotpay-settles-ftc-claims-it-couldnt-deliver-on-promises. Independence: regulator primary documents plus independent legal press - strong.</li>
+<li><code>sources</code>:</li>
+<li>https://www.ftc.gov/news-events/news/press-releases/2025/02/ftc-finalizes-order-donotpay-prohibits-deceptive-ai-lawyer-claims-imposes-monetary-relief-requires</li>
+<li>https://www.ftc.gov/news-events/news/press-releases/2024/09/ftc-announces-crackdown-deceptive-ai-claims-schemes</li>
+<li>https://www.ftc.gov/legal-library/browse/cases-proceedings/donotpay</li>
+<li>https://www.abajournal.com/news/article/robot-lawyer-website-donotpay-settles-ftc-claims-it-couldnt-deliver-on-promises</li>
+<li>Independence: regulator primary documents plus independent legal press - strong.</li>
 <li><code>confidence</code>: high (all material facts from public FTC orders). Weakest link: no quantification of downstream consumer harm.</li>
 </ul>
 <h3>Verification notes</h3>

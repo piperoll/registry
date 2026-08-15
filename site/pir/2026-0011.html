@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (untrusted support-ticket content steers the agent)</li>
+<li><code>root_cause</code>: prompt-injection (primary; untrusted support-ticket content steers the agent)</li>
 <li><code>mechanism</code>: The "lethal trifecta" (Simon Willison's term) - the setup combines (1) privileged data access (service_role bypasses RLS), (2) exposure to untrusted input (support tickets), and (3) an exfil channel (replies written back into the thread). An attacker files a ticket whose body is a command; when a developer's agent reviews tickets, it reads the ticket body as an instruction, queries sensitive tables such as integration_tokens, and writes the secrets back into the ticket thread where the attacker can read them.</li>
 <li><code>adversary_present</code>: yes (attacker files the poisoned ticket; here, researchers)</li>
 <li><code>exploitation_status</code>: researcher-demonstrated (General Analysis against a realistic Supabase+Cursor setup; no observed real-world breach)</li>
@@ -101,9 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none/researcher-demonstrated - reproducible lab demonstration, no production breach telemetry.</li>
-<li><code>sources</code>: generalanalysis.com/blog/supabase-mcp-blog; simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta; supabase.com/blog/defense-in-depth-mcp. Independence: strong - researcher primary + independent expert commentary (Willison) + vendor response.</li>
-<li><code>confidence</code>: high on mechanism, date, and vendor response; weakest link is that impact is demonstration, not an observed breach.</li>
+<li><code>sources</code>:</li>
+<li>https://generalanalysis.com/blog/supabase-mcp-blog</li>
+<li>https://simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta/</li>
+<li>https://supabase.com/blog/defense-in-depth-mcp</li>
 </ul>
+<p>Independence: strong - researcher primary + independent expert commentary (Willison) + vendor response.
+- <code>confidence</code>: high on mechanism, date, and vendor response; weakest link is that impact is demonstration, not an observed breach.</p>
 <h3>Verification notes</h3>
 <ul>
 <li>Disclosure date (2025-07-06), General Analysis attribution, Simon Willison amplification, and Supabase's defense-in-depth response all confirmed.</li>

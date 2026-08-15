@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>The failure</h3>
 <ul>
 <li><code>failure_locus</code>: dependency (payment infrastructure agents rely on - not agent reasoning)</li>
-<li><code>root_cause</code>: primary <code>adversarial-other</code> (exploitable protocol/implementation flaws in authorization, binding, replay protection, web-layer handling); no compromise, no injection. Taxonomy strain noted: a "protocol-vulnerability" class is still missing post-v0.1.</li>
+<li><code>root_cause</code>: adversarial-other - primary (exploitable protocol/implementation flaws in authorization, binding, replay protection, web-layer handling); no compromise, no injection. Taxonomy strain noted: a "protocol-vulnerability" class is still missing post-v0.1.</li>
 <li><code>mechanism</code>: Two unaffiliated teams. (1) "Five Attacks on x402" (Li - Ohio State; Wang - CSIRO; Wang - Manchester): five concrete cross-layer attacks on the design, including free shopping (goods released before settlement) and replay/binding gaps. (2) USENIX Sec '26 study (Wang, Yang, Chen, Ji, Payer - Zhejiang/EPFL HexHive; x402scope tool): tested 15 major live facilitators, mapped 49 rule violations to 31 distinct vulnerabilities - free shopping, facilitator asset theft, service disruption, sponsor-paid gas/cost amplification; every facilitator violated at least one rule.</li>
 <li><code>adversary_present</code>: no (researcher demonstrations; no attributed in-wild exploitation of these flaws)</li>
 <li><code>exploitation_status</code>: researcher-demonstrated</li>
@@ -101,7 +101,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: strong for the demonstrations (public peer-reviewed artifacts, reproducible tooling); none for latent in-wild use - no one can show these flaws were never quietly exploited before disclosure</li>
-<li><code>sources</code>: arxiv.org/abs/2605.11781 (Five Attacks, 2026-05-12); arxiv.org/abs/2607.19545 (USENIX Sec '26 facilitator study); cryptoslate.com/31-newly-discovered-vulnerabilities-expose-99-of-x402-crypto-payments-to-asset-theft-and-free-shopping/; cryptoslate.com/coinbase-and-14-other-x402-facilitators-failed-security-tests-built-for-the-coming-ai-agent-economy/. Independence: two unaffiliated academic teams; maintainer acknowledgment corroborates validity; trade press derivative of the papers.</li>
+<li><code>sources</code>:</li>
+<li>https://arxiv.org/abs/2605.11781 (Five Attacks on x402 Agentic Payment Protocol, 2026-05-12)</li>
+<li>https://arxiv.org/abs/2607.19545 (When HTTP 402 Meets the Blockchain - USENIX Sec '26 facilitator study)</li>
+<li>https://cryptoslate.com/31-newly-discovered-vulnerabilities-expose-99-of-x402-crypto-payments-to-asset-theft-and-free-shopping/</li>
+<li>https://cryptoslate.com/coinbase-and-14-other-x402-facilitators-failed-security-tests-built-for-the-coming-ai-agent-economy/</li>
+<li>All four URLs verified resolving 2026-08-15. Independence: two unaffiliated academic teams; maintainer acknowledgment corroborates validity; trade press derivative of the papers.</li>
 <li><code>confidence</code>: high that the vulnerabilities are real and were demonstrated (peer review + vendor acknowledgment); medium on the ecosystem-share framing (coverage percentages rest on one team's scan methodology)</li>
 </ul>
 <h3>Verification notes (corrections)</h3>

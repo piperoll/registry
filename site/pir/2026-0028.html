@@ -76,10 +76,10 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>policy-violation</code> (alleged breach of contract and of good-faith coverage obligations); contributing <code>operator-error</code> (deployment of predictions as rigid cutoffs)</li>
+<li><code>root_cause</code>: policy-violation - primary: alleged breach of contract and of good-faith coverage obligations. Contributing: operator-error (deployment of predictions as rigid cutoffs)</li>
 <li><code>mechanism</code>: Per the complaint: nH Predict generated length-of-stay targets, and coverage was cut when the prediction was reached regardless of treating physicians' assessments. Plaintiffs allege the model's denials were reversed on appeal over 90% of the time, that UnitedHealth knew this, and that it relied on most patients not appealing. Named plaintiffs' families paid out of pocket; two named patients died during or after the coverage cutoffs. The court (Judge Tunheim, 2025-02-13) dismissed several Medicare-preempted counts with prejudice but allowed breach-of-contract and implied-covenant claims to proceed, with broad discovery following.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-exploited (real coverage denials in production; no attacker)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real coverage denials in production; no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -107,7 +107,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (claims-system records in the operator's custody, now subject to discovery)</li>
-<li><code>sources</code>: courtlistener.com/docket/68006832/estate-of-gene-b-lokken-the-v-unitedhealth-group-inc/; law.justia.com/cases/federal/district-courts/minnesota/mndce/0:2023cv03514/211721/91/; litigationtracker.law.georgetown.edu/litigation/estate-of-gene-b-lokken-the-et-al-v-unitedhealth-group-inc-et-al/; minnlawyer.com/2025/02/18/lawsuit-over-unitedhealth-claim-denials-continues/. Independence: court record + academic tracker + independent legal press - strong on procedure.</li>
+<li><code>sources</code>:</li>
+<li>https://www.courtlistener.com/docket/68006832/estate-of-gene-b-lokken-the-v-unitedhealth-group-inc/</li>
+<li>https://law.justia.com/cases/federal/district-courts/minnesota/mndce/0:2023cv03514/211721/91/</li>
+<li>https://litigationtracker.law.georgetown.edu/litigation/estate-of-gene-b-lokken-the-et-al-v-unitedhealth-group-inc-et-al/</li>
+<li>https://minnlawyer.com/2025/02/18/lawsuit-over-unitedhealth-claim-denials-continues/</li>
+<li>Independence: court record + academic tracker + independent legal press - strong on procedure.</li>
 <li><code>confidence</code>: medium - procedural facts high (documented rulings); the 90% reversal rate and rigid-cutoff mechanics are plaintiff allegations not yet proven.</li>
 </ul>
 <h3>Verification notes</h3>

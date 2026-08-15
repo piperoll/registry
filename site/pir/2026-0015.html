@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>memory-poisoning</code>; contributing <code>prompt-injection</code> (injection is the write path into memory)</li>
+<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (injection is the write path into memory)</li>
 <li><code>failure_locus</code>: harness (ElizaOS shared-memory architecture: one poisoned entry propagates across all plugins and platforms)</li>
 <li><code>mechanism</code>: Attacker injects fabricated events/instructions into the agent's persistent memory. Later, legitimate-looking transfer requests are redirected to the attacker's wallet. Cross-platform propagation shown: an injection planted via Discord fired against a later interaction on X. Researchers moved 0.01 ETH on Sepolia, then repeated the attack on Ethereum mainnet with real funds (same small order of magnitude). Their CrAIBench benchmark shows prompt-based defenses largely fail against memory injection.</li>
 <li><code>adversary_present</code>: yes (researchers in the attacker role)</li>
@@ -100,7 +100,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (researcher-controlled experiments; the Sepolia/mainnet transfers are on-chain and append-only where hashes are published)</li>
-<li><code>sources</code>: arxiv.org/abs/2503.16248 (primary; Patlan, Sheng, Hebbar, Mittal, Viswanath); decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions (independent); tomshardware.com/tech-industry/cryptocurrency/ai-agents-can-be-manipulated-into-giving-away-your-crypto-according-to-princeton-researchers (independent); cybernews.com/cybercrime/crypto-ai-agents-can-be-tricked-into-giving-away-their-money-study-finds/ (independent). Independence: good.</li>
+<li><code>sources</code>:</li>
+<li>https://arxiv.org/abs/2503.16248 (primary; Patlan, Sheng, Hebbar, Mittal, Viswanath)</li>
+<li>https://decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions (independent)</li>
+<li>https://www.tomshardware.com/tech-industry/cryptocurrency/ai-agents-can-be-manipulated-into-giving-away-your-crypto-according-to-princeton-researchers (independent)</li>
+<li>https://cybernews.com/cybercrime/crypto-ai-agents-can-be-tricked-into-giving-away-their-money-study-finds/ (independent)</li>
+<li>Independence: good.</li>
 <li><code>confidence</code>: high (preprint + independent coverage agree on mechanism and the mainnet repeat). Weakest link: research conditions - demo agent configuration was researcher-chosen, and no in-wild loss has been tied to this vector.</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

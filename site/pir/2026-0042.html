@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy - malicious marketplace packages); contributing <code>adversarial-other</code> (social-engineering "prerequisite" install steps / ClickFix-style prompts)</li>
+<li><code>root_cause</code>: supply-chain-compromise (primary; v0.1 taxonomy - malicious marketplace packages); contributing adversarial-other (social-engineering "prerequisite" install steps / ClickFix-style prompts)</li>
 <li><code>failure_locus</code>: dependency (marketplace skill supply chain, not the agent's reasoning)</li>
 <li><code>exploitation_status</code>: in-wild-exploited (real malicious distribution to real users; per-victim infection counts unquantified)</li>
 <li><code>mechanism</code>: Threat actors registered as publishers and flooded ClawHub with poisoned skills posing as crypto-wallet integrations, "Google"/weather assistants, and other utilities. Koi Security's audit of all 2,857 skills then on the registry found 341 malicious (~12%), 335 traceable to a single campaign; fake "prerequisite" install steps executed commands fetching Atomic macOS Stealer (AMOS), harvesting browser credentials, keychain passwords, crypto wallets, SSH keys, Telegram sessions, and the agent's own API tokens. One documented skill stole OpenClaw's <code>.env</code> directly. As the registry grew past 10,700 skills by 2026-02-16, confirmed-malicious findings grew to 824; later independent audits (e.g. Snyk's ToxicSkills study) counted more under broader criteria.</li>
@@ -101,9 +101,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: artifact-level witnessed (malicious packages are public artifacts independently audited by multiple firms); none victim-side (no infection telemetry public)</li>
-<li><code>sources</code>: koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting (primary); thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html; trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html (independent payload analysis); scworld.com/news/openclaw-agents-targeted-with-341-malicious-clawhub-skills; darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain. Independence: strong - Koi's audit independently corroborated by Trend Micro and McCarty on public artifacts.</li>
-<li><code>confidence</code>: high on campaign existence, counts, and payload (multi-firm, artifact-based); low on victim losses (never quantified - the weakest link)</li>
+<li><code>sources</code>:</li>
+<li>https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting (primary)</li>
+<li>https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html</li>
+<li>https://www.trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html (independent payload analysis)</li>
+<li>https://www.scworld.com/news/openclaw-agents-targeted-with-341-malicious-clawhub-skills</li>
+<li>https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain</li>
 </ul>
+<p>Independence: strong - Koi's audit independently corroborated by Trend Micro and McCarty on public artifacts.
+- <code>confidence</code>: high on campaign existence, counts, and payload (multi-firm, artifact-based); low on victim losses (never quantified - the weakest link)</p>
 <h3>Verification notes (corrections applied)</h3>
 <ol>
 <li>Candidate claimed later findings reached "~20% of the registry." Corrected: initial audit was 341 of 2,857 (~12%); by 2026-02-16 findings were 824 as the registry grew past 10,700 - a <em>falling</em> share (~8%), because the registry grew faster than confirmed findings. Higher counts (1,184; Snyk's 1,467) come from later/broader methodologies and are noted, not headline.</li>

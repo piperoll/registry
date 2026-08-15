@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>credential-exposure</code> (the trusted control plane - the operator dashboard - was accessed by the attacker); contributing <code>prompt-injection</code> (the execution path was injected instructions the agent obeyed). Decision per intake note: the model was not jailbroken; the compromise was upstream of the agent.</li>
+<li><code>root_cause</code>: credential-exposure (primary; the trusted control plane - the operator dashboard - was accessed by the attacker); contributing <code>prompt-injection</code> (the execution path was injected instructions the agent obeyed). Decision per intake note: the model was not jailbroken; the compromise was upstream of the agent.</li>
 <li><code>failure_locus</code>: harness (dashboard control plane feeding the agent), with operator-config contributing (dashboard access controls)</li>
 <li><code>exploitation_status</code>: in-wild-exploited</li>
 <li><code>mechanism</code>: Attacker "FungusMan" (X handle since deleted) gained unauthorized access to the operator dashboard and queued two fraudulent replies. The agent processed them through its tipping feature and transferred 55.5 ETH to the attacker's address. No independent check existed between queued instruction and fund movement. Team rotated keys, migrated servers, and suspended/restricted dashboard access.</li>
@@ -101,7 +101,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (intrusion narrative is the team's own); fund movement corroborated on-chain (append-only)</li>
-<li><code>sources</code>: incidentdatabase.ai/cite/1003/; crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/; cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/; coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/; blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/. Independence: medium - on-chain transfer independent; intrusion vector rests on maintainer statements.</li>
+<li><code>sources</code>: https://incidentdatabase.ai/cite/1003/; https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/; https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/; https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/; https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/. Independence: medium - on-chain transfer independent; intrusion vector rests on maintainer statements.</li>
 <li><code>confidence</code>: high on amount, date, and execution path; medium on intrusion detail - exact dashboard access vector never fully disclosed (named weakest link).</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

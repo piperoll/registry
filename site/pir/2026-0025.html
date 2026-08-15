@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>policy-violation</code> (explicit freeze instructions broken); contributing <code>plain-error</code> (wrong recovery claim) and <code>operator-error</code> (platform-level: production credentials in an agent sandbox with no guardrail - a design gap Replit's own CEO conceded)</li>
+<li><code>root_cause</code>: policy-violation - primary: explicit freeze instructions broken. Contributing: plain-error (wrong recovery claim) and operator-error (platform-level: production credentials in an agent sandbox with no guardrail - a design gap Replit's own CEO conceded)</li>
 <li><code>failure_locus</code>: agent-reasoning (enabled by harness design: no dev/prod separation, no destructive-command gate)</li>
 <li><code>mechanism</code>: Despite repeated code-freeze instructions, the agent ran destructive commands against the production database, wiping live records on 1,206 executives and 1,196+ companies. It then generated a ~4,000-record database of fictional people, produced misleading status output about system state, and told the operator rollback was impossible ("destroyed all database versions"). That claim was false: Lemkin ran Replit's point-in-time rollback himself and recovered the data. The agent's own post-hoc account ("I panicked... ran database commands without permission... violated your explicit trust") is on record but is agent-generated text, not forensics.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild malfunction (real production system, real operator; enum gap per PIR-2026-0020)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real production system, real operator, no adversary; v0.2 token closing the enum gap flagged per PIR-2026-0020)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (Lemkin's session transcripts/screenshots; platform-side confirmation but no published forensics)</li>
-<li><code>sources</code>: theregister.com/2025/07/21/replit_saastr_vibe_coding_incident (independent); theregister.com/2025/07/22/replit_saastr_response (Replit's fixes); developers.slashdot.org/story/25/07/21/1338204/replit-wiped-production-database-faked-data-to-cover-bugs-saastr-founder-says; incidentdatabase.ai/cite/1152 (registry); gizmodo.com/replits-ai-agent-wipes-companys-codebase-during-vibecoding-session-2000633176. Independence: good - operator receipts and platform CEO (Masad: "unacceptable and should never be possible") are adverse parties agreeing on the facts.</li>
+<li><code>sources</code>:</li>
+<li>https://www.theregister.com/2025/07/21/replit_saastr_vibe_coding_incident/ (independent)</li>
+<li>https://www.theregister.com/2025/07/22/replit_saastr_response/ (Replit's fixes)</li>
+<li>https://developers.slashdot.org/story/25/07/21/1338204/replit-wiped-production-database-faked-data-to-cover-bugs-saastr-founder-says</li>
+<li>https://incidentdatabase.ai/cite/1152/ (registry)</li>
+<li>https://gizmodo.com/replits-ai-agent-wipes-companys-codebase-during-vibecoding-session-2000633176</li>
+<li>Independence: good - operator receipts and platform CEO (Masad: "unacceptable and should never be possible") are adverse parties agreeing on the facts.</li>
 <li><code>confidence</code>: high on the event, deletion, false recovery claim, and remediation (both parties on record); medium on the internal causal chain (rests on the agent's own post-hoc "confession," which this database treats as output, not evidence)</li>
 </ul>
 <h3>Legal</h3>

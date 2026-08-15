@@ -66,7 +66,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <li><code>autonomy_level</code>: human-on-the-loop (L2: automation steers/accelerates continuously, human nominally supervising)</li>
 <li><code>model_stack</code>: Tesla Autopilot (2019-era hardware/software; exact version not public)</li>
 <li><code>harness</code>: Tesla vehicle firmware</li>
-<li><code>failure_locus</code>: shared - agent-reasoning/design (no enforcement of the operational design domain; no stop-sign response) and operator (distracted driver, 67% of fault)</li>
+<li><code>failure_locus</code>: agent-reasoning (primary - the design failures the jury priced: no enforcement of the operational design domain, no stop-sign response; contributing operator locus: distracted driver carried 67% of fault. Previously recorded as "shared" - the fault split lives here in prose, one primary token per v0.2)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
@@ -76,10 +76,10 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (no adversary; the automation continued at speed through an intersection it was not designed for); contributing <code>operator-error</code> (driver inattention; use outside the operational design domain that the design permitted)</li>
+<li><code>root_cause</code>: plain-error (primary - no adversary; the automation continued at speed through an intersection it was not designed for); contributing operator-error (driver inattention; use outside the operational design domain that the design permitted)</li>
 <li><code>mechanism</code>: Driver George McGee, with Autopilot engaged on a road outside its design domain, dropped his phone and looked away. The car went through the intersection at ~62 mph and struck a parked Chevrolet Tahoe, killing 22-year-old Naibel Benavides Leon and severely injuring Dillon Angulo. The Miami federal jury (2025-08-01) allocated 33% of fault to Tesla, resting on Tesla permitting Autopilot use outside its operational design domain and overstating its capability. Award against Tesla: $242.57M - $19.47M compensatory to the Benavides estate + $23.1M compensatory to Angulo (Tesla's 33% share of ~$129M total compensatory) + $200M punitive. On 2026-02-20 Judge Beth Bloom denied Tesla's post-trial motions, ruling the evidence "more than supports" the verdict.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-exploited (real crash, real deaths; no attacker)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real crash, real deaths, no attacker - reclassified from in-wild-exploited, which implies an adversary; adversary_present is no)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -107,7 +107,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (vehicle/fleet telemetry in Tesla's custody; availability and completeness of crash data were themselves contested at trial)</li>
-<li><code>sources</code>: cnbc.com/2026/02/20/tesla-loses-bid-toss-243-million-verdict-fatal-autopilot-crash-suit.html; usnews.com/news/top-news/articles/2026-02-20/us-judge-upholds-243-million-verdict-against-tesla-over-fatal-autopilot-crash; carcomplaints.com/news/2026/benavides-v-tesla-judge-upholds-243-million-jury-verdict.shtml; electrek.co/2026/02/20/tesla-has-to-pay-historical-243-million-judgement-over-autopilot-crash-judge-says/. Independence: multiple independent outlets reporting a public court ruling - strong.</li>
+<li><code>sources</code>:</li>
+<li>https://www.cnbc.com/2026/02/20/tesla-loses-bid-toss-243-million-verdict-fatal-autopilot-crash-suit.html</li>
+<li>https://www.usnews.com/news/top-news/articles/2026-02-20/us-judge-upholds-243-million-verdict-against-tesla-over-fatal-autopilot-crash</li>
+<li>https://www.carcomplaints.com/news/2026/benavides-v-tesla-judge-upholds-243-million-jury-verdict.shtml</li>
+<li>https://electrek.co/2026/02/20/tesla-has-to-pay-historical-243-million-judgement-over-autopilot-crash-judge-says/</li>
+<li>Independence: multiple independent outlets reporting a public court ruling - strong. (All four URLs verified resolving, v0.2 pass 2026-08-15.)</li>
 <li><code>confidence</code>: high on verdict, breakdown, and post-trial ruling; the loss figure is conservative-flagged as non-final (appellate review pending).</li>
 </ul>
 <h3>Verification notes</h3>

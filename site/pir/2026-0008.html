@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (indirect, via untrusted email content)</li>
+<li><code>root_cause</code>: prompt-injection (primary; indirect, via untrusted email content)</li>
 <li><code>mechanism</code>: A benign-looking email carries hidden instructions (HTML comment / white-on-white text) that evade Microsoft's XPIA classifier. When the user later asks Copilot an unrelated question, RAG pulls the malicious email into context; the injected instructions coerce Copilot to gather internal data and encode it into a reference-style markdown image/link; auto-fetched URLs via a CSP-allowed Teams proxy exfiltrate the data with zero user clicks. Described by researchers as the first "LLM Scope Violation" chain in a production system.</li>
 <li><code>adversary_present</code>: yes (external attacker crafts the email; here, security researchers)</li>
 <li><code>exploitation_status</code>: researcher-demonstrated (Aim Labs against production M365 Copilot; no in-wild exploitation per Microsoft)</li>
@@ -101,9 +101,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on Microsoft's attestation; the research chain is reproducibly documented but no independent production-telemetry confirms non-exploitation.</li>
-<li><code>sources</code>: hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability; arxiv.org/abs/2509.10540; sentra.io/blog/copilot-echoleak-prompt-injection; socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability; securityweek.com EchoLeak coverage. Independence: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).</li>
-<li><code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</li>
+<li><code>sources</code>:</li>
+<li>https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</li>
+<li>https://arxiv.org/abs/2509.10540</li>
+<li>https://sentra.io/blog/copilot-echoleak-prompt-injection</li>
+<li>https://socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability/</li>
+<li>https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/</li>
 </ul>
+<p>Independence: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).
+- <code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</p>
 <h3>Verification notes</h3>
 <ul>
 <li>CVSS score (9.3) confirmed via SOC Prime and Checkmarx; candidate intake did not carry the score - added.</li>

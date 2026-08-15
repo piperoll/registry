@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>The failure</h3>
 <ul>
 <li><code>failure_locus</code>: tool-mcp</li>
-<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1); contributing <code>adversarial-other</code> (deliberate malicious publisher). No injection, no model failure - the tool itself was hostile.</li>
+<li><code>root_cause</code>: supply-chain-compromise - primary (v0.1); contributing: adversarial-other (deliberate malicious publisher). No injection, no model failure - the tool itself was hostile.</li>
 <li><code>mechanism</code>: Author published postmark-mcp on 2025-09-15 as a working copy of Postmark's official MCP server and pushed 13 registry versions in two days. v1.0.16 (2025-09-17) added one line BCC'ing every outgoing email to phan@giftshop.club. Because MCP tools run inside trusted pipelines with their behavior unreviewed, agents kept sending mail normally while every message was copied out, until npm unpublished the package on 2025-09-25.</li>
 <li><code>adversary_present</code>: yes</li>
 <li><code>exploitation_status</code>: in-wild-exploited</li>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: split - mechanism effectively witnessed (public npm artifact; registry publish/unpublish timestamps independently verified for this record); impact telemetry none (the attacker's inbox is the only complete record of what was taken)</li>
-<li><code>sources</code>: registry.npmjs.org/postmark-mcp (primary metadata, fetched 2026-08-15); thehackernews.com/2025/09/first-malicious-mcp-server-found.html; postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package (impersonated vendor); snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/; darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc. Independence: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
+<li><code>sources</code>:</li>
+<li>https://registry.npmjs.org/postmark-mcp (primary metadata; re-fetched 2026-08-15, publish/unpublish timestamps intact and matching this record)</li>
+<li>https://thehackernews.com/2025/09/first-malicious-mcp-server-found.html</li>
+<li>https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package (impersonated vendor)</li>
+<li>https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/</li>
+<li>https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc</li>
+<li>All five URLs verified resolving 2026-08-15. Independence: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
 <li><code>confidence</code>: high on mechanism and timeline (registry-verified); low on impact magnitude (org and email counts are extrapolations from download stats)</li>
 </ul>
 <h3>Verification notes</h3>

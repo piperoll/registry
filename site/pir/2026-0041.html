@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>operator-error</code> (instances deployed on public IPs with default/insecure configs against explicit docs guidance); contributing harness flaw CVE-2026-25253</li>
+<li><code>root_cause</code>: operator-error (primary; instances deployed on public IPs with default/insecure configs against explicit docs guidance); contributing harness flaw CVE-2026-25253</li>
 <li><code>failure_locus</code>: operator-config (primary); harness (contributing - the Control UI's trust of URL parameters)</li>
-<li><code>exploitation_status</code>: exposure in-wild; mass plundering undocumented; the RCE researcher-demonstrated (patched before confirmed in-wild exploitation)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (the mass credential/data exposure was a real production event with no documented adversarial harvesting - "exposure" reclassified to the v0.2 token; mass plundering undocumented; the CVE-2026-25253 RCE component was researcher-demonstrated, patched before confirmed in-wild exploitation)</li>
 <li><code>mechanism</code>: During the viral adoption wave, users put instances straight onto public IPs despite documentation recommending SSH tunnels. Censys (querying "Moltbot Control"/"clawdbot Control" landing pages) found 21,639 publicly accessible instances by 2026-01-31, up from ~1,000 a week earlier; a later independent study counted 42,665 exposed, ~5,194 verified vulnerable, with most of those exhibiting auth-bypass conditions. Open instances leaked API keys, OAuth tokens, plaintext credentials, and chat histories. Separately, CVE-2026-25253 (CVSS 8.8) chained the Control UI's unvalidated URL parameters with cross-site WebSocket hijacking into a one-click RCE that worked even against localhost-bound instances until v2026.1.29.</li>
 <li><code>adversary_present</code>: unknown (exposure certain; who harvested it is undocumented; individual compromises reported anecdotally)</li>
 </ul>
@@ -101,9 +101,14 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: population-level witnessed (two independent internet-wide scans agree on scale); none for individual compromises (no victim telemetry public)</li>
-<li><code>sources</code>: censys.com/blog/openclaw-in-the-wild-mapping-the-public-exposure-of-a-viral-ai-assistant/ (primary scan); securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/; adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/ (aggregates CVE + 42,665-instance follow-up study); reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now. Independence: good - scan data, vendor patch, and multi-firm coverage are mutually independent.</li>
-<li><code>confidence</code>: high on exposure scale, CVE details, and timeline (21,639 figure verified against Censys-derived reporting); low on realized harm - how many exposed instances were actually plundered is undocumented (the weakest link)</li>
-</ul></div>
+<li><code>sources</code>:</li>
+<li>https://censys.com/blog/openclaw-in-the-wild-mapping-the-public-exposure-of-a-viral-ai-assistant/ (primary scan)</li>
+<li>https://www.securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/</li>
+<li>https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/ (aggregates CVE + 42,665-instance follow-up study)</li>
+<li>https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</li>
+</ul>
+<p>Independence: good - scan data, vendor patch, and multi-firm coverage are mutually independent.
+- <code>confidence</code>: high on exposure scale, CVE details, and timeline (21,639 figure verified against Censys-derived reporting); low on realized harm - how many exposed instances were actually plundered is undocumented (the weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

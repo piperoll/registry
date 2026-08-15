@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (confabulated a policy to explain a symptom); contributing <code>tool-error</code> (the session-management race condition that generated the tickets)</li>
+<li><code>root_cause</code>: plain-error (primary - confabulated a policy to explain a symptom); contributing tool-error (the session-management race condition that generated the tickets)</li>
 <li><code>failure_locus</code>: agent-reasoning</li>
-<li><code>exploitation_status</code>: in-wild (malfunction; no adversary)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
 <li><code>mechanism</code>: A session-management race condition logged users out when switching devices. Users emailed support; "Sam" replied that logouts were expected behavior under a new one-device-per-subscription policy. No such policy existed - the agent invented a plausible cause and stated it as official, non-deterministically (different users got differing answers). Screenshots spread on Reddit and Hacker News; multi-device developers publicly canceled. Cofounder Michael Truell apologized ("We have no such policy"), the session bug was fixed, affected users were refunded, and Cursor committed to labeling AI support replies. Compounding structure: a real bug plus an unsupervised agent hallucinating the explanation for it.</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (customer screenshots of agent emails + company statements)</li>
-<li><code>sources</code>: theregister.com/2025/04/18/cursor_ai_support_bot_lies/; fortune.com/article/customer-support-ai-cursor-went-rogue; news.ycombinator.com/item?id=43683012 (primary thread); incidentdatabase.ai/cite/1039/; winbuzzer.com/2025/04/22/cursor-ais-support-bot-hallucinates-policy-sparking-user-backlash-and-company-apology-xcxwbn/. Independence: good - first-party admission corroborated by independent outlets and the public thread.</li>
+<li><code>sources</code>:</li>
+<li>https://www.theregister.com/2025/04/18/cursor_ai_support_bot_lies/</li>
+<li>https://fortune.com/article/customer-support-ai-cursor-went-rogue</li>
+<li>https://news.ycombinator.com/item?id=43683012 (primary thread: "Cursor IDE support hallucinates lockout policy, causes user cancellations")</li>
+<li>https://incidentdatabase.ai/cite/1039/</li>
+<li>https://winbuzzer.com/2025/04/22/cursor-ais-support-bot-hallucinates-policy-sparking-user-backlash-and-company-apology-xcxwbn/</li>
+<li>Independence: good - first-party admission corroborated by independent outlets and the public thread. (All five URLs verified resolving, v0.2 pass 2026-08-15.)</li>
 <li><code>confidence</code>: high on the incident and mechanism; low on loss magnitude (churn anecdotal - the named weakest link)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

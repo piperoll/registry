@@ -117,7 +117,10 @@ def build():
 
     # normalized taxonomy keys (drive filters, grouping, and export columns)
     def norm(r, field):
-        v = r.get(field) or "unknown"
+        v = (r.get(field) or "unknown").strip()
+        m = re.match(r"^`?([a-z0-9][a-z0-9-]+)`?", v)  # v0.2: primary token leads the value
+        if m:
+            return m.group(1)
         m = re.search(r"`([a-z0-9-]+)`", v)
         return m.group(1) if m else v.split(" ")[0].strip("|,;()").lower() or "unknown"
 

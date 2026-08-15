@@ -76,9 +76,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>operator-error</code> (submission of unverified model output to a federal court; conscious avoidance once challenged); contributing <code>plain-error</code> (model fabricated cases, citations, quotes - and "affirmed" them when asked to confirm)</li>
+<li><code>root_cause</code>: operator-error (primary; submission of unverified model output to a federal court; conscious avoidance once challenged); contributing plain-error (model fabricated cases, citations, quotes - and "affirmed" them when asked to confirm)</li>
 <li><code>failure_locus</code>: agent-reasoning (fabricated content), harm realized through operator conduct</li>
-<li><code>exploitation_status</code>: in-wild (no adversary; real filing, real court, real sanction)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; real filing, real court, real sanction)</li>
 <li><code>mechanism</code>: Schwartz asked ChatGPT for supporting precedents; it fabricated at least six non-existent decisions ("Varghese," "Shaboon," "Petersen," "Martinez," "Durden," "Miller") with full citations and quotes. When opposing counsel and Judge P. Kevin Castel could not find them, Schwartz asked ChatGPT itself whether the cases were real; it affirmed its own fabrications, and excerpts were filed with the court. Castel found the lawyers acted in bad faith (conscious avoidance and false statements to the court), imposed a $5,000 penalty jointly and severally on Schwartz, LoDuca, and the firm, and required them to mail the opinion to their client and to each judge falsely identified as an author.</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -108,9 +108,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: witnessed (published federal opinion plus docketed exhibits, including the ChatGPT exchanges entered into the record - evidence custody is the court's, not the operator's)</li>
-<li><code>sources</code>: law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/ (sanctions opinion); cases.justia.com/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/55/0.pdf (same-day dismissal opinion); en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.; acc.com/resource-library/practical-lessons-attorney-ai-missteps-mata-v-avianca; caselaw.findlaw.com/court/us-dis-crt-sd-new-yor/2335142.html. Independence: strong - primary court records plus independent legal commentary.</li>
-<li><code>confidence</code>: high (published opinion; no material weak links)</li>
+<li><code>sources</code>:</li>
+<li>https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/ (sanctions opinion)</li>
+<li>https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/55/ (same-day dismissal opinion; replaces the earlier cases.justia.com direct-PDF link for the same Document 55, which could not be verified to resolve)</li>
+<li>https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.</li>
+<li>https://www.acc.com/resource-library/practical-lessons-attorney-ai-missteps-mata-v-avianca</li>
+<li>https://caselaw.findlaw.com/court/us-dis-crt-sd-new-yor/2335142.html</li>
 </ul>
+<p>Independence: strong - primary court records plus independent legal commentary.
+- <code>confidence</code>: high (published opinion; no material weak links)</p>
 <h3>Verification notes (corrections applied)</h3>
 <ol>
 <li>The candidate listed the loss as "$5,000 sanction + dismissal of the client's claim," implying dismissal flowed from the AI incident. Corrected: the case was dismissed in a separate same-day opinion because Mata's claim was time-barred under the Montreal Convention's two-year limit - it would have been dismissed regardless of the fabricated citations. Attributable realized loss is the $5,000 sanction (plus unquantified professional fallout); the fabricated brief failed to save an already-untimely claim.</li>

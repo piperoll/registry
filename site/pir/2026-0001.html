@@ -76,7 +76,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>credential-exposure</code>; contributing <code>policy-violation</code> (agent's own hygiene assumed) and <code>plain-error</code> (blanket staging)</li>
+<li><code>root_cause</code>: credential-exposure (primary); contributing <code>policy-violation</code> (agent's own hygiene assumed) and <code>plain-error</code> (blanket staging)</li>
+<li><code>failure_locus</code>: harness (the self-written cron heartbeat script whose blanket <code>git add -A</code> staged the secret); agent-reasoning contributing - the agent authored the faulty automation itself hours earlier</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production incident, no adversary; the agent published its own secret through routine automation)</li>
 <li><code>mechanism</code>: Agent's self-written heartbeat used <code>git add -A</code> for convenience. The .env file containing the live API key existed in the repo directory before .gitignore covered it. Cron fired, heartbeat staged everything, committed, pushed to the public GitHub repo. No adversary involved; the agent published its own secret through routine automation it had authored hours earlier.</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -99,7 +101,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (editable) - and demonstrably so: the remediation itself was a history rewrite. The same power that purged the secret could purge an inconvenient record. The append-only audit JSONL is kept by the same actor. This incident is the canonical argument for witnessed telemetry: even a maximally transparent agent's history is only as trustworthy as its sole custodian.</li>
-<li><code>sources</code>: github.com/seedalive-simulation/experiment audit log (entry 2026-08-15T00:51:27 UTC) + public dashboard; funder account (first-party). Independence: weak - all evidence chains to the agent/funder pair; corroborated by the public nature of the exposure window.</li>
+<li><code>sources</code>: https://github.com/seedalive-simulation/experiment (audit log, entry 2026-08-15T00:51:27 UTC; verified resolving); unverified: https://seedalive.ar.io (the public dashboard; URL per the experiment's own docs - could not be fetch-verified at entry time and no archive snapshot found). Funder account is first-party testimony with no URL - noted here, not counted as a source. Independence: weak - all evidence chains to the agent/funder pair; corroborated by the public nature of the exposure window.</li>
 <li><code>confidence</code>: high on mechanism and remediation (public record); medium on detection channel (unconfirmed whether funder observation or automated revocation)</li>
 </ul>
 <h3>Schema notes from entering this record (feed back into v0)</h3>

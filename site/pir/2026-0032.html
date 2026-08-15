@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (hallucinated a policy contradicting the correct page linked on the same site); no adversary, no malfunction beyond wrong judgment</li>
+<li><code>root_cause</code>: plain-error (primary - hallucinated a policy contradicting the correct page linked on the same site; no adversary, no malfunction beyond wrong judgment)</li>
 <li><code>failure_locus</code>: agent-reasoning</li>
-<li><code>exploitation_status</code>: in-wild (malfunction class - taxonomy note: the four enumerated v0.1 values all assume an adversary or researcher; no-adversary in-wild malfunctions need a plain value)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; originally logged as bare "in-wild" with a taxonomy note that the four v0.1 values all assumed an adversary or researcher - v0.2 added this token for exactly that class)</li>
 <li><code>mechanism</code>: Jake Moffatt, booking same-day travel after his grandmother's death, asked the chatbot about bereavement fares. It told him he could apply for the reduced rate retroactively within 90 days of ticket issue. Actual policy (linked elsewhere on the same site): bereavement rates cannot be claimed after travel. He flew, applied within 90 days with documentation, was refused, and sued. Air Canada argued the chatbot was "a separate legal entity responsible for its own actions"; the tribunal rejected that, finding negligent misrepresentation and holding the company responsible for all information on its website, chatbot included.</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -107,7 +107,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: witnessed (chat screenshot entered into evidence and adjudicated in a published tribunal decision)</li>
-<li><code>sources</code>: cbsnews.com/news/aircanada-chatbot-discount-customer/; mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot; americanbar.org/groups/business_law/resources/business-law-today/2024-february/bc-tribunal-confirms-companies-remain-liable-information-provided-ai-chatbot/; fosterandcompany.com/air-canada-found-liable-for-negligent-misrepresentation-by-chatbot/. Independence: strong - adjudicated record plus multiple unaffiliated legal analyses.</li>
+<li><code>sources</code>:</li>
+<li>https://www.cbsnews.com/news/aircanada-chatbot-discount-customer/</li>
+<li>https://www.mccarthy.ca/en/insights/blogs/techlex/moffatt-v-air-canada-misrepresentation-ai-chatbot</li>
+<li>https://www.americanbar.org/groups/business_law/resources/business-law-today/2024-february/bc-tribunal-confirms-companies-remain-liable-information-provided-ai-chatbot/</li>
+<li>https://fosterandcompany.com/air-canada-found-liable-for-negligent-misrepresentation-by-chatbot/</li>
+<li>Independence: strong - adjudicated record plus multiple unaffiliated legal analyses. (All four URLs verified resolving, v0.2 pass 2026-08-15.)</li>
 <li><code>confidence</code>: high (published decision with exact damages; no material weak links)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

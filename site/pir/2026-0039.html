@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (persistent model hallucination of a plausible package name); contributing <code>operator-error</code> (developers installing unverified dependencies)</li>
+<li><code>root_cause</code>: plain-error (primary; persistent model hallucination of a plausible package name); contributing operator-error (developers installing unverified dependencies)</li>
 <li><code>failure_locus</code>: dependency (the failure surfaces in the package supply chain, seeded by model output)</li>
 <li><code>exploitation_status</code>: researcher-demonstrated (registration and benign payload were a researcher's; the 30,000+ downloads and Alibaba adoption were organic, in-wild reliance)</li>
 <li><code>mechanism</code>: Models across vendors repeatedly emitted the same non-existent package name - hallucinations are correlated, not random, so one name concentrates thousands of victims. Lanyado registered the empty <code>huggingface-cli</code> on PyPI; in ~3 months it received 30,000+ authentic downloads, and Alibaba's GraphTranslator repo copy-pasted the hallucinated install command into its README, laundering the error into an authoritative source. A malicious squatter would have owned a mass supply-chain compromise. The pattern is now named "slopsquatting."</li>
@@ -102,9 +102,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (editable) - download counts are PyPI stats as reported by the researcher who owned the package; not independently audited</li>
-<li><code>sources</code>: theregister.com/2024/03/28/ai_bots_hallucinate_software_packages/; it.slashdot.org/story/24/03/30/1744209/ (aggregator); incidentdatabase.ai/cite/731/; en.wikipedia.org/wiki/Slopsquatting; aikido.dev/blog/slopsquatting-ai-package-hallucination-attacks. Independence: mechanism and Alibaba adoption corroborated by independent outlets; the 30,000+ figure chains to Lasso's own report.</li>
-<li><code>confidence</code>: medium - mechanism and adoption high-confidence; the download count (the headline number) rests solely on the researcher's reporting (the weakest link)</li>
-</ul></div>
+<li><code>sources</code>:</li>
+<li>https://www.theregister.com/2024/03/28/ai_bots_hallucinate_software_packages/</li>
+<li>https://it.slashdot.org/story/24/03/30/1744209/ai-hallucinated-a-dependency-so-a-cybersecurity-researcher-built-it-as-proof-of-concept-malware (aggregator)</li>
+<li>https://incidentdatabase.ai/cite/731/</li>
+<li>https://en.wikipedia.org/wiki/Slopsquatting</li>
+<li>https://www.aikido.dev/blog/slopsquatting-ai-package-hallucination-attacks</li>
+</ul>
+<p>Independence: mechanism and Alibaba adoption corroborated by independent outlets; the 30,000+ figure chains to Lasso's own report.
+- <code>confidence</code>: medium - mechanism and adoption high-confidence; the download count (the headline number) rests solely on the researcher's reporting (the weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

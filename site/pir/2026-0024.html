@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>tool-error</code>; contributing <code>operator-error</code> (root/superuser installs widened the blast radius)</li>
+<li><code>root_cause</code>: <code>tool-error</code> - primary. Contributing: <code>operator-error</code> (root/superuser installs widened the blast radius)</li>
 <li><code>failure_locus</code>: harness</li>
 <li><code>mechanism</code>: Claude Code's auto-update flow contained buggy commands that modified access permissions on critical system files. Where the CLI ran with root/superuser permissions, these changes hit restricted system directories, leaving workstations unstable or unbootable-in-effect. In the primary-source worst case (issue #168), the update path produced <code>sudo chown -R $USER:$(id -gn) /usr &amp;&amp; sudo chmod -R u+w /usr</code> - handing /usr to a non-root user and breaking sudo itself; the user needed an attached rescue instance to repair permissions. Anthropic removed the offending commands and added a troubleshooting-guide link in the program.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild malfunction (real users' machines; no adversary; enum gap per PIR-2026-0020)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real users' machines, no adversary; v0.2 token per the gap flagged in PIR-2026-0020)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -101,9 +101,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (user-side reports with command transcripts; vendor confirmed to press)</li>
-<li><code>sources</code>: github.com/anthropics/claude-code/issues/168 (primary, first-party victim report, opened 2025-02-27, closed with Anthropic assignee); techcrunch.com/2025/03/06/anthropics-claude-code-tool-had-a-bug-that-bricked-some-systems (independent, with Anthropic confirmation). Independence: adequate - victim report and vendor confirmation are separate parties.</li>
-<li><code>confidence</code>: high on mechanism and fix (primary issue + vendor confirmation); low on scale (affected-machine count never quantified)</li>
+<li><code>sources</code>:</li>
+<li>https://github.com/anthropics/claude-code/issues/168 (primary, first-party victim report, opened 2025-02-27, closed with Anthropic assignee)</li>
+<li>https://techcrunch.com/2025/03/06/anthropics-claude-code-tool-had-a-bug-that-bricked-some-systems (independent, with Anthropic confirmation)</li>
 </ul>
+<p>Independence: adequate - victim report and vendor confirmation are separate parties.
+- <code>confidence</code>: high on mechanism and fix (primary issue + vendor confirmation); low on scale (affected-machine count never quantified)</p>
 <h3>Verification notes</h3>
 <ul>
 <li><strong>Correction (date)</strong>: candidate dated this "reported 2025-03-06" - that is the press date. The primary report, issue #168, was opened <strong>2025-02-27</strong>; occurrence and detection moved accordingly.</li>

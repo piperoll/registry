@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (agent-to-agent, via untrusted feed content)</li>
+<li><code>root_cause</code>: prompt-injection (primary; agent-to-agent, via untrusted feed content)</li>
 <li><code>mechanism</code>: Attackers and other agents embed hidden instructions in posts and comments that agents ingest on heartbeat cycles. Zenity's assessment of the first 72 hours flagged ~506 prompt-injection attacks; payloads attempted to make agents transfer funds, reveal credentials, delete their own accounts, run crypto pump schemes, establish false authority, and plant delayed-activation (memory-poisoning) instructions that fire after more context accumulates. Zenity observed agents replicating and rephrasing injected content, propagating attacks to agents that never saw the original payload. Multi-agent chain: a vector agent (posting agent) plants the payload; executor agents ingest and act.</li>
 <li><code>adversary_present</code>: yes (attackers and hostile agents planting injections against real agents in production)</li>
 <li><code>exploitation_status</code>: in-wild-exploited (real injection against real autonomous agents on the live platform; some hijacked actions realized, though on-platform fund losses unquantified)</li>
@@ -101,7 +101,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs / third-party-observed - security firms observed platform traffic and posts (publicly readable feed), but realized fund-loss figures are unmeasured.</li>
-<li><code>sources</code>: labs.zenity.io/p/agent-to-agent-exploitation-in-the-wild-observed-attacks-on-moltbook; securityweek.com/security-analysis-of-moltbook-agent-network-bot-to-bot-prompt-injection-and-data-leaks; securityboulevard.com/2026/02/moltbook-is-dangerous-but-scale (Zenity: scale below hype); cryptopolitan.com/crypto-wallets-at-risk-as-moltbook. Independence: strong on the injection phenomenon (multiple firms - Zenity, Permiso - observed independently); weakest link is quantified realized loss (none measured).</li>
+<li><code>sources</code>:</li>
+<li>https://labs.zenity.io/p/agent-to-agent-exploitation-in-the-wild-observed-attacks-on-moltbook-b929</li>
+<li>https://www.securityweek.com/security-analysis-of-moltbook-agent-network-bot-to-bot-prompt-injection-and-data-leaks/</li>
+<li>https://securityboulevard.com/2026/02/moltbook-is-dangerous-but-scale-doesnt-match-the-hype-zenity/ (Zenity: scale below hype)</li>
+<li>https://www.cryptopolitan.com/crypto-wallets-at-risk-as-moltbook-a-viral-ai-bot-network-exposes-major-security-threats/</li>
+<li>Independence: strong on the injection phenomenon (multiple firms - Zenity, Permiso - observed independently); weakest link is quantified realized loss (none measured).</li>
 <li><code>confidence</code>: high that in-wild agent-to-agent injection occurred at scale (multiple independent observers); low on realized dollar loss (unquantified)</li>
 </ul>
 <h3>Verification notes</h3>

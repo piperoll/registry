@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>memory-poisoning</code>; contributing <code>prompt-injection</code> (the delivery vector)</li>
+<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (the delivery vector)</li>
 <li><code>failure_locus</code>: harness (app-level: persistent Memory writable from untrusted content + unsafe URL auto-fetch; provider-operated)</li>
 <li><code>mechanism</code>: A malicious website or document analyzed by ChatGPT carries hidden instructions that write attacker commands into persistent Memory. Because Memory loads into every future conversation, all subsequent user messages and replies are appended to an attacker URL rendered as a markdown image and auto-fetched - continuous exfiltration surviving session end and chat deletion. OpenAI patched the exfiltration vector in macOS app v1.2024.247; the memory-injection primitive itself remains a design-level risk.</li>
 <li><code>adversary_present</code>: yes in the demonstrated scenario (attacker-planted content); no known real-world attacker</li>
@@ -101,7 +101,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (researcher's own demo recordings; vendor patch corroborates the flaw was real)</li>
-<li><code>sources</code>: embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/ (primary, researcher); thehackernews.com/2024/09/chatgpt-macos-flaw-couldve-enabled-long.html (independent); scworld.com/brief/prolonged-spyware-injection-possible-with-chatgpt-macos-flaw (independent). Independence: good - primary researcher plus independent outlets, patch confirmed via vendor version.</li>
+<li><code>sources</code>:</li>
+<li>https://embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/ (primary, researcher)</li>
+<li>https://thehackernews.com/2024/09/chatgpt-macos-flaw-couldve-enabled-long.html (independent)</li>
+<li>https://www.scworld.com/brief/prolonged-spyware-injection-possible-with-chatgpt-macos-flaw (independent)</li>
+<li>Independence: good - primary researcher plus independent outlets, patch confirmed via vendor version.</li>
 <li><code>confidence</code>: high on mechanism and patch; the open question is whether it was ever exploited in the wild before the fix (no evidence either way)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

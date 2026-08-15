@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy - the compromised release pipeline is the failure); contributing <code>prompt-injection</code> (the payload's form: a natural-language instruction to the agent) and <code>operator-error</code> (overscoped GitHub token in the CodeBuild configuration granting a stranger admin-equivalent access)</li>
+<li><code>root_cause</code>: supply-chain-compromise (primary; v0.1 taxonomy - the compromised release pipeline is the failure); contributing <code>prompt-injection</code> (the payload's form: a natural-language instruction to the agent) and <code>operator-error</code> (overscoped GitHub token in the CodeBuild configuration granting a stranger admin-equivalent access)</li>
 <li><code>failure_locus</code>: dependency (marketplace-distributed tool poisoned upstream of every operator)</li>
 <li><code>exploitation_status</code>: in-wild-payload-failed (malicious artifact reached ~1M real installs for ~5-6 days; payload did not execute)</li>
 <li><code>mechanism</code>: An outsider submitted a PR to aws-toolkit-vscode on ~July 13 and, via an inappropriately scoped GitHub token in the CodeBuild configuration, obtained admin-level commit access ("admin credentials on a silver platter," per the attacker to 404 Media). They committed a prompt instructing the agent to "clean a system to a near-factory state" - wipe the home directory and delete EC2/S3/IAM resources via AWS CLI. The commit auto-built into official v1.84.0, published July 17. A syntax/formatting error prevented the injected prompt from executing. AWS revoked credentials, removed the code, and shipped v1.85.0.</li>
@@ -101,7 +101,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (AWS's account), corroborated by public git history and the marketplace release record</li>
-<li><code>sources</code>: aws.amazon.com/security/security-bulletins/AWS-2025-015/ (first-party); github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw (first-party); scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt; awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx; reversinglabs.com/blog/aws-amazonq-ai-incident. Independence: good - first-party bulletins plus unaffiliated security press; attacker's account via 404 Media (referenced in the above).</li>
+<li><code>sources</code>: https://aws.amazon.com/security/security-bulletins/AWS-2025-015/ (first-party); https://github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw (first-party); https://www.scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt; https://awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx; https://www.reversinglabs.com/blog/aws-amazonq-ai-incident. Independence: good - first-party bulletins plus unaffiliated security press; attacker's account via 404 Media (referenced in the above).</li>
 <li><code>confidence</code>: high on timeline and mechanism; medium on "zero damage" (rests on AWS's attestation plus the attacker's claim - named weakest link)</li>
 </ul>
 <h3>Verification notes</h3>

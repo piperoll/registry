@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (speech recognition/comprehension errors in production; no adversary, no malfunction beyond wrong judgment)</li>
+<li><code>root_cause</code>: plain-error (primary; speech recognition/comprehension errors in production; no adversary, no malfunction beyond wrong judgment)</li>
 <li><code>failure_locus</code>: agent-reasoning (perception/transcription); vendor-operated model stack, so model-provider contributes</li>
-<li><code>exploitation_status</code>: in-wild (real malfunction against real customers; note - no value in the v0.1 enum cleanly fits a non-adversarial malfunction; recorded as in-wild)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real malfunction against real customers, no adversary; originally recorded as bare "in-wild" because no v0.1 enum value cleanly fit a non-adversarial malfunction - the gap this v0.2 token closes)</li>
 <li><code>mechanism</code>: The voice agent repeatedly misheard and mis-entered real orders over ~3 years of live testing: viral videos showed bacon added to ice cream, hundreds of dollars of McNuggets stacked onto one order, and simple orders confused, forcing crew intervention. Insiders cited trouble with accents; analysts reported franchisees found the tech "underwhelming." McDonald's ended the IBM partnership (announced to franchisees June 2024) and removed the technology from all test locations by 2024-07-26, while stating voice ordering remains part of its future plans.</li>
 <li><code>adversary_present</code>: no (some viral clips involved customers deliberately confusing the bot, but no security adversary)</li>
 </ul>
@@ -101,9 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none (no operator telemetry public; evidence is company statements, franchisee memo reporting, and customer-shot videos)</li>
-<li><code>sources</code>: cnbc.com/2024/06/17/mcdonalds-to-end-ibm-ai-drive-thru-test.html; restaurantdive.com/news/mcdonalds-ibm-drive-thru-automation-voice-ordering-ai/719085/; restaurantbusinessonline.com/technology/mcdonalds-ending-its-drive-thru-ai-test. Independence: all third-party press, corroborating the same company statements; error-severity evidence is customer-generated video.</li>
-<li><code>confidence</code>: high on termination, timeline, and scale (company-confirmed, multiple outlets); medium on error severity/frequency (viral videos and insider accounts, no disclosed accuracy metrics - the weakest link)</li>
-</ul></div>
+<li><code>sources</code>:</li>
+<li>https://www.cnbc.com/2024/06/17/mcdonalds-to-end-ibm-ai-drive-thru-test.html</li>
+<li>https://www.restaurantdive.com/news/mcdonalds-ibm-drive-thru-automation-voice-ordering-ai/719085/</li>
+<li>https://www.restaurantbusinessonline.com/technology/mcdonalds-ending-its-drive-thru-ai-test</li>
+</ul>
+<p>Independence: all third-party press, corroborating the same company statements; error-severity evidence is customer-generated video.
+- <code>confidence</code>: high on termination, timeline, and scale (company-confirmed, multiple outlets); medium on error severity/frequency (viral videos and insider accounts, no disclosed accuracy metrics - the weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

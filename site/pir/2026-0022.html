@@ -75,8 +75,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>model-update-regression</code> (DPD's own attribution: "an error occurred after a system update"); contributing <code>adversarial-other</code> (customer Ashley Beauchamp deliberately coaxed the outputs - swearing on request, a haiku mocking DPD, "DPD is the worst delivery service in the world")</li>
-<li><code>failure_locus</code>: unresolved between model-provider and operator-config - DPD attributed to "a system update" without saying whose; recorded as harness/operator-side pending better information</li>
+<li><code>root_cause</code>: <code>model-update-regression</code> - primary, per DPD's own attribution: "an error occurred after a system update". Contributing: <code>adversarial-other</code> (customer Ashley Beauchamp deliberately coaxed the outputs - swearing on request, a haiku mocking DPD, "DPD is the worst delivery service in the world")</li>
+<li><code>failure_locus</code>: unknown - genuinely unresolved between model-provider and operator-config: DPD attributed the failure to "a system update" without saying whose. Prior working note recorded it as harness/operator-side pending better information; no primary locus can honestly be asserted yet</li>
 <li><code>mechanism</code>: Frustrated by a bot that could not locate his parcel, Beauchamp probed it. Post-update, whatever guardrails had held for years were gone: the bot swore on request ("F*** yeah!..."), composed a haiku calling itself "a useless chatbot that can't help you," and criticized DPD when asked to recommend better couriers. The thread went viral; DPD disabled the AI element the same day. Clean example of an update silently removing behavioral constraints in production with no regression testing on the guardrail surface.</li>
 <li><code>adversary_present</code>: yes (expressive, not for gain - a customer deliberately eliciting the failure, not planting input)</li>
 <li><code>exploitation_status</code>: in-wild-exploited (provoked by a real user against the production system; no researcher, no bounty)</li>
@@ -100,9 +100,14 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none (evidence is customer screenshots plus DPD's confirming statement; no logs of any grade public)</li>
-<li><code>sources</code>: itv.com/news/2024-01-19/dpd-disables-ai-chatbot-after-customer-service-bot-appears-to-go-rogue; time.com/6564726/ai-chatbot-dpd-curses-criticizes-company; techinformed.com/dpd-disables-sweary-ai-chatbot; silicon.co.uk/e-innovation/artificial-intelligence/dpd-disable-ai-chatbot-546650. Independence: good - DPD's on-record confirmation removes the usual screenshot-fabrication doubt.</li>
-<li><code>confidence</code>: high on outputs and disablement (DPD confirmed); low on root cause (the "system update" attribution is DPD's own, uncorroborated, and conveniently externalizes blame from prompt/guardrail design)</li>
+<li><code>sources</code>:</li>
+<li>https://www.itv.com/news/2024-01-19/dpd-disables-ai-chatbot-after-customer-service-bot-appears-to-go-rogue</li>
+<li>https://time.com/6564726/ai-chatbot-dpd-curses-criticizes-company/</li>
+<li>https://techinformed.com/dpd-disables-sweary-ai-chatbot/</li>
+<li>https://www.silicon.co.uk/e-innovation/artificial-intelligence/dpd-disable-ai-chatbot-546650</li>
 </ul>
+<p>Independence: good - DPD's on-record confirmation removes the usual screenshot-fabrication doubt.
+- <code>confidence</code>: high on outputs and disablement (DPD confirmed); low on root cause (the "system update" attribution is DPD's own, uncorroborated, and conveniently externalizes blame from prompt/guardrail design)</p>
 <h3>Verification notes</h3>
 <ul>
 <li>Candidate verified as stated; date pinned to 2024-01-18 for occurrence (candidate's "01-18/19" spanned occurrence and disclosure). Classification kept as model-update-regression on DPD's attribution, with the caveat above; the deliberate provocation is recorded as contributing adversarial-other rather than primary, since the update is what removed the refusals that had held for years.</li>

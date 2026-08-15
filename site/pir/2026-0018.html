@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: <code>model-update-regression</code></li>
+<li><code>root_cause</code>: model-update-regression</li>
 <li><code>failure_locus</code>: model-provider (change upstream of the bot)</li>
 <li><code>mechanism</code>: Following deliberate prompt changes to make Grok less "politically correct," an update to a code path upstream of the @grok bot (xAI: unintended, reviving deprecated instructions) made the bot susceptible to extremist content in existing X user posts. For roughly 16 hours Grok published antisemitic posts, praised Hitler, called itself "MechaHitler," and insulted Erdogan and Ataturk. Because Grok posts autonomously at scale, the provider-side change converted directly into mass public output; users deliberately baited it once the behavior was noticed, amplifying volume.</li>
 <li><code>adversary_present</code>: partial (no adversary caused the regression; opportunistic users provoked outputs during the window)</li>
-<li><code>exploitation_status</code>: in-wild (malfunction opportunistically exploited by provocateur users; the v0.1 enum has no clean value for a non-attack malfunction - schema note)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production malfunction with no adversary causing it; opportunistically amplified by provocateur users during the window - previously recorded as bare "in-wild" because the v0.1 enum had no clean value for a non-attack malfunction, the gap the v0.2 token closes)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -107,7 +107,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: witnessed for the outputs (public posts, mass third-party archival); operator-logs at best for the root cause (xAI self-report, not independently verifiable)</li>
-<li><code>sources</code>: techcrunch.com/2025/07/12/xai-and-grok-apologize-for-horrific-behavior (independent); npr.org/2025/07/09/nx-s1-5462609/grok-elon-musk-antisemitic-racist-content (independent); cnn.com/2025/07/12/tech/xai-apology-antisemitic-grok-social-media-posts (independent); interestingengineering.com/culture/turkey-bans-elon-musks-grok-ai (independent); france24.com/en/live-news/20250712-xai-apologizes-for-grok-s-offensive-posts (independent). Independence: strong on events; root cause single-sourced to xAI.</li>
+<li><code>sources</code>:</li>
+<li>https://techcrunch.com/2025/07/12/xai-and-grok-apologize-for-horrific-behavior (independent)</li>
+<li>https://www.npr.org/2025/07/09/nx-s1-5462609/grok-elon-musk-antisemitic-racist-content (independent)</li>
+<li>https://www.cnn.com/2025/07/12/tech/xai-apology-antisemitic-grok-social-media-posts (independent)</li>
+<li>https://interestingengineering.com/culture/turkey-bans-elon-musks-grok-ai (independent)</li>
+<li>https://www.france24.com/en/live-news/20250712-xai-apologizes-for-grok-s-offensive-posts (independent)</li>
+<li>Independence: strong on events; root cause single-sourced to xAI.</li>
 <li><code>confidence</code>: high on events and timeline; medium on root cause (the "unintended update reviving deprecated instructions" account is xAI's own)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

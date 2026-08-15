@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>model-update-regression</code> (infra); no contributing agent-side cause</li>
+<li><code>root_cause</code>: <code>model-update-regression</code> - primary; provider-side infrastructure regression rather than a training change; no contributing agent-side cause</li>
 <li><code>failure_locus</code>: model-provider</li>
 <li><code>mechanism</code>: Three independent bugs overlapped. (1) From Aug 5, short-context Sonnet 4 requests were misrouted to servers configured for the 1M-token context window; an Aug 29 load-balancer change amplified it, peaking at 16% of Sonnet 4 requests in the worst hour on Aug 31. (2) From Aug 25, a TPU misconfiguration corrupted token generation on Opus 4/4.1 and Sonnet 4 (first-party API only), occasionally emitting high-probability garbage - stray Thai/Chinese characters, code syntax errors. (3) Also from Aug 25, a deployment exposed a latent XLA:TPU approximate top-k miscompilation (mixed-precision), confirmed on Haiku 3.5, suspected on Sonnet 4/Opus 3. Degradation was nondeterministic, so downstream operators saw weeks of intermittently worse agent output with nothing on status pages and no upstream signal to correlate against.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild malfunction (no adversary; the v0.1 enum assumes an attacker and has no clean value - taxonomy gap, see notes)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; v0.2 token closing the taxonomy gap this record flagged, see notes)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -100,9 +100,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (provider self-report; the postmortem is the failing party's own account, though technically detailed and against interest)</li>
-<li><code>sources</code>: anthropic.com/engineering/a-postmortem-of-three-recent-issues (primary, first-party); infoq.com/news/2025/10/anthropic-infrastructure-bugs; implicator.ai/anthropics-postmortem-three-bugs-pushed-claude-degradation-to-16-at-peak (both third-party but derived from the postmortem). Independence: weak on root cause (single first-party source); strong on the fact of degradation (mass contemporaneous user reports).</li>
-<li><code>confidence</code>: high on mechanism and timeline (detailed provider postmortem); low on downstream cost (never measured)</li>
+<li><code>sources</code>:</li>
+<li>https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues (primary, first-party)</li>
+<li>https://www.infoq.com/news/2025/10/anthropic-infrastructure-bugs/ (third-party, derived from the postmortem)</li>
+<li>https://www.implicator.ai/anthropics-postmortem-three-bugs-pushed-claude-degradation-to-16-at-peak/ (third-party, derived from the postmortem)</li>
 </ul>
+<p>Independence: weak on root cause (single first-party source); strong on the fact of degradation (mass contemporaneous user reports).
+- <code>confidence</code>: high on mechanism and timeline (detailed provider postmortem); low on downstream cost (never measured)</p>
 <h3>Verification notes</h3>
 <ul>
 <li>Candidate dates and figures check out against the primary postmortem. One refinement: candidate window ended 2025-09-12 (last confirmed rollback); the routing fix's full deployment ran to Sep 16-18.</li>

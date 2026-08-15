@@ -76,10 +76,10 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (no adversary, no malfunction of intent - wrong action from incomplete perception); contributing <code>policy-violation</code> (corporate: incomplete/false crash reporting to regulators, which drove most of the penalties)</li>
+<li><code>root_cause</code>: plain-error - primary: no adversary, no malfunction of intent - wrong action from incomplete perception. Contributing: policy-violation (corporate: incomplete/false crash reporting to regulators, which drove most of the penalties)</li>
 <li><code>mechanism</code>: A human-driven car struck a pedestrian and threw her into the path of the driverless Cruise AV. The AV braked hard on impact, but its systems did not detect that she was trapped underneath; it then executed a programmed pullover maneuver, dragging her ~20 feet and causing severe injuries. Cruise subsequently showed regulators an incomplete video omitting the dragging; the DMV suspended its permits, CPUC fined it $112,500, NHTSA imposed a $1.5M consent order for incomplete crash reports, and Cruise admitted submitting a false record to influence a federal investigation, paying a $500K criminal fine under a DOJ deferred-prosecution agreement. GM shut the robotaxi program in Dec 2024 after investing over $10B since 2017.</li>
 <li><code>adversary_present</code>: no (the initiating hit-and-run driver was a contributing external event, not an adversary of the agent)</li>
-<li><code>exploitation_status</code>: in-wild-exploited (real malfunction, real victim; no attacker)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real malfunction, real victim; no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -107,7 +107,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs, subsequently regulator-audited (vehicle telemetry and video were operator-held; the operator's selective disclosure of that video is itself part of the incident)</li>
-<li><code>sources</code>: justice.gov/usao-ndca/pr/cruise-admits-submitting-false-report-influence-federal-investigation-and-agrees-pay; thehill.com/policy/technology/4909054-cruise-fined-for-failure-disclose-crash/; washingtonpost.com/technology/2024/05/15/cruise-settlement-victim-self-driving-gm/; claimsjournal.com/news/national/2024/05/15/323682.htm; cnbc.com/2024/12/10/gm-halts-funding-of-robotaxi-development-by-cruise.html. Independence: DOJ primary + multiple independent outlets - strong.</li>
+<li><code>sources</code>:</li>
+<li>https://www.justice.gov/usao-ndca/pr/cruise-admits-submitting-false-report-influence-federal-investigation-and-agrees-pay</li>
+<li>https://thehill.com/policy/technology/4909054-cruise-fined-for-failure-disclose-crash/</li>
+<li>https://www.washingtonpost.com/technology/2024/05/15/cruise-settlement-victim-self-driving-gm/</li>
+<li>https://www.claimsjournal.com/news/national/2024/05/15/323682.htm</li>
+<li>https://www.cnbc.com/2024/12/10/gm-halts-funding-of-robotaxi-development-by-cruise.html</li>
+<li>Independence: DOJ primary + multiple independent outlets - strong.</li>
 <li><code>confidence</code>: high on penalties and mechanism (regulator orders); medium on settlement figure (reported range, never official).</li>
 </ul>
 <h3>Verification notes</h3>

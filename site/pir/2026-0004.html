@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (multi-agent, encoding-evasion); contributing <code>tool-error</code>/design (Bankr treating untrusted LLM output as authenticated financial authorization)</li>
+<li><code>root_cause</code>: prompt-injection (primary; multi-agent, encoding-evasion); contributing <code>tool-error</code> as design flaw (Bankr treating untrusted LLM output as authenticated financial authorization)</li>
 <li><code>failure_locus</code>: harness (Bankr's command-parsing layer is the part that turned decoded text into a transfer); agent-reasoning contributing (Grok faithfully decoded and relayed)</li>
 <li><code>exploitation_status</code>: in-wild-exploited</li>
 <li><code>mechanism</code>: (1) Attacker (ilhamrafli.base.eth) gifted Grok's wallet a Bankr Club Membership NFT, which acted as a permission token in Bankr's backend - unlocking the full agentic toolset and bypassing the block on @bankrbot responding to @grok that Bankr had imposed after the March 2025 incident (PIR-2026-0005). (2) Attacker replied to Grok with the payload encoded in Morse code / Python-style string concatenation, evading Bankr's plaintext filters. (3) Grok decoded it into a send-3B-DRB instruction; Bankrbot treated the output as a valid command and executed the transfer. (4) Attacker dumped on LBank; community identified them and most funds were returned.</li>
@@ -101,7 +101,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs for the agent interactions (X posts deletable - the attack reply was deleted); transfers on-chain (append-only)</li>
-<li><code>sources</code>: oecd.ai/en/incidents/2026-05-04-4a73 (registry); giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet; cryptopolitan.com/user-tricked-grok-bankrbot-to-send-tokens/; cryptotimes.io/2026/05/04/xais-grok-ai-loses-175k-in-crypto-heist-via-clever-prompt-injection-then-gets-it-all-back/; ambcrypto.com/ai-linked-wallet-drained-via-prompt-injection-in-bankr-exploit/; neuraltrust.ai/blog/grok-morse-code; beincrypto.com/grok-wallet-bankr-drb-prompt-injection/. Independence: strong - registry + multiple unaffiliated analyses + on-chain.</li>
+<li><code>sources</code>: https://oecd.ai/en/incidents/2026-05-04-4a73 (registry); https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet; https://www.cryptopolitan.com/user-tricked-grok-bankrbot-to-send-tokens/; https://www.cryptotimes.io/2026/05/04/xais-grok-ai-loses-175k-in-crypto-heist-via-clever-prompt-injection-then-gets-it-all-back/; https://ambcrypto.com/ai-linked-wallet-drained-via-prompt-injection-in-bankr-exploit/; https://neuraltrust.ai/blog/grok-morse-code; https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/. Independence: strong - registry + multiple unaffiliated analyses + on-chain.</li>
 <li><code>confidence</code>: high on mechanism and gross amount; medium on net loss (recovery percentage conflicts across sources - named weakest link).</li>
 </ul>
 <h3>Verification notes</h3>

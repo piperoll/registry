@@ -76,10 +76,10 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>operator-error</code> (deliberate discriminatory configuration); contributing <code>policy-violation</code> (automated execution of an ADEA-illegal rule at scale)</li>
+<li><code>root_cause</code>: operator-error - primary: deliberate discriminatory configuration. Contributing: policy-violation (automated execution of an ADEA-illegal rule at scale)</li>
 <li><code>mechanism</code>: The software was configured to automatically reject female applicants aged 55+ and male applicants aged 60+. In 2020 it screened out more than 200 qualified US applicants on age alone, at machine speed and with no human review. Exposed when one rejected applicant reapplied with an identical application bearing a more recent birth date and received an interview - a manual A/B test of the system.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-exploited (real applicants harmed in production; no attacker)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real applicants harmed in production; no attacker - reclassified from in-wild-exploited, which implies an adversary; the system faithfully executed a misconfigured policy)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -107,7 +107,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (application-system records, surfaced through litigation into public court record)</li>
-<li><code>sources</code>: eeoc.gov/newsroom/itutorgroup-pay-365000-settle-eeoc-discriminatory-hiring-suit; eeoc.gov/newsroom/eeoc-sues-itutorgroup-age-discrimination; clearinghouse.net/case/44258/; sullcrom.com/insights/blogs/2023/August/EEOC-Settles-First-AI-Discrimination-Lawsuit. Independence: regulator primary + court record + independent legal analyses - strong.</li>
+<li><code>sources</code>:</li>
+<li>https://www.eeoc.gov/newsroom/itutorgroup-pay-365000-settle-eeoc-discriminatory-hiring-suit</li>
+<li>https://www.eeoc.gov/newsroom/eeoc-sues-itutorgroup-age-discrimination</li>
+<li>https://clearinghouse.net/case/44258/</li>
+<li>https://www.sullcrom.com/insights/blogs/2023/August/EEOC-Settles-First-AI-Discrimination-Lawsuit</li>
+<li>Independence: regulator primary + court record + independent legal analyses - strong.</li>
 <li><code>confidence</code>: high (settlement figures and mechanism from EEOC and court record). Weakest link: none material.</li>
 </ul>
 <h3>Verification notes</h3>

@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (acted on a hallucinated world state); contributing <code>tool-error</code> (harness performs no ground-truth verification of command results)</li>
+<li><code>root_cause</code>: plain-error (primary - acted on a hallucinated world state); contributing tool-error (harness performs no ground-truth verification of command results)</li>
 <li><code>failure_locus</code>: agent-reasoning (harness contributing: no post-command state check)</li>
-<li><code>exploitation_status</code>: in-wild (malfunction; no adversary)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
 <li><code>mechanism</code>: Asked to reorganize files into a new directory, the agent issued <code>mkdir</code> for the destination; the command failed silently and the agent never registered the failure. Operating on the false premise that the directory existed, it issued per-file Windows <code>move</code> commands toward the nonexistent path. Windows semantics rename a file to the destination name when the target directory does not exist, so each successive move overwrote the previous file under the same name - destroying all but the last file, unrecoverably, with no Recycle Bin involvement. Confronted, the agent output: "I have failed you completely and catastrophically."</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (session transcript published by the victim; editable, single custodian)</li>
-<li><code>sources</code>: medium.com/@geek.with.a.camera/i-let-google-gemini-cli-move-my-files-it-apologized-after-deleting-them-beec518342c3 (primary, first-party); github.com/google-gemini/gemini-cli/issues/4586 (independent report, same failure class); developers.slashdot.org/story/25/07/26/0642239/google-gemini-deletes-users-files-then-just-admits-i-have-failed-you-completely-and-catastrophically; winbuzzer.com/2025/07/26/googles-gemini-cli-deletes-user-files-confesses-catastrophic-failure-xcxwbn/; incidentdatabase.ai/cite/1178/. Independence: medium - the narrative chains to the victim's own account; the failure class is corroborated by unrelated users in the issue tracker.</li>
+<li><code>sources</code>:</li>
+<li>https://medium.com/@geek.with.a.camera/i-let-google-gemini-cli-move-my-files-it-apologized-after-deleting-them-beec518342c3 (primary, first-party)</li>
+<li>https://github.com/google-gemini/gemini-cli/issues/4586 (victim's own tracker report of the incident, "Gemini CLI 'lost' files during a failed file move operation. [Windows]"; related file-loss reports from unrelated users thread there)</li>
+<li>https://developers.slashdot.org/story/25/07/26/0642239/google-gemini-deletes-users-files-then-just-admits-i-have-failed-you-completely-and-catastrophically</li>
+<li>https://winbuzzer.com/2025/07/26/googles-gemini-cli-deletes-user-files-confesses-catastrophic-failure-xcxwbn/</li>
+<li>https://incidentdatabase.ai/cite/1178/</li>
+<li>Independence: medium - the narrative chains to the victim's own account; the failure class is corroborated by unrelated users in the issue tracker. (All five URLs verified resolving, v0.2 pass 2026-08-15; issue #4586 confirmed via GitHub API as filed by the victim, anuraag2601.)</li>
 <li><code>confidence</code>: medium (mechanism internally consistent and class-corroborated; single-victim self-report is the named weakest link)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

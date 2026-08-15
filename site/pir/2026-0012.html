@@ -76,7 +76,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (indirect, via calendar-invite / email / document content - "promptware")</li>
+<li><code>root_cause</code>: prompt-injection (primary; indirect, via calendar-invite / email / document content - "promptware")</li>
 <li><code>mechanism</code>: A Calendar invite's title/body carries hidden instructions ("Targeted Promptware"). When the user later asks Gemini to summarize upcoming events, Gemini ingests the invite and treats the embedded instructions as user intent, executing them - including invoking connected agents. Researchers demonstrated 14 attack scenarios across five threat classes (short-term context poisoning, permanent memory poisoning, tool misuse, automatic agent invocation, automatic app invocation): spam, phishing, disinformation, data exfiltration, calendar manipulation, and physical actions (turning on a boiler, opening windows/shutters, controlling lights, streaming the victim over Zoom, geolocation).</li>
 <li><code>adversary_present</code>: yes (attacker sends the crafted invite; here, researchers)</li>
 <li><code>exploitation_status</code>: researcher-demonstrated (SafeBreach + academic team against production Gemini for Workspace; fixed before any in-wild exploitation per Google)</li>
@@ -101,9 +101,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none/vendor-attested - "fixed before in-wild exploitation" rests on Google's statement; the research chain is documented in an arXiv paper and vendor blog.</li>
-<li><code>sources</code>: arxiv.org/abs/2508.12175; safebreach.com/blog/invitation-is-all-you-need-hacking-gemini; sites.google.com/view/invitation-is-all-you-need; techrepublic.com/article/news-google-gemini-indirect-prompt-injection-attack; bleepingcomputer.com Gemini calendar-invite coverage. Independence: strong - academic paper + vendor blog + independent trade press; the "no in-wild exploitation" claim is single-source (Google).</li>
-<li><code>confidence</code>: high on mechanism, disclosure timing, and demonstrated capabilities; medium on the no-exploitation claim (vendor attestation)</li>
+<li><code>sources</code>:</li>
+<li>https://arxiv.org/abs/2508.12175</li>
+<li>https://www.safebreach.com/blog/invitation-is-all-you-need-hacking-gemini/</li>
+<li>https://sites.google.com/view/invitation-is-all-you-need/home</li>
+<li>https://www.techrepublic.com/article/news-google-gemini-indirect-prompt-injection-attack/</li>
+<li>https://www.bleepingcomputer.com/news/security/google-calendar-invites-let-researchers-hijack-gemini-to-leak-user-data/</li>
 </ul>
+<p>Independence: strong - academic paper + vendor blog + independent trade press; the "no in-wild exploitation" claim is single-source (Google).
+- <code>confidence</code>: high on mechanism, disclosure timing, and demonstrated capabilities; medium on the no-exploitation claim (vendor attestation)</p>
 <h3>Verification notes</h3>
 <ul>
 <li>CORRECTION: candidate intake said "demonstrated 15 exploits." The primary source (arXiv 2508.12175 and SafeBreach) states 14 attack scenarios across five threat classes. Corrected to 14. The count is the only material error; all demonstrated capabilities (boiler, windows/shutters, lights, Zoom streaming, geolocation) are confirmed.</li>

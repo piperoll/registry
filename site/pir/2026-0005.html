@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>prompt-injection</code> (multi-agent, including image-text injection); contributing design flaw as in PIR-2026-0004 (LLM output treated as transaction authorization)</li>
+<li><code>root_cause</code>: prompt-injection (primary; multi-agent, including image-text injection); contributing design flaw as in PIR-2026-0004 (LLM output treated as transaction authorization)</li>
 <li><code>failure_locus</code>: harness (Bankr command-parsing/authorization layer)</li>
 <li><code>exploitation_status</code>: in-wild-exploited</li>
 <li><code>mechanism</code>: Reconstructed only partially in public sources. Users (reported handle: DavidJones805) manipulated Grok via prompt injection including image-embedded text; Bankr launched multiple tokens - including DRB itself - based on Grok's coaxed suggestions, after which Grok's wallet received creator allocations. Via the same social-engineering channel, ~$330K in BNKR, DRB, and WETH was then drained from the wallet. Bankr's response was to block all @bankrbot responses to @grok - the block later bypassed by the May 2026 NFT escalation (PIR-2026-0004).</li>
@@ -101,7 +101,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs at best (X posts deletable; no published on-chain reconstruction tying the full $330K to specific transactions)</li>
-<li><code>sources</code>: giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet (retrospective, covers both incidents); memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/ (retrospective); beincrypto.com/grok-wallet-bankr-drb-prompt-injection/ (retrospective); openexo.com/l/e5065245 ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
+<li><code>sources</code>: https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet (retrospective, covers both incidents); https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/ (retrospective); https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/ (retrospective); https://openexo.com/l/e5065245 ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
 <li><code>confidence</code>: medium on the event and the block; low on the $330K figure and the exact drain mechanics (named weakest link: no primary on-chain accounting, all drain detail retrospective)</li>
 </ul>
 <h3>Verification notes</h3>

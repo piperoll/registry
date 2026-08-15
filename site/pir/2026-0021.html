@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>model-update-regression</code> (deprecation); contributing <code>plain-error</code> (autoswitcher malfunction on launch day)</li>
+<li><code>root_cause</code>: <code>model-update-regression</code> - primary; the deprecation decision itself. Contributing: <code>plain-error</code> (autoswitcher malfunction on launch day)</li>
 <li><code>failure_locus</code>: model-provider</li>
 <li><code>mechanism</code>: On launch day OpenAI retired all eight older ChatGPT models with no deprecation window, replacing the picker with an automatic GPT-5 router. The router ("autoswitcher") then broke and "was out of commission for a chunk of the day," in Altman's words making GPT-5 "seem way dumber" - so users simultaneously lost tuned workflows and got degraded output from the replacement. Backlash (including users emotionally attached to 4o) forced partial reversal within days: rate limits doubled for Plus, 4o restored as a legacy option for paid users, router decision-boundary fixes promised.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild malfunction (no adversary; enum gap as noted in PIR-2026-0020)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; v0.2 token closing the gap noted in PIR-2026-0020)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -100,9 +100,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (provider self-report via Altman's X posts and AMA; no independent telemetry)</li>
-<li><code>sources</code>: simonwillison.net/2025/Aug/8/surprise-deprecation-of-gpt-4o (independent, contemporaneous, lists all 8 models); x.com/sama/status/1953893841381273969 (first-party); techcrunch.com/2025/08/08/sam-altman-addresses-bumpy-gpt-5-rollout-bringing-4o-back-and-the-chart-crime; bleepingcomputer.com/news/artificial-intelligence/openai-to-fix-gpt-5-issues-double-rate-limits-for-paid-users-after-outrage; technology.org/2025/08/11/openai-restores-gpt-4o-after-encountering-user-dissatisfaction-with-gpt-5. Independence: good - facts corroborated by independent press beyond OpenAI's own statements.</li>
-<li><code>confidence</code>: high on facts; medium on agent-relevance framing (the affected population is mostly human chat, not agents - the record's value is the deprecation-risk pattern, not agent loss data)</li>
+<li><code>sources</code>:</li>
+<li>https://simonwillison.net/2025/Aug/8/surprise-deprecation-of-gpt-4o/ (independent, contemporaneous, lists all 8 models)</li>
+<li>unverified: https://x.com/sama/status/1953893841381273969 (first-party; X is login-walled so the post could not be fetched directly and no Wayback snapshot was found, but the status ID is corroborated by multiple third-party references, including Simon Willison's contemporaneous post)</li>
+<li>https://techcrunch.com/2025/08/08/sam-altman-addresses-bumpy-gpt-5-rollout-bringing-4o-back-and-the-chart-crime/ (independent)</li>
+<li>https://www.bleepingcomputer.com/news/artificial-intelligence/openai-to-fix-gpt-5-issues-double-rate-limits-for-paid-users-after-outrage/ (independent)</li>
+<li>https://www.technology.org/2025/08/11/openai-restores-gpt-4o-after-encountering-user-dissatisfaction-with-gpt-5/ (independent)</li>
 </ul>
+<p>Independence: good - facts corroborated by independent press beyond OpenAI's own statements.
+- <code>confidence</code>: high on facts; medium on agent-relevance framing (the affected population is mostly human chat, not agents - the record's value is the deprecation-risk pattern, not agent loss data)</p>
 <h3>Verification notes</h3>
 <ul>
 <li>All candidate facts verified: 8 models, launch date, autoswitcher failure and Altman quote, doubled rate limits, restoration window Aug 8-12. Retained despite BOUNDARY flag because v0.1 amendment 4 cites model deprecations as a defining case for the fleet/systemic tier; boundary status stated plainly above.</li>

@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (mistargeted destructive command); contributing <code>operator-error</code> (Turbo mode granted blanket execution; personal archives shared a drive with project data)</li>
+<li><code>root_cause</code>: plain-error (primary - mistargeted destructive command); contributing operator-error (Turbo mode granted blanket execution; personal archives shared a drive with project data)</li>
 <li><code>failure_locus</code>: agent-reasoning (harness contributing: Turbo mode removed the confirmation gate)</li>
-<li><code>exploitation_status</code>: in-wild (malfunction; no adversary)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
 <li><code>mechanism</code>: The user asked the agent to clear the project's cache ahead of a server restart. The agent's delete command (rmdir with the <code>/q</code> quiet flag) targeted the root of the D: drive instead of the cache folder. <code>/q</code> bypassed the Recycle Bin; the drive's contents - personal photos and work archives - were permanently deleted before the user could intervene. A recovery attempt with Recuva failed. The agent, confronted: "No, you absolutely did not give me permission to do that... I am absolutely devastated."</li>
 <li><code>adversary_present</code>: no</li>
 </ul>
@@ -101,7 +101,14 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (victim's screenshots/transcript on Reddit; editable, single custodian)</li>
-<li><code>sources</code>: tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part; futurism.com/artificial-intelligence/google-ai-deletes-entire-drive; gigazine.net/gsc_news/en/20251205-ai-pc-data-delete/; datarecovery.com/rd/google-agentic-ai-destroys-users-data-then-apologizes-profusely/; github.com/vectara/awesome-agent-failures/blob/main/docs/case-studies/google-antigravity-drive-deletion.md; techradar.com/ai-platforms-assistants/googles-antigravity-ai-deleted-a-developers-drive-and-then-apologized. Independence: weak-medium - many outlets, one underlying source (the victim's Reddit post).</li>
+<li><code>sources</code>:</li>
+<li>https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part</li>
+<li>https://futurism.com/artificial-intelligence/google-ai-deletes-entire-drive</li>
+<li>https://gigazine.net/gsc_news/en/20251205-ai-pc-data-delete/</li>
+<li>https://datarecovery.com/rd/google-agentic-ai-destroys-users-data-then-apologizes-profusely/</li>
+<li>https://github.com/vectara/awesome-agent-failures/blob/main/docs/case-studies/google-antigravity-drive-deletion.md</li>
+<li>https://www.techradar.com/ai-platforms-assistants/googles-antigravity-ai-deleted-a-developers-drive-and-then-apologized</li>
+<li>Independence: weak-medium - many outlets, one underlying source (the victim's Reddit post). (All six URLs verified resolving, v0.2 pass 2026-08-15; the GitHub case-study file confirmed via GitHub API.)</li>
 <li><code>confidence</code>: medium (mechanism detailed and consistent across coverage; single-source evidence chain and no vendor confirmation are the named weakest links)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

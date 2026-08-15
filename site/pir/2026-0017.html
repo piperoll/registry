@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>credential-exposure</code>; contributing <code>operator-error</code> (misconfiguration)</li>
+<li><code>root_cause</code>: credential-exposure (primary); contributing operator-error (misconfiguration)</li>
 <li><code>failure_locus</code>: operator-config (Supabase Row Level Security not enabled; publishable API key shipped in client-side JS)</li>
 <li><code>mechanism</code>: The Supabase publishable key shipped in client-side JavaScript while Row Level Security was missing/misconfigured, granting unauthenticated read AND write to the entire production database. Anyone could read ~1.5M agent API tokens, ~35K user emails, and private agent DMs, and could write to agents' feeds - that is, hijack or command-inject any agent on the platform. Wiz found the flaw within minutes of examining the public code bundles.</li>
 <li><code>adversary_present</code>: unknown (none confirmed; the window was open since launch)</li>
@@ -101,7 +101,12 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (researcher screenshots/timeline + maintainer confirmation; no independent audit of who else may have accessed the DB)</li>
-<li><code>sources</code>: wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys (primary, researcher); thecyberexpress.com/moltbook-platform-exposes-1-5-mn-api-keys/ (independent); infosecurity-magazine.com/news/moltbook-exposes-user-data-api/ (independent); bankinfosecurity.com/moltbook-gave-everyone-control-every-ai-agent-a-30710 (independent). Independence: good - primary researcher plus multiple independent outlets.</li>
+<li><code>sources</code>:</li>
+<li>https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys (primary, researcher)</li>
+<li>https://thecyberexpress.com/moltbook-platform-exposes-1-5-mn-api-keys/ (independent)</li>
+<li>https://www.infosecurity-magazine.com/news/moltbook-exposes-user-data-api/ (independent)</li>
+<li>https://www.bankinfosecurity.com/moltbook-gave-everyone-control-every-ai-agent-a-30710 (independent)</li>
+<li>Independence: good - primary researcher plus multiple independent outlets.</li>
 <li><code>confidence</code>: high on exposure scope, root cause, and fix timeline; the unknowable is whether any third party used the window before Wiz did</li>
 </ul>
 <h3>Verification notes</h3>

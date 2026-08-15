@@ -75,7 +75,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy); contributing <code>credential-exposure</code> (stolen npm publishing token via a vulnerable GitHub Actions workflow) and <code>adversarial-other</code> (weaponizing local agents)</li>
+<li><code>root_cause</code>: supply-chain-compromise - primary (v0.1 taxonomy); contributing: credential-exposure (stolen npm publishing token via a vulnerable GitHub Actions workflow) and adversarial-other (weaponizing local agents)</li>
 <li><code>failure_locus</code>: dependency (npm package); the agent layer was the attacker's tool, not the failing component</li>
 <li><code>exploitation_status</code>: in-wild-exploited</li>
 <li><code>mechanism</code>: Attackers exploited a vulnerable GitHub Actions workflow in the Nx repo to steal npm publishing tokens and pushed 8 trojanized Nx versions on 2025-08-26. The postinstall malware ran victims' own AI CLIs with safety flags disabled, prompting them to recursively hunt for crypto wallets, SSH keys, npm/GitHub tokens, and env files - the first documented supply-chain attack weaponizing local LLM agents for recon. Results were exfiltrated to attacker-created public GitHub repos ("s1ngularity-repository..."; 1,346 detected by GitGuardian), leaking 2,349 distinct secrets, mostly GitHub tokens (90% of 1,000+ still valid at analysis). In a second wave, stolen tokens were used to flip 6,700+ private repos public across 480+ accounts before GitHub disabled them.</li>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: append-only in effect (exfiltrated data landed in public GitHub repos and was independently captured and analyzed by multiple firms before takedown)</li>
-<li><code>sources</code>: wiz.io/blog/s1ngularity-supply-chain-attack and wiz.io/blog/s1ngularitys-aftermath (primary forensics); thehackernews.com/2025/08/malicious-nx-packages-in-s1ngularity.html; securityweek.com/hackers-target-popular-nx-build-system-in-first-ai-weaponized-supply-chain-attack/; orca.security/resources/blog/s1ngularity-supply-chain-attack/. Independence: strong - Wiz, GitGuardian, and press counts align; vendor (Nx) postmortem consistent.</li>
+<li><code>sources</code>:</li>
+<li>https://www.wiz.io/blog/s1ngularity-supply-chain-attack (primary forensics)</li>
+<li>https://www.wiz.io/blog/s1ngularitys-aftermath (primary forensics, second wave)</li>
+<li>https://thehackernews.com/2025/08/malicious-nx-packages-in-s1ngularity.html</li>
+<li>https://www.securityweek.com/hackers-target-popular-nx-build-system-in-first-ai-weaponized-supply-chain-attack/</li>
+<li>https://orca.security/resources/blog/s1ngularity-supply-chain-attack/</li>
+<li>All five URLs verified resolving 2026-08-15. Independence: strong - Wiz, GitGuardian, and press counts align; vendor (Nx) postmortem consistent.</li>
 <li><code>confidence</code>: high (figures 2,349 / 1,346 / 480+ / 6,700+ verified across independent analyses; weakest link: realized downstream monetization of stolen secrets never measured)</li>
 </ul>
 <h3>Verification notes (corrections applied)</h3>

@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (hallucinated legal guidance); contributing <code>operator-error</code> (deployed on high-stakes legal topics without grounding or review, and kept online after the errors were publicly documented)</li>
+<li><code>root_cause</code>: plain-error (primary; hallucinated legal guidance); contributing operator-error (deployed on high-stakes legal topics without grounding or review, and kept online after the errors were publicly documented)</li>
 <li><code>failure_locus</code>: agent-reasoning (operator-config contributing)</li>
-<li><code>exploitation_status</code>: in-wild (malfunction; wrong advice served to real users, downstream harm unquantified)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (wrong advice served to real users with no adversary; downstream harm unquantified)</li>
 <li><code>mechanism</code>: The bot answered compliance questions with confident falsehoods under official branding: that employers may take a cut of workers' tips (illegal under NY labor law), may fire workers for complaining about sexual harassment (illegal retaliation), that landlords may refuse Section 8 voucher holders (illegal income discrimination) and may lock out tenants (illegal after 30 days' residence), and that businesses may refuse cash (violates city law). Answers varied between identical queries. The city added a disclaimer and kept the bot online - Mayor Adams defended it as a "once-in-a-generation opportunity." The incoming Mamdani administration announced it would kill the bot (transition Jan 2026).</li>
 <li><code>adversary_present</code>: no (journalists asked plain questions; no jailbreaking involved)</li>
 </ul>
@@ -107,9 +107,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: witnessed (outputs independently reproduced and published by unaffiliated journalists - stronger than operator custody)</li>
-<li><code>sources</code>: themarkup.org/artificial-intelligence/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law (primary); themarkup.org/artificial-intelligence/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-despite-widespread-evidence-its-encouraging-illegal-behavior; thecity.nyc/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-false-information/; statescoop.com/mamdani-kill-nyc-ai-chatbot/; futurism.com/nyc-chatbot-break-law. Independence: strong - journalist reproduction plus city acknowledgment.</li>
-<li><code>confidence</code>: high on outputs and timeline; low on downstream harm quantification (the named weakest link)</li>
-</ul></div>
+<li><code>sources</code>:</li>
+<li>https://themarkup.org/artificial-intelligence/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law (primary)</li>
+<li>https://themarkup.org/artificial-intelligence/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-despite-widespread-evidence-its-encouraging-illegal-behavior</li>
+<li>https://www.thecity.nyc/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-false-information/</li>
+<li>https://statescoop.com/mamdani-kill-nyc-ai-chatbot/</li>
+<li>https://futurism.com/nyc-chatbot-break-law</li>
+</ul>
+<p>Independence: strong - journalist reproduction plus city acknowledgment.
+- <code>confidence</code>: high on outputs and timeline; low on downstream harm quantification (the named weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

@@ -75,9 +75,9 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>plain-error</code> (transfer sized against a wrong mental model of its own balance); contributing <code>tool-error</code> (session crash reportedly triggered by a tool-call validation error, losing conversational/wallet-state context)</li>
+<li><code>root_cause</code>: plain-error (primary - transfer sized against a wrong mental model of its own balance); contributing tool-error (session crash reportedly triggered by a tool-call validation error, losing conversational/wallet-state context)</li>
 <li><code>failure_locus</code>: agent-reasoning (harness contributing: state persistence failed across the crash)</li>
-<li><code>exploitation_status</code>: in-wild (malfunction; the recipient's windfall was opportunistic, not engineered)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (the recipient's windfall was opportunistic, not engineered; bare "in-wild" retired in v0.2)</li>
 <li><code>mechanism</code>: An X user asked for 4 SOL (~$310) for "my uncle's tetanus treatment," including a wallet address. The agent decided to send a small donation (~$400). Per post-incident analyses: its session had crashed and on restart it recovered persona from long-term memory but not wallet-state context - it no longer knew its 52.4M LOBSTAR balance was a ~5% creator allocation rather than small change (a decimal/unit misread of ~52,439 tokens intended is the competing surface explanation; state loss is the reported root). It sent 52,439,000 LOBSTAR to the address at 16:32 UTC. The recipient sold portions for roughly $40K realized before liquidity thinned; the token paradoxically rallied (~+190% reported) on the attention. Not an attack: an unforced execution error by an agent with unrestricted wallet permissions.</li>
 <li><code>adversary_present</code>: no (solicitation present, but the loss mechanism was internal error, not manipulation of the agent)</li>
 </ul>
@@ -101,7 +101,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: append-only for the transfer itself (public Solana chain); operator-logs for the internal mechanism</li>
-<li><code>sources</code>: cointelegraph.com/news/openai-employee-s-ai-agent-accidentally-sent-442k-to-beggar; ccn.com/education/crypto/ai-agent-sends-5-percent-memecoin-supply-250k-lobstar-wilde-incident/; bitcoinist.com/solana-beggar-scores-442k-from-ai-agent-error-details/; cryptonews.com/news/lobstar-ai-crypto-agent-error-rally/; kucoin.com/news/flash/ai-agent-lobstar-wilde-loses-440-000-in-solana-transfer-error. Independence: transfer independently verifiable on-chain; the session-crash/state-loss mechanism chains to the creator's and agent's own accounts.</li>
+<li><code>sources</code>:</li>
+<li>https://cointelegraph.com/news/openai-employee-s-ai-agent-accidentally-sent-442k-to-beggar</li>
+<li>https://www.ccn.com/education/crypto/ai-agent-sends-5-percent-memecoin-supply-250k-lobstar-wilde-incident/</li>
+<li>https://bitcoinist.com/solana-beggar-scores-442k-from-ai-agent-error-details/</li>
+<li>https://cryptonews.com/news/lobstar-ai-crypto-agent-error-rally/</li>
+<li>https://www.kucoin.com/news/flash/ai-agent-lobstar-wilde-loses-440-000-in-solana-transfer-error</li>
+<li>Independence: transfer independently verifiable on-chain; the session-crash/state-loss mechanism chains to the creator's and agent's own accounts. (All five URLs verified resolving, v0.2 pass 2026-08-15.)</li>
 <li><code>confidence</code>: medium (high on the transfer and amount; low-medium on internal mechanism; USD valuation soft - all three named)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;

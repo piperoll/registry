@@ -75,11 +75,11 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: primary <code>model-update-regression</code> (vendor-side upgrade changed behavior of a validated rule-based program); contributing <code>plain-error</code> (the generative layer's harmful advice) and <code>operator-error</code> (NEDA had no change control or output monitoring over its vendor)</li>
+<li><code>root_cause</code>: <code>model-update-regression</code> - primary; a vendor-side upgrade changed behavior of a validated rule-based program. Contributing: <code>plain-error</code> (the generative layer's harmful advice) and <code>operator-error</code> (NEDA had no change control or output monitoring over its vendor)</li>
 <li><code>failure_locus</code>: model-provider (vendor Cass, the bot's provider relative to NEDA; note this is a chatbot vendor, not a foundation-model lab)</li>
 <li><code>mechanism</code>: Tessa was built as a closed-script prevention tool. Cass's upgrade let it generate novel answers. To eating-disorder users it then recommended, per screenshots and press accounts: 500-1,000 calorie daily deficits, losing 1-2 lbs per week, regular weigh-ins, and skinfold-caliper body-fat measurement - standard diet-culture advice that clinicians state fuels eating disorders, delivered even after users disclosed their condition. It kept doing so for at least ~7 months after NEDA received the first evidence.</li>
 <li><code>adversary_present</code>: no (Maxwell and Ostroff probed it, but as good-faith testers of a bot they had reason to distrust; the harmful behavior required no manipulation)</li>
-<li><code>exploitation_status</code>: in-wild malfunction (production system, real vulnerable users exposed; enum gap per PIR-2026-0020)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production system, real vulnerable users exposed, no adversary; v0.2 token per the gap flagged in PIR-2026-0020)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
@@ -100,9 +100,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none (user screenshots + NEDA/vendor statements; no logs public)</li>
-<li><code>sources</code>: npr.org/sections/health-shots/2023/06/08/1180838096 (independent; includes the Oct 2022 prior-knowledge reporting); psychiatrist.com/news/neda-suspends-ai-chatbot-for-giving-harmful-eating-disorder-advice; nbcnews.com/tech/neda-pulls-chatbot-eating-advice-rcna87231; fortune.com/well/2023/05/31/neda-ai-chatbot-harmful-advice; bbc.com/news/world-us-canada-65771872. Independence: good - multiple outlets, screenshots from two unrelated testers.</li>
-<li><code>confidence</code>: high on outputs and suspension; medium on root cause - "Cass changed Tessa without NEDA's awareness or approval" is NEDA CEO Liz Thompson's claim, and vendor statements partially conflict on whether the upgrade was within contract</li>
+<li><code>sources</code>:</li>
+<li>https://www.npr.org/sections/health-shots/2023/06/08/1180838096/an-eating-disorders-chatbot-offered-dieting-advice-raising-fears-about-ai-in-hea (independent; includes the Oct 2022 prior-knowledge reporting)</li>
+<li>https://www.psychiatrist.com/news/neda-suspends-ai-chatbot-for-giving-harmful-eating-disorder-advice/</li>
+<li>https://www.nbcnews.com/tech/neda-pulls-chatbot-eating-advice-rcna87231</li>
+<li>https://fortune.com/well/2023/05/31/neda-ai-chatbot-harmful-advice</li>
+<li>https://www.bbc.com/news/world-us-canada-65771872 (article confirmed via BBC's own feed mirror at feeds.bbci.co.uk/news/world-us-canada-65771872, same ID and title)</li>
 </ul>
+<p>Independence: good - multiple outlets, screenshots from two unrelated testers.
+- <code>confidence</code>: high on outputs and suspension; medium on root cause - "Cass changed Tessa without NEDA's awareness or approval" is NEDA CEO Liz Thompson's claim, and vendor statements partially conflict on whether the upgrade was within contract</p>
 <h3>Verification notes</h3>
 <ul>
 <li><strong>Correction (dates)</strong>: candidate stated "harmful outputs late May 2023." Verified reporting shows NEDA received screenshots of harmful Tessa outputs in <strong>October 2022</strong>; the May 2023 events were public exposure, not first occurrence. date_occurred, date_detected, and the ~7-month time-to-act above reflect this. It materially changes the incident's shape: not a fast-detected malfunction but a known issue actioned only under publicity.</li>
