@@ -35,6 +35,14 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   font-size: .85rem; color: var(--dim); }
 .notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
   font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 </style>
 </head><body>
 <div class="masthead">

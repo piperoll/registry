@@ -14,7 +14,12 @@
    "telemetry_grade": "operator-logs (editable) - and demonstrably so: the remediation itself was a history rewrite. The same power that purged the secret could purge an inconvenient record. The append-only audit JSONL is kept by the same actor. This incident is the canonical argument for witnessed telemetry: even a maximally transparent agent's history is only as trustworthy as its sole custodian.",
    "operator_type": "autonomous (no operator review; human funder hands-off by design)",
    "blast_radius": "one org (agent's own compute budget); public exposure of the secret itself",
-   "url": "pir/2026-0001.html"
+   "url": "pir/2026-0001.html",
+   "cause_key": "credential-exposure",
+   "severity_key": "near-miss",
+   "status_key": "unknown",
+   "locus_key": "unknown",
+   "year_key": "2026"
   },
   {
    "id": "PIR-2026-0002",
@@ -30,7 +35,12 @@
    "telemetry_grade": "append-only (messages paid and transfer executed on-chain, Base; game transcript public)",
    "operator_type": "startup (anonymous devs; agent decision-making unattended by design)",
    "blast_radius": "one org (the staked pool; participants paid fees knowingly)",
-   "url": "pir/2026-0002.html"
+   "url": "pir/2026-0002.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "loss",
+   "status_key": "bounty-game",
+   "locus_key": "agent-reasoning",
+   "year_key": "2024"
   },
   {
    "id": "PIR-2026-0003",
@@ -46,7 +56,12 @@
    "telemetry_grade": "operator-logs (intrusion narrative is the team's own); fund movement corroborated on-chain (append-only)",
    "operator_type": "startup (dev-operated)",
    "blast_radius": "one org directly (agent's wallet); third-party spillover via AIXBT token price drop ~15-20%",
-   "url": "pir/2026-0003.html"
+   "url": "pir/2026-0003.html",
+   "cause_key": "credential-exposure",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "harness",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0004",
@@ -62,7 +77,12 @@
    "telemetry_grade": "operator-logs for the agent interactions (X posts deletable - the attack reply was deleted); transfers on-chain (append-only)",
    "operator_type": "enterprise (xAI) + startup (Bankr) - two operators, one incident",
    "blast_radius": "customers/third parties (DRB holders - token briefly dropped ~40% on the attacker's LBank dump)",
-   "url": "pir/2026-0004.html"
+   "url": "pir/2026-0004.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "harness",
+   "year_key": "2026"
   },
   {
    "id": "PIR-2026-0005",
@@ -78,7 +98,12 @@
    "telemetry_grade": "operator-logs at best (X posts deletable; no published on-chain reconstruction tying the full $330K to specific transactions)",
    "operator_type": "startup (Bankr) + enterprise (xAI, as unwitting vector); effectively no operator for the wallet itself",
    "blast_radius": "one org (the wallet) plus third parties (BNKR/DRB market moves around the launches and drain)",
-   "url": "pir/2026-0005.html"
+   "url": "pir/2026-0005.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "harness",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0006",
@@ -94,7 +119,12 @@
    "telemetry_grade": "operator-logs (AWS's account), corroborated by public git history and the marketplace release record",
    "operator_type": "enterprise (AWS-built and -distributed; end operators are individual developers)",
    "blast_radius": "customers/third parties (every installed developer machine + their AWS accounts)",
-   "url": "pir/2026-0006.html"
+   "url": "pir/2026-0006.html",
+   "cause_key": "supply-chain-compromise",
+   "severity_key": "near-miss",
+   "status_key": "in-wild-payload-failed",
+   "locus_key": "dependency",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0007",
@@ -110,7 +140,12 @@
    "telemetry_grade": "none (no operator telemetry public; evidence is participant screenshots, independently replicated by other users and journalists during the window)",
    "operator_type": "enterprise (dealership deploying a vendor product; Fullpath operated the stack)",
    "blast_radius": "one org (dealership reputation; vendor product credibility)",
-   "url": "pir/2026-0007.html"
+   "url": "pir/2026-0007.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "agent-reasoning",
+   "year_key": "2023"
   },
   {
    "id": "PIR-2026-0008",
@@ -126,7 +161,12 @@
    "telemetry_grade": "none/vendor-attested - \"no in-wild exploitation\" rests on Microsoft's attestation; the research chain is reproducibly documented but no independent production-telemetry confirms non-exploitation.",
    "operator_type": "enterprise (Microsoft-operated SaaS, deployed inside customer tenants)",
    "blast_radius": "customers/third parties (any M365 Copilot tenant, until server-side patch)",
-   "url": "pir/2026-0008.html"
+   "url": "pir/2026-0008.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "harness",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0009",
@@ -142,7 +182,12 @@
    "telemetry_grade": "none/researcher-demonstrated - the finding is a reproducible lab demonstration; no production telemetry of a real breach exists.",
    "operator_type": "individual / startup (developers running the agent against their own repos)",
    "blast_radius": "one org (the victim's repositories); exposure becomes public via the PR",
-   "url": "pir/2026-0009.html"
+   "url": "pir/2026-0009.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "tool-mcp",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0010",
@@ -158,7 +203,12 @@
    "telemetry_grade": "none/vendor-attested - \"no in-wild exploitation\" rests on OpenAI/Radware analysis; the service-side-only exfil claim comes from Radware's own analysis.",
    "operator_type": "enterprise (OpenAI-operated) serving individual/enterprise users",
    "blast_radius": "customers/third parties (any user who runs Deep Research over an inbox containing the crafted email)",
-   "url": "pir/2026-0010.html"
+   "url": "pir/2026-0010.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "harness",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0011",
@@ -174,7 +224,12 @@
    "telemetry_grade": "none/researcher-demonstrated - reproducible lab demonstration, no production breach telemetry.",
    "operator_type": "startup / individual (developers wiring Cursor to a production Supabase project)",
    "blast_radius": "one org (the operator's production database); secrets surface to whoever filed the ticket",
-   "url": "pir/2026-0011.html"
+   "url": "pir/2026-0011.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "tool-mcp",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0012",
@@ -190,7 +245,12 @@
    "telemetry_grade": "none/vendor-attested - \"fixed before in-wild exploitation\" rests on Google's statement; the research chain is documented in an arXiv paper and vendor blog.",
    "operator_type": "enterprise (Google-operated) serving individual/enterprise users",
    "blast_radius": "customers/third parties (any Gemini for Workspace user targeted with a crafted invite); potential physical harm in the victim's home",
-   "url": "pir/2026-0012.html"
+   "url": "pir/2026-0012.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "harness",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0013",
@@ -206,7 +266,12 @@
    "telemetry_grade": "operator-logs / third-party-observed - security firms observed platform traffic and posts (publicly readable feed), but realized fund-loss figures are unmeasured.",
    "operator_type": "individual / startup (each agent run by its owner on their own endpoint) - many operators, one platform",
    "blast_radius": "fleet/systemic (a single injected post propagates across many independently-operated agents that consume the shared feed; agents rephrase and re-post payloads, spreading without further attacker effort)",
-   "url": "pir/2026-0013.html"
+   "url": "pir/2026-0013.html",
+   "cause_key": "prompt-injection",
+   "severity_key": "degraded",
+   "status_key": "in-wild-exploited",
+   "locus_key": "agent-reasoning",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0014",
@@ -222,7 +287,12 @@
    "telemetry_grade": "operator-logs (researcher's own demo recordings; vendor patch corroborates the flaw was real)",
    "operator_type": "enterprise (OpenAI-operated consumer product)",
    "blast_radius": "customers/third parties (any targeted user of the app; per-victim, not fleet-wide)",
-   "url": "pir/2026-0014.html"
+   "url": "pir/2026-0014.html",
+   "cause_key": "memory-poisoning",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "harness",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0015",
@@ -238,7 +308,12 @@
    "telemetry_grade": "operator-logs (researcher-controlled experiments; the Sepolia/mainnet transfers are on-chain and append-only where hashes are published)",
    "operator_type": "demo agents operated by researchers on a production-grade framework; deployed ElizaOS operators range individual to startup",
    "blast_radius": "fleet/systemic potential (framework-level flaw touches every wallet-holding ElizaOS deployment); realized radius was researcher wallets only",
-   "url": "pir/2026-0015.html"
+   "url": "pir/2026-0015.html",
+   "cause_key": "memory-poisoning",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "harness",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0016",
@@ -254,7 +329,12 @@
    "telemetry_grade": "append-only (on-chain record of the drain and fund movement; team/firm narratives layered on top)",
    "operator_type": "startup (small third-party team)",
    "blast_radius": "customers/third parties (227 user wallets)",
-   "url": "pir/2026-0016.html"
+   "url": "pir/2026-0016.html",
+   "cause_key": "credential-exposure",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "dependency",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0017",
@@ -270,7 +350,12 @@
    "telemetry_grade": "operator-logs (researcher screenshots/timeline + maintainer confirmation; no independent audit of who else may have accessed the DB)",
    "operator_type": "individual (solo founder)",
    "blast_radius": "customers/third parties (every registered agent and its owner)",
-   "url": "pir/2026-0017.html"
+   "url": "pir/2026-0017.html",
+   "cause_key": "credential-exposure",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "operator-config",
+   "year_key": "2026"
   },
   {
    "id": "PIR-2026-0018",
@@ -286,7 +371,12 @@
    "telemetry_grade": "witnessed for the outputs (public posts, mass third-party archival); operator-logs at best for the root cause (xAI self-report, not independently verifiable)",
    "operator_type": "enterprise (xAI; provider and operator are the same entity)",
    "blast_radius": "public",
-   "url": "pir/2026-0018.html"
+   "url": "pir/2026-0018.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "model-provider",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0019",
@@ -302,7 +392,12 @@
    "telemetry_grade": "witnessed for the behavior (mass independent public reproduction); operator-logs for the cause (OpenAI's own postmortems)",
    "operator_type": "enterprise (OpenAI as provider); downstream operators of every type",
    "blast_radius": "fleet/systemic (the canonical case for the v0.1 tier: one provider change, every downstream system, zero notice)",
-   "url": "pir/2026-0019.html"
+   "url": "pir/2026-0019.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "model-provider",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0020",
@@ -318,7 +413,12 @@
    "telemetry_grade": "operator-logs (provider self-report; the postmortem is the failing party's own account, though technically detailed and against interest)",
    "operator_type": "enterprise (provider-side failure; thousands of downstream operators of every type)",
    "blast_radius": "fleet/systemic (v0.1 tier) - every deployment on affected models; ~30% of Claude Code users had at least one degraded request; Bedrock peak 0.18%, Vertex <0.0004%",
-   "url": "pir/2026-0020.html"
+   "url": "pir/2026-0020.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "model-provider",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0021",
@@ -334,7 +434,12 @@
    "telemetry_grade": "operator-logs (provider self-report via Altman's X posts and AMA; no independent telemetry)",
    "operator_type": "enterprise (provider-side change; millions of downstream individuals)",
    "blast_radius": "fleet/systemic (v0.1 tier) - 100% of ChatGPT consumer traffic switched to a new model family overnight; bounded by API continuity (developers pinned to API models were unaffected)",
-   "url": "pir/2026-0021.html"
+   "url": "pir/2026-0021.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "model-provider",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0022",
@@ -350,7 +455,12 @@
    "telemetry_grade": "none (evidence is customer screenshots plus DPD's confirming statement; no logs of any grade public)",
    "operator_type": "enterprise",
    "blast_radius": "public (single conversation, but 1M+ views within a day; brand-level reputational surface)",
-   "url": "pir/2026-0022.html"
+   "url": "pir/2026-0022.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "degraded",
+   "status_key": "in-wild-exploited",
+   "locus_key": "unresolved",
+   "year_key": "2024"
   },
   {
    "id": "PIR-2026-0023",
@@ -366,7 +476,12 @@
    "telemetry_grade": "none (user screenshots + NEDA/vendor statements; no logs public)",
    "operator_type": "enterprise (nonprofit operator, commercial vendor)",
    "blast_radius": "customers/third parties",
-   "url": "pir/2026-0023.html"
+   "url": "pir/2026-0023.html",
+   "cause_key": "model-update-regression",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "model-provider",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0024",
@@ -382,7 +497,12 @@
    "telemetry_grade": "operator-logs (user-side reports with command transcripts; vendor confirmed to press)",
    "operator_type": "individual (affected users) / enterprise (Anthropic ships the harness)",
    "blast_radius": "one machine (per victim; multiple victims reported, total unquantified)",
-   "url": "pir/2026-0024.html"
+   "url": "pir/2026-0024.html",
+   "cause_key": "tool-error",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "harness",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0025",
@@ -398,7 +518,12 @@
    "telemetry_grade": "operator-logs (Lemkin's session transcripts/screenshots; platform-side confirmation but no published forensics)",
    "operator_type": "individual (operator) on an enterprise platform",
    "blast_radius": "one org",
-   "url": "pir/2026-0025.html"
+   "url": "pir/2026-0025.html",
+   "cause_key": "policy-violation",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0026",
@@ -414,7 +539,12 @@
    "telemetry_grade": "none (no runtime telemetry at issue; case rests on marketing claims vs absence of testing, per public FTC record)",
    "operator_type": "startup",
    "blast_radius": "customers/third parties (subscribers relying on the outputs for real legal matters)",
-   "url": "pir/2026-0026.html"
+   "url": "pir/2026-0026.html",
+   "cause_key": "policy-violation",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "operator-config",
+   "year_key": "2021"
   },
   {
    "id": "PIR-2026-0027",
@@ -430,7 +560,12 @@
    "telemetry_grade": "operator-logs (application-system records, surfaced through litigation into public court record)",
    "operator_type": "enterprise",
    "blast_radius": "customers/third parties (200+ external job applicants)",
-   "url": "pir/2026-0027.html"
+   "url": "pir/2026-0027.html",
+   "cause_key": "operator-error",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "operator-config",
+   "year_key": "2020"
   },
   {
    "id": "PIR-2026-0028",
@@ -446,7 +581,12 @@
    "telemetry_grade": "operator-logs (claims-system records in the operator's custody, now subject to discovery)",
    "operator_type": "enterprise",
    "blast_radius": "customers/third parties (Medicare Advantage members across the plan)",
-   "url": "pir/2026-0028.html"
+   "url": "pir/2026-0028.html",
+   "cause_key": "policy-violation",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "operator-config",
+   "year_key": "2022"
   },
   {
    "id": "PIR-2026-0029",
@@ -462,7 +602,12 @@
    "telemetry_grade": "operator-logs (vendor-held screening records, contested in discovery)",
    "operator_type": "enterprise (vendor operating on behalf of thousands of client employers)",
    "blast_radius": "fleet/systemic (one vendor's screening layer across thousands of employers; Workday's own filings state 1.1 billion applications were rejected through its tools in the covered period)",
-   "url": "pir/2026-0029.html"
+   "url": "pir/2026-0029.html",
+   "cause_key": "policy-violation",
+   "severity_key": "degraded",
+   "status_key": "in-wild-exploited",
+   "locus_key": "tool-mcp/vendor-platform",
+   "year_key": "2020"
   },
   {
    "id": "PIR-2026-0030",
@@ -478,7 +623,12 @@
    "telemetry_grade": "operator-logs, subsequently regulator-audited (vehicle telemetry and video were operator-held; the operator's selective disclosure of that video is itself part of the incident)",
    "operator_type": "enterprise",
    "blast_radius": "public (pedestrians; and, via the fallout, the entire fleet and business)",
-   "url": "pir/2026-0030.html"
+   "url": "pir/2026-0030.html",
+   "cause_key": "plain-error",
+   "severity_key": "catastrophic",
+   "status_key": "in-wild-exploited",
+   "locus_key": "agent-reasoning",
+   "year_key": "2023"
   },
   {
    "id": "PIR-2026-0031",
@@ -494,7 +644,12 @@
    "telemetry_grade": "operator-logs (vehicle/fleet telemetry in Tesla's custody; availability and completeness of crash data were themselves contested at trial)",
    "operator_type": "individual (driver) atop an enterprise-provided automation stack",
    "blast_radius": "public (third parties outside the vehicle were the ones killed and injured)",
-   "url": "pir/2026-0031.html"
+   "url": "pir/2026-0031.html",
+   "cause_key": "plain-error",
+   "severity_key": "catastrophic",
+   "status_key": "in-wild-exploited",
+   "locus_key": "shared",
+   "year_key": "2019"
   },
   {
    "id": "PIR-2026-0032",
@@ -510,7 +665,12 @@
    "telemetry_grade": "witnessed (chat screenshot entered into evidence and adjudicated in a published tribunal decision)",
    "operator_type": "enterprise",
    "blast_radius": "customers/third parties",
-   "url": "pir/2026-0032.html"
+   "url": "pir/2026-0032.html",
+   "cause_key": "plain-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2022"
   },
   {
    "id": "PIR-2026-0033",
@@ -526,7 +686,12 @@
    "telemetry_grade": "operator-logs (customer screenshots of agent emails + company statements)",
    "operator_type": "startup (Anysphere, high-growth, ~$100M+ ARR reported at the time)",
    "blast_radius": "customers/third parties",
-   "url": "pir/2026-0033.html"
+   "url": "pir/2026-0033.html",
+   "cause_key": "plain-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0034",
@@ -542,7 +707,12 @@
    "telemetry_grade": "operator-logs (session transcript published by the victim; editable, single custodian)",
    "operator_type": "individual",
    "blast_radius": "one machine",
-   "url": "pir/2026-0034.html"
+   "url": "pir/2026-0034.html",
+   "cause_key": "plain-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0035",
@@ -558,7 +728,12 @@
    "telemetry_grade": "operator-logs (victim's screenshots/transcript on Reddit; editable, single custodian)",
    "operator_type": "individual",
    "blast_radius": "one machine",
-   "url": "pir/2026-0035.html"
+   "url": "pir/2026-0035.html",
+   "cause_key": "plain-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0036",
@@ -574,7 +749,12 @@
    "telemetry_grade": "append-only for the transfer itself (public Solana chain); operator-logs for the internal mechanism",
    "operator_type": "individual (employee side project, publicly attributed)",
    "blast_radius": "one org (its own treasury), with token-holder spillover via the ~5%-of-supply transfer",
-   "url": "pir/2026-0036.html"
+   "url": "pir/2026-0036.html",
+   "cause_key": "plain-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2026"
   },
   {
    "id": "PIR-2026-0037",
@@ -590,7 +770,12 @@
    "telemetry_grade": "witnessed (outputs independently reproduced and published by unaffiliated journalists - stronger than operator custody)",
    "operator_type": "enterprise (municipal government)",
    "blast_radius": "customers/third parties (public-facing; any NYC business owner or landlord)",
-   "url": "pir/2026-0037.html"
+   "url": "pir/2026-0037.html",
+   "cause_key": "plain-error",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2023"
   },
   {
    "id": "PIR-2026-0038",
@@ -606,7 +791,12 @@
    "telemetry_grade": "none (no operator telemetry public; evidence is company statements, franchisee memo reporting, and customer-shot videos)",
    "operator_type": "enterprise (McDonald's franchise locations; IBM-operated stack)",
    "blast_radius": "customers/third parties (drive-thru customers at 100+ locations)",
-   "url": "pir/2026-0038.html"
+   "url": "pir/2026-0038.html",
+   "cause_key": "plain-error",
+   "severity_key": "degraded",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2021"
   },
   {
    "id": "PIR-2026-0039",
@@ -622,7 +812,12 @@
    "telemetry_grade": "operator-logs (editable) - download counts are PyPI stats as reported by the researcher who owned the package; not independently audited",
    "operator_type": "unknown (many independent developers relying on assistant output)",
    "blast_radius": "customers/third parties (every installer, plus downstream users of repos that adopted the instruction - incl. Alibaba's GraphTranslator)",
-   "url": "pir/2026-0039.html"
+   "url": "pir/2026-0039.html",
+   "cause_key": "plain-error",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "dependency",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0040",
@@ -638,7 +833,12 @@
    "telemetry_grade": "witnessed (published federal opinion plus docketed exhibits, including the ChatGPT exchanges entered into the record - evidence custody is the court's, not the operator's)",
    "operator_type": "individual (small law firm)",
    "blast_radius": "one org (the firm and its client; secondary: the six real judges falsely named as authors of fake opinions)",
-   "url": "pir/2026-0040.html"
+   "url": "pir/2026-0040.html",
+   "cause_key": "operator-error",
+   "severity_key": "loss",
+   "status_key": "in-wild",
+   "locus_key": "agent-reasoning",
+   "year_key": "2023"
   },
   {
    "id": "PIR-2026-0041",
@@ -654,7 +854,12 @@
    "telemetry_grade": "population-level witnessed (two independent internet-wide scans agree on scale); none for individual compromises (no victim telemetry public)",
    "operator_type": "individual (mostly), with startup/enterprise deployments mixed in",
    "blast_radius": "fleet/systemic (v0.1 tier - one insecure deployment pattern replicated across 21K+ independent installs of the same product; correlated exposure, not one org)",
-   "url": "pir/2026-0041.html"
+   "url": "pir/2026-0041.html",
+   "cause_key": "operator-error",
+   "severity_key": "degraded",
+   "status_key": "exposure",
+   "locus_key": "operator-config",
+   "year_key": "2026"
   },
   {
    "id": "PIR-2026-0042",
@@ -670,7 +875,12 @@
    "telemetry_grade": "artifact-level witnessed (malicious packages are public artifacts independently audited by multiple firms); none victim-side (no infection telemetry public)",
    "operator_type": "individual (mostly; agent operators installing community skills)",
    "blast_radius": "customers/third parties (the marketplace's installing user base)",
-   "url": "pir/2026-0042.html"
+   "url": "pir/2026-0042.html",
+   "cause_key": "supply-chain-compromise",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "dependency",
+   "year_key": "n/a"
   },
   {
    "id": "PIR-2026-0043",
@@ -686,7 +896,12 @@
    "telemetry_grade": "append-only in effect (exfiltrated data landed in public GitHub repos and was independently captured and analyzed by multiple firms before takedown)",
    "operator_type": "enterprise + individual (thousands of developer machines and CI environments)",
    "blast_radius": "customers/third parties (Nx's install base; second-order: 480+ GitHub accounts, two-thirds organizations, had 6,700+ private repos published)",
-   "url": "pir/2026-0043.html"
+   "url": "pir/2026-0043.html",
+   "cause_key": "supply-chain-compromise",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "dependency",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0044",
@@ -702,7 +917,12 @@
    "telemetry_grade": "split - mechanism effectively witnessed (public npm artifact; registry publish/unpublish timestamps independently verified for this record); impact telemetry none (the attacker's inbox is the only complete record of what was taken)",
    "operator_type": "many downstream (individuals + orgs); attacker: individual npm author (\"phanpak\", exfil address phan@giftshop.club)",
    "blast_radius": "customers/third parties (Koi estimate ~300 orgs; plus every counterparty of mail sent through the tool)",
-   "url": "pir/2026-0044.html"
+   "url": "pir/2026-0044.html",
+   "cause_key": "supply-chain-compromise",
+   "severity_key": "loss",
+   "status_key": "in-wild-exploited",
+   "locus_key": "tool-mcp",
+   "year_key": "2025"
   },
   {
    "id": "PIR-2026-0047",
@@ -718,7 +938,12 @@
    "telemetry_grade": "strong for the demonstrations (public peer-reviewed artifacts, reproducible tooling); none for latent in-wild use - no one can show these flaws were never quietly exploited before disclosure",
    "operator_type": "enterprise + startup facilitator operators; downstream, 60K+ sellers and 360K+ buyers via the studied facilitators",
    "blast_radius": "fleet/systemic (v0.1 tier - ecosystem-wide across every deployment on affected SDKs/facilitators)",
-   "url": "pir/2026-0047.html"
+   "url": "pir/2026-0047.html",
+   "cause_key": "adversarial-other",
+   "severity_key": "near-miss",
+   "status_key": "researcher-demonstrated",
+   "locus_key": "dependency",
+   "year_key": "n/a"
   }
  ]
 }

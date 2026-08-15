@@ -49,6 +49,14 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   font-size: .85rem; color: var(--dim); }
 .notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
   font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 """
 
 PAGE = """<!doctype html>
@@ -107,12 +115,27 @@ def build():
             fh.write(page)
         r["url"] = f"pir/{slug}.html"
 
+    # normalized taxonomy keys (drive filters, grouping, and export columns)
+    def norm(r, field):
+        v = r.get(field) or "unknown"
+        m = re.search(r"`([a-z0-9-]+)`", v)
+        return m.group(1) if m else v.split(" ")[0].strip("|,;()").lower() or "unknown"
+
+    for r in records:
+        r["cause_key"] = norm(r, "root_cause")
+        r["severity_key"] = norm(r, "severity")
+        r["status_key"] = norm(r, "exploitation_status")
+        r["locus_key"] = norm(r, "failure_locus")
+        d = (r.get("date_occurred") or "")[:4]
+        r["year_key"] = d if d.isdigit() else "n/a"
+
     # exports (strip markdown body)
     export = [{k: v for k, v in r.items() if k not in ("markdown", "file")} for r in records]
     with open(os.path.join(OUT, "registry.json"), "w", encoding="utf-8") as fh:
         json.dump({"registry": "PipeRoll Agent Incident Registry",
                    "generated_from": "incidents/*.md", "records": export}, fh, indent=1)
-    cols = ["id", "title", "date_occurred", "root_cause", "failure_locus", "severity",
+    cols = ["id", "title", "date_occurred", "cause_key", "locus_key", "severity_key",
+            "status_key", "year_key", "root_cause", "failure_locus", "severity",
             "exploitation_status", "direct_loss_usd", "telemetry_grade", "confidence", "status"]
     with open(os.path.join(OUT, "registry.csv"), "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=cols, extrasaction="ignore")
@@ -120,26 +143,91 @@ def build():
         w.writerows(export)
 
     # index
-    def count(field):
+    def count(key):
         c = {}
         for r in records:
-            v = r.get(field) or "unknown"
-            m = re.search(r"`([a-z0-9-]+)`", v)
-            k = m.group(1) if m else v.split(" ")[0].strip("|,;()")
-            c[k] = c.get(k, 0) + 1
+            c[r[key]] = c.get(r[key], 0) + 1
         return sorted(c.items(), key=lambda kv: -kv[1])
 
+    def options(key, label):
+        opts = "".join(f"<option value='{k}'>{k} ({n})</option>" for k, n in count(key))
+        return (f"<label>{label} <select data-filter='{key}'>"
+                f"<option value=''>all</option>{opts}</select></label>")
+
     rows = "\n".join(
-        f"<tr><td><a href='{r['url']}'>{r['id']}</a></td>"
+        f"<tr data-cause_key='{r['cause_key']}' data-severity_key='{r['severity_key']}'"
+        f" data-status_key='{r['status_key']}' data-locus_key='{r['locus_key']}'"
+        f" data-year_key='{r['year_key']}'"
+        f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
+        f"<td><a href='{r['url']}'>{r['id']}</a></td>"
         f"<td>{htmlmod.escape(r.get('title','')[:90])}</td>"
         f"<td>{htmlmod.escape((r.get('date_occurred') or '')[:24])}</td>"
-        f"<td>{htmlmod.escape((r.get('root_cause') or '')[:40])}</td>"
-        f"<td>{htmlmod.escape((r.get('severity') or '')[:20])}</td>"
+        f"<td>{htmlmod.escape(r['cause_key'])}</td>"
+        f"<td>{htmlmod.escape(r['severity_key'])}</td>"
         f"<td>{htmlmod.escape((r.get('direct_loss_usd') or '')[:28])}</td></tr>"
         for r in records)
 
-    def statline(field, label):
-        parts = " &middot; ".join(f"{k} {n}" for k, n in count(field)[:6])
+    controls = f"""
+<div class="controls">
+  <label>search <input type="search" id="q" placeholder="id, title, cause&hellip;"></label>
+  {options('cause_key', 'root cause')}
+  {options('severity_key', 'severity')}
+  {options('status_key', 'exploitation')}
+  {options('locus_key', 'locus')}
+  <label>group by <select id="groupby">
+    <option value="">none</option><option value="cause_key">root cause</option>
+    <option value="severity_key">severity</option><option value="year_key">year</option>
+    <option value="status_key">exploitation</option></select></label>
+  <button id="reset" type="button">reset</button>
+  <span class="meta" id="shown"></span>
+</div>"""
+
+    script = """
+<script>
+(function () {
+  var tbody = document.querySelector('#registry tbody');
+  var all = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
+  var selects = document.querySelectorAll('select[data-filter]');
+  var q = document.getElementById('q'), groupby = document.getElementById('groupby');
+  var shown = document.getElementById('shown');
+  function apply() {
+    var text = q.value.toLowerCase().trim();
+    var active = [];
+    selects.forEach(function (s) { if (s.value) active.push([s.dataset.filter, s.value]); });
+    var kept = all.filter(function (tr) {
+      if (text && tr.dataset.text.indexOf(text) === -1) return false;
+      return active.every(function (f) { return tr.dataset[f[0]] === f[1]; });
+    });
+    tbody.innerHTML = '';
+    var g = groupby.value;
+    if (!g) { kept.forEach(function (tr) { tbody.appendChild(tr); }); }
+    else {
+      var groups = {};
+      kept.forEach(function (tr) { (groups[tr.dataset[g]] = groups[tr.dataset[g]] || []).push(tr); });
+      Object.keys(groups).sort(function (a, b) { return groups[b].length - groups[a].length; })
+        .forEach(function (k) {
+          var h = document.createElement('tr');
+          h.innerHTML = "<th colspan='6' class='grouphead'>" + k + ' (' + groups[k].length + ')</th>';
+          tbody.appendChild(h);
+          groups[k].forEach(function (tr) { tbody.appendChild(tr); });
+        });
+    }
+    shown.textContent = kept.length + ' of ' + all.length + ' records';
+  }
+  selects.forEach(function (s) { s.addEventListener('change', apply); });
+  q.addEventListener('input', apply);
+  groupby.addEventListener('change', apply);
+  document.getElementById('reset').addEventListener('click', function () {
+    q.value = ''; groupby.value = '';
+    selects.forEach(function (s) { s.value = ''; });
+    apply();
+  });
+  apply();
+})();
+</script>"""
+
+    def statline(key, label):
+        parts = " &middot; ".join(f"{k} {n}" for k, n in count(key)[:6])
         return f"<p class='meta'><strong>{label}:</strong> {parts}</p>"
 
     body = f"""
@@ -148,15 +236,19 @@ def build():
 publication; corrections are recorded in the record itself. Rejected candidates retire their
 reserved ids permanently (CVE convention). This registry is young - treat aggregate statistics
 as early data, not actuarial tables.</div>
-{statline('root_cause', 'Root cause')}
-{statline('severity', 'Severity')}
-{statline('exploitation_status', 'Exploitation status')}
+{statline('cause_key', 'Root cause')}
+{statline('severity_key', 'Severity')}
+{statline('status_key', 'Exploitation status')}
+{controls}
 <div class="tablewrap">
-<table>
-<tr><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr>
+<table id="registry">
+<thead><tr><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr></thead>
+<tbody>
 {rows}
+</tbody>
 </table>
 </div>
+{script}
 """
     page = PAGE.format(title="PipeRoll - Agent Incident Registry", css=CSS,
                        home="index.html", home_prefix="",
