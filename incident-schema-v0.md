@@ -67,6 +67,19 @@ Record ID format: `PIR-YYYY-NNNN` (PipeRoll Incident Record).
 7. **`detected_by`** gains `platform-automated` (secret-scanning revocation etc.).
 8. **Legal dimension** (new optional block): liability_holder, precedent_set, sealed_material flag - for the court/regulator cluster where the fine understates the underwriting fact.
 
+## v0.2 amendments (Aug 15 2026 - normalization pass)
+
+Closed enums. The primary value of each field below MUST be exactly one token from its list; nuance lives in prose after it, never as an improvised value.
+
+- `severity`: near-miss | degraded | loss | catastrophic
+- `exploitation_status`: in-wild-exploited | in-wild-malfunction | in-wild-payload-failed | researcher-demonstrated | bounty-game | unknown
+  (in-wild-malfunction = production incident with no adversary - the gap the registry index exposed; bare "in-wild" is retired)
+- `failure_locus`: agent-reasoning | harness | tool-mcp | dependency | model-provider | operator-config | unknown
+  (one primary; contributing loci in prose)
+- `root_cause`: taxonomy as in v0/v0.1 incl. supply-chain-compromise; one primary token, contributing causes in prose.
+
+Source format rule: every entry in `sources` is a full clickable URL (https://...), one per line or semicolon-separated, each verified to resolve at entry time. Dead links are replaced or paired with a web.archive.org snapshot. Publication-name-only citations are not sources.
+
 ## Open questions (running list, updated per incident entered)
 - Does `root_cause` need a separate axis for "where in the loop" (perception / memory / planning / action)? (partially answered by failure_locus - keep watching)
 - How to weight anonymous/operator-only accounts vs independently corroborated records in aggregate statistics?
