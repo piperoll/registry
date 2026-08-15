@@ -4,12 +4,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PIR-2026-0023 - PipeRoll</title>
 <style>
-:root { --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555; }
-@media (prefers-color-scheme: dark) {
-  :root { --ink:#e4e4e4; --paper:#1a1a1c; --rule:#3a3a3e; --link:#8ab4f8; --dim:#9c9c9c; }
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
 }
-:root[data-theme="dark"] { --ink:#e4e4e4; --paper:#1a1a1c; --rule:#3a3a3e; --link:#8ab4f8; --dim:#9c9c9c; }
-:root[data-theme="light"] { --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555; }
 * { box-sizing: border-box; }
 body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
   background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
