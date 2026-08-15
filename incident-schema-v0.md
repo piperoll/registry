@@ -70,3 +70,4 @@ Record ID format: `PIR-YYYY-NNNN` (PipeRoll Incident Record).
 ## Open questions (running list, updated per incident entered)
 - Does `root_cause` need a separate axis for "where in the loop" (perception / memory / planning / action)? (partially answered by failure_locus - keep watching)
 - How to weight anonymous/operator-only accounts vs independently corroborated records in aggregate statistics?
+- `exploitation_status` gap flagged by the registry index: 15 of the 31 in-wild records are non-adversarial malfunctions the enum cannot cleanly express (in-wild-exploited implies an attacker). Candidate fix for v0.2: add `in-wild-malfunction`.
