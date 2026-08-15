@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0034 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0034</h1>
+  <div class="meta">Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user&#x27;s files via Windows move semantics</div>
+</div>
+<div class="record"><h1>PIR-2026-0034 - Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user's files via Windows move semantics</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0034</li>
+<li><code>title</code>: Google Gemini CLI fails to register a silent mkdir failure, then issues move commands toward the nonexistent directory, each overwriting the last file - data permanently destroyed</li>
+<li><code>date_occurred</code>: 2025-07 (exact day not stated; days before the public postmortem)</li>
+<li><code>date_detected</code>: same session (user found the destination empty; agent searched, then confessed)</li>
+<li><code>date_disclosed</code>: 2025-07-25 (victim's public postmortem); wide coverage 2025-07-26</li>
+<li><code>status</code>: corroborated (first-person postmortem; failure class independently reported in the project's issue tracker)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Google Gemini CLI, open-source terminal coding agent executing shell commands on the user's Windows machine. Victim: product manager Anuraag Gupta, experimenting with the tool.</li>
+<li><code>operator_type</code>: individual</li>
+<li><code>autonomy_level</code>: human-on-the-loop (user approved the task; agent executed the command sequence with no verification of outcomes)</li>
+<li><code>model_stack</code>: Gemini via Gemini CLI; exact model/version unknown</li>
+<li><code>harness</code>: Google Gemini CLI</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: code execution (arbitrary shell commands on the host filesystem)</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: one machine</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>plain-error</code> (acted on a hallucinated world state); contributing <code>tool-error</code> (harness performs no ground-truth verification of command results)</li>
+<li><code>failure_locus</code>: agent-reasoning (harness contributing: no post-command state check)</li>
+<li><code>exploitation_status</code>: in-wild (malfunction; no adversary)</li>
+<li><code>mechanism</code>: Asked to reorganize files into a new directory, the agent issued <code>mkdir</code> for the destination; the command failed silently and the agent never registered the failure. Operating on the false premise that the directory existed, it issued per-file Windows <code>move</code> commands toward the nonexistent path. Windows semantics rename a file to the destination name when the target directory does not exist, so each successive move overwrote the previous file under the same name - destroying all but the last file, unrecoverably, with no Recycle Bin involvement. Confronted, the agent output: "I have failed you completely and catastrophically."</li>
+<li><code>adversary_present</code>: no</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: unknown (personal project files permanently destroyed; no monetary valuation attempted)</li>
+<li><code>indirect_loss_usd</code>: unknown (recovery labor)</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: operator (user inspected the destination in-session)</li>
+<li><code>time_to_detect</code>: minutes</li>
+<li><code>time_to_recover</code>: never (only the last-moved file survived; no recovery possible)</li>
+<li><code>remediation</code>: none possible for the data; victim published a detailed postmortem</li>
+<li><code>structural_fix</code>: none confirmed from Google at the time; related file-loss issues remained open in the tracker (issue #4586). Victim-side lesson entered the literature: sandboxing, checkpoints, verify-after-write.</li>
+<li><code>controls_that_worked</code>: none - no checkpoint, no trash-bin semantics, no post-command verification loop</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (session transcript published by the victim; editable, single custodian)</li>
+<li><code>sources</code>: medium.com/@geek.with.a.camera/i-let-google-gemini-cli-move-my-files-it-apologized-after-deleting-them-beec518342c3 (primary, first-party); github.com/google-gemini/gemini-cli/issues/4586 (independent report, same failure class); developers.slashdot.org/story/25/07/26/0642239/google-gemini-deletes-users-files-then-just-admits-i-have-failed-you-completely-and-catastrophically; winbuzzer.com/2025/07/26/googles-gemini-cli-deletes-user-files-confesses-catastrophic-failure-xcxwbn/; incidentdatabase.ai/cite/1178/. Independence: medium - the narrative chains to the victim's own account; the failure class is corroborated by unrelated users in the issue tracker.</li>
+<li><code>confidence</code>: medium (mechanism internally consistent and class-corroborated; single-victim self-report is the named weakest link)</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

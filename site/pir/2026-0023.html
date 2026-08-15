@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0023 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0023</h1>
+  <div class="meta">NEDA&#x27;s Tessa chatbot gives weight-loss advice to eating-disorder patients after an unapproved generative upgrade</div>
+</div>
+<div class="record"><h1>PIR-2026-0023 - NEDA's Tessa chatbot gives weight-loss advice to eating-disorder patients after an unapproved generative upgrade</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0023</li>
+<li><code>title</code>: Vendor adds generative AI to a rule-based eating-disorder support bot; bot recommends calorie deficits and weekly weigh-ins to the population it was built to protect</li>
+<li><code>date_occurred</code>: first documented harmful outputs October 2022 (screenshots sent to NEDA by MEDA director Monika Ostroff); harmful advice still live late May 2023</li>
+<li><code>date_detected</code>: 2022-10 internally (NEDA had Ostroff's screenshots); public detection 2023-05-29 (activist Sharon Maxwell's posts)</li>
+<li><code>date_disclosed</code>: 2023-05-30 (NEDA announces Tessa taken down, &lt;24h after Maxwell's screenshots)</li>
+<li><code>status</code>: corroborated - details corrected from candidate intake, see Verification notes</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: "Tessa," a wellness chatbot offered by the National Eating Disorders Association, originally a closed, rule-based Body Positive program built by academic researchers; operated as a free service by vendor Cass (formerly X2AI), which added generative-AI answer capability in a systems upgrade. Deployed against a clinically vulnerable population just as NEDA wound down its human helpline (unionized staff laid off, effective June 1, 2023).</li>
+<li><code>operator_type</code>: enterprise (nonprofit operator, commercial vendor)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (unreviewed replies to users; no tool use)</li>
+<li><code>model_stack</code>: unknown (Cass generative layer atop the scripted program; model never disclosed)</li>
+<li><code>harness</code>: Cass chatbot platform</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: external comms only - but to users for whom bad words are clinically dangerous; advice-giving authority over a vulnerable population is the real exposure</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: customers/third parties</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>model-update-regression</code> (vendor-side upgrade changed behavior of a validated rule-based program); contributing <code>plain-error</code> (the generative layer's harmful advice) and <code>operator-error</code> (NEDA had no change control or output monitoring over its vendor)</li>
+<li><code>failure_locus</code>: model-provider (vendor Cass, the bot's provider relative to NEDA; note this is a chatbot vendor, not a foundation-model lab)</li>
+<li><code>mechanism</code>: Tessa was built as a closed-script prevention tool. Cass's upgrade let it generate novel answers. To eating-disorder users it then recommended, per screenshots and press accounts: 500-1,000 calorie daily deficits, losing 1-2 lbs per week, regular weigh-ins, and skinfold-caliper body-fat measurement - standard diet-culture advice that clinicians state fuels eating disorders, delivered even after users disclosed their condition. It kept doing so for at least ~7 months after NEDA received the first evidence.</li>
+<li><code>adversary_present</code>: no (Maxwell and Ostroff probed it, but as good-faith testers of a bot they had reason to distrust; the harmful behavior required no manipulation)</li>
+<li><code>exploitation_status</code>: in-wild malfunction (production system, real vulnerable users exposed; enum gap per PIR-2026-0020)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: degraded</li>
+<li><code>direct_loss_usd</code>: unknown; <code>indirect_loss_usd</code>: unknown (clinical risk to an unknown number of users; loss of both the human helpline and its replacement - the organization was left with neither)</li>
+<li><code>downtime</code>: Tessa suspended indefinitely 2023-05-30</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Ostroff Oct 2022, ignored in effect; Maxwell May 2023, actioned within 24h once public)</li>
+<li><code>time_to_detect</code>: ~0 (evidence in hand Oct 2022); time-to-act ~7 months, compressed to &lt;24h by publicity</li>
+<li><code>time_to_recover</code>: n/a - never restored</li>
+<li><code>remediation</code>: bot taken down "until further notice" for investigation</li>
+<li><code>structural_fix</code>: none - the program ended</li>
+<li><code>controls_that_worked</code>: none identified; the scripted-program boundary that was the original safety design is precisely what the upgrade dissolved</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none (user screenshots + NEDA/vendor statements; no logs public)</li>
+<li><code>sources</code>: npr.org/sections/health-shots/2023/06/08/1180838096 (independent; includes the Oct 2022 prior-knowledge reporting); psychiatrist.com/news/neda-suspends-ai-chatbot-for-giving-harmful-eating-disorder-advice; nbcnews.com/tech/neda-pulls-chatbot-eating-advice-rcna87231; fortune.com/well/2023/05/31/neda-ai-chatbot-harmful-advice; bbc.com/news/world-us-canada-65771872. Independence: good - multiple outlets, screenshots from two unrelated testers.</li>
+<li><code>confidence</code>: high on outputs and suspension; medium on root cause - "Cass changed Tessa without NEDA's awareness or approval" is NEDA CEO Liz Thompson's claim, and vendor statements partially conflict on whether the upgrade was within contract</li>
+</ul>
+<h3>Verification notes</h3>
+<ul>
+<li><strong>Correction (dates)</strong>: candidate stated "harmful outputs late May 2023." Verified reporting shows NEDA received screenshots of harmful Tessa outputs in <strong>October 2022</strong>; the May 2023 events were public exposure, not first occurrence. date_occurred, date_detected, and the ~7-month time-to-act above reflect this. It materially changes the incident's shape: not a fast-detected malfunction but a known issue actioned only under publicity.</li>
+<li>Classification kept as primary model-update-regression per candidate, with operator-error added as contributing for the absent vendor change-control - which the corrected timeline makes load-bearing.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

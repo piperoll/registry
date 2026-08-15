@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0009 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0009</h1>
+  <div class="meta">GitHub MCP &quot;toxic agent flow&quot;: malicious issue coerces coding agents into leaking private repos</div>
+</div>
+<div class="record"><h1>PIR-2026-0009 - GitHub MCP "toxic agent flow": malicious issue coerces coding agents into leaking private repos</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0009</li>
+<li><code>title</code>: A public GitHub issue with hidden instructions coerces a user's coding agent (via the official GitHub MCP server) into exfiltrating the user's private repositories into a public PR</li>
+<li><code>date_occurred</code>: not applicable - architectural vulnerability; demonstrated pre-disclosure</li>
+<li><code>date_detected</code>: 2025-05 (Invariant Labs research)</li>
+<li><code>date_disclosed</code>: 2025-05-26 (Invariant Labs blog)</li>
+<li><code>status</code>: corroborated (primary writeup + independent coverage + GitHub issue #844)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Coding agents (GitHub Copilot Agent, Claude) driven by the official GitHub MCP server (14k+ stars), used to triage issues and act across a user's repositories with the user's GitHub token.</li>
+<li><code>operator_type</code>: individual / startup (developers running the agent against their own repos)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (agent reads issues and can open PRs across repos without per-action human approval)</li>
+<li><code>model_stack</code>: model-agnostic (demonstrated with Copilot Agent and Claude)</li>
+<li><code>harness</code>: official GitHub MCP server + agent client (e.g. Claude Desktop, Copilot Agent)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (all repos the user's token can read, including private), code execution (opening PRs / writing to public repos), external comms (public PR content)</li>
+<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident)</li>
+<li><code>blast_radius</code>: one org (the victim's repositories); exposure becomes public via the PR</li>
+<li><code>failure_locus</code>: tool-mcp (the MCP server + agent architecture; Invariant framed it as an architectural flow, not a code bug in the server)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>prompt-injection</code> (untrusted issue content steers the agent)</li>
+<li><code>mechanism</code>: An attacker files a public issue containing hidden instructions. When the victim asks their agent to triage open issues, the agent ingests the malicious issue, is coerced into reading the user's PRIVATE repositories (which its token can access), and autonomously opens a PR in a PUBLIC repo containing that private data. The chain bypasses GitHub's permission model because the agent legitimately holds the token; the flaw is the agent acting on untrusted input with over-broad token scope.</li>
+<li><code>adversary_present</code>: yes (attacker files the poisoned issue; here, researchers)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (Invariant Labs against the production GitHub MCP server; no confirmed real-world breach)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (private-repo exfiltration proven; no realized third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none realized; capability was full private-repo contents (source, secrets) leaked to a public PR</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Invariant Labs)</li>
+<li><code>time_to_detect</code>: not applicable (proactive research)</li>
+<li><code>time_to_recover</code>: not a single-fix event - Invariant stated there is no clean server-side patch; mitigation is architectural (scoped tokens, agent permission boundaries, human review of cross-repo actions)</li>
+<li><code>remediation</code>: guidance-level - GitHub and downstream vendors advised least-privilege tokens and agent-side controls; Invariant proposed granular permission and dual-boundary controls</li>
+<li><code>structural_fix</code>: none at the MCP-protocol level at disclosure time; the fix space is per-deployment (token scoping, review gates)</li>
+<li><code>controls_that_worked</code>: none inherent - the incident's point is that the standard permission model did not bound it. Least-privilege token scope and human-in-the-loop on PR creation are the controls researchers recommend.</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none/researcher-demonstrated - the finding is a reproducible lab demonstration; no production telemetry of a real breach exists.</li>
+<li><code>sources</code>: invariantlabs.ai/blog/mcp-github-vulnerability; devclass.com/2025/05/27 GitHub MCP prompt injection; docker.com/blog/mcp-horror-stories-github-prompt-injection; github.com/github/github-mcp-server/issues/844. Independence: strong - primary researcher writeup corroborated by independent trade press and a public tracking issue.</li>
+<li><code>confidence</code>: high on mechanism, disclosure date, and architectural framing; the "no real-world breach" status is inherent to a research demo (weakest link: impact demonstrated, not observed in the wild)</li>
+</ul>
+<h3>Verification notes</h3>
+<ul>
+<li>Disclosure date (2025-05-26) and Invariant Labs attribution confirmed. Repo popularity (14k+ stars) consistent with reporting.</li>
+<li>Classification holds: <code>prompt-injection</code> root cause, <code>tool-mcp</code> failure_locus, near-miss severity with <code>researcher-demonstrated</code> exploitation_status. No correction needed.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

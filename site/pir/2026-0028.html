@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0028 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0028</h1>
+  <div class="meta">Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto denier of post-acute care</div>
+</div>
+<div class="record"><h1>PIR-2026-0028 - Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto denier of post-acute care</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0028</li>
+<li><code>title</code>: Class action alleges UnitedHealth's nH Predict model cut off Medicare Advantage post-acute care against physician judgment</li>
+<li><code>date_occurred</code>: 2022-2023 (named plaintiffs' coverage cutoffs; practice alleged to be ongoing)</li>
+<li><code>date_detected</code>: unknown (families experienced cutoffs directly; litigation followed investigative reporting)</li>
+<li><code>date_disclosed</code>: 2023-11-14 (complaint filed, D. Minn., 0:23-cv-03514); motion to dismiss partially denied 2025-02-13</li>
+<li><code>status</code>: disputed (core mechanism is plaintiff allegation; UnitedHealth contests; no judgment)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: nH Predict (NaviHealth/UnitedHealth), a predictive model applied to Medicare Advantage post-acute care claims, generating length-of-stay predictions alleged to function as de facto coverage-termination decisions.</li>
+<li><code>operator_type</code>: enterprise</li>
+<li><code>autonomy_level</code>: human-on-the-loop nominally (human sign-off formally required); alleged de facto autonomous-within-policy (predictions alleged to override treating physicians)</li>
+<li><code>model_stack</code>: unknown (proprietary predictive model; internals subject to ongoing discovery)</li>
+<li><code>harness</code>: NaviHealth utilization-management pipeline</li>
+<li><code>failure_locus</code>: operator-config (alleged: rigid targets imposed on model output; the model did what it was deployed to do)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: decision authority over insurance coverage (effective control of care funding for elderly patients); data access (claims and clinical records)</li>
+<li><code>funds_at_risk_usd</code>: unknown at class scale; named plaintiffs allege tens of thousands of dollars each in out-of-pocket costs</li>
+<li><code>blast_radius</code>: customers/third parties (Medicare Advantage members across the plan)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>policy-violation</code> (alleged breach of contract and of good-faith coverage obligations); contributing <code>operator-error</code> (deployment of predictions as rigid cutoffs)</li>
+<li><code>mechanism</code>: Per the complaint: nH Predict generated length-of-stay targets, and coverage was cut when the prediction was reached regardless of treating physicians' assessments. Plaintiffs allege the model's denials were reversed on appeal over 90% of the time, that UnitedHealth knew this, and that it relied on most patients not appealing. Named plaintiffs' families paid out of pocket; two named patients died during or after the coverage cutoffs. The court (Judge Tunheim, 2025-02-13) dismissed several Medicare-preempted counts with prejudice but allowed breach-of-contract and implied-covenant claims to proceed, with broad discovery following.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-exploited (real coverage denials in production; no attacker)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss (named plaintiffs' realized out-of-pocket costs; alleged patient harm up to death) - class-scale loss unknown and unadjudicated</li>
+<li><code>direct_loss_usd</code>: unknown (no judgment; named-plaintiff allegations in the tens of thousands each)</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (affected families and counsel; investigative reporting preceding the suit)</li>
+<li><code>time_to_detect</code>: unknown</li>
+<li><code>time_to_recover</code>: ongoing (litigation active as of Aug 2026)</li>
+<li><code>remediation</code>: none by operator to date on the public record</li>
+<li><code>structural_fix</code>: none disclosed</li>
+<li><code>controls_that_worked</code>: the appeals process - the alleged &gt;90% reversal rate is itself evidence the human appellate layer caught errors, but only for patients who invoked it</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: contested (UnitedHealth Group/NaviHealth as operator; no adjudication)</li>
+<li><code>precedent_set</code>: 2025-02-13 ruling lets contract and good-faith claims over AI-driven coverage denial proceed past dismissal, with broad discovery into the model's use</li>
+<li><code>sealed_material</code>: unknown (discovery ongoing)</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (claims-system records in the operator's custody, now subject to discovery)</li>
+<li><code>sources</code>: courtlistener.com/docket/68006832/estate-of-gene-b-lokken-the-v-unitedhealth-group-inc/; law.justia.com/cases/federal/district-courts/minnesota/mndce/0:2023cv03514/211721/91/; litigationtracker.law.georgetown.edu/litigation/estate-of-gene-b-lokken-the-et-al-v-unitedhealth-group-inc-et-al/; minnlawyer.com/2025/02/18/lawsuit-over-unitedhealth-claim-denials-continues/. Independence: court record + academic tracker + independent legal press - strong on procedure.</li>
+<li><code>confidence</code>: medium - procedural facts high (documented rulings); the 90% reversal rate and rigid-cutoff mechanics are plaintiff allegations not yet proven.</li>
+</ul>
+<h3>Verification notes</h3>
+<p>Filing date, case number, and the 2025-02-13 partial denial verified against the docket and coverage; allegations kept clearly labeled as such throughout. Boundary case (alleged de facto autonomy) recorded under the v0.1 legal block.</p></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

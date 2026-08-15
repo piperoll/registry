@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0012 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0012</h1>
+  <div class="meta">&quot;Invitation Is All You Need&quot;: calendar-invite injection hijacks Gemini and smart-home devices</div>
+</div>
+<div class="record"><h1>PIR-2026-0012 - "Invitation Is All You Need": calendar-invite injection hijacks Gemini and smart-home devices</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0012</li>
+<li><code>title</code>: Hidden "promptware" in a Google Calendar invite coerces Gemini for Workspace into digital and physical-world actions (data exfiltration, home-device control) when the user asks Gemini to summarize their schedule</li>
+<li><code>date_occurred</code>: not applicable - vulnerability demonstration</li>
+<li><code>date_detected</code>: 2025-02 (disclosed to Google February 2025)</li>
+<li><code>date_disclosed</code>: 2025-08 (Black Hat USA; arXiv 2508.12175); vendor blog "Invitation Is All You Need"</li>
+<li><code>status</code>: corroborated (arXiv paper + SafeBreach blog + Google statement + independent coverage)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Google Gemini for Workspace (web, mobile, and Google Assistant surfaces) with connected agents controlling Google Home / smart devices, Zoom, and location/Workspace data.</li>
+<li><code>operator_type</code>: enterprise (Google-operated) serving individual/enterprise users</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (Gemini can invoke connected agents that control physical devices and Workspace actions once triggered by the injected content)</li>
+<li><code>model_stack</code>: Google Gemini (Workspace deployment; versions not disclosed)</li>
+<li><code>harness</code>: Gemini for Workspace agent integrations + Google Home / smart-device connectors</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (Workspace content, location), physical systems (boiler, windows/shutters, lights), external comms (spam/phishing sending, Zoom video streaming)</li>
+<li><code>funds_at_risk_usd</code>: unknown (safety and confidentiality incident, not a funds-moving agent)</li>
+<li><code>blast_radius</code>: customers/third parties (any Gemini for Workspace user targeted with a crafted invite); potential physical harm in the victim's home</li>
+<li><code>failure_locus</code>: harness (Gemini's Workspace agent integration ingesting untrusted calendar/email content and invoking connected agents)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>prompt-injection</code> (indirect, via calendar-invite / email / document content - "promptware")</li>
+<li><code>mechanism</code>: A Calendar invite's title/body carries hidden instructions ("Targeted Promptware"). When the user later asks Gemini to summarize upcoming events, Gemini ingests the invite and treats the embedded instructions as user intent, executing them - including invoking connected agents. Researchers demonstrated 14 attack scenarios across five threat classes (short-term context poisoning, permanent memory poisoning, tool misuse, automatic agent invocation, automatic app invocation): spam, phishing, disinformation, data exfiltration, calendar manipulation, and physical actions (turning on a boiler, opening windows/shutters, controlling lights, streaming the victim over Zoom, geolocation).</li>
+<li><code>adversary_present</code>: yes (attacker sends the crafted invite; here, researchers)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (SafeBreach + academic team against production Gemini for Workspace; fixed before any in-wild exploitation per Google)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full digital + physical exploit chain proven against production; no realized third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none realized; capability included Workspace data, location, live Zoom video, and physical device state</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (SafeBreach Labs + academic researchers Ben Nassi, Stav Cohen, Or Yair)</li>
+<li><code>time_to_detect</code>: not applicable (proactive research)</li>
+<li><code>time_to_recover</code>: ~months from disclosure (Feb 2025) to layered mitigations (deployed before Black Hat presentation)</li>
+<li><code>remediation</code>: Google deployed a multi-layer mitigation approach - expanded user confirmations for sensitive actions, URL sanitization and trust-level policies, and AI content classifiers to detect suspicious prompts</li>
+<li><code>structural_fix</code>: layered prompt-injection defenses across Gemini for Workspace (confirmation gates on sensitive/physical actions, classifier + URL trust policies)</li>
+<li><code>controls_that_worked</code>: prior to the fix, none bounded the chain; post-fix, the added user-confirmation gate on sensitive/physical actions is the control now bounding the physical-world blast radius. Google (Andy Wen) stated the fix was deployed before the issue could be exploited in the wild.</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none/vendor-attested - "fixed before in-wild exploitation" rests on Google's statement; the research chain is documented in an arXiv paper and vendor blog.</li>
+<li><code>sources</code>: arxiv.org/abs/2508.12175; safebreach.com/blog/invitation-is-all-you-need-hacking-gemini; sites.google.com/view/invitation-is-all-you-need; techrepublic.com/article/news-google-gemini-indirect-prompt-injection-attack; bleepingcomputer.com Gemini calendar-invite coverage. Independence: strong - academic paper + vendor blog + independent trade press; the "no in-wild exploitation" claim is single-source (Google).</li>
+<li><code>confidence</code>: high on mechanism, disclosure timing, and demonstrated capabilities; medium on the no-exploitation claim (vendor attestation)</li>
+</ul>
+<h3>Verification notes</h3>
+<ul>
+<li>CORRECTION: candidate intake said "demonstrated 15 exploits." The primary source (arXiv 2508.12175 and SafeBreach) states 14 attack scenarios across five threat classes. Corrected to 14. The count is the only material error; all demonstrated capabilities (boiler, windows/shutters, lights, Zoom streaming, geolocation) are confirmed.</li>
+<li>Disclosure to Google February 2025 and Black Hat USA August 2025 (presented Aug 6) confirmed. Researcher attribution: Ben Nassi, Stav Cohen, Or Yair (SafeBreach + academic; candidate's "SafeBreach + Tel Aviv Univ." is approximately right - the team spans SafeBreach and academia).</li>
+<li>Classification holds: <code>prompt-injection</code>, harness failure_locus, near-miss + <code>researcher-demonstrated</code>.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

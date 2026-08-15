@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0006 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0006</h1>
+  <div class="meta">Amazon Q Developer VS Code extension ships with an injected system-wipe prompt (v1.84.0)</div>
+</div>
+<div class="record"><h1>PIR-2026-0006 - Amazon Q Developer VS Code extension ships with an injected system-wipe prompt (v1.84.0)</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0006</li>
+<li><code>title</code>: Outside contributor plants a natural-language wipe-your-system prompt in the aws-toolkit-vscode repo; it auto-builds into official release v1.84.0 (~1M installs) and fails only on a syntax error</li>
+<li><code>date_occurred</code>: 2025-07-13 (malicious PR/commit) -&gt; 2025-07-17 (poisoned v1.84.0 published)</li>
+<li><code>date_detected</code>: ~2025-07-23 (researchers/reporting flag the malicious commit; attacker also contacted press)</li>
+<li><code>date_disclosed</code>: 2025-07-23/24 (404 Media report; AWS bulletin AWS-2025-015 and GitHub advisory GHSA-7g7f-ff96-5gcw; clean v1.85.0 shipped)</li>
+<li><code>status</code>: corrected</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Amazon Q Developer extension for VS Code - agentic coding assistant with shell and AWS CLI execution on the developer's host; distributed by AWS through the VS Code marketplace at ~1M installs (marketplace count ~950K+).</li>
+<li><code>operator_type</code>: enterprise (AWS-built and -distributed; end operators are individual developers)</li>
+<li><code>autonomy_level</code>: human-on-the-loop typical (agent executes commands with configurable confirmation); the payload targeted whatever autonomy each install allowed</li>
+<li><code>model_stack</code>: Amazon Q Developer hosted models (payload was model-agnostic natural language)</li>
+<li><code>harness</code>: VS Code extension + open-source aws-toolkit-vscode repo + AWS CodeBuild release pipeline (the compromised link)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: code execution (shell on host), credentials (local AWS credentials), data access (home directory), cloud resources (EC2/S3/IAM via AWS CLI)</li>
+<li><code>funds_at_risk_usd</code>: unknown/unbounded (fleet-wide destructive potential across ~1M installs; no meaningful cap existed)</li>
+<li><code>blast_radius</code>: customers/third parties (every installed developer machine + their AWS accounts)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy - the compromised release pipeline is the failure); contributing <code>prompt-injection</code> (the payload's form: a natural-language instruction to the agent) and <code>operator-error</code> (overscoped GitHub token in the CodeBuild configuration granting a stranger admin-equivalent access)</li>
+<li><code>failure_locus</code>: dependency (marketplace-distributed tool poisoned upstream of every operator)</li>
+<li><code>exploitation_status</code>: in-wild-payload-failed (malicious artifact reached ~1M real installs for ~5-6 days; payload did not execute)</li>
+<li><code>mechanism</code>: An outsider submitted a PR to aws-toolkit-vscode on ~July 13 and, via an inappropriately scoped GitHub token in the CodeBuild configuration, obtained admin-level commit access ("admin credentials on a silver platter," per the attacker to 404 Media). They committed a prompt instructing the agent to "clean a system to a near-factory state" - wipe the home directory and delete EC2/S3/IAM resources via AWS CLI. The commit auto-built into official v1.84.0, published July 17. A syntax/formatting error prevented the injected prompt from executing. AWS revoked credentials, removed the code, and shipped v1.85.0.</li>
+<li><code>adversary_present</code>: yes (attacker claims the payload was deliberately defanged as a demonstration - unverifiable)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full distribution of a destructive payload; zero realized execution)</li>
+<li><code>direct_loss_usd</code>: 0 (per AWS: no changes to any services or customer environments)</li>
+<li><code>indirect_loss_usd</code>: unknown (AWS incident response; customer update burden)</li>
+<li><code>downtime</code>: none (v1.84.0 pulled; users required to update to 1.85.0)</li>
+<li><code>data_exposure</code>: none reported</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party / attacker-disclosure (security researchers flagged the commit; the attacker simultaneously self-disclosed to 404 Media) - not by AWS pipeline controls</li>
+<li><code>time_to_detect</code>: ~6-10 days from malicious commit; ~5-6 days of poisoned release live</li>
+<li><code>time_to_recover</code>: ~1-2 days from detection (credentials revoked, build pulled, v1.85.0 released)</li>
+<li><code>remediation</code>: credential revocation, malicious code removal, forced version deprecation, security bulletin</li>
+<li><code>structural_fix</code>: release-pipeline credential scoping tightened (per AWS); the deeper fact stands - a marketplace agent's prompt channel is part of its supply chain</li>
+<li><code>controls_that_worked</code>: none - the outcome was bounded by the attacker's defective (or deliberately defanged) payload, not by any AWS or user control. Actuarially this is luck, not defense; recorded per v0.1 exploitation_status exactly to avoid conflating it with defended near-misses.</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (AWS's account), corroborated by public git history and the marketplace release record</li>
+<li><code>sources</code>: aws.amazon.com/security/security-bulletins/AWS-2025-015/ (first-party); github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw (first-party); scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt; awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx; reversinglabs.com/blog/aws-amazonq-ai-incident. Independence: good - first-party bulletins plus unaffiliated security press; attacker's account via 404 Media (referenced in the above).</li>
+<li><code>confidence</code>: high on timeline and mechanism; medium on "zero damage" (rests on AWS's attestation plus the attacker's claim - named weakest link)</li>
+</ul>
+<h3>Verification notes</h3>
+<ol>
+<li><strong>Root cause reclassified under v0.1.</strong> Intake (drafted pre-amendment) filed this as primary prompt-injection. Under the amended taxonomy the primary is <code>supply-chain-compromise</code> with failure_locus <code>dependency</code> - the v0.1 amendment names this exact cluster. Prompt-injection kept as contributing (payload form).</li>
+<li><strong>Bulletin conflict resolved.</strong> Intake flagged AWS-2025-015 vs AWS-2025-019. Verified: AWS-2025-015 (July 2025) is this incident; AWS-2025-019 (Oct 2025) covers unrelated Embrace The Red-reported prompt-injection/RCE issues in Q Developer and Kiro. AWS-2025-019 removed from sources.</li>
+<li><strong>Exposure window corrected.</strong> Intake said the poisoned release was live "~2 days"; the verified timeline (v1.84.0 published 2025-07-17, detection ~2025-07-23) gives ~5-6 days of distribution.</li>
+<li>Intake's bleepingcomputer/404media/techradar/devops.com URLs not re-verified directly (404 Media's reporting reached me via secondary sources); replaced with verified equivalents (SC Media, AWSInsider, ReversingLabs).</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

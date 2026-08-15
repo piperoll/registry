@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0026 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0026</h1>
+  <div class="meta">FTC penalizes DoNotPay over unsubstantiated &quot;robot lawyer&quot; capability claims</div>
+</div>
+<div class="record"><h1>PIR-2026-0026 - FTC penalizes DoNotPay over unsubstantiated "robot lawyer" capability claims</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0026</li>
+<li><code>title</code>: FTC orders DoNotPay to pay $193K for marketing an untested "world's first robot lawyer"</li>
+<li><code>date_occurred</code>: 2021 to 2023 (subscription period covered by the order; claims ran longer)</li>
+<li><code>date_detected</code>: unknown (FTC investigation timeline not public)</li>
+<li><code>date_disclosed</code>: 2024-09-25 (complaint announced in the Operation AI Comply sweep); final order announced 2025-02-11 (5-0 Commission vote 2025-01-16)</li>
+<li><code>status</code>: corroborated (FTC complaint and final order, public record)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: DoNotPay, a consumer service marketed as "the world's first robot lawyer" - automated generation of legal documents, demand letters, and dispute filings, promising outputs equivalent to a human lawyer's ("sue for assault without a lawyer").</li>
+<li><code>operator_type</code>: startup</li>
+<li><code>autonomy_level</code>: human-approves-each-action (user-initiated document generation and filing)</li>
+<li><code>model_stack</code>: unknown (mix of rule-based automation and generative components; not disclosed in the order)</li>
+<li><code>harness</code>: proprietary consumer web platform</li>
+<li><code>failure_locus</code>: operator-config (the failure was the operator's untested capability claims, not a runtime malfunction)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: external comms (legal documents and disputes filed on subscribers' behalf), data access (subscriber records)</li>
+<li><code>funds_at_risk_usd</code>: unknown (consumer legal exposure from defective documents never quantified)</li>
+<li><code>blast_radius</code>: customers/third parties (subscribers relying on the outputs for real legal matters)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>policy-violation</code> (deceptive capability claims charged under the FTC Act); contributing <code>plain-error</code> (outputs never tested against a competent attorney's work)</li>
+<li><code>mechanism</code>: DoNotPay marketed its service as a substitute for a human lawyer without conducting testing to determine whether outputs matched attorney-level quality, and without hiring or retaining any attorneys to validate features. The FTC charged the claims as deceptive in its first coordinated AI enforcement sweep (Operation AI Comply, five actions announced 2024-09-25). DoNotPay settled without admitting wrongdoing.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-exploited (real product, real subscribers; regulatory outcome, no attacker)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: 193,000 (ordered monetary relief)</li>
+<li><code>indirect_loss_usd</code>: unknown (harm to consumers who relied on defective legal documents was never quantified - the fine understates the underwriting fact)</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (FTC enforcement)</li>
+<li><code>time_to_detect</code>: years (claims ran from at least 2021 to complaint in Sept 2024)</li>
+<li><code>remediation</code>: consent order - $193K monetary relief; prohibition on lawyer-equivalence claims absent substantiation; mandatory notice to 2021-2023 subscribers about limits of the law-related features</li>
+<li><code>structural_fix</code>: capability claims now require substantiating evidence per the order</li>
+<li><code>controls_that_worked</code>: none internal; the bounding control was external regulatory enforcement</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: DoNotPay, Inc. (operator); no admission of wrongdoing</li>
+<li><code>precedent_set</code>: first FTC AI-enforcement sweep (Operation AI Comply) - capability overstatement about an automated agent is actionable deception</li>
+<li><code>sealed_material</code>: no</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none (no runtime telemetry at issue; case rests on marketing claims vs absence of testing, per public FTC record)</li>
+<li><code>sources</code>: ftc.gov/news-events/news/press-releases/2025/02/ftc-finalizes-order-donotpay-prohibits-deceptive-ai-lawyer-claims-imposes-monetary-relief-requires; ftc.gov/news-events/news/press-releases/2024/09/ftc-announces-crackdown-deceptive-ai-claims-schemes; ftc.gov/legal-library/browse/cases-proceedings/donotpay; abajournal.com/news/article/robot-lawyer-website-donotpay-settles-ftc-claims-it-couldnt-deliver-on-promises. Independence: regulator primary documents plus independent legal press - strong.</li>
+<li><code>confidence</code>: high (all material facts from public FTC orders). Weakest link: no quantification of downstream consumer harm.</li>
+</ul>
+<h3>Verification notes</h3>
+<p>Dates, figure, and mechanism verified against FTC press releases and independent coverage; all check out as intake-recorded. Boundary case (low autonomy; regulatory-outcome cluster) - recorded under the v0.1 legal block, which exists for exactly this cluster.</p></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

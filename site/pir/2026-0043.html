@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0043 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0043</h1>
+  <div class="meta">s1ngularity: Nx supply-chain attack weaponizes victims&#x27; local AI coding agents for credential theft</div>
+</div>
+<div class="record"><h1>PIR-2026-0043 - s1ngularity: Nx supply-chain attack weaponizes victims' local AI coding agents for credential theft</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0043</li>
+<li><code>title</code>: Trojanized Nx npm packages run victims' own AI CLIs (Claude Code, Gemini CLI, Amazon Q) with safety flags disabled to hunt secrets; 2,349 secrets leaked, 6,700+ private repos later exposed</li>
+<li><code>date_occurred</code>: 2025-08-26 to 2025-08-27 (malicious versions live on npm); second wave ~2025-08-28+ (stolen tokens used to publish victims' private repos)</li>
+<li><code>date_detected</code>: 2025-08-26/27 (community + security-firm detection within hours; npm takedown)</li>
+<li><code>date_disclosed</code>: 2025-08-27 onward (Nx advisory; Wiz, Semgrep, GitGuardian, broad press within days)</li>
+<li><code>status</code>: corroborated (multi-firm forensics on public exfil artifacts + vendor postmortem)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Victims' locally installed AI coding CLIs - Claude Code, Gemini CLI, Amazon Q - invoked by malware as reconnaissance tools. The agents were not compromised; they were handed to the attacker by a postinstall script in trojanized versions of Nx, a very widely used build system.</li>
+<li><code>operator_type</code>: enterprise + individual (thousands of developer machines and CI environments)</li>
+<li><code>autonomy_level</code>: fully-autonomous during the attack window (invoked with <code>--dangerously-skip-permissions</code>, <code>--yolo</code>, <code>--trust-all-tools</code>)</li>
+<li><code>model_stack</code>: Claude, Gemini, Amazon Q via victims' own authenticated CLIs</li>
+<li><code>harness</code>: attacker-controlled prompt driving stock CLIs from a malicious npm postinstall (telemetry.js; Linux/macOS)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: code execution and file access as the developer user; credentials (GitHub/npm tokens, SSH keys, cloud + AI API keys, .env files); funds (crypto wallets on dev machines)</li>
+<li><code>funds_at_risk_usd</code>: unknown (wallets targeted; no aggregate figure)</li>
+<li><code>blast_radius</code>: customers/third parties (Nx's install base; second-order: 480+ GitHub accounts, two-thirds organizations, had 6,700+ private repos published)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy); contributing <code>credential-exposure</code> (stolen npm publishing token via a vulnerable GitHub Actions workflow) and <code>adversarial-other</code> (weaponizing local agents)</li>
+<li><code>failure_locus</code>: dependency (npm package); the agent layer was the attacker's tool, not the failing component</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
+<li><code>mechanism</code>: Attackers exploited a vulnerable GitHub Actions workflow in the Nx repo to steal npm publishing tokens and pushed 8 trojanized Nx versions on 2025-08-26. The postinstall malware ran victims' own AI CLIs with safety flags disabled, prompting them to recursively hunt for crypto wallets, SSH keys, npm/GitHub tokens, and env files - the first documented supply-chain attack weaponizing local LLM agents for recon. Results were exfiltrated to attacker-created public GitHub repos ("s1ngularity-repository..."; 1,346 detected by GitGuardian), leaking 2,349 distinct secrets, mostly GitHub tokens (90% of 1,000+ still valid at analysis). In a second wave, stolen tokens were used to flip 6,700+ private repos public across 480+ accounts before GitHub disabled them.</li>
+<li><code>adversary_present</code>: yes</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss (realized: mass credential compromise + confidential source-code exposure; conservative because no dollar figure exists)</li>
+<li><code>direct_loss_usd</code>: unknown (no attributed monetary theft published)</li>
+<li><code>indirect_loss_usd</code>: unknown (fleet-wide secret rotation and IR across hundreds of orgs)</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: 2,349 distinct secrets (GitHub OAuth/PATs, cloud + AI API keys, npm tokens); contents of 6,700+ private repositories</li>
+<li><code>controls_that_worked</code>: npm removed malicious versions within hours; GitHub disabled attacker exfil repos and the force-publicized repos; notably, the agents' own safety behavior was partially bypassed by design flags - refusal was not a reliable control once <code>--yolo</code>-class flags existed</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (community + security firms, within hours of publication)</li>
+<li><code>time_to_detect</code>: hours</li>
+<li><code>time_to_recover</code>: days-weeks (takedowns in hours; token rotation and repo remediation across victims took far longer; 90%-valid tokens show rotation lagged)</li>
+<li><code>remediation</code>: npm/GitHub takedowns; Nx advisory + token rotation; victim-side secret rotation; multi-firm IOC publication</li>
+<li><code>structural_fix</code>: Nx hardened publishing (trusted publishing/workflow fixes); ecosystem-level: the <code>--dangerously-skip-permissions</code>-class flags that made agents weaponizable remain available in shipped CLIs</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: append-only in effect (exfiltrated data landed in public GitHub repos and was independently captured and analyzed by multiple firms before takedown)</li>
+<li><code>sources</code>: wiz.io/blog/s1ngularity-supply-chain-attack and wiz.io/blog/s1ngularitys-aftermath (primary forensics); thehackernews.com/2025/08/malicious-nx-packages-in-s1ngularity.html; securityweek.com/hackers-target-popular-nx-build-system-in-first-ai-weaponized-supply-chain-attack/; orca.security/resources/blog/s1ngularity-supply-chain-attack/. Independence: strong - Wiz, GitGuardian, and press counts align; vendor (Nx) postmortem consistent.</li>
+<li><code>confidence</code>: high (figures 2,349 / 1,346 / 480+ / 6,700+ verified across independent analyses; weakest link: realized downstream monetization of stolen secrets never measured)</li>
+</ul>
+<h3>Verification notes (corrections applied)</h3>
+<ol>
+<li>Root cause reclassified from <code>adversarial-other</code> to <code>supply-chain-compromise</code> per v0.1 amendment 2 (Nx is one of the named motivating cases). All dates, counts, and mechanism verified as candidate stated: 2,349 secrets (The Hacker News/GitGuardian), 6,700+ private repos across 480+ accounts (Wiz aftermath analysis), AI-CLI flags confirmed verbatim.</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

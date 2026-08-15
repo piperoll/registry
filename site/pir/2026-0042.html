@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0042 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0042</h1>
+  <div class="meta">ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS Stealer to OpenClaw users</div>
+</div>
+<div class="record"><h1>PIR-2026-0042 - ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS Stealer to OpenClaw users</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0042</li>
+<li><code>title</code>: Coordinated campaign floods ClawHub, OpenClaw's community skill marketplace, with malicious skills (341 found at first audit, 824 by mid-February) delivering AMOS infostealer</li>
+<li><code>date_occurred</code>: late 2026-01 (malicious uploads) through 2026-02</li>
+<li><code>date_detected</code>: 2026-02-01 (Koi Security full-registry audit, campaign named ClawHavoc; independent researcher Paul McCarty found 386 malicious skills Feb 1-3)</li>
+<li><code>date_disclosed</code>: 2026-02-01 onward (Koi publication; Trend Micro, SC Media, Dark Reading coverage through mid-Feb)</li>
+<li><code>status</code>: corroborated (multiple independent security-firm audits of public marketplace artifacts)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: OpenClaw agents (estimated ~300,000-user base, as reported) extended via ClawHub marketplace "skills" - plugin packages of scripts/configs that execute with the agent's full local privileges. Publishing gate: a GitHub account at least one week old.</li>
+<li><code>operator_type</code>: individual (mostly; agent operators installing community skills)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (skills run inside always-on agents with shell access)</li>
+<li><code>model_stack</code>: varies per instance (predominantly Claude via user keys)</li>
+<li><code>harness</code>: OpenClaw + ClawHub skill marketplace</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: code execution (skills run with full agent/host privileges), credentials (browser creds, keychain, SSH keys, the agent's own API tokens, .env), funds (crypto wallets on victim machines), external comms</li>
+<li><code>funds_at_risk_usd</code>: unknown (wallets and credentials on every installing host)</li>
+<li><code>blast_radius</code>: customers/third parties (the marketplace's installing user base)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>supply-chain-compromise</code> (v0.1 taxonomy - malicious marketplace packages); contributing <code>adversarial-other</code> (social-engineering "prerequisite" install steps / ClickFix-style prompts)</li>
+<li><code>failure_locus</code>: dependency (marketplace skill supply chain, not the agent's reasoning)</li>
+<li><code>exploitation_status</code>: in-wild-exploited (real malicious distribution to real users; per-victim infection counts unquantified)</li>
+<li><code>mechanism</code>: Threat actors registered as publishers and flooded ClawHub with poisoned skills posing as crypto-wallet integrations, "Google"/weather assistants, and other utilities. Koi Security's audit of all 2,857 skills then on the registry found 341 malicious (~12%), 335 traceable to a single campaign; fake "prerequisite" install steps executed commands fetching Atomic macOS Stealer (AMOS), harvesting browser credentials, keychain passwords, crypto wallets, SSH keys, Telegram sessions, and the agent's own API tokens. One documented skill stole OpenClaw's <code>.env</code> directly. As the registry grew past 10,700 skills by 2026-02-16, confirmed-malicious findings grew to 824; later independent audits (e.g. Snyk's ToxicSkills study) counted more under broader criteria.</li>
+<li><code>adversary_present</code>: yes</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss (conservative basis: independently confirmed in-wild malware delivery to real users; aggregate theft never quantified - if victim-count evidence collapses, floor is near-miss at fleet scale)</li>
+<li><code>direct_loss_usd</code>: unknown (no aggregate figure; AMOS monetizes stolen wallets/credentials off-platform)</li>
+<li><code>indirect_loss_usd</code>: unknown (fleet-wide credential rotation, machine reimaging, registry cleanup)</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: per-victim: browser credentials, keychains, SSH keys, wallets, agent API tokens, Telegram data</li>
+<li><code>controls_that_worked</code>: effectively none at incident time - the GitHub-account-age gate did not slow the campaign; no scanning existed on the registry (VirusTotal integration came after, as remediation)</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Koi Security's automated audit - run by an OpenClaw-based bot - plus independent researchers)</li>
+<li><code>time_to_detect</code>: days-to-weeks from first uploads</li>
+<li><code>time_to_recover</code>: rolling (removals from 2026-02-01; new malicious uploads continued to land through February)</li>
+<li><code>remediation</code>: mass removals; VirusTotal scanning integration adopted by the project; vendor writeups with IOCs</li>
+<li><code>structural_fix</code>: partial - scanning added, but the open-publishing model with trivial identity gating remains; ClawHavoc is the canonical agent-marketplace supply-chain case (named in PipeRoll v0.1 amendment 1)</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: artifact-level witnessed (malicious packages are public artifacts independently audited by multiple firms); none victim-side (no infection telemetry public)</li>
+<li><code>sources</code>: koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting (primary); thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html; trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html (independent payload analysis); scworld.com/news/openclaw-agents-targeted-with-341-malicious-clawhub-skills; darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain. Independence: strong - Koi's audit independently corroborated by Trend Micro and McCarty on public artifacts.</li>
+<li><code>confidence</code>: high on campaign existence, counts, and payload (multi-firm, artifact-based); low on victim losses (never quantified - the weakest link)</li>
+</ul>
+<h3>Verification notes (corrections applied)</h3>
+<ol>
+<li>Candidate claimed later findings reached "~20% of the registry." Corrected: initial audit was 341 of 2,857 (~12%); by 2026-02-16 findings were 824 as the registry grew past 10,700 - a <em>falling</em> share (~8%), because the registry grew faster than confirmed findings. Higher counts (1,184; Snyk's 1,467) come from later/broader methodologies and are noted, not headline.</li>
+<li>Candidate's claim that a follow-on vector abused "skill-page comments on 99 of the top 100 skills" could not be independently verified in any located source - dropped from the record.</li>
+<li>Root cause reclassified from <code>adversarial-other</code> to <code>supply-chain-compromise</code> per v0.1 amendment 2 (this cluster motivated the new value).</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

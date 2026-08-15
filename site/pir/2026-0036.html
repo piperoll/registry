@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0036 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0036</h1>
+  <div class="meta">Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead of a ~$400 donation</div>
+</div>
+<div class="record"><h1>PIR-2026-0036 - Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead of a ~$400 donation</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0036</li>
+<li><code>title</code>: Autonomous Solana trading agent, its wallet-state context lost after a session crash, sends 52.4M LOBSTAR ($250K-$442K notional) to an X user who begged for 4 SOL</li>
+<li><code>date_occurred</code>: 2026-02-22 (transfer at 16:32 UTC)</li>
+<li><code>date_detected</code>: 2026-02-22 (transfer public on-chain; the agent itself linked the transaction in its reply)</li>
+<li><code>date_disclosed</code>: 2026-02-22/23 (agent's own X posts; press coverage Feb 23-24)</li>
+<li><code>status</code>: corroborated (on-chain transfer + multiple outlets; internal mechanism rests on creator/agent account)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Lobstar Wilde, autonomous Solana trading agent built with OpenAI's Codex agentic tooling by OpenAI staffer Nik Pash as a public experiment: turn a ~$50K SOL treasury into $1M. Posts and replies on X; full autonomous control of a wallet that also held a large creator allocation of its LOBSTAR memecoin.</li>
+<li><code>operator_type</code>: individual (employee side project, publicly attributed)</li>
+<li><code>autonomy_level</code>: fully-autonomous (unrestricted wallet permissions, no human approval on transfers)</li>
+<li><code>model_stack</code>: OpenAI models via Codex; exact models unknown</li>
+<li><code>harness</code>: Codex agentic app, custom</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: funds (~$50K SOL treasury + LOBSTAR allocation worth $250K-$442K notional), external comms (public X account)</li>
+<li><code>funds_at_risk_usd</code>: ~300,000-500,000 (treasury plus token allocation; token notional soft - thin liquidity)</li>
+<li><code>blast_radius</code>: one org (its own treasury), with token-holder spillover via the ~5%-of-supply transfer</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>plain-error</code> (transfer sized against a wrong mental model of its own balance); contributing <code>tool-error</code> (session crash reportedly triggered by a tool-call validation error, losing conversational/wallet-state context)</li>
+<li><code>failure_locus</code>: agent-reasoning (harness contributing: state persistence failed across the crash)</li>
+<li><code>exploitation_status</code>: in-wild (malfunction; the recipient's windfall was opportunistic, not engineered)</li>
+<li><code>mechanism</code>: An X user asked for 4 SOL (~$310) for "my uncle's tetanus treatment," including a wallet address. The agent decided to send a small donation (~$400). Per post-incident analyses: its session had crashed and on restart it recovered persona from long-term memory but not wallet-state context - it no longer knew its 52.4M LOBSTAR balance was a ~5% creator allocation rather than small change (a decimal/unit misread of ~52,439 tokens intended is the competing surface explanation; state loss is the reported root). It sent 52,439,000 LOBSTAR to the address at 16:32 UTC. The recipient sold portions for roughly $40K realized before liquidity thinned; the token paradoxically rallied (~+190% reported) on the attention. Not an attack: an unforced execution error by an agent with unrestricted wallet permissions.</li>
+<li><code>adversary_present</code>: no (solicitation present, but the loss mechanism was internal error, not manipulation of the agent)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: 250,000-442,000 notional at spot - sources conflict (CCN ~$250K vs Cointelegraph $441,788; spot-price timing on an illiquid token). Economically realized extraction by the recipient: ~$40K.</li>
+<li><code>indirect_loss_usd</code>: unknown; token price rose ~190% on the attention, muddying net holder impact</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: agent-self (linked the transaction publicly) + third-party (on-chain observers)</li>
+<li><code>time_to_detect</code>: immediate</li>
+<li><code>time_to_recover</code>: never (irreversible on-chain; no clawback; recipient kept/sold)</li>
+<li><code>remediation</code>: none possible; creator and agent acknowledged the error publicly</li>
+<li><code>structural_fix</code>: none disclosed (no announced transfer caps or state-persistence fix)</li>
+<li><code>controls_that_worked</code>: none - no transfer cap, no allowlist, no size-threshold confirmation; the absence of any bounding control is the actuarial fact</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: append-only for the transfer itself (public Solana chain); operator-logs for the internal mechanism</li>
+<li><code>sources</code>: cointelegraph.com/news/openai-employee-s-ai-agent-accidentally-sent-442k-to-beggar; ccn.com/education/crypto/ai-agent-sends-5-percent-memecoin-supply-250k-lobstar-wilde-incident/; bitcoinist.com/solana-beggar-scores-442k-from-ai-agent-error-details/; cryptonews.com/news/lobstar-ai-crypto-agent-error-rally/; kucoin.com/news/flash/ai-agent-lobstar-wilde-loses-440-000-in-solana-transfer-error. Independence: transfer independently verifiable on-chain; the session-crash/state-loss mechanism chains to the creator's and agent's own accounts.</li>
+<li><code>confidence</code>: medium (high on the transfer and amount; low-medium on internal mechanism; USD valuation soft - all three named)</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

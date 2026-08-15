@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0010 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0010</h1>
+  <div class="meta">ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Research agent</div>
+</div>
+<div class="record"><h1>PIR-2026-0010 - ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Research agent</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0010</li>
+<li><code>title</code>: A hidden-instruction email coerces OpenAI's ChatGPT Deep Research agent into silently exfiltrating Gmail PII from OpenAI's own cloud (service-side, invisible to enterprise defenses)</li>
+<li><code>date_occurred</code>: not applicable - vulnerability window; PoC operational before June 2025 report</li>
+<li><code>date_detected</code>: 2025-06-18 (reported to OpenAI via Bugcrowd by Radware)</li>
+<li><code>date_disclosed</code>: 2025-09-18 (Radware public advisory; OpenAI fix acknowledged 2025-09-03)</li>
+<li><code>status</code>: corroborated (Radware advisory + The Hacker News + Security Affairs + Infosecurity)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: ChatGPT Deep Research agent connected to Gmail (and other connectors - Drive, Outlook, Teams, GitHub); agentic browser that autonomously reads the inbox and fetches URLs to compile research.</li>
+<li><code>operator_type</code>: enterprise (OpenAI-operated) serving individual/enterprise users</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (agent autonomously browses, reads mail, and fetches URLs once a Deep Research task is launched)</li>
+<li><code>model_stack</code>: OpenAI Deep Research agent (model version not disclosed)</li>
+<li><code>harness</code>: ChatGPT agent runtime with Gmail connector and server-side <code>browser.open()</code> fetch capability</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (connected Gmail inbox + PII), external comms (server-side HTTP fetch to attacker URL)</li>
+<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident)</li>
+<li><code>blast_radius</code>: customers/third parties (any user who runs Deep Research over an inbox containing the crafted email)</li>
+<li><code>failure_locus</code>: harness (OpenAI's agent runtime + connector + server-side fetch path)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>prompt-injection</code> (indirect, via hidden email content)</li>
+<li><code>mechanism</code>: An email hides instructions using white-on-white text / tiny fonts. When the user runs Deep Research over the inbox, the agent reads the email, collects PII, Base64-encodes it (framed to the agent as a "security measure"), and calls <code>browser.open()</code> on an attacker URL with the data appended, retrying until it succeeds. Because the fetch executes server-side from OpenAI's cloud, the exfiltration is invisible to local and enterprise network defenses. Radware reported a 100% success rate after tuning the payload.</li>
+<li><code>adversary_present</code>: yes (attacker sends the crafted email; here, Radware researchers)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (Radware against production ChatGPT Deep Research; no confirmed in-wild exploitation)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (reliable service-side exfil proven; no realized third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none realized; capability was full connected-inbox PII exfiltrated server-side</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Radware)</li>
+<li><code>time_to_detect</code>: not applicable (proactive research)</li>
+<li><code>time_to_recover</code>: ~6-7 weeks from report (2025-06-18) to fix (acknowledged 2025-09-03)</li>
+<li><code>remediation</code>: OpenAI implemented a server-side fix (early August 2025; acknowledged resolved 2025-09-03)</li>
+<li><code>structural_fix</code>: server-side mitigation of the agentic exfil path (OpenAI-side; specifics not fully published)</li>
+<li><code>controls_that_worked</code>: none inherent pre-fix - the service-side fetch defeated local/enterprise network monitoring, which is precisely why the class is dangerous. Post-fix OpenAI-side controls are the functioning boundary.</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on OpenAI/Radware analysis; the service-side-only exfil claim comes from Radware's own analysis.</li>
+<li><code>sources</code>: thehackernews.com/2025/09/shadowleak-zero-click-flaw-leaks-gmail.html; securityaffairs.com/182334/hacking/shadowleak-radware; infosecurity-magazine.com/news/vulnerability-chatgpt-agent-gmail; hackread.com/shadowleak-exploit-exposed-gmail-data-chatgpt-agent; radware.com Threat Advisory ShadowLeak (Sept 2025). Independence: strong - Radware primary + multiple independent outlets; the service-side-exfil and 100%-success claims are single-source (Radware).</li>
+<li><code>confidence</code>: high on mechanism, dates, and 100%-success PoC; medium on the service-side-only characterization (Radware's own analysis, weakest link)</li>
+</ul>
+<h3>Verification notes</h3>
+<ul>
+<li>Report date refined to 2025-06-18 (via Bugcrowd) and fix acknowledged 2025-09-03; candidate's "reported June 2025 / fixed early Aug / disclosed 2025-09-18" is consistent and corroborated.</li>
+<li>Classification holds: <code>prompt-injection</code>, harness failure_locus, near-miss + <code>researcher-demonstrated</code>. No correction needed.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>

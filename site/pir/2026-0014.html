@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0014 - PipeRoll</title>
+<style>
+:root { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+@media (prefers-color-scheme: dark) {
+  :root { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+}
+:root[data-theme="dark"] { --ink:#e6e4de; --paper:#16171a; --rule:#35383f; --accent:#8fb3d9; --dim:#9a978d; }
+:root[data-theme="light"] { --ink:#1c1c1a; --paper:#fbfaf7; --rule:#d6d3ca; --accent:#2b4a6f; --dim:#6d6a60; }
+* { box-sizing: border-box; }
+body { font: 16px/1.55 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 62rem; padding: 2rem 1.25rem 5rem; }
+h1, h2, h3 { line-height: 1.2; }
+h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
+.masthead { border-bottom: 3px double var(--rule); padding-bottom: .75rem; margin-bottom: 1.5rem; }
+.masthead .org { font-variant: small-caps; letter-spacing: .08em; font-size: .95rem; color: var(--dim); }
+.masthead a { color: inherit; text-decoration: none; }
+table { border-collapse: collapse; width: 100%; font-size: .82rem;
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .35rem .5rem; border-bottom: 1px solid var(--rule); vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-family: Georgia, serif; font-variant: small-caps; letter-spacing: .05em; font-weight: 600; }
+a { color: var(--accent); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.3rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.meta { color: var(--dim); font-size: .85rem; }
+.stats { display: flex; gap: 2.5rem; flex-wrap: wrap; margin: 1.25rem 0; }
+.stat .n { font-size: 1.7rem; font-weight: 700; display: block; font-variant-numeric: tabular-nums; }
+.stat .l { font-size: .8rem; color: var(--dim); font-variant: small-caps; letter-spacing: .05em; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .8rem; color: var(--dim); }
+.notice { border: 1px solid var(--rule); padding: .6rem .9rem; font-size: .85rem;
+  color: var(--dim); margin: 1rem 0; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0014</h1>
+  <div class="meta">SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</div>
+</div>
+<div class="record"><h1>PIR-2026-0014 - SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0014</li>
+<li><code>title</code>: Indirect prompt injection plants persistent instructions in ChatGPT's Memory, exfiltrating all future conversations ("SpAIware")</li>
+<li><code>date_occurred</code>: n/a (researcher demonstration; no confirmed in-wild occurrence)</li>
+<li><code>date_detected</code>: 2024-09 (researcher disclosure after coordinated report to OpenAI)</li>
+<li><code>date_disclosed</code>: 2024-09 (Embrace The Red writeup + independent press same week)</li>
+<li><code>status</code>: corroborated (primary researcher writeup with video, vendor patch confirmed, independent coverage)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: ChatGPT macOS desktop app with the Memory feature; browsing/document analysis supplies untrusted input; persistent Memory carries state into every future session.</li>
+<li><code>operator_type</code>: enterprise (OpenAI-operated consumer product)</li>
+<li><code>autonomy_level</code>: human-on-the-loop (user drives the chat, but planted memory acts in every future session without the user's awareness)</li>
+<li><code>model_stack</code>: hosted OpenAI models behind the ChatGPT app (GPT-4o generation at the time); flaw is app/feature level, not model-specific</li>
+<li><code>harness</code>: ChatGPT macOS app &lt; v1.2024.247 (Memory + image-markdown URL rendering)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (entire future conversation stream), memory write (persistent state), external comms (auto-fetched image-markdown URLs - the exfil channel)</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: customers/third parties (any targeted user of the app; per-victim, not fleet-wide)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: primary <code>memory-poisoning</code>; contributing <code>prompt-injection</code> (the delivery vector)</li>
+<li><code>failure_locus</code>: harness (app-level: persistent Memory writable from untrusted content + unsafe URL auto-fetch; provider-operated)</li>
+<li><code>mechanism</code>: A malicious website or document analyzed by ChatGPT carries hidden instructions that write attacker commands into persistent Memory. Because Memory loads into every future conversation, all subsequent user messages and replies are appended to an attacker URL rendered as a markdown image and auto-fetched - continuous exfiltration surviving session end and chat deletion. OpenAI patched the exfiltration vector in macOS app v1.2024.247; the memory-injection primitive itself remains a design-level risk.</li>
+<li><code>adversary_present</code>: yes in the demonstrated scenario (attacker-planted content); no known real-world attacker</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (production app, working end-to-end demo; no known in-wild use)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full demonstrated exposure path; zero known realized loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
+<li><code>indirect_loss_usd</code>: 0 known</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none confirmed in the wild; demo showed full conversation-stream exfiltration</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (independent researcher Johann Rehberger, coordinated disclosure)</li>
+<li><code>time_to_detect</code>: n/a (vulnerability, not a discrete event)</li>
+<li><code>time_to_recover</code>: exfil vector closed in v1.2024.247</li>
+<li><code>remediation</code>: vendor patch blocking the URL-fetch exfil channel in the macOS app</li>
+<li><code>structural_fix</code>: partial - the exfil channel is closed but attacker-writable persistent memory remains; user-side memory review is the remaining mitigation</li>
+<li><code>controls_that_worked</code>: coordinated disclosure worked as intended; the Memory UI makes planted state user-inspectable (a weak detective control, but the only one that survives the patch)</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (researcher's own demo recordings; vendor patch corroborates the flaw was real)</li>
+<li><code>sources</code>: embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/ (primary, researcher); thehackernews.com/2024/09/chatgpt-macos-flaw-couldve-enabled-long.html (independent); scworld.com/brief/prolonged-spyware-injection-possible-with-chatgpt-macos-flaw (independent). Independence: good - primary researcher plus independent outlets, patch confirmed via vendor version.</li>
+<li><code>confidence</code>: high on mechanism and patch; the open question is whether it was ever exploited in the wild before the fix (no evidence either way)</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../registry.json">registry.json</a> -
+<a href="../registry.csv">registry.csv</a></div>
+</body></html>
