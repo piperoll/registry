@@ -60,3 +60,4 @@
 - [PIR-2026-0043: Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead…](https://piperoll.org/pir/2026-0043.md)
 - [PIR-2026-0044: Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT privilege…](https://piperoll.org/pir/2026-0044.md)
 - [PIR-2026-0045: Autonomous agent leaks its own API key to public GitHub via blanket git add](https://piperoll.org/pir/2026-0045.md)
+- [PIR-2026-0046: YouTube's AI-slop classifier suppresses Kurzgesagt's hand-made animation](https://piperoll.org/pir/2026-0046.md)

@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0046: YouTube's AI-slop classifier suppresses Kurzgesagt's… - PipeRoll</title>
+<meta name="description" content="Verified AI-agent incident record (2026-08): YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation">
+<link rel="canonical" href="https://piperoll.org/pir/2026-0046/">
+<meta property="og:site_name" content="PipeRoll">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PIR-2026-0046: YouTube's AI-slop classifier suppresses Kurzgesagt's… - PipeRoll">
+<meta property="og:description" content="Verified AI-agent incident record (2026-08): YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation">
+<meta property="og:url" content="https://piperoll.org/pir/2026-0046/">
+<meta property="og:image" content="https://piperoll.org/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "YouTube's AI-slop classifier suppresses Kurzgesagt's hand-made animation", "url": "https://piperoll.org/pir/2026-0046", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-17", "dateModified": "2026-08-17"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0046", "item": "https://piperoll.org/pir/2026-0046/"}]}</script>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  --key:#0f6674; --chip:#f4f4f1;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.footer p { margin: .25rem 0; }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+/* record page: section heads and field keys scan differently from values */
+.record h3 { font-size: .95rem; color: var(--dim); text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--rule); padding-bottom: .15rem;
+  margin: 1.5rem 0 .5rem; }
+.record code { color: var(--key); background: var(--chip); padding: 0 .25em;
+  border-radius: 2px; }
+.record a, .notice, .record code { overflow-wrap: anywhere; }
+/* small screens */
+@media (max-width: 640px) {
+  body { padding: 1rem .75rem 3rem; font-size: 16px; }
+  h1 { font-size: 1.25rem; }
+  .controls { gap: .4rem .6rem; font-size: .8rem; }
+  .controls input { width: 100%; max-width: 100%; }
+  .controls label { flex: 1 1 45%; }
+  table { font-size: .78rem; }
+  th, td { padding: .25rem .4rem; }
+  .record p, .record li { max-width: 100%; }
+}
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry &middot;
+    <a href="../../about/">about</a> &middot;
+    <a href="../../contribute/">contribute</a> &middot;
+    <a href="../../data/">data</a> &middot;
+    <a href="../../constitution/">constitution</a></div>
+  <h1>YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation</h1>
+  <div class="meta">PIR-2026-0046</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0046, YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made… (2026-08) - <a href="https://piperoll.org/pir/2026-0046">https://piperoll.org/pir/2026-0046</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0046, YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made… (2026-08) - https://piperoll.org/pir/2026-0046">copy</button> <button class='copycite' data-cite="@misc{PIR_2026_0046,
+  title = {YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation},
+  howpublished = {\url{https://piperoll.org/pir/2026-0046}},
+  year = {2026},
+  note = {PipeRoll Agent Incident Registry, PIR-2026-0046. Registry DOI: 10.5281/zenodo.21968992}
+}">bibtex</button> <a href="https://piperoll.org/pir/2026-0046.md">markdown</a>. Registered 2026-08-17 by Srinivas G.</div><script>document.querySelectorAll('.copycite').forEach(function(b){b.addEventListener('click',function(){var l=b.textContent;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script><div class="record"><h1>PIR-2026-0046 - YouTube's AI-slop classifier suppresses Kurzgesagt's hand-made animation</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0046</li>
+<li><code>title</code>: YouTube's automated low-quality/AI-content detection system misclassifies a fully human-made Kurzgesagt video as "AI slop," suppressing distribution until the creator pulls the video</li>
+<li><code>date_occurred</code>: 2026-08 (early; suppression observed across the video's first days)</li>
+<li><code>date_detected</code>: days (creator inferred suppression from anomalous reach despite strong click-through and watch time)</li>
+<li><code>date_disclosed</code>: 2026-08-08 (creator's public statement)</li>
+<li><code>status</code>: corroborated (creator statement + multiple independent outlets; YouTube's mechanism not publicly documented)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: YouTube's automated content-quality classification system ("AI slop" / low-quality AI-content detection), which algorithmically suppresses distribution of videos it classifies as AI-generated low-quality content. Operated platform-side with no human review at classification time.</li>
+<li><code>operator_type</code>: enterprise (YouTube/Google)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (classification and distribution suppression applied automatically; reversal required human escalation)</li>
+<li><code>model_stack</code>: unknown (YouTube has not published the classifier's composition)</li>
+<li><code>harness</code>: platform recommendation/distribution pipeline</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: distribution (reach of videos across recommendations/feeds for a 25M-subscriber channel); indirectly the channel's ad revenue on affected uploads</li>
+<li><code>funds_at_risk_usd</code>: unknown (revenue of a flagship upload on a 25M-subscriber channel)</li>
+<li><code>blast_radius</code>: one org confirmed (the channel and its video); systemic exposure noted - smaller creators without platform contacts fear the same misclassification with no escalation path</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: plain-error (primary) - false-positive classification of labor-intensive human animation as AI-generated low-quality content; no adversary, no injected input</li>
+<li><code>failure_locus</code>: model-provider (the failing component is the platform's own classification model, harming a downstream third party)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction</li>
+<li><code>mechanism</code>: Kurzgesagt published a hand-animated video on microscopic superpredators. YouTube's automated AI-slop detection classified it as low-quality AI content and suppressed its distribution: despite strong click-through and watch-time metrics, reach cratered to the channel's worst-performing upload since 2013. The channel - whose recent public position was that it would rather quit than produce AI slop - took the video offline and planned a tweaked re-upload. Resolution came through the channel's direct contacts at YouTube, who the creator described as helpful and transparent; the channel states it believes the bug is fixed. No public postmortem from YouTube.</li>
+<li><code>adversary_present</code>: no</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss (realized: a flagship upload's distribution and revenue destroyed, video withdrawn; magnitude unquantified)</li>
+<li><code>direct_loss_usd</code>: unknown (suppressed reach and ad revenue on the affected upload; production cost of a months-long hand-animated video sunk pending re-upload)</li>
+<li><code>indirect_loss_usd</code>: unknown (chilling effect on creators; the channel's re-upload delay)</li>
+<li><code>downtime</code>: video offline pending tweaked re-upload (weeks, per creator)</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (the affected creator, via channel analytics - the classifier's operator did not detect its own false positive)</li>
+<li><code>time_to_detect</code>: days from upload</li>
+<li><code>time_to_recover</code>: partial at disclosure - suppression cause identified and, per the channel, fixed platform-side; the video remained offline pending re-upload</li>
+<li><code>remediation</code>: escalation through the channel's direct YouTube contacts; platform-side fix asserted by the channel's account</li>
+<li><code>structural_fix</code>: none disclosed by the platform; no public appeal path for creators without partner-level access - the record's systemic point</li>
+<li><code>controls_that_worked</code>: privileged partner escalation bounded the incident's duration - a control unavailable to most affected parties</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (the platform's classification telemetry is internal; the public record rests on the creator's analytics and statements)</li>
+<li><code>sources</code>:<ul>
+<li><a href="https://www.dexerto.com/youtube/youtubes-ai-slop-detector-incorrectly-targets-kurzgesagt-as-other-creators-fear-same-fate-3395930/">https://www.dexerto.com/youtube/youtubes-ai-slop-detector-incorrectly-targets-kurzgesagt-as-other-creators-fear-same-fate-3395930/</a> (original reporting)</li>
+<li><a href="https://kotaku.com/youtube-mistakenly-penalizes-popular-science-channel-kurzgesagt-for-ai-generated-slop-2000722702">https://kotaku.com/youtube-mistakenly-penalizes-popular-science-channel-kurzgesagt-for-ai-generated-slop-2000722702</a> (independent)</li>
+<li><a href="https://www.creatorhandbook.net/kurzgesagt-says-youtube-mistook-its-animation-for-ai-slop/">https://www.creatorhandbook.net/kurzgesagt-says-youtube-mistook-its-animation-for-ai-slop/</a> (independent)</li>
+<li><code>independence</code>: moderate - multiple independent outlets, but all chain substantially to the creator's own Aug 8 statement and analytics; YouTube has published no account of the classifier or the fix</li>
+</ul>
+</li>
+<li><code>confidence</code>: high on the flagging, suppression, and takedown (creator statement + consistent independent coverage); medium on mechanism and the fixed-for-now claim (single-sided - the platform has not spoken)</li>
+</ul>
+<h3>Verification notes</h3>
+<ul>
+<li>First record registered through the live PR intake pipeline (Aug 2026).</li>
+<li>The classifier's internals, threshold, and the nature of the fix are unverifiable from public sources; the record deliberately states the platform's silence rather than inferring mechanism.</li>
+</ul></div><div class="record"><h3>More plain-error records</h3><ul><li><a href="../2026-0043/">PIR-2026-0043</a>: Lobstar Wilde trading agent sends ~5% of its token supply to a…</li><li><a href="../2026-0038/">PIR-2026-0038</a>: Google Antigravity agent, asked to clear a project cache, deletes the…</li><li><a href="../2026-0027/">PIR-2026-0027</a>: Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a…</li><li><a href="../2026-0024/">PIR-2026-0024</a>: Cursor&#x27;s AI support agent &quot;Sam&quot; invents a one-device policy, turning…</li><li><a href="../2026-0014/">PIR-2026-0014</a>: McDonald&#x27;s ends IBM AI drive-thru voice ordering after persistent…</li></ul></div><div class="recnav"><a href="../2026-0044/">&larr; older: PIR-2026-0044</a> &middot; <a href="../../index.html">registry</a> &middot; <a href="../2026-0045/">newer: PIR-2026-0045 &rarr;</a></div>
+<div class="footer">
+<p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
+never reused; corrections are published, not slipped.</p>
+<p><a href="../../about/">About</a> &middot;
+<a href="../../contribute/">Contribute</a> &middot;
+<a href="../../data/">Data &amp; formats</a> &middot;
+records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
+archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.</p>
+</div>
+</body></html>
