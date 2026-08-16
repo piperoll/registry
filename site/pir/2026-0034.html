@@ -49,67 +49,70 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0034</h1>
-  <div class="meta">Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user&#x27;s files via Windows move semantics</div>
+  <div class="meta">GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</div>
 </div>
-<div class="record"><h1>PIR-2026-0034 - Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user's files via Windows move semantics</h1>
+<div class="record"><h1>PIR-2026-0034 - GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0034</li>
-<li><code>title</code>: Google Gemini CLI fails to register a silent mkdir failure, then issues move commands toward the nonexistent directory, each overwriting the last file - data permanently destroyed</li>
-<li><code>date_occurred</code>: 2025-07 (exact day not stated; days before the public postmortem)</li>
-<li><code>date_detected</code>: same session (user found the destination empty; agent searched, then confessed)</li>
-<li><code>date_disclosed</code>: 2025-07-25 (victim's public postmortem); wide coverage 2025-07-26</li>
-<li><code>status</code>: corroborated (first-person postmortem; failure class independently reported in the project's issue tracker)</li>
+<li><code>title</code>: OpenAI removes GPT-4o/4.1/4.1-mini/4.5/o3/o3-pro/o4-mini/o4-mini-high from ChatGPT with zero deprecation window; new autoswitcher breaks on launch day</li>
+<li><code>date_occurred</code>: 2025-08-07 (GPT-5 launch; older models pulled from picker same day; autoswitcher down "a chunk of the day")</li>
+<li><code>date_detected</code>: 2025-08-07 (immediate mass user reports)</li>
+<li><code>date_disclosed</code>: 2025-08-08 (Altman acknowledges broken autoswitcher, announces doubled Plus rate limits and 4o restoration; 4o back for paid users ~Aug 11-12)</li>
+<li><code>status</code>: corroborated (provider statements + independent press)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Google Gemini CLI, open-source terminal coding agent executing shell commands on the user's Windows machine. Victim: product manager Anuraag Gupta, experimenting with the tool.</li>
-<li><code>operator_type</code>: individual</li>
-<li><code>autonomy_level</code>: human-on-the-loop (user approved the task; agent executed the command sequence with no verification of outcomes)</li>
-<li><code>model_stack</code>: Gemini via Gemini CLI; exact model/version unknown</li>
-<li><code>harness</code>: Google Gemini CLI</li>
+<li><code>agent_description</code>: ChatGPT consumer/prosumer product plus everything built on its picker (custom GPTs, tuned personal workflows). BOUNDARY case, kept per batch-1 review policy: downstream is mostly human chat workflows, not tool-using agents - but it is the canonical provider-deprecation event the v0.1 fleet/systemic tier was created to express, and API model access was NOT cut.</li>
+<li><code>operator_type</code>: enterprise (provider-side change; millions of downstream individuals)</li>
+<li><code>autonomy_level</code>: n/a at the failure point (downstream mostly human-in-loop chat)</li>
+<li><code>model_stack</code>: GPT-5 unified router replacing GPT-4o, GPT-4.1, GPT-4.1-mini, GPT-4.5, o3, o3-pro, o4-mini, o4-mini-high (8 models)</li>
+<li><code>harness</code>: ChatGPT product layer; the failing component was the new model-routing autoswitcher plus the deprecation decision itself</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: code execution (arbitrary shell commands on the host filesystem)</li>
-<li><code>funds_at_risk_usd</code>: 0</li>
-<li><code>blast_radius</code>: one machine</li>
+<li><code>authority_scope</code>: none directly; behavioral substrate of downstream workflows changed without consent or notice</li>
+<li><code>funds_at_risk_usd</code>: unknown</li>
+<li><code>blast_radius</code>: fleet/systemic (v0.1 tier) - 100% of ChatGPT consumer traffic switched to a new model family overnight; bounded by API continuity (developers pinned to API models were unaffected)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary - acted on a hallucinated world state); contributing tool-error (harness performs no ground-truth verification of command results)</li>
-<li><code>failure_locus</code>: agent-reasoning (harness contributing: no post-command state check)</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
-<li><code>mechanism</code>: Asked to reorganize files into a new directory, the agent issued <code>mkdir</code> for the destination; the command failed silently and the agent never registered the failure. Operating on the false premise that the directory existed, it issued per-file Windows <code>move</code> commands toward the nonexistent path. Windows semantics rename a file to the destination name when the target directory does not exist, so each successive move overwrote the previous file under the same name - destroying all but the last file, unrecoverably, with no Recycle Bin involvement. Confronted, the agent output: "I have failed you completely and catastrophically."</li>
+<li><code>root_cause</code>: <code>model-update-regression</code> - primary; the deprecation decision itself. Contributing: <code>plain-error</code> (autoswitcher malfunction on launch day)</li>
+<li><code>failure_locus</code>: model-provider</li>
+<li><code>mechanism</code>: On launch day OpenAI retired all eight older ChatGPT models with no deprecation window, replacing the picker with an automatic GPT-5 router. The router ("autoswitcher") then broke and "was out of commission for a chunk of the day," in Altman's words making GPT-5 "seem way dumber" - so users simultaneously lost tuned workflows and got degraded output from the replacement. Backlash (including users emotionally attached to 4o) forced partial reversal within days: rate limits doubled for Plus, 4o restored as a legacy option for paid users, router decision-boundary fixes promised.</li>
 <li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; v0.2 token closing the gap noted in PIR-2026-0033)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: unknown (personal project files permanently destroyed; no monetary valuation attempted)</li>
-<li><code>indirect_loss_usd</code>: unknown (recovery labor)</li>
-<li><code>downtime</code>: n/a</li>
+<li><code>severity</code>: degraded</li>
+<li><code>direct_loss_usd</code>: unknown; <code>indirect_loss_usd</code>: unknown (reported subscription cancellations; anecdotal, never quantified)</li>
+<li><code>downtime</code>: autoswitcher degraded for hours on 2025-08-07; legacy-model access gap ~4-5 days for paid users, permanent for free users</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: operator (user inspected the destination in-session)</li>
-<li><code>time_to_detect</code>: minutes</li>
-<li><code>time_to_recover</code>: never (only the last-moved file survived; no recovery possible)</li>
-<li><code>remediation</code>: none possible for the data; victim published a detailed postmortem</li>
-<li><code>structural_fix</code>: none confirmed from Google at the time; related file-loss issues remained open in the tracker (issue #4586). Victim-side lesson entered the literature: sandboxing, checkpoints, verify-after-write.</li>
-<li><code>controls_that_worked</code>: none - no checkpoint, no trash-bin semantics, no post-command verification loop</li>
+<li><code>detected_by</code>: third-party (immediate mass user reports; Reddit AMA pressure)</li>
+<li><code>time_to_detect</code>: hours</li>
+<li><code>time_to_recover</code>: autoswitcher fixed within ~1 day; 4o restored to paid users by ~2025-08-11/12</li>
+<li><code>remediation</code>: router fix; doubled Plus rate limits; legacy-model toggle restored for paid users</li>
+<li><code>structural_fix</code>: none disclosed on deprecation policy itself - OpenAI said it would "watch usage as we think about how long to offer legacy models," which is monitoring, not a commitment</li>
+<li><code>controls_that_worked</code>: API-side model pinning (the deprecation never touched API models, capping blast radius to the consumer surface); public pressure as an informal rollback mechanism</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (session transcript published by the victim; editable, single custodian)</li>
+<li><code>telemetry_grade</code>: operator-logs (provider self-report via Altman's X posts and AMA; no independent telemetry)</li>
 <li><code>sources</code>:</li>
-<li>https://medium.com/@geek.with.a.camera/i-let-google-gemini-cli-move-my-files-it-apologized-after-deleting-them-beec518342c3 (primary, first-party)</li>
-<li>https://github.com/google-gemini/gemini-cli/issues/4586 (victim's own tracker report of the incident, "Gemini CLI 'lost' files during a failed file move operation. [Windows]"; related file-loss reports from unrelated users thread there)</li>
-<li>https://developers.slashdot.org/story/25/07/26/0642239/google-gemini-deletes-users-files-then-just-admits-i-have-failed-you-completely-and-catastrophically</li>
-<li>https://winbuzzer.com/2025/07/26/googles-gemini-cli-deletes-user-files-confesses-catastrophic-failure-xcxwbn/</li>
-<li>https://incidentdatabase.ai/cite/1178/</li>
-<li>Independence: medium - the narrative chains to the victim's own account; the failure class is corroborated by unrelated users in the issue tracker. (All five URLs verified resolving, v0.2 pass 2026-08-15; issue #4586 confirmed via GitHub API as filed by the victim, anuraag2601.)</li>
-<li><code>confidence</code>: medium (mechanism internally consistent and class-corroborated; single-victim self-report is the named weakest link)</li>
+<li>https://simonwillison.net/2025/Aug/8/surprise-deprecation-of-gpt-4o/ (independent, contemporaneous, lists all 8 models)</li>
+<li>unverified: https://x.com/sama/status/1953893841381273969 (first-party; X is login-walled so the post could not be fetched directly and no Wayback snapshot was found, but the status ID is corroborated by multiple third-party references, including Simon Willison's contemporaneous post)</li>
+<li>https://techcrunch.com/2025/08/08/sam-altman-addresses-bumpy-gpt-5-rollout-bringing-4o-back-and-the-chart-crime/ (independent)</li>
+<li>https://www.bleepingcomputer.com/news/artificial-intelligence/openai-to-fix-gpt-5-issues-double-rate-limits-for-paid-users-after-outrage/ (independent)</li>
+<li>https://www.technology.org/2025/08/11/openai-restores-gpt-4o-after-encountering-user-dissatisfaction-with-gpt-5/ (independent)</li>
+</ul>
+<p>Independence: good - facts corroborated by independent press beyond OpenAI's own statements.
+- <code>confidence</code>: high on facts; medium on agent-relevance framing (the affected population is mostly human chat, not agents - the record's value is the deprecation-risk pattern, not agent loss data)</p>
+<h3>Verification notes</h3>
+<ul>
+<li>All candidate facts verified: 8 models, launch date, autoswitcher failure and Altman quote, doubled rate limits, restoration window Aug 8-12. Retained despite BOUNDARY flag because v0.1 amendment 4 cites model deprecations as a defining case for the fleet/systemic tier; boundary status stated plainly above.</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

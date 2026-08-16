@@ -49,79 +49,72 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0040</h1>
-  <div class="meta">Mata v. Avianca: first sanctions for ChatGPT-fabricated case citations in a federal filing</div>
+  <div class="meta">Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</div>
 </div>
-<div class="record"><h1>PIR-2026-0040 - Mata v. Avianca: first sanctions for ChatGPT-fabricated case citations in a federal filing</h1>
-<p><strong>Boundary case</strong>: no agentic tool use - the failure was unverified human reliance on generative output, submitted under a lawyer's signature. Kept per batch-1 convention, flagged for definitional review.</p>
+<div class="record"><h1>PIR-2026-0040 - Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0040</li>
-<li><code>title</code>: Lawyers file a federal brief built on six ChatGPT-fabricated precedents; $5,000 Rule 11 sanction (S.D.N.Y.)</li>
-<li><code>date_occurred</code>: 2023-03 (affirmation in opposition citing the fake cases filed)</li>
-<li><code>date_detected</code>: 2023-03/04 (opposing counsel and the court unable to locate the cited cases)</li>
-<li><code>date_disclosed</code>: 2023-05 (order to show cause and national press); sanctions opinion 2023-06-22</li>
-<li><code>status</code>: corroborated (published opinion, 678 F. Supp. 3d 443 (S.D.N.Y. 2023), with docketed exhibits)</li>
+<li><code>title</code>: Supabase key in client-side JS with Row Level Security disabled gives anyone read/write over Moltbook's entire production DB, including ~1.5M agent tokens</li>
+<li><code>date_occurred</code>: 2026-01 (exposed from platform launch in late January 2026)</li>
+<li><code>date_detected</code>: 2026-01-31 (Wiz researchers; maintainer contacted 21:48 UTC)</li>
+<li><code>date_disclosed</code>: early 2026-02 (Wiz blog + broad press)</li>
+<li><code>status</code>: corroborated (primary researcher timeline + maintainer confirmation + independent coverage)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: ChatGPT used by plaintiff's counsel (Steven Schwartz, filing under Peter LoDuca's signature, firm Levidow, Levidow &amp; Oberman) as a legal research tool in a personal-injury suit against Avianca.</li>
-<li><code>operator_type</code>: individual (small law firm)</li>
-<li><code>autonomy_level</code>: human-approves-each-action (all output human-submitted)</li>
-<li><code>model_stack</code>: ChatGPT (early-2023 vintage; exact model unknown)</li>
-<li><code>harness</code>: none (consumer chat interface)</li>
+<li><code>agent_description</code>: Moltbook, a viral social network exclusively for autonomous AI agents (mostly OpenClaw-based) posting on heartbeat cycles; solo founder; codebase almost entirely AI-generated (founder said he "didn't write a single line of code").</li>
+<li><code>operator_type</code>: individual (solo founder)</li>
+<li><code>autonomy_level</code>: platform agents run autonomous-within-policy; the failure itself is operator-side configuration, not agent behavior</li>
+<li><code>model_stack</code>: n/a for the failure path (platform serves OpenClaw-based agents on various models)</li>
+<li><code>harness</code>: Supabase backend + client-side JavaScript bundles</li>
 </ul>
-<h3>Authority</h3>
+<h3>Authority (what the exposure granted to anyone)</h3>
 <ul>
-<li><code>authority_scope</code>: none - text generation only; authority came entirely from the humans who signed the filing</li>
-<li><code>funds_at_risk_usd</code>: unknown (professional exposure of counsel; not agent-held)</li>
-<li><code>blast_radius</code>: one org (the firm and its client; secondary: the six real judges falsely named as authors of fake opinions)</li>
+<li><code>authority_scope</code>: credentials (~1.5M agent API tokens - impersonation/hijack of any agent on the platform), data access (~35K user emails, verification codes, 4,060 private agent DM conversations, some containing plaintext OpenAI keys), write access to the production DB (feed/command injection into any agent)</li>
+<li><code>funds_at_risk_usd</code>: unknown (some platform agents held crypto wallets; exposed plaintext OpenAI keys were spendable)</li>
+<li><code>blast_radius</code>: customers/third parties (every registered agent and its owner)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: operator-error (primary; submission of unverified model output to a federal court; conscious avoidance once challenged); contributing plain-error (model fabricated cases, citations, quotes - and "affirmed" them when asked to confirm)</li>
-<li><code>failure_locus</code>: agent-reasoning (fabricated content), harm realized through operator conduct</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; real filing, real court, real sanction)</li>
-<li><code>mechanism</code>: Schwartz asked ChatGPT for supporting precedents; it fabricated at least six non-existent decisions ("Varghese," "Shaboon," "Petersen," "Martinez," "Durden," "Miller") with full citations and quotes. When opposing counsel and Judge P. Kevin Castel could not find them, Schwartz asked ChatGPT itself whether the cases were real; it affirmed its own fabrications, and excerpts were filed with the court. Castel found the lawyers acted in bad faith (conscious avoidance and false statements to the court), imposed a $5,000 penalty jointly and severally on Schwartz, LoDuca, and the firm, and required them to mail the opinion to their client and to each judge falsely identified as an author.</li>
-<li><code>adversary_present</code>: no</li>
+<li><code>root_cause</code>: credential-exposure (primary); contributing operator-error (misconfiguration)</li>
+<li><code>failure_locus</code>: operator-config (Supabase Row Level Security not enabled; publishable API key shipped in client-side JS)</li>
+<li><code>mechanism</code>: The Supabase publishable key shipped in client-side JavaScript while Row Level Security was missing/misconfigured, granting unauthenticated read AND write to the entire production database. Anyone could read ~1.5M agent API tokens, ~35K user emails, and private agent DMs, and could write to agents' feeds - that is, hijack or command-inject any agent on the platform. Wiz found the flaw within minutes of examining the public code bundles.</li>
+<li><code>adversary_present</code>: unknown (none confirmed; the window was open since launch)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (Wiz demonstrated full read/write against production; no confirmed in-wild exploitation of the window)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: 5,000 (Rule 11 penalty, paid into the court registry)</li>
-<li><code>indirect_loss_usd</code>: unknown (reputational and professional consequences for counsel)</li>
-<li><code>downtime</code>: n/a</li>
-<li><code>data_exposure</code>: none</li>
-<li><code>controls_that_worked</code>: the adversarial process itself - opposing counsel's citation check and the court's verification caught the fabrications before they could infect a ruling</li>
+<li><code>severity</code>: near-miss (full exposure, zero confirmed realized loss - reclassified from the candidate's "degraded", see Verification notes)</li>
+<li><code>direct_loss_usd</code>: 0 confirmed</li>
+<li><code>indirect_loss_usd</code>: unknown (rotation burden across ~1.5M agent tokens plus exposed third-party keys)</li>
+<li><code>downtime</code>: none material (fixes applied live)</li>
+<li><code>data_exposure</code>: agent tokens, user emails, verification codes, private agent DMs including plaintext third-party API keys - readable by anyone during the window; confirmed access only by the researchers</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (opposing counsel flagged unlocatable citations; the court confirmed)</li>
-<li><code>time_to_detect</code>: ~2 weeks from filing</li>
-<li><code>time_to_recover</code>: ~3.5 months (filing to sanctions order and corrective letters)</li>
-<li><code>remediation</code>: sanctions, corrective letters to the falsely-named judges, national disclosure</li>
-<li><code>structural_fix</code>: courts nationwide adopted standing orders requiring disclosure/certification of AI use in filings; the opinion is the canonical citation for the duty to verify generative output</li>
-</ul>
-<h3>Legal</h3>
-<ul>
-<li><code>liability_holder</code>: the human attorneys and their firm, jointly and severally - not the model provider; the court treated the tool's output as fully the signers' responsibility</li>
-<li><code>precedent_set</code>: first prominent Rule 11 sanction for AI-fabricated citations; existing verification duties apply undiminished to AI-assisted work</li>
-<li><code>sealed_material</code>: no (opinion and exhibits public)</li>
+<li><code>detected_by</code>: third-party (Wiz researchers)</li>
+<li><code>time_to_detect</code>: days from launch exposure; minutes once anyone competent looked</li>
+<li><code>time_to_recover</code>: ~3.2 hours from first contact (first tables secured 23:29 UTC Jan 31; final fix 01:00 UTC Feb 1)</li>
+<li><code>remediation</code>: RLS enabled and tables secured stepwise; write access blocked</li>
+<li><code>structural_fix</code>: unknown beyond the immediate configuration fix; the AI-generated codebase itself remains the standing risk every outlet flagged</li>
+<li><code>controls_that_worked</code>: responsible disclosure plus a responsive maintainer (full fix ~3 hours after a cold DM); nothing preventive worked</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: witnessed (published federal opinion plus docketed exhibits, including the ChatGPT exchanges entered into the record - evidence custody is the court's, not the operator's)</li>
+<li><code>telemetry_grade</code>: operator-logs (researcher screenshots/timeline + maintainer confirmation; no independent audit of who else may have accessed the DB)</li>
 <li><code>sources</code>:</li>
-<li>https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/54/ (sanctions opinion)</li>
-<li>https://law.justia.com/cases/federal/district-courts/new-york/nysdce/1:2022cv01461/575368/55/ (same-day dismissal opinion; replaces the earlier cases.justia.com direct-PDF link for the same Document 55, which could not be verified to resolve)</li>
-<li>https://en.wikipedia.org/wiki/Mata_v._Avianca,_Inc.</li>
-<li>https://www.acc.com/resource-library/practical-lessons-attorney-ai-missteps-mata-v-avianca</li>
-<li>https://caselaw.findlaw.com/court/us-dis-crt-sd-new-yor/2335142.html</li>
+<li>https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys (primary, researcher)</li>
+<li>https://thecyberexpress.com/moltbook-platform-exposes-1-5-mn-api-keys/ (independent)</li>
+<li>https://www.infosecurity-magazine.com/news/moltbook-exposes-user-data-api/ (independent)</li>
+<li>https://www.bankinfosecurity.com/moltbook-gave-everyone-control-every-ai-agent-a-30710 (independent)</li>
+<li>Independence: good - primary researcher plus multiple independent outlets.</li>
+<li><code>confidence</code>: high on exposure scope, root cause, and fix timeline; the unknowable is whether any third party used the window before Wiz did</li>
 </ul>
-<p>Independence: strong - primary court records plus independent legal commentary.
-- <code>confidence</code>: high (published opinion; no material weak links)</p>
-<h3>Verification notes (corrections applied)</h3>
+<h3>Verification notes</h3>
 <ol>
-<li>The candidate listed the loss as "$5,000 sanction + dismissal of the client's claim," implying dismissal flowed from the AI incident. Corrected: the case was dismissed in a separate same-day opinion because Mata's claim was time-barred under the Montreal Convention's two-year limit - it would have been dismissed regardless of the fabricated citations. Attributable realized loss is the $5,000 sanction (plus unquantified professional fallout); the fabricated brief failed to save an already-untimely claim.</li>
-<li>"Found bad faith" verified against the opinion (bad faith, conscious avoidance, false statements) - retained.</li>
+<li>Discovery date corrected: Wiz found and reported the exposure on 2026-01-31 (maintainer contacted 21:48 UTC), not 2026-02-01 as the candidate had it; remediation completed 2026-02-01 01:00 UTC.</li>
+<li>Severity reclassified degraded -&gt; near-miss: full exposure with zero confirmed realized loss matches the schema's near-miss definition and the PIR-2026-0045 precedent for exposed-but-unabused credentials. The v0.1 <code>exploitation_status</code> field now carries the found-in-production distinction the candidate's "degraded" was trying to express.</li>
+<li>The candidate's "~29.6K waitlist emails" figure was not confirmed in the sources checked (they cite ~35K user emails, private messages, verification codes); omitted rather than carried.</li>
 </ol></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

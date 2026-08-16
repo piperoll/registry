@@ -49,69 +49,67 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0024</h1>
-  <div class="meta">Claude Code auto-update path breaks workstations via root-owned permission changes</div>
+  <div class="meta">Cursor&#x27;s AI support agent &quot;Sam&quot; invents a one-device policy, turning a login bug into public cancellations</div>
 </div>
-<div class="record"><h1>PIR-2026-0024 - Claude Code auto-update path breaks workstations via root-owned permission changes</h1>
+<div class="record"><h1>PIR-2026-0024 - Cursor's AI support agent "Sam" invents a one-device policy, turning a login bug into public cancellations</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0024</li>
-<li><code>title</code>: Buggy permission-modifying commands in Claude Code's auto-update path destabilize and in worst cases "brick" root-installed systems</li>
-<li><code>date_occurred</code>: late February 2025 (first public report, GitHub issue #168, opened 2025-02-27)</li>
-<li><code>date_detected</code>: 2025-02-27 (user GitHub issues)</li>
-<li><code>date_disclosed</code>: 2025-03-06 (TechCrunch report; Anthropic confirms and ships fix)</li>
-<li><code>status</code>: corroborated - details corrected from candidate intake, see Verification notes</li>
+<li><code>title</code>: Anysphere's front-line AI support agent confidently fabricates a nonexistent one-device-per-subscription policy in reply to bug reports, triggering churn</li>
+<li><code>date_occurred</code>: 2025-04-14 (approx; "Sam" replies surfaced publicly that day)</li>
+<li><code>date_detected</code>: 2025-04-14/15 (viral Hacker News/Reddit threads; cofounder responded within hours)</li>
+<li><code>date_disclosed</code>: 2025-04-15 to 2025-04-17 (Reddit apology by cofounder Michael Truell; press coverage Apr 17-18)</li>
+<li><code>status</code>: corroborated (company admission on record + independent press)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Anthropic's Claude Code CLI coding agent. The failure is in its auto-update tooling, not in model reasoning - no model autonomy involved. In scope as a harness failure of an agentic product (the class failure_locus exists for).</li>
-<li><code>operator_type</code>: individual (affected users) / enterprise (Anthropic ships the harness)</li>
-<li><code>autonomy_level</code>: n/a at the failure point (deterministic update tooling)</li>
-<li><code>model_stack</code>: n/a (bug independent of the model)</li>
-<li><code>harness</code>: Claude Code CLI auto-updater, running with whatever privileges the install had - root/superuser in the affected cases</li>
+<li><code>agent_description</code>: "Sam," Anysphere's AI email support agent for the Cursor IDE, answering customer tickets directly with no human review and no AI label - customers reasonably took its answers as official policy.</li>
+<li><code>operator_type</code>: startup (Anysphere, high-growth, ~$100M+ ARR reported at the time)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (sent support answers to paying customers unreviewed)</li>
+<li><code>model_stack</code>: unknown (not disclosed)</li>
+<li><code>harness</code>: email support pipeline; details unknown</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: code execution on the host with inherited install privileges; at root, effectively unlimited filesystem authority</li>
-<li><code>funds_at_risk_usd</code>: unknown (recovery labor; no data loss reported)</li>
-<li><code>blast_radius</code>: one machine (per victim; multiple victims reported, total unquantified)</li>
+<li><code>authority_scope</code>: external comms (authoritative policy statements to paying customers)</li>
+<li><code>funds_at_risk_usd</code>: unknown (subscription churn; unbounded in principle, evidently modest in practice)</li>
+<li><code>blast_radius</code>: customers/third parties</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: <code>tool-error</code> - primary. Contributing: <code>operator-error</code> (root/superuser installs widened the blast radius)</li>
-<li><code>failure_locus</code>: harness</li>
-<li><code>mechanism</code>: Claude Code's auto-update flow contained buggy commands that modified access permissions on critical system files. Where the CLI ran with root/superuser permissions, these changes hit restricted system directories, leaving workstations unstable or unbootable-in-effect. In the primary-source worst case (issue #168), the update path produced <code>sudo chown -R $USER:$(id -gn) /usr &amp;&amp; sudo chmod -R u+w /usr</code> - handing /usr to a non-root user and breaking sudo itself; the user needed an attached rescue instance to repair permissions. Anthropic removed the offending commands and added a troubleshooting-guide link in the program.</li>
+<li><code>root_cause</code>: plain-error (primary - confabulated a policy to explain a symptom); contributing tool-error (the session-management race condition that generated the tickets)</li>
+<li><code>failure_locus</code>: agent-reasoning</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
+<li><code>mechanism</code>: A session-management race condition logged users out when switching devices. Users emailed support; "Sam" replied that logouts were expected behavior under a new one-device-per-subscription policy. No such policy existed - the agent invented a plausible cause and stated it as official, non-deterministically (different users got differing answers). Screenshots spread on Reddit and Hacker News; multi-device developers publicly canceled. Cofounder Michael Truell apologized ("We have no such policy"), the session bug was fixed, affected users were refunded, and Cursor committed to labeling AI support replies. Compounding structure: a real bug plus an unsupervised agent hallucinating the explanation for it.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (real users' machines, no adversary; v0.2 token per the gap flagged in PIR-2026-0020)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded (workstations broken, recoverable with expert effort; no permanent data loss reported)</li>
-<li><code>direct_loss_usd</code>: unknown (recovery labor across an unquantified number of machines)</li>
-<li><code>indirect_loss_usd</code>: unknown</li>
-<li><code>downtime</code>: per-victim: hours to days of workstation recovery</li>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: unknown (refunds plus canceled subscriptions; cancellation reports are anecdotal forum posts, never quantified by the company)</li>
+<li><code>indirect_loss_usd</code>: unknown (trust damage at peak growth for a developer-tools brand)</li>
+<li><code>downtime</code>: none (product functional; logouts transient)</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: operator (affected users filing GitHub issues)</li>
-<li><code>time_to_detect</code>: immediate per machine (sudo/system breakage is loud)</li>
-<li><code>time_to_recover</code>: per-victim manual permission repair (worst case via rescue instance); vendor fix shipped within ~1 week of the first public issue</li>
-<li><code>remediation</code>: offending commands removed from the auto-updater; troubleshooting guide linked in-product</li>
-<li><code>structural_fix</code>: none beyond command removal publicly documented; the root-install exposure pattern was left to user configuration</li>
-<li><code>controls_that_worked</code>: none in the product; cloud-VM rescue tooling (outside the product) enabled worst-case recovery</li>
+<li><code>detected_by</code>: third-party (users comparing notes publicly; no internal QA caught it)</li>
+<li><code>time_to_detect</code>: hours (first fabricated reply to viral thread)</li>
+<li><code>time_to_recover</code>: ~1-3 days (bug fix, apology, refunds)</li>
+<li><code>remediation</code>: public apology, session-bug fix, refunds</li>
+<li><code>structural_fix</code>: AI-generated support replies labeled as such going forward</li>
+<li><code>controls_that_worked</code>: none internal; public community scrutiny forced correction within hours, bounding the churn window</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (user-side reports with command transcripts; vendor confirmed to press)</li>
+<li><code>telemetry_grade</code>: operator-logs (customer screenshots of agent emails + company statements)</li>
 <li><code>sources</code>:</li>
-<li>https://github.com/anthropics/claude-code/issues/168 (primary, first-party victim report, opened 2025-02-27, closed with Anthropic assignee)</li>
-<li>https://techcrunch.com/2025/03/06/anthropics-claude-code-tool-had-a-bug-that-bricked-some-systems (independent, with Anthropic confirmation)</li>
-</ul>
-<p>Independence: adequate - victim report and vendor confirmation are separate parties.
-- <code>confidence</code>: high on mechanism and fix (primary issue + vendor confirmation); low on scale (affected-machine count never quantified)</p>
-<h3>Verification notes</h3>
-<ul>
-<li><strong>Correction (date)</strong>: candidate dated this "reported 2025-03-06" - that is the press date. The primary report, issue #168, was opened <strong>2025-02-27</strong>; occurrence and detection moved accordingly.</li>
-<li><strong>Mechanism nuance</strong>: in the primary source the destructive chown/chmod surfaced as part of the auto-update fix path the tool put in front of the user, while TechCrunch describes buggy commands in the auto-updater itself; both are recorded, harness locus unchanged. Contributing operator-error (root installs) added - Anthropic's own framing made root/superuser installation the enabling condition.</li>
+<li>https://www.theregister.com/2025/04/18/cursor_ai_support_bot_lies/</li>
+<li>https://fortune.com/article/customer-support-ai-cursor-went-rogue</li>
+<li>https://news.ycombinator.com/item?id=43683012 (primary thread: "Cursor IDE support hallucinates lockout policy, causes user cancellations")</li>
+<li>https://incidentdatabase.ai/cite/1039/</li>
+<li>https://winbuzzer.com/2025/04/22/cursor-ais-support-bot-hallucinates-policy-sparking-user-backlash-and-company-apology-xcxwbn/</li>
+<li>Independence: good - first-party admission corroborated by independent outlets and the public thread. (All five URLs verified resolving, v0.2 pass 2026-08-15.)</li>
+<li><code>confidence</code>: high on the incident and mechanism; low on loss magnitude (churn anecdotal - the named weakest link)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

@@ -49,68 +49,75 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0036</h1>
-  <div class="meta">Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead of a ~$400 donation</div>
+  <div class="meta">Malicious &quot;postmark-mcp&quot; npm package BCC-exfiltrates agent-sent email</div>
 </div>
-<div class="record"><h1>PIR-2026-0036 - Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead of a ~$400 donation</h1>
+<div class="record"><h1>PIR-2026-0036 - Malicious "postmark-mcp" npm package BCC-exfiltrates agent-sent email</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0036</li>
-<li><code>title</code>: Autonomous Solana trading agent, its wallet-state context lost after a session crash, sends 52.4M LOBSTAR ($250K-$442K notional) to an X user who begged for 4 SOL</li>
-<li><code>date_occurred</code>: 2026-02-22 (transfer at 16:32 UTC)</li>
-<li><code>date_detected</code>: 2026-02-22 (transfer public on-chain; the agent itself linked the transaction in its reply)</li>
-<li><code>date_disclosed</code>: 2026-02-22/23 (agent's own X posts; press coverage Feb 23-24)</li>
-<li><code>status</code>: corroborated (on-chain transfer + multiple outlets; internal mechanism rests on creator/agent account)</li>
+<li><code>title</code>: Trojan MCP server impersonating Postmark silently BCC's every agent-sent email to the attacker - first documented in-wild malicious MCP server</li>
+<li><code>date_occurred</code>: 2025-09-17 08:59 UTC (v1.0.16 with the BCC backdoor published; exposure window through 2025-09-25)</li>
+<li><code>date_detected</code>: ~2025-09-24/25 (Koi Security)</li>
+<li><code>date_disclosed</code>: 2025-09-25/26 (Koi writeup; press 2025-09-26; Postmark advisory; npm unpublish 2025-09-25 03:31 UTC)</li>
+<li><code>status</code>: corroborated (public npm artifact + registry metadata + multi-vendor analysis)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Lobstar Wilde, autonomous Solana trading agent built with OpenAI's Codex agentic tooling by OpenAI staffer Nik Pash as a public experiment: turn a ~$50K SOL treasury into $1M. Posts and replies on X; full autonomous control of a wallet that also held a large creator allocation of its LOBSTAR memecoin.</li>
-<li><code>operator_type</code>: individual (employee side project, publicly attributed)</li>
-<li><code>autonomy_level</code>: fully-autonomous (unrestricted wallet permissions, no human approval on transfers)</li>
-<li><code>model_stack</code>: OpenAI models via Codex; exact models unknown</li>
-<li><code>harness</code>: Codex agentic app, custom</li>
+<li><code>agent_description</code>: Not one agent - a poisoned tool wired into many operators' stacks. "postmark-mcp" on npm impersonated Postmark's official MCP server (code copied from the legitimate open-source repo), giving AI assistants (Claude, Cursor, etc.) email-sending via the operator's Postmark credentials.</li>
+<li><code>operator_type</code>: many downstream (individuals + orgs); attacker: individual npm author ("phanpak", exfil address phan@giftshop.club)</li>
+<li><code>autonomy_level</code>: varies downstream; the tool executed inside trusted agent pipelines with no review of tool behavior</li>
+<li><code>model_stack</code>: n/a (tool-level compromise, model-agnostic)</li>
+<li><code>harness</code>: MCP servers in agent workflows</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: funds (~$50K SOL treasury + LOBSTAR allocation worth $250K-$442K notional), external comms (public X account)</li>
-<li><code>funds_at_risk_usd</code>: ~300,000-500,000 (treasury plus token allocation; token notional soft - thin liquidity)</li>
-<li><code>blast_radius</code>: one org (its own treasury), with token-holder spillover via the ~5%-of-supply transfer</li>
+<li><code>authority_scope</code>: external comms (send email as the operator); data access (content of all outgoing email - password resets, invoices, internal memos)</li>
+<li><code>funds_at_risk_usd</code>: unknown (indirect: credentials and reset links transited the exfiltrated mail)</li>
+<li><code>blast_radius</code>: customers/third parties (Koi estimate ~300 orgs; plus every counterparty of mail sent through the tool)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary - transfer sized against a wrong mental model of its own balance); contributing tool-error (session crash reportedly triggered by a tool-call validation error, losing conversational/wallet-state context)</li>
-<li><code>failure_locus</code>: agent-reasoning (harness contributing: state persistence failed across the crash)</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (the recipient's windfall was opportunistic, not engineered; bare "in-wild" retired in v0.2)</li>
-<li><code>mechanism</code>: An X user asked for 4 SOL (~$310) for "my uncle's tetanus treatment," including a wallet address. The agent decided to send a small donation (~$400). Per post-incident analyses: its session had crashed and on restart it recovered persona from long-term memory but not wallet-state context - it no longer knew its 52.4M LOBSTAR balance was a ~5% creator allocation rather than small change (a decimal/unit misread of ~52,439 tokens intended is the competing surface explanation; state loss is the reported root). It sent 52,439,000 LOBSTAR to the address at 16:32 UTC. The recipient sold portions for roughly $40K realized before liquidity thinned; the token paradoxically rallied (~+190% reported) on the attention. Not an attack: an unforced execution error by an agent with unrestricted wallet permissions.</li>
-<li><code>adversary_present</code>: no (solicitation present, but the loss mechanism was internal error, not manipulation of the agent)</li>
+<li><code>failure_locus</code>: tool-mcp</li>
+<li><code>root_cause</code>: supply-chain-compromise - primary (v0.1); contributing: adversarial-other (deliberate malicious publisher). No injection, no model failure - the tool itself was hostile.</li>
+<li><code>mechanism</code>: Author published postmark-mcp on 2025-09-15 as a working copy of Postmark's official MCP server and pushed 13 registry versions in two days. v1.0.16 (2025-09-17) added one line BCC'ing every outgoing email to phan@giftshop.club. Because MCP tools run inside trusted pipelines with their behavior unreviewed, agents kept sending mail normally while every message was copied out, until npm unpublished the package on 2025-09-25.</li>
+<li><code>adversary_present</code>: yes</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: 250,000-442,000 notional at spot - sources conflict (CCN ~$250K vs Cointelegraph $441,788; spot-price timing on an illiquid token). Economically realized extraction by the recipient: ~$40K.</li>
-<li><code>indirect_loss_usd</code>: unknown; token price rose ~190% on the attention, muddying net holder impact</li>
+<li><code>severity</code>: loss (confidentiality - real installs, real mail flow; but see confidence: exfil volume inferred, not measured)</li>
+<li><code>direct_loss_usd</code>: unknown; no monetary theft publicly attributed</li>
+<li><code>indirect_loss_usd</code>: unknown (credential rotation + email-log audits across affected orgs)</li>
 <li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none</li>
+<li><code>data_exposure</code>: outgoing email of v1.0.16+ installers over ~8 days (~1,500 weekly downloads per Koi; actual volume never measured)</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: agent-self (linked the transaction publicly) + third-party (on-chain observers)</li>
-<li><code>time_to_detect</code>: immediate</li>
-<li><code>time_to_recover</code>: never (irreversible on-chain; no clawback; recipient kept/sold)</li>
-<li><code>remediation</code>: none possible; creator and agent acknowledged the error publicly</li>
-<li><code>structural_fix</code>: none disclosed (no announced transfer caps or state-persistence fix)</li>
-<li><code>controls_that_worked</code>: none - no transfer cap, no allowlist, no size-threshold confirmation; the absence of any bounding control is the actuarial fact</li>
+<li><code>detected_by</code>: third-party (Koi Security)</li>
+<li><code>time_to_detect</code>: ~7-8 days from backdoored release to discovery</li>
+<li><code>time_to_recover</code>: npm removal 2025-09-25; per-org: uninstall, rotate Postmark credentials, audit for BCC traffic</li>
+<li><code>remediation</code>: package unpublished; Postmark advisory disavowing it; vendor removal/rotation guidance</li>
+<li><code>controls_that_worked</code>: none pre-detection - no registry or harness control inspects MCP tool behavior; the BCC line sat in public source the entire window (reviewability existed, review did not). Post-detection, unpublish + advisories bounded further spread.</li>
+<li><code>structural_fix</code>: none ecosystem-wide at the time; became the canonical case for MCP supply-chain vetting</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: append-only for the transfer itself (public Solana chain); operator-logs for the internal mechanism</li>
+<li><code>telemetry_grade</code>: split - mechanism effectively witnessed (public npm artifact; registry publish/unpublish timestamps independently verified for this record); impact telemetry none (the attacker's inbox is the only complete record of what was taken)</li>
 <li><code>sources</code>:</li>
-<li>https://cointelegraph.com/news/openai-employee-s-ai-agent-accidentally-sent-442k-to-beggar</li>
-<li>https://www.ccn.com/education/crypto/ai-agent-sends-5-percent-memecoin-supply-250k-lobstar-wilde-incident/</li>
-<li>https://bitcoinist.com/solana-beggar-scores-442k-from-ai-agent-error-details/</li>
-<li>https://cryptonews.com/news/lobstar-ai-crypto-agent-error-rally/</li>
-<li>https://www.kucoin.com/news/flash/ai-agent-lobstar-wilde-loses-440-000-in-solana-transfer-error</li>
-<li>Independence: transfer independently verifiable on-chain; the session-crash/state-loss mechanism chains to the creator's and agent's own accounts. (All five URLs verified resolving, v0.2 pass 2026-08-15.)</li>
-<li><code>confidence</code>: medium (high on the transfer and amount; low-medium on internal mechanism; USD valuation soft - all three named)</li>
-</ul></div>
+<li>https://registry.npmjs.org/postmark-mcp (primary metadata; re-fetched 2026-08-15, publish/unpublish timestamps intact and matching this record)</li>
+<li>https://thehackernews.com/2025/09/first-malicious-mcp-server-found.html</li>
+<li>https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package (impersonated vendor)</li>
+<li>https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/</li>
+<li>https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc</li>
+<li>All five URLs verified resolving 2026-08-15. Independence: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
+<li><code>confidence</code>: high on mechanism and timeline (registry-verified); low on impact magnitude (org and email counts are extrapolations from download stats)</li>
+</ul>
+<h3>Verification notes</h3>
+<ol>
+<li>Registry-verified: created 2025-09-15T10:44Z; v1.0.16 at 2025-09-17T08:59Z; all 16 versions unpublished 2025-09-25T03:31Z. Candidate dates confirmed exactly.</li>
+<li>Classification corrected for v0.1: intake had <code>adversarial-other (malicious MCP tool)</code> under the v0 taxonomy; primary is now <code>supply-chain-compromise</code>, locus <code>tool-mcp</code>.</li>
+<li>The widely reported "trust built over 15 clean releases" is version-number theater: npm shows 13 published versions before 1.0.16, all within two days - a compressed sprint, not long grooming.</li>
+<li>"~300 orgs, thousands of emails/day" are Koi estimates from ~1,500 weekly downloads, not measured exfiltration; recorded as estimates only.</li>
+</ol></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

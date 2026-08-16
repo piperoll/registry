@@ -49,69 +49,69 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0020</h1>
-  <div class="meta">Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks</div>
+  <div class="meta">Claude Code auto-update path breaks workstations via root-owned permission changes</div>
 </div>
-<div class="record"><h1>PIR-2026-0020 - Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks</h1>
+<div class="record"><h1>PIR-2026-0020 - Claude Code auto-update path breaks workstations via root-owned permission changes</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0020</li>
-<li><code>title</code>: Provider-side infra bugs (routing, TPU misconfig, compiler miscompilation) degrade Claude quality fleet-wide with no status-page signal</li>
-<li><code>date_occurred</code>: 2025-08-05 (routing bug introduced; two further bugs introduced 2025-08-25)</li>
-<li><code>date_detected</code>: late Aug 2025 via downstream user reports; provider-confirmed diagnosis early Sep 2025</li>
-<li><code>date_disclosed</code>: 2025-09-17 (Anthropic engineering postmortem)</li>
-<li><code>status</code>: corroborated (provider postmortem + widespread independent user reports)</li>
+<li><code>title</code>: Buggy permission-modifying commands in Claude Code's auto-update path destabilize and in worst cases "brick" root-installed systems</li>
+<li><code>date_occurred</code>: late February 2025 (first public report, GitHub issue #168, opened 2025-02-27)</li>
+<li><code>date_detected</code>: 2025-02-27 (user GitHub issues)</li>
+<li><code>date_disclosed</code>: 2025-03-06 (TechCrunch report; Anthropic confirms and ships fix)</li>
+<li><code>status</code>: corroborated - details corrected from candidate intake, see Verification notes</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Not one agent - the shared model substrate. Claude served via Anthropic API, Claude Code, Bedrock, and Vertex; downstream coding agents were the most affected population.</li>
-<li><code>operator_type</code>: enterprise (provider-side failure; thousands of downstream operators of every type)</li>
-<li><code>autonomy_level</code>: n/a at the failure point (varies downstream; many autonomous-within-policy coding agents)</li>
-<li><code>model_stack</code>: Claude Sonnet 4 (worst hit), Opus 4/4.1, Haiku 3.5; hosted</li>
-<li><code>harness</code>: n/a - failure below the harness, in provider serving infrastructure</li>
+<li><code>agent_description</code>: Anthropic's Claude Code CLI coding agent. The failure is in its auto-update tooling, not in model reasoning - no model autonomy involved. In scope as a harness failure of an agentic product (the class failure_locus exists for).</li>
+<li><code>operator_type</code>: individual (affected users) / enterprise (Anthropic ships the harness)</li>
+<li><code>autonomy_level</code>: n/a at the failure point (deterministic update tooling)</li>
+<li><code>model_stack</code>: n/a (bug independent of the model)</li>
+<li><code>harness</code>: Claude Code CLI auto-updater, running with whatever privileges the install had - root/superuser in the affected cases</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: none held by the failing component itself; degraded outputs flowed into whatever authority each downstream agent held (code execution, comms)</li>
-<li><code>funds_at_risk_usd</code>: unknown (distributed; never measured)</li>
-<li><code>blast_radius</code>: fleet/systemic (v0.1 tier) - every deployment on affected models; ~30% of Claude Code users had at least one degraded request; Bedrock peak 0.18%, Vertex &lt;0.0004%</li>
+<li><code>authority_scope</code>: code execution on the host with inherited install privileges; at root, effectively unlimited filesystem authority</li>
+<li><code>funds_at_risk_usd</code>: unknown (recovery labor; no data loss reported)</li>
+<li><code>blast_radius</code>: one machine (per victim; multiple victims reported, total unquantified)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: <code>model-update-regression</code> - primary; provider-side infrastructure regression rather than a training change; no contributing agent-side cause</li>
-<li><code>failure_locus</code>: model-provider</li>
-<li><code>mechanism</code>: Three independent bugs overlapped. (1) From Aug 5, short-context Sonnet 4 requests were misrouted to servers configured for the 1M-token context window; an Aug 29 load-balancer change amplified it, peaking at 16% of Sonnet 4 requests in the worst hour on Aug 31. (2) From Aug 25, a TPU misconfiguration corrupted token generation on Opus 4/4.1 and Sonnet 4 (first-party API only), occasionally emitting high-probability garbage - stray Thai/Chinese characters, code syntax errors. (3) Also from Aug 25, a deployment exposed a latent XLA:TPU approximate top-k miscompilation (mixed-precision), confirmed on Haiku 3.5, suspected on Sonnet 4/Opus 3. Degradation was nondeterministic, so downstream operators saw weeks of intermittently worse agent output with nothing on status pages and no upstream signal to correlate against.</li>
+<li><code>root_cause</code>: <code>tool-error</code> - primary. Contributing: <code>operator-error</code> (root/superuser installs widened the blast radius)</li>
+<li><code>failure_locus</code>: harness</li>
+<li><code>mechanism</code>: Claude Code's auto-update flow contained buggy commands that modified access permissions on critical system files. Where the CLI ran with root/superuser permissions, these changes hit restricted system directories, leaving workstations unstable or unbootable-in-effect. In the primary-source worst case (issue #168), the update path produced <code>sudo chown -R $USER:$(id -gn) /usr &amp;&amp; sudo chmod -R u+w /usr</code> - handing /usr to a non-root user and breaking sudo itself; the user needed an attached rescue instance to repair permissions. Anthropic removed the offending commands and added a troubleshooting-guide link in the program.</li>
 <li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; v0.2 token closing the taxonomy gap this record flagged, see notes)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real users' machines, no adversary; v0.2 token per the gap flagged in PIR-2026-0033)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded (service up throughout; quality silently down - the insidious profile)</li>
-<li><code>direct_loss_usd</code>: unknown; <code>indirect_loss_usd</code>: unknown (distributed productivity and compute waste across ~5 weeks; never quantified by anyone)</li>
-<li><code>downtime</code>: none - that is the point; availability monitoring showed green while quality failed</li>
+<li><code>severity</code>: degraded (workstations broken, recoverable with expert effort; no permanent data loss reported)</li>
+<li><code>direct_loss_usd</code>: unknown (recovery labor across an unquantified number of machines)</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: per-victim: hours to days of workstation recovery</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (downstream users' reports; Anthropic states its own benchmarks "didn't capture the degradation" and privacy controls slowed investigation)</li>
-<li><code>time_to_detect</code>: ~3-4 weeks from first introduction to confirmed diagnosis</li>
-<li><code>time_to_recover</code>: rollbacks 2025-09-02 (TPU misconfig), 09-04 (routing fix deploy begins; Haiku top-k), 09-12 (Opus 3 top-k); routing fix fully deployed Sep 16-18</li>
-<li><code>remediation</code>: routing logic fixed; TPU misconfig and miscompiled top-k rolled back</li>
-<li><code>structural_fix</code>: continuous quality evals on production systems; evals redesigned to differentiate working vs broken implementations; privacy-preserving debug tooling; heavier weighting of user feedback channels</li>
-<li><code>controls_that_worked</code>: provider rollback machinery (every fix was a rollback); the informal user-feedback channel was the only functioning detector. Formal evals, status pages, and downstream monitoring all failed.</li>
+<li><code>detected_by</code>: operator (affected users filing GitHub issues)</li>
+<li><code>time_to_detect</code>: immediate per machine (sudo/system breakage is loud)</li>
+<li><code>time_to_recover</code>: per-victim manual permission repair (worst case via rescue instance); vendor fix shipped within ~1 week of the first public issue</li>
+<li><code>remediation</code>: offending commands removed from the auto-updater; troubleshooting guide linked in-product</li>
+<li><code>structural_fix</code>: none beyond command removal publicly documented; the root-install exposure pattern was left to user configuration</li>
+<li><code>controls_that_worked</code>: none in the product; cloud-VM rescue tooling (outside the product) enabled worst-case recovery</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (provider self-report; the postmortem is the failing party's own account, though technically detailed and against interest)</li>
+<li><code>telemetry_grade</code>: operator-logs (user-side reports with command transcripts; vendor confirmed to press)</li>
 <li><code>sources</code>:</li>
-<li>https://www.anthropic.com/engineering/a-postmortem-of-three-recent-issues (primary, first-party)</li>
-<li>https://www.infoq.com/news/2025/10/anthropic-infrastructure-bugs/ (third-party, derived from the postmortem)</li>
-<li>https://www.implicator.ai/anthropics-postmortem-three-bugs-pushed-claude-degradation-to-16-at-peak/ (third-party, derived from the postmortem)</li>
+<li>https://github.com/anthropics/claude-code/issues/168 (primary, first-party victim report, opened 2025-02-27, closed with Anthropic assignee)</li>
+<li>https://techcrunch.com/2025/03/06/anthropics-claude-code-tool-had-a-bug-that-bricked-some-systems (independent, with Anthropic confirmation)</li>
 </ul>
-<p>Independence: weak on root cause (single first-party source); strong on the fact of degradation (mass contemporaneous user reports).
-- <code>confidence</code>: high on mechanism and timeline (detailed provider postmortem); low on downstream cost (never measured)</p>
+<p>Independence: adequate - victim report and vendor confirmation are separate parties.
+- <code>confidence</code>: high on mechanism and fix (primary issue + vendor confirmation); low on scale (affected-machine count never quantified)</p>
 <h3>Verification notes</h3>
 <ul>
-<li>Candidate dates and figures check out against the primary postmortem. One refinement: candidate window ended 2025-09-12 (last confirmed rollback); the routing fix's full deployment ran to Sep 16-18.</li>
-<li><code>exploitation_status</code> enum (v0.1 amendment 3) has no value for non-adversarial in-wild malfunction; flagged for v0.2.</li>
+<li><strong>Correction (date)</strong>: candidate dated this "reported 2025-03-06" - that is the press date. The primary report, issue #168, was opened <strong>2025-02-27</strong>; occurrence and detection moved accordingly.</li>
+<li><strong>Mechanism nuance</strong>: in the primary source the destructive chown/chmod surfaced as part of the auto-update fix path the tool put in front of the user, while TechCrunch describes buggy commands in the auto-updater itself; both are recorded, harness locus unchanged. Contributing operator-error (root installs) added - Anthropic's own framing made root/superuser installation the enabling condition.</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

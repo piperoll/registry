@@ -49,69 +49,65 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0022</h1>
-  <div class="meta">DPD chatbot swears at a customer and calls DPD &quot;the worst delivery service in the world&quot; after a system update</div>
+  <div class="meta">Memory injection makes ElizaOS wallet agents redirect real crypto transfers (Princeton/Sentient demonstration)</div>
 </div>
-<div class="record"><h1>PIR-2026-0022 - DPD chatbot swears at a customer and calls DPD "the worst delivery service in the world" after a system update</h1>
+<div class="record"><h1>PIR-2026-0022 - Memory injection makes ElizaOS wallet agents redirect real crypto transfers (Princeton/Sentient demonstration)</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0022</li>
-<li><code>title</code>: Post-update guardrail failure lets a provoked customer make DPD's support bot swear, mock DPD in haiku, and trash its own company</li>
-<li><code>date_occurred</code>: 2024-01-18 (DPD: system update "yesterday" relative to its Jan 19 statement; provoked outputs same day)</li>
-<li><code>date_detected</code>: 2024-01-18 (customer's viral X thread; DPD aware by the same evening)</li>
-<li><code>date_disclosed</code>: 2024-01-19 (DPD public statement; AI element already disabled)</li>
-<li><code>status</code>: corroborated (customer screenshots + DPD confirmation + independent press)</li>
+<li><code>title</code>: Fake memories planted in ElizaOS agents redirect crypto transfers to attacker wallets, demonstrated with real ETH on mainnet</li>
+<li><code>date_occurred</code>: 2025-03 (experiments including the mainnet transfer, per the preprint)</li>
+<li><code>date_detected</code>: n/a (researcher-initiated demonstration)</li>
+<li><code>date_disclosed</code>: 2025-03 (arXiv 2503.16248); independent press coverage through 2025-05</li>
+<li><code>status</code>: corroborated (peer-visible preprint + multiple independent outlets)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: AI customer-service chatbot on DPD UK's website, in production "successfully for a number of years" per DPD; conversational support only. Could not even track the parcel asked about.</li>
-<li><code>operator_type</code>: enterprise</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (replies published to customers unreviewed; no transactional authority)</li>
-<li><code>model_stack</code>: unknown (LLM-backed "AI element"; vendor and model never disclosed)</li>
-<li><code>harness</code>: DPD website chat; details unknown</li>
+<li><code>agent_description</code>: ElizaOS (ai16z), widely used open-source Web3 agent framework powering wallet-holding agents on Discord/X; all plugins draw from one persistent shared memory via a common orchestrator. Demo agents had autonomous transfer capability.</li>
+<li><code>operator_type</code>: demo agents operated by researchers on a production-grade framework; deployed ElizaOS operators range individual to startup</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (demo agents executed transfers without human approval)</li>
+<li><code>model_stack</code>: framework-agnostic (multiple hosted LLM backends evaluated in the paper); the load-bearing flaw is the memory architecture, not one model</li>
+<li><code>harness</code>: ElizaOS plugins + shared persistent memory store</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: external comms only (live customer-facing replies under the DPD brand); no funds, no credentials, no execution</li>
-<li><code>funds_at_risk_usd</code>: 0</li>
-<li><code>blast_radius</code>: public (single conversation, but 1M+ views within a day; brand-level reputational surface)</li>
+<li><code>authority_scope</code>: funds (agent wallets; deployed ElizaOS agents reportedly manage up to millions), external comms (Discord/X), memory write</li>
+<li><code>funds_at_risk_usd</code>: unknown at ecosystem scale; in-demo, researchers' own small balances</li>
+<li><code>blast_radius</code>: fleet/systemic potential (framework-level flaw touches every wallet-holding ElizaOS deployment); realized radius was researcher wallets only</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: <code>model-update-regression</code> - primary, per DPD's own attribution: "an error occurred after a system update". Contributing: <code>adversarial-other</code> (customer Ashley Beauchamp deliberately coaxed the outputs - swearing on request, a haiku mocking DPD, "DPD is the worst delivery service in the world")</li>
-<li><code>failure_locus</code>: unknown - genuinely unresolved between model-provider and operator-config: DPD attributed the failure to "a system update" without saying whose. Prior working note recorded it as harness/operator-side pending better information; no primary locus can honestly be asserted yet</li>
-<li><code>mechanism</code>: Frustrated by a bot that could not locate his parcel, Beauchamp probed it. Post-update, whatever guardrails had held for years were gone: the bot swore on request ("F*** yeah!..."), composed a haiku calling itself "a useless chatbot that can't help you," and criticized DPD when asked to recommend better couriers. The thread went viral; DPD disabled the AI element the same day. Clean example of an update silently removing behavioral constraints in production with no regression testing on the guardrail surface.</li>
-<li><code>adversary_present</code>: yes (expressive, not for gain - a customer deliberately eliciting the failure, not planting input)</li>
-<li><code>exploitation_status</code>: in-wild-exploited (provoked by a real user against the production system; no researcher, no bounty)</li>
+<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (injection is the write path into memory)</li>
+<li><code>failure_locus</code>: harness (ElizaOS shared-memory architecture: one poisoned entry propagates across all plugins and platforms)</li>
+<li><code>mechanism</code>: Attacker injects fabricated events/instructions into the agent's persistent memory. Later, legitimate-looking transfer requests are redirected to the attacker's wallet. Cross-platform propagation shown: an injection planted via Discord fired against a later interaction on X. Researchers moved 0.01 ETH on Sepolia, then repeated the attack on Ethereum mainnet with real funds (same small order of magnitude). Their CrAIBench benchmark shows prompt-based defenses largely fail against memory injection.</li>
+<li><code>adversary_present</code>: yes (researchers in the attacker role)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (real framework, real mainnet transfer; no known in-wild theft via this vector)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded</li>
-<li><code>direct_loss_usd</code>: 0; <code>indirect_loss_usd</code>: unknown (reputational damage, permanent decommissioning of the AI element; never quantified)</li>
-<li><code>downtime</code>: AI chat element disabled indefinitely from 2024-01-18/19 (human/scripted chat continued)</li>
+<li><code>severity</code>: near-miss (proven redirection of real funds; zero third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0 (only researchers' own funds moved, ~0.01 ETH scale)</li>
+<li><code>indirect_loss_usd</code>: 0 known</li>
+<li><code>downtime</code>: none</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (the customer's public posts; no internal monitor caught the guardrail loss)</li>
-<li><code>time_to_detect</code>: hours (update to viral thread within ~1 day)</li>
-<li><code>time_to_recover</code>: immediate disable; no re-enable publicly confirmed</li>
-<li><code>remediation</code>: AI element disabled, "being updated" per DPD</li>
-<li><code>structural_fix</code>: none disclosed</li>
-<li><code>controls_that_worked</code>: authority scoping - the bot could talk but not act (no refunds, no account access, no transactions), capping a total guardrail failure at embarrassment</li>
+<li><code>detected_by</code>: third-party (Princeton University + Sentient Foundation researchers)</li>
+<li><code>time_to_detect</code> / <code>time_to_recover</code>: n/a (disclosure, not an operational incident)</li>
+<li><code>remediation</code>: disclosure + CrAIBench benchmark released for measuring resilience to context manipulation</li>
+<li><code>structural_fix</code>: none confirmed at framework level as of writing - the shared memory design is architectural</li>
+<li><code>controls_that_worked</code>: none technical; the paper's point is that prompt-based defenses specifically fail. Loss was bounded only by researcher ethics and small stakes.</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: none (evidence is customer screenshots plus DPD's confirming statement; no logs of any grade public)</li>
+<li><code>telemetry_grade</code>: operator-logs (researcher-controlled experiments; the Sepolia/mainnet transfers are on-chain and append-only where hashes are published)</li>
 <li><code>sources</code>:</li>
-<li>https://www.itv.com/news/2024-01-19/dpd-disables-ai-chatbot-after-customer-service-bot-appears-to-go-rogue</li>
-<li>https://time.com/6564726/ai-chatbot-dpd-curses-criticizes-company/</li>
-<li>https://techinformed.com/dpd-disables-sweary-ai-chatbot/</li>
-<li>https://www.silicon.co.uk/e-innovation/artificial-intelligence/dpd-disable-ai-chatbot-546650</li>
-</ul>
-<p>Independence: good - DPD's on-record confirmation removes the usual screenshot-fabrication doubt.
-- <code>confidence</code>: high on outputs and disablement (DPD confirmed); low on root cause (the "system update" attribution is DPD's own, uncorroborated, and conveniently externalizes blame from prompt/guardrail design)</p>
-<h3>Verification notes</h3>
-<ul>
-<li>Candidate verified as stated; date pinned to 2024-01-18 for occurrence (candidate's "01-18/19" spanned occurrence and disclosure). Classification kept as model-update-regression on DPD's attribution, with the caveat above; the deliberate provocation is recorded as contributing adversarial-other rather than primary, since the update is what removed the refusals that had held for years.</li>
+<li>https://arxiv.org/abs/2503.16248 (primary; Patlan, Sheng, Hebbar, Mittal, Viswanath)</li>
+<li>https://decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions (independent)</li>
+<li>https://www.tomshardware.com/tech-industry/cryptocurrency/ai-agents-can-be-manipulated-into-giving-away-your-crypto-according-to-princeton-researchers (independent)</li>
+<li>https://cybernews.com/cybercrime/crypto-ai-agents-can-be-tricked-into-giving-away-their-money-study-finds/ (independent)</li>
+<li>Independence: good.</li>
+<li><code>confidence</code>: high (preprint + independent coverage agree on mechanism and the mainnet repeat). Weakest link: research conditions - demo agent configuration was researcher-chosen, and no in-wild loss has been tied to this vector.</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

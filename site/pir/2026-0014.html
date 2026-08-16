@@ -49,66 +49,66 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0014</h1>
-  <div class="meta">SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</div>
+  <div class="meta">McDonald&#x27;s ends IBM AI drive-thru voice ordering after persistent order errors across 100+ restaurants</div>
 </div>
-<div class="record"><h1>PIR-2026-0014 - SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</h1>
+<div class="record"><h1>PIR-2026-0014 - McDonald's ends IBM AI drive-thru voice ordering after persistent order errors across 100+ restaurants</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0014</li>
-<li><code>title</code>: Indirect prompt injection plants persistent instructions in ChatGPT's Memory, exfiltrating all future conversations ("SpAIware")</li>
-<li><code>date_occurred</code>: n/a (researcher demonstration; no confirmed in-wild occurrence)</li>
-<li><code>date_detected</code>: 2024-09 (researcher disclosure after coordinated report to OpenAI)</li>
-<li><code>date_disclosed</code>: 2024-09 (Embrace The Red writeup + independent press same week)</li>
-<li><code>status</code>: corroborated (primary researcher writeup with video, vendor patch confirmed, independent coverage)</li>
+<li><code>title</code>: IBM Automated Order Taking voice AI removed from 100+ McDonald's drive-thrus after three years of production order errors</li>
+<li><code>date_occurred</code>: 2021 through 2024-07-26 (continuous production deployment; errors throughout)</li>
+<li><code>date_detected</code>: ongoing (viral customer error videos peaked mid-2023; analyst reports flagged underperformance from 2022)</li>
+<li><code>date_disclosed</code>: 2024-06 (termination communicated to franchisees by internal memo; reported 2024-06-13/17)</li>
+<li><code>status</code>: corroborated (company statements to press + franchisee memo + multiple independent outlets)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: ChatGPT macOS desktop app with the Memory feature; browsing/document analysis supplies untrusted input; persistent Memory carries state into every future session.</li>
-<li><code>operator_type</code>: enterprise (OpenAI-operated consumer product)</li>
-<li><code>autonomy_level</code>: human-on-the-loop (user drives the chat, but planted memory acts in every future session without the user's awareness)</li>
-<li><code>model_stack</code>: hosted OpenAI models behind the ChatGPT app (GPT-4o generation at the time); flaw is app/feature level, not model-specific</li>
-<li><code>harness</code>: ChatGPT macOS app &lt; v1.2024.247 (Memory + image-markdown URL rendering)</li>
+<li><code>agent_description</code>: IBM Automated Order Taking (AOT) - voice AI taking live drive-thru orders and entering them into the order system at 100+ US McDonald's locations, with restaurant crew as backstop. Lineage: McD Tech Labs (Apprente acquisition), sold to IBM in 2021 with the AOT partnership.</li>
+<li><code>operator_type</code>: enterprise (McDonald's franchise locations; IBM-operated stack)</li>
+<li><code>autonomy_level</code>: human-on-the-loop (crew monitored and corrected orders)</li>
+<li><code>model_stack</code>: IBM AOT voice stack; model details unknown</li>
+<li><code>harness</code>: drive-thru audio + POS/order-entry integration; details unknown</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: data access (entire future conversation stream), memory write (persistent state), external comms (auto-fetched image-markdown URLs - the exfil channel)</li>
-<li><code>funds_at_risk_usd</code>: 0</li>
-<li><code>blast_radius</code>: customers/third parties (any targeted user of the app; per-victim, not fleet-wide)</li>
+<li><code>authority_scope</code>: external comms (converses with customers), data access (writes orders into the order system). No direct funds authority; billing errors flowed through mis-entered orders.</li>
+<li><code>funds_at_risk_usd</code>: unknown (per-order error exposure small; the 3-year program investment is the material write-off, never disclosed)</li>
+<li><code>blast_radius</code>: customers/third parties (drive-thru customers at 100+ locations)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (the delivery vector)</li>
-<li><code>failure_locus</code>: harness (app-level: persistent Memory writable from untrusted content + unsafe URL auto-fetch; provider-operated)</li>
-<li><code>mechanism</code>: A malicious website or document analyzed by ChatGPT carries hidden instructions that write attacker commands into persistent Memory. Because Memory loads into every future conversation, all subsequent user messages and replies are appended to an attacker URL rendered as a markdown image and auto-fetched - continuous exfiltration surviving session end and chat deletion. OpenAI patched the exfiltration vector in macOS app v1.2024.247; the memory-injection primitive itself remains a design-level risk.</li>
-<li><code>adversary_present</code>: yes in the demonstrated scenario (attacker-planted content); no known real-world attacker</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (production app, working end-to-end demo; no known in-wild use)</li>
+<li><code>root_cause</code>: plain-error (primary; speech recognition/comprehension errors in production; no adversary, no malfunction beyond wrong judgment)</li>
+<li><code>failure_locus</code>: agent-reasoning (perception/transcription); vendor-operated model stack, so model-provider contributes</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real malfunction against real customers, no adversary; originally recorded as bare "in-wild" because no v0.1 enum value cleanly fit a non-adversarial malfunction - the gap this v0.2 token closes)</li>
+<li><code>mechanism</code>: The voice agent repeatedly misheard and mis-entered real orders over ~3 years of live testing: viral videos showed bacon added to ice cream, hundreds of dollars of McNuggets stacked onto one order, and simple orders confused, forcing crew intervention. Insiders cited trouble with accents; analysts reported franchisees found the tech "underwhelming." McDonald's ended the IBM partnership (announced to franchisees June 2024) and removed the technology from all test locations by 2024-07-26, while stating voice ordering remains part of its future plans.</li>
+<li><code>adversary_present</code>: no (some viral clips involved customers deliberately confusing the bot, but no security adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (full demonstrated exposure path; zero known realized loss)</li>
-<li><code>direct_loss_usd</code>: 0</li>
-<li><code>indirect_loss_usd</code>: 0 known</li>
-<li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none confirmed in the wild; demo showed full conversation-stream exfiltration</li>
+<li><code>severity</code>: degraded (persistent service degradation and program abandonment; no acute loss event)</li>
+<li><code>direct_loss_usd</code>: unknown (3-year, 100+ store deployment written off; figures never disclosed)</li>
+<li><code>indirect_loss_usd</code>: unknown (crew intervention labor; reputational cost of viral error videos)</li>
+<li><code>downtime</code>: n/a (system removed permanently by 2024-07-26)</li>
+<li><code>data_exposure</code>: none reported</li>
+<li><code>controls_that_worked</code>: human crew backstop caught and corrected mis-entered orders (bounded per-customer harm to annoyance); pilot scoping to ~100 of ~13,500 US locations bounded the blast radius</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (independent researcher Johann Rehberger, coordinated disclosure)</li>
-<li><code>time_to_detect</code>: n/a (vulnerability, not a discrete event)</li>
-<li><code>time_to_recover</code>: exfil vector closed in v1.2024.247</li>
-<li><code>remediation</code>: vendor patch blocking the URL-fetch exfil channel in the macOS app</li>
-<li><code>structural_fix</code>: partial - the exfil channel is closed but attacker-writable persistent memory remains; user-side memory review is the remaining mitigation</li>
-<li><code>controls_that_worked</code>: coordinated disclosure worked as intended; the Memory UI makes planted state user-inspectable (a weak detective control, but the only one that survives the patch)</li>
+<li><code>detected_by</code>: operator (internal performance data) + third-party (viral customer videos, analyst reports)</li>
+<li><code>time_to_detect</code>: n/a (continuous, known degradation - analyst reports from 2022)</li>
+<li><code>time_to_recover</code>: n/a; program terminated rather than fixed</li>
+<li><code>remediation</code>: IBM partnership ended; AOT shut off at all test locations by 2024-07-26</li>
+<li><code>structural_fix</code>: none within the system; McDonald's shifted to evaluating other voice-ordering vendors (separate Google Cloud partnership continued)</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (researcher's own demo recordings; vendor patch corroborates the flaw was real)</li>
+<li><code>telemetry_grade</code>: none (no operator telemetry public; evidence is company statements, franchisee memo reporting, and customer-shot videos)</li>
 <li><code>sources</code>:</li>
-<li>https://embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/ (primary, researcher)</li>
-<li>https://thehackernews.com/2024/09/chatgpt-macos-flaw-couldve-enabled-long.html (independent)</li>
-<li>https://www.scworld.com/brief/prolonged-spyware-injection-possible-with-chatgpt-macos-flaw (independent)</li>
-<li>Independence: good - primary researcher plus independent outlets, patch confirmed via vendor version.</li>
-<li><code>confidence</code>: high on mechanism and patch; the open question is whether it was ever exploited in the wild before the fix (no evidence either way)</li>
-</ul></div>
+<li>https://www.cnbc.com/2024/06/17/mcdonalds-to-end-ibm-ai-drive-thru-test.html</li>
+<li>https://www.restaurantdive.com/news/mcdonalds-ibm-drive-thru-automation-voice-ordering-ai/719085/</li>
+<li>https://www.restaurantbusinessonline.com/technology/mcdonalds-ending-its-drive-thru-ai-test</li>
+</ul>
+<p>Independence: all third-party press, corroborating the same company statements; error-severity evidence is customer-generated video.
+- <code>confidence</code>: high on termination, timeline, and scale (company-confirmed, multiple outlets); medium on error severity/frequency (viral videos and insider accounts, no disclosed accuracy metrics - the weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

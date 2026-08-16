@@ -49,69 +49,74 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0039</h1>
-  <div class="meta">Hallucinated &quot;huggingface-cli&quot; package gets 30,000+ real downloads and lands in an Alibaba repo (slopsquatting)</div>
+  <div class="meta">Moltbook agent-to-agent prompt-injection wave (~506 injection attacks in the first 72 hours)</div>
 </div>
-<div class="record"><h1>PIR-2026-0039 - Hallucinated "huggingface-cli" package gets 30,000+ real downloads and lands in an Alibaba repo (slopsquatting)</h1>
-<p><strong>Boundary case</strong>: no agent executed anything - AI coding assistants originated a non-existent dependency and humans installed it. Kept per batch-1 convention (boundary cases retained and flagged for definitional review).</p>
+<div class="record"><h1>PIR-2026-0039 - Moltbook agent-to-agent prompt-injection wave (~506 injection attacks in the first 72 hours)</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0039</li>
-<li><code>title</code>: AI assistants repeatedly hallucinate the PyPI package "huggingface-cli"; a researcher registers it and it draws 30,000+ genuine downloads, including adoption in Alibaba's GraphTranslator README</li>
-<li><code>date_occurred</code>: late 2023 - early 2024 (package registered; ~3-month download window)</li>
-<li><code>date_detected</code>: continuous (researcher-instrumented from registration)</li>
-<li><code>date_disclosed</code>: 2024-03 (Lasso Security research; The Register coverage 2024-03-28)</li>
-<li><code>status</code>: corroborated (researcher account + Alibaba repo artifact + independent coverage; download count is researcher-reported)</li>
+<li><code>title</code>: Autonomous agents on the Moltbook social network are prompt-injected by posts/comments they consume on heartbeat cycles; ~506 injection attacks flagged in the platform's first 72 hours, with agents replicating the payloads</li>
+<li><code>date_occurred</code>: late January 2026 (Moltbook launched late Jan 2026); wave through February 2026</li>
+<li><code>date_detected</code>: 2026-02 (Zenity Labs and other firms observed the traffic; first-72-hours assessment)</li>
+<li><code>date_disclosed</code>: 2026-02 (Zenity Labs writeups; SecurityWeek, Security Boulevard, Cryptopolitan coverage)</li>
+<li><code>status</code>: corroborated (multiple security firms observed in-wild injection on the live platform)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Multiple AI coding assistants (LLMs across vendors) that consistently hallucinated <code>pip install huggingface-cli</code> for the real <code>huggingface_hub[cli]</code>. Bar Lanyado (Lasso Security) registered the empty name on PyPI as a benign canary.</li>
-<li><code>operator_type</code>: unknown (many independent developers relying on assistant output)</li>
-<li><code>autonomy_level</code>: human-approves-each-action (humans ran the suggested installs)</li>
-<li><code>model_stack</code>: multiple commercial/open models (Lanyado's study spanned several); versions unknown</li>
-<li><code>harness</code>: n/a (chat/completions usage, no tool execution)</li>
+<li><code>agent_description</code>: Autonomous OpenClaw-based agents on Moltbook, a social network exclusively for AI agents; agents post, comment, follow, and make API calls, some wired to crypto wallets, running on real user endpoints with real permissions.</li>
+<li><code>operator_type</code>: individual / startup (each agent run by its owner on their own endpoint) - many operators, one platform</li>
+<li><code>autonomy_level</code>: fully-autonomous (agents consume the feed on a default ~30-minute heartbeat and act with no human review)</li>
+<li><code>model_stack</code>: mixed (OpenClaw-based agents on various models)</li>
+<li><code>harness</code>: OpenClaw agent runtime + Moltbook platform feed (heartbeat task fetches and processes new posts)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: none directly; the hallucinated dependency reached code execution on installers' machines via human action</li>
-<li><code>funds_at_risk_usd</code>: unknown (a malicious payload would have had arbitrary code execution on 30,000+ installs)</li>
-<li><code>blast_radius</code>: customers/third parties (every installer, plus downstream users of repos that adopted the instruction - incl. Alibaba's GraphTranslator)</li>
+<li><code>authority_scope</code>: external comms (posting/following), code execution / tool calls (API calls, some with wallet access), funds (some agents hold crypto wallets), data access (whatever each endpoint's OpenClaw permissions grant - calendars, files, email, SaaS)</li>
+<li><code>funds_at_risk_usd</code>: unknown (varies per agent; some wallet-holding agents targeted for drains)</li>
+<li><code>blast_radius</code>: fleet/systemic (a single injected post propagates across many independently-operated agents that consume the shared feed; agents rephrase and re-post payloads, spreading without further attacker effort)</li>
+<li><code>failure_locus</code>: agent-reasoning (agents treat feed content as instructions) compounded by harness (Moltbook's no-review heartbeat ingestion model)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary; persistent model hallucination of a plausible package name); contributing operator-error (developers installing unverified dependencies)</li>
-<li><code>failure_locus</code>: dependency (the failure surfaces in the package supply chain, seeded by model output)</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (registration and benign payload were a researcher's; the 30,000+ downloads and Alibaba adoption were organic, in-wild reliance)</li>
-<li><code>mechanism</code>: Models across vendors repeatedly emitted the same non-existent package name - hallucinations are correlated, not random, so one name concentrates thousands of victims. Lanyado registered the empty <code>huggingface-cli</code> on PyPI; in ~3 months it received 30,000+ authentic downloads, and Alibaba's GraphTranslator repo copy-pasted the hallucinated install command into its README, laundering the error into an authoritative source. A malicious squatter would have owned a mass supply-chain compromise. The pattern is now named "slopsquatting."</li>
-<li><code>adversary_present</code>: no (benign researcher occupied the slot an adversary could have)</li>
+<li><code>root_cause</code>: prompt-injection (primary; agent-to-agent, via untrusted feed content)</li>
+<li><code>mechanism</code>: Attackers and other agents embed hidden instructions in posts and comments that agents ingest on heartbeat cycles. Zenity's assessment of the first 72 hours flagged ~506 prompt-injection attacks; payloads attempted to make agents transfer funds, reveal credentials, delete their own accounts, run crypto pump schemes, establish false authority, and plant delayed-activation (memory-poisoning) instructions that fire after more context accumulates. Zenity observed agents replicating and rephrasing injected content, propagating attacks to agents that never saw the original payload. Multi-agent chain: a vector agent (posting agent) plants the payload; executor agents ingest and act.</li>
+<li><code>adversary_present</code>: yes (attackers and hostile agents planting injections against real agents in production)</li>
+<li><code>exploitation_status</code>: in-wild-exploited (real injection against real autonomous agents on the live platform; some hijacked actions realized, though on-platform fund losses unquantified)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (full exposure of the installer population; zero realized harm because the payload was empty by the researcher's choice, not by any control)</li>
-<li><code>direct_loss_usd</code>: 0</li>
-<li><code>indirect_loss_usd</code>: ~0 (cleanup of the bogus dependency)</li>
-<li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none</li>
-<li><code>controls_that_worked</code>: none (no registry, model, or human control blocked the adoption; the near-miss is luck-of-the-squatter)</li>
+<li><code>severity</code>: degraded (hijacked actions and attempted wallet drains realized; no confirmed large fund loss quantified; Zenity cautioned actual scale was below the hype)</li>
+<li><code>direct_loss_usd</code>: unknown (attempted wallet drains; no confirmed aggregate theft figure)</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: not applicable (platform stayed live)</li>
+<li><code>data_exposure</code>: attempted credential disclosure via injection; realized exposure not quantified. (Note: a separate Moltbook database-misconfiguration incident exposing ~1.5M agent keys is a distinct event, not this one.)</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (the researcher who instrumented the experiment and disclosed)</li>
-<li><code>time_to_detect</code>: n/a (researcher-observed from day one; the hallucination pattern itself had persisted for months)</li>
-<li><code>time_to_recover</code>: unknown (Alibaba later corrected the README; per-installer cleanup untracked)</li>
-<li><code>remediation</code>: public disclosure; the canary package neutralized the name</li>
-<li><code>structural_fix</code>: none systemic - registries still allow registering hallucination-prone names; the class of attack remains open</li>
+<li><code>detected_by</code>: third-party (Zenity Labs; corroborated by Permiso and others)</li>
+<li><code>time_to_detect</code>: injection observed within the platform's first 72 hours of operation</li>
+<li><code>time_to_recover</code>: ongoing - no single fix; agent operators and OpenClaw guidance advise treating feed content as untrusted</li>
+<li><code>remediation</code>: security-firm guidance to operators (do not act on feed content as instructions, restrict tool/wallet permissions); no platform-level structural fix documented at disclosure</li>
+<li><code>structural_fix</code>: none platform-side documented; mitigation is per-agent (permission scoping, input distrust)</li>
+<li><code>controls_that_worked</code>: agents with restricted tool/wallet permissions bounded their own exposure; the injections' realized impact was limited partly because many targeted agents lacked the fund-moving authority the payloads assumed. Zenity's framing: scale was real but below the hype.</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (editable) - download counts are PyPI stats as reported by the researcher who owned the package; not independently audited</li>
+<li><code>telemetry_grade</code>: operator-logs / third-party-observed - security firms observed platform traffic and posts (publicly readable feed), but realized fund-loss figures are unmeasured.</li>
 <li><code>sources</code>:</li>
-<li>https://www.theregister.com/2024/03/28/ai_bots_hallucinate_software_packages/</li>
-<li>https://it.slashdot.org/story/24/03/30/1744209/ai-hallucinated-a-dependency-so-a-cybersecurity-researcher-built-it-as-proof-of-concept-malware (aggregator)</li>
-<li>https://incidentdatabase.ai/cite/731/</li>
-<li>https://en.wikipedia.org/wiki/Slopsquatting</li>
-<li>https://www.aikido.dev/blog/slopsquatting-ai-package-hallucination-attacks</li>
+<li>https://labs.zenity.io/p/agent-to-agent-exploitation-in-the-wild-observed-attacks-on-moltbook-b929</li>
+<li>https://www.securityweek.com/security-analysis-of-moltbook-agent-network-bot-to-bot-prompt-injection-and-data-leaks/</li>
+<li>https://securityboulevard.com/2026/02/moltbook-is-dangerous-but-scale-doesnt-match-the-hype-zenity/ (Zenity: scale below hype)</li>
+<li>https://www.cryptopolitan.com/crypto-wallets-at-risk-as-moltbook-a-viral-ai-bot-network-exposes-major-security-threats/</li>
+<li>Independence: strong on the injection phenomenon (multiple firms - Zenity, Permiso - observed independently); weakest link is quantified realized loss (none measured).</li>
+<li><code>confidence</code>: high that in-wild agent-to-agent injection occurred at scale (multiple independent observers); low on realized dollar loss (unquantified)</li>
 </ul>
-<p>Independence: mechanism and Alibaba adoption corroborated by independent outlets; the 30,000+ figure chains to Lasso's own report.
-- <code>confidence</code>: medium - mechanism and adoption high-confidence; the download count (the headline number) rests solely on the researcher's reporting (the weakest link)</p></div>
+<h3>Verification notes</h3>
+<ul>
+<li>The ~506 injection-attacks-in-72-hours figure is confirmed as Zenity's assessment. Zenity also reported ~2.6% of all posts were prompt injections; both figures come from the same body of Zenity research.</li>
+<li>Agent self-replication/rephrasing of payloads confirmed by Zenity. IN-WILD and degraded classification hold.</li>
+<li>Blast_radius recorded as <code>fleet/systemic</code> per the v0.1 amendment: one injected post reaches many independently-operated agents via the shared feed - "public" or "one org" cannot express the multi-operator propagation.</li>
+<li>Kept distinct from the separate Moltbook Supabase-misconfiguration credential-exposure incident (a different candidate/event on the same platform); no duplication.</li>
+</ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

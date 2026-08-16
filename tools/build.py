@@ -130,12 +130,18 @@ def build():
         r["severity_key"] = norm(r, "severity")
         r["status_key"] = norm(r, "exploitation_status")
         r["locus_key"] = norm(r, "failure_locus")
-        # best available chronology: occurrence date, else disclosure date (research demos)
+        # best available chronology: occurrence date, else disclosure date (research demos).
+        # month/day validated - naive \d{2} reads "2022-2023" as month 20.
         sd = None
         for fld in ("date_occurred", "date_disclosed"):
-            m = re.search(r"(\d{4})-(\d{2})(?:-(\d{2}))?", r.get(fld) or "")
+            v = r.get(fld) or ""
+            m = re.search(r"(\d{4})-(0[1-9]|1[0-2])(?:-(0[1-9]|[12]\d|3[01]))?", v)
             if m:
                 sd = f"{m.group(1)}-{m.group(2)}-{m.group(3) or '00'}"
+                break
+            y = re.search(r"\b(20[12]\d)\b", v)
+            if y:
+                sd = f"{y.group(1)}-00-00"
                 break
         r["sort_date"] = sd or "0000-00-00"
         r["year_key"] = r["sort_date"][:4] if sd else "n/a"
@@ -175,9 +181,11 @@ def build():
     def date_cell(r):
         if r["sort_date"] == "0000-00-00":
             return "n/a"
-        d = r["sort_date"][:7] if r["sort_date"].endswith("-00") else r["sort_date"]
+        d = r["sort_date"]
+        while d.endswith("-00"):
+            d = d[:-3]
         occ = r.get("date_occurred") or ""
-        if not re.search(r"\d{4}-\d{2}", occ):
+        if not re.search(r"(\d{4})-(0[1-9]|1[0-2])|\b20[12]\d\b", occ):
             return f"{d} (disclosed)"
         return d
 
@@ -209,7 +217,7 @@ def build():
   {options('locus_key', 'locus')}
   <label>sort <select id="sortby">
     <option value="newest">newest first</option><option value="oldest">oldest first</option>
-    <option value="registration">registration order</option></select></label>
+    <option value="registration">id order</option></select></label>
   <label>group by <select id="groupby">
     <option value="">none</option><option value="cause_key">root cause</option>
     <option value="severity_key">severity</option><option value="year_key">year</option>
@@ -285,10 +293,11 @@ def build():
 <p class="stats"><strong>{len(records)} verified records</strong> &middot; 2 retired ids &middot; schema v0.2</p>
 <div class="notice">Every record is individually verified against primary sources before
 publication; corrections are recorded in the record itself. Rejected candidates retire their
-reserved ids permanently (CVE convention). Ids are assigned in registration order and are
-opaque - the year in the id is the registration year, and sequence encodes nothing about
-occurrence date or severity. This registry is young - treat aggregate statistics
-as early data, not actuarial tables.</div>
+reserved ids permanently (CVE convention). Id numbering: the initial import (0001-0045,
+registered Aug 2026) is ordered by occurrence date, oldest first, as a one-time property;
+from here on ids are assigned at registration, so sequence is not guaranteed chronological
+for later records. The year in the id is the registration year. This registry is young -
+treat aggregate statistics as early data, not actuarial tables.</div>
 {statline('cause_key', 'Root cause')}
 {statline('severity_key', 'Severity')}
 {statline('status_key', 'Exploitation status')}

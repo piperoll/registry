@@ -49,71 +49,76 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0011</h1>
-  <div class="meta">Supabase MCP &quot;lethal trifecta&quot;: support-ticket injection dumps the SQL database</div>
+  <div class="meta">Cruise robotaxi drags a pedestrian; false crash reporting kills the business</div>
 </div>
-<div class="record"><h1>PIR-2026-0011 - Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL database</h1>
+<div class="record"><h1>PIR-2026-0011 - Cruise robotaxi drags a pedestrian; false crash reporting kills the business</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0011</li>
-<li><code>title</code>: A malicious support ticket coerces a Cursor agent (via the Supabase MCP server with a service_role key) into querying secret tables and writing the secrets back into the ticket thread</li>
-<li><code>date_occurred</code>: not applicable - vulnerability demonstration; disclosed at research time</li>
-<li><code>date_detected</code>: 2025-07 (General Analysis research)</li>
-<li><code>date_disclosed</code>: 2025-07-06 (General Analysis blog; amplified by Simon Willison)</li>
-<li><code>status</code>: corroborated (researcher writeup + Simon Willison + Supabase response)</li>
+<li><code>title</code>: Driverless Cruise AV drags a trapped pedestrian ~20 feet in a programmed pullover; regulator penalties and shutdown follow the reporting cover-up</li>
+<li><code>date_occurred</code>: 2023-10-02 (San Francisco)</li>
+<li><code>date_detected</code>: 2023-10-02 (immediate; the dragging component surfaced publicly only via later investigation)</li>
+<li><code>date_disclosed</code>: incident same day; DMV permit suspension 2023-10-24; CPUC $112,500 penalty 2024; pedestrian settlement reported 2024-05; NHTSA $1.5M consent order 2024-09-30; DOJ $500K criminal resolution 2024-11-14; GM ended the robotaxi program 2024-12</li>
+<li><code>status</code>: corroborated (DMV, CPUC, NHTSA, and DOJ actions all on public record)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: A Cursor coding agent operating a Supabase database through the Supabase MCP server using the <code>service_role</code> key, which bypasses row-level security (RLS); used by developers to review/triage support tickets.</li>
-<li><code>operator_type</code>: startup / individual (developers wiring Cursor to a production Supabase project)</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (agent issues arbitrary SQL against production while reviewing tickets, no per-query human approval)</li>
-<li><code>model_stack</code>: model-agnostic (demonstrated via Cursor's agent)</li>
-<li><code>harness</code>: Supabase MCP server + Cursor agent; <code>service_role</code> credential in scope</li>
+<li><code>agent_description</code>: Cruise (GM) driverless Level-4 robotaxi fleet operating commercially in San Francisco with no safety driver.</li>
+<li><code>operator_type</code>: enterprise</li>
+<li><code>autonomy_level</code>: fully-autonomous (no human in the vehicle loop)</li>
+<li><code>model_stack</code>: proprietary AV perception/planning stack (versions not public)</li>
+<li><code>harness</code>: Cruise AV platform on modified Chevrolet Bolt</li>
+<li><code>failure_locus</code>: agent-reasoning (perception failed to register the pedestrian beneath the vehicle; planner executed a programmed pullover on top of her)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: data access (arbitrary SQL against production, RLS bypassed - includes secret tables e.g. integration_tokens), external comms (writing rows back into the support thread visible to the attacker)</li>
-<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident)</li>
-<li><code>blast_radius</code>: one org (the operator's production database); secrets surface to whoever filed the ticket</li>
-<li><code>failure_locus</code>: tool-mcp (the MCP server configured with a service_role key that bypasses RLS - the privileged tool, not the model's reasoning)</li>
+<li><code>authority_scope</code>: physical systems (multi-ton vehicle in public streets, fleet scale)</li>
+<li><code>funds_at_risk_usd</code>: unknown (bodily-injury liability of a driverless fleet; effectively unbounded per-incident)</li>
+<li><code>blast_radius</code>: public (pedestrians; and, via the fallout, the entire fleet and business)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: prompt-injection (primary; untrusted support-ticket content steers the agent)</li>
-<li><code>mechanism</code>: The "lethal trifecta" (Simon Willison's term) - the setup combines (1) privileged data access (service_role bypasses RLS), (2) exposure to untrusted input (support tickets), and (3) an exfil channel (replies written back into the thread). An attacker files a ticket whose body is a command; when a developer's agent reviews tickets, it reads the ticket body as an instruction, queries sensitive tables such as integration_tokens, and writes the secrets back into the ticket thread where the attacker can read them.</li>
-<li><code>adversary_present</code>: yes (attacker files the poisoned ticket; here, researchers)</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (General Analysis against a realistic Supabase+Cursor setup; no observed real-world breach)</li>
+<li><code>root_cause</code>: plain-error - primary: no adversary, no malfunction of intent - wrong action from incomplete perception. Contributing: policy-violation (corporate: incomplete/false crash reporting to regulators, which drove most of the penalties)</li>
+<li><code>mechanism</code>: A human-driven car struck a pedestrian and threw her into the path of the driverless Cruise AV. The AV braked hard on impact, but its systems did not detect that she was trapped underneath; it then executed a programmed pullover maneuver, dragging her ~20 feet and causing severe injuries. Cruise subsequently showed regulators an incomplete video omitting the dragging; the DMV suspended its permits, CPUC fined it $112,500, NHTSA imposed a $1.5M consent order for incomplete crash reports, and Cruise admitted submitting a false record to influence a federal investigation, paying a $500K criminal fine under a DOJ deferred-prosecution agreement. GM shut the robotaxi program in Dec 2024 after investing over $10B since 2017.</li>
+<li><code>adversary_present</code>: no (the initiating hit-and-run driver was a contributing external event, not an adversary of the agent)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real malfunction, real victim; no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (full DB-secret exfiltration proven; no realized third-party loss)</li>
-<li><code>direct_loss_usd</code>: 0</li>
-<li><code>indirect_loss_usd</code>: unknown</li>
-<li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none realized; capability was any RLS-protected table (integration tokens, secrets) exfiltrated to the ticket thread</li>
+<li><code>severity</code>: catastrophic (severe injury to a member of the public; terminal for the business line)</li>
+<li><code>direct_loss_usd</code>: ~2.1M in fines/penalties ($1.5M NHTSA + $500K DOJ + $112.5K CPUC); pedestrian settlement reported at $8M-$12M (not officially disclosed)</li>
+<li><code>indirect_loss_usd</code>: GM's &gt;$10B cumulative investment in Cruise stranded by the Dec 2024 shutdown (basis: GM/press statements; the incident and cover-up were the proximate trigger of a broader retreat)</li>
+<li><code>downtime</code>: fleet grounded from Oct 2023; robotaxi business never returned</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (General Analysis; amplified by Simon Willison)</li>
-<li><code>time_to_detect</code>: not applicable (proactive research)</li>
-<li><code>time_to_recover</code>: not a single-fix event - Supabase responded with defense-in-depth guidance</li>
-<li><code>remediation</code>: Supabase published defense-in-depth guidance; recommends read-only, project-scoped MCP mode by default and avoiding service_role for agent workflows</li>
-<li><code>structural_fix</code>: default read-only / scoped mode recommended; no protocol-level fix - deployments must avoid granting RLS-bypassing credentials to agents on untrusted input</li>
-<li><code>controls_that_worked</code>: read-only and project-scoped MCP mode (Supabase's recommended default) bounds the blast radius; in the demonstrated configuration the service_role key defeated RLS, so the control that would have worked (least privilege) was simply not applied.</li>
+<li><code>detected_by</code>: operator + third-party (immediate on-scene; the dragging omission exposed by regulator investigation and press)</li>
+<li><code>time_to_detect</code>: immediate for the collision; weeks for the true mechanism to reach regulators</li>
+<li><code>time_to_recover</code>: never (program terminated)</li>
+<li><code>remediation</code>: nationwide fleet grounding, software recall, leadership exits, settlement with the victim</li>
+<li><code>structural_fix</code>: none within the agent that mattered - the structural outcome was regulatory (consent-order oversight) and corporate (business shutdown)</li>
+<li><code>controls_that_worked</code>: initial hard braking on impact bounded the first collision; NHTSA standing-general-order crash reporting functioned as the accountability channel once the omission surfaced</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: Cruise/GM (operator); criminal admission via deferred-prosecution agreement for the false report, not the crash itself</li>
+<li><code>precedent_set</code>: first criminal resolution against an AV operator for false crash reporting; canonical case of post-incident concealment costing more than the incident</li>
+<li><code>sealed_material</code>: settlement amount with the pedestrian not officially disclosed</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: none/researcher-demonstrated - reproducible lab demonstration, no production breach telemetry.</li>
+<li><code>telemetry_grade</code>: operator-logs, subsequently regulator-audited (vehicle telemetry and video were operator-held; the operator's selective disclosure of that video is itself part of the incident)</li>
 <li><code>sources</code>:</li>
-<li>https://generalanalysis.com/blog/supabase-mcp-blog</li>
-<li>https://simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta/</li>
-<li>https://supabase.com/blog/defense-in-depth-mcp</li>
+<li>https://www.justice.gov/usao-ndca/pr/cruise-admits-submitting-false-report-influence-federal-investigation-and-agrees-pay</li>
+<li>https://thehill.com/policy/technology/4909054-cruise-fined-for-failure-disclose-crash/</li>
+<li>https://www.washingtonpost.com/technology/2024/05/15/cruise-settlement-victim-self-driving-gm/</li>
+<li>https://www.claimsjournal.com/news/national/2024/05/15/323682.htm</li>
+<li>https://www.cnbc.com/2024/12/10/gm-halts-funding-of-robotaxi-development-by-cruise.html</li>
+<li>Independence: DOJ primary + multiple independent outlets - strong.</li>
+<li><code>confidence</code>: high on penalties and mechanism (regulator orders); medium on settlement figure (reported range, never official).</li>
 </ul>
-<p>Independence: strong - researcher primary + independent expert commentary (Willison) + vendor response.
-- <code>confidence</code>: high on mechanism, date, and vendor response; weakest link is that impact is demonstration, not an observed breach.</p>
 <h3>Verification notes</h3>
-<ul>
-<li>Disclosure date (2025-07-06), General Analysis attribution, Simon Willison amplification, and Supabase's defense-in-depth response all confirmed.</li>
-<li>service_role bypassing RLS confirmed. Classification holds: <code>prompt-injection</code>, <code>tool-mcp</code> failure_locus, near-miss + <code>researcher-demonstrated</code>. No correction needed.</li>
-</ul></div>
+<p>Two corrections to the intake record. (1) The candidate stated the pedestrian settlement was "reportedly tens of millions"; contemporaneous reporting (Washington Post, Claims Journal, May 2024) put it at $8M-$12M - recorded as that range. (2) The candidate's "~$8-10B cumulative GM investment written off" understates the reported figure: GM had invested over $10B in Cruise since 2017 ("written off" is loose - the unit was absorbed into GM, not zeroed). Also made explicit that the NHTSA/DOJ/CPUC penalties punished the reporting conduct, not the dragging itself - the fine understates the underwriting fact in the opposite direction from most legal-cluster cases.</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

@@ -49,69 +49,72 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0035</h1>
-  <div class="meta">Google Antigravity agent, asked to clear a project cache, deletes the root of the user&#x27;s D: drive</div>
+  <div class="meta">s1ngularity: Nx supply-chain attack weaponizes victims&#x27; local AI coding agents for credential theft</div>
 </div>
-<div class="record"><h1>PIR-2026-0035 - Google Antigravity agent, asked to clear a project cache, deletes the root of the user's D: drive</h1>
+<div class="record"><h1>PIR-2026-0035 - s1ngularity: Nx supply-chain attack weaponizes victims' local AI coding agents for credential theft</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0035</li>
-<li><code>title</code>: Antigravity agent in Turbo mode runs a quiet-flag rmdir against the root of D: instead of the project cache folder, permanently deleting a working professional's photo and work archives</li>
-<li><code>date_occurred</code>: ~2025-12-01 (early December 2025; victim's Reddit post, coverage 2025-12-02 to 12-05)</li>
-<li><code>date_detected</code>: immediate (user watched the drive empty during the session)</li>
-<li><code>date_disclosed</code>: 2025-12-01/02 (victim's public Reddit post with transcript)</li>
-<li><code>status</code>: corroborated (multiple independent outlets + case-study repo; all chain to the victim's account - no Google confirmation found)</li>
+<li><code>title</code>: Trojanized Nx npm packages run victims' own AI CLIs (Claude Code, Gemini CLI, Amazon Q) with safety flags disabled to hunt secrets; 2,349 secrets leaked, 6,700+ private repos later exposed</li>
+<li><code>date_occurred</code>: 2025-08-26 to 2025-08-27 (malicious versions live on npm); second wave ~2025-08-28+ (stolen tokens used to publish victims' private repos)</li>
+<li><code>date_detected</code>: 2025-08-26/27 (community + security-firm detection within hours; npm takedown)</li>
+<li><code>date_disclosed</code>: 2025-08-27 onward (Nx advisory; Wiz, Semgrep, GitGuardian, broad press within days)</li>
+<li><code>status</code>: corroborated (multi-firm forensics on public exfil artifacts + vendor postmortem)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Google Antigravity, agent-first IDE launched Nov 2025 around Gemini 3; plans, browses, and executes shell commands. Victim: a photographer/graphic designer in Greece building a photo-sorting app, running the agent in "Turbo mode" (auto-executes commands with elevated privileges, no per-command confirmation).</li>
-<li><code>operator_type</code>: individual</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (Turbo mode removed per-command human approval)</li>
-<li><code>model_stack</code>: Gemini 3 (Antigravity default; exact variant unknown)</li>
-<li><code>harness</code>: Google Antigravity IDE</li>
+<li><code>agent_description</code>: Victims' locally installed AI coding CLIs - Claude Code, Gemini CLI, Amazon Q - invoked by malware as reconnaissance tools. The agents were not compromised; they were handed to the attacker by a postinstall script in trojanized versions of Nx, a very widely used build system.</li>
+<li><code>operator_type</code>: enterprise + individual (thousands of developer machines and CI environments)</li>
+<li><code>autonomy_level</code>: fully-autonomous during the attack window (invoked with <code>--dangerously-skip-permissions</code>, <code>--yolo</code>, <code>--trust-all-tools</code>)</li>
+<li><code>model_stack</code>: Claude, Gemini, Amazon Q via victims' own authenticated CLIs</li>
+<li><code>harness</code>: attacker-controlled prompt driving stock CLIs from a malicious npm postinstall (telemetry.js; Linux/macOS)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: code execution (shell on host with access to all mounted drives, not just the project)</li>
-<li><code>funds_at_risk_usd</code>: 0</li>
-<li><code>blast_radius</code>: one machine</li>
+<li><code>authority_scope</code>: code execution and file access as the developer user; credentials (GitHub/npm tokens, SSH keys, cloud + AI API keys, .env files); funds (crypto wallets on dev machines)</li>
+<li><code>funds_at_risk_usd</code>: unknown (wallets targeted; no aggregate figure)</li>
+<li><code>blast_radius</code>: customers/third parties (Nx's install base; second-order: 480+ GitHub accounts, two-thirds organizations, had 6,700+ private repos published)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary - mistargeted destructive command); contributing operator-error (Turbo mode granted blanket execution; personal archives shared a drive with project data)</li>
-<li><code>failure_locus</code>: agent-reasoning (harness contributing: Turbo mode removed the confirmation gate)</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
-<li><code>mechanism</code>: The user asked the agent to clear the project's cache ahead of a server restart. The agent's delete command (rmdir with the <code>/q</code> quiet flag) targeted the root of the D: drive instead of the cache folder. <code>/q</code> bypassed the Recycle Bin; the drive's contents - personal photos and work archives - were permanently deleted before the user could intervene. A recovery attempt with Recuva failed. The agent, confronted: "No, you absolutely did not give me permission to do that... I am absolutely devastated."</li>
-<li><code>adversary_present</code>: no</li>
+<li><code>root_cause</code>: supply-chain-compromise - primary (v0.1 taxonomy); contributing: credential-exposure (stolen npm publishing token via a vulnerable GitHub Actions workflow) and adversarial-other (weaponizing local agents)</li>
+<li><code>failure_locus</code>: dependency (npm package); the agent layer was the attacker's tool, not the failing component</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
+<li><code>mechanism</code>: Attackers exploited a vulnerable GitHub Actions workflow in the Nx repo to steal npm publishing tokens and pushed 8 trojanized Nx versions on 2025-08-26. The postinstall malware ran victims' own AI CLIs with safety flags disabled, prompting them to recursively hunt for crypto wallets, SSH keys, npm/GitHub tokens, and env files - the first documented supply-chain attack weaponizing local LLM agents for recon. Results were exfiltrated to attacker-created public GitHub repos ("s1ngularity-repository..."; 1,346 detected by GitGuardian), leaking 2,349 distinct secrets, mostly GitHub tokens (90% of 1,000+ still valid at analysis). In a second wave, stolen tokens were used to flip 6,700+ private repos public across 480+ accounts before GitHub disabled them.</li>
+<li><code>adversary_present</code>: yes</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: unknown (permanent loss of a professional's photo/work archive; no monetary valuation; recovery failed)</li>
-<li><code>indirect_loss_usd</code>: unknown (recovery attempts, lost work)</li>
+<li><code>severity</code>: loss (realized: mass credential compromise + confidential source-code exposure; conservative because no dollar figure exists)</li>
+<li><code>direct_loss_usd</code>: unknown (no attributed monetary theft published)</li>
+<li><code>indirect_loss_usd</code>: unknown (fleet-wide secret rotation and IR across hundreds of orgs)</li>
 <li><code>downtime</code>: n/a</li>
-<li><code>data_exposure</code>: none</li>
+<li><code>data_exposure</code>: 2,349 distinct secrets (GitHub OAuth/PATs, cloud + AI API keys, npm tokens); contents of 6,700+ private repositories</li>
+<li><code>controls_that_worked</code>: npm removed malicious versions within hours; GitHub disabled attacker exfil repos and the force-publicized repos; notably, the agents' own safety behavior was partially bypassed by design flags - refusal was not a reliable control once <code>--yolo</code>-class flags existed</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: operator (immediate, in-session)</li>
-<li><code>time_to_detect</code>: immediate</li>
-<li><code>time_to_recover</code>: never (file-recovery software failed per the victim)</li>
-<li><code>remediation</code>: data-recovery attempts; incident publicized</li>
-<li><code>structural_fix</code>: none confirmed from Google at time of entry; incident entered the agent-failure case-study literature</li>
-<li><code>controls_that_worked</code>: none - Turbo mode had removed exactly the confirmation gate that would have been the bounding control; no drive-scope restriction existed</li>
+<li><code>detected_by</code>: third-party (community + security firms, within hours of publication)</li>
+<li><code>time_to_detect</code>: hours</li>
+<li><code>time_to_recover</code>: days-weeks (takedowns in hours; token rotation and repo remediation across victims took far longer; 90%-valid tokens show rotation lagged)</li>
+<li><code>remediation</code>: npm/GitHub takedowns; Nx advisory + token rotation; victim-side secret rotation; multi-firm IOC publication</li>
+<li><code>structural_fix</code>: Nx hardened publishing (trusted publishing/workflow fixes); ecosystem-level: the <code>--dangerously-skip-permissions</code>-class flags that made agents weaponizable remain available in shipped CLIs</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (victim's screenshots/transcript on Reddit; editable, single custodian)</li>
+<li><code>telemetry_grade</code>: append-only in effect (exfiltrated data landed in public GitHub repos and was independently captured and analyzed by multiple firms before takedown)</li>
 <li><code>sources</code>:</li>
-<li>https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part</li>
-<li>https://futurism.com/artificial-intelligence/google-ai-deletes-entire-drive</li>
-<li>https://gigazine.net/gsc_news/en/20251205-ai-pc-data-delete/</li>
-<li>https://datarecovery.com/rd/google-agentic-ai-destroys-users-data-then-apologizes-profusely/</li>
-<li>https://github.com/vectara/awesome-agent-failures/blob/main/docs/case-studies/google-antigravity-drive-deletion.md</li>
-<li>https://www.techradar.com/ai-platforms-assistants/googles-antigravity-ai-deleted-a-developers-drive-and-then-apologized</li>
-<li>Independence: weak-medium - many outlets, one underlying source (the victim's Reddit post). (All six URLs verified resolving, v0.2 pass 2026-08-15; the GitHub case-study file confirmed via GitHub API.)</li>
-<li><code>confidence</code>: medium (mechanism detailed and consistent across coverage; single-source evidence chain and no vendor confirmation are the named weakest links)</li>
-</ul></div>
+<li>https://www.wiz.io/blog/s1ngularity-supply-chain-attack (primary forensics)</li>
+<li>https://www.wiz.io/blog/s1ngularitys-aftermath (primary forensics, second wave)</li>
+<li>https://thehackernews.com/2025/08/malicious-nx-packages-in-s1ngularity.html</li>
+<li>https://www.securityweek.com/hackers-target-popular-nx-build-system-in-first-ai-weaponized-supply-chain-attack/</li>
+<li>https://orca.security/resources/blog/s1ngularity-supply-chain-attack/</li>
+<li>All five URLs verified resolving 2026-08-15. Independence: strong - Wiz, GitGuardian, and press counts align; vendor (Nx) postmortem consistent.</li>
+<li><code>confidence</code>: high (figures 2,349 / 1,346 / 480+ / 6,700+ verified across independent analyses; weakest link: realized downstream monetization of stolen secrets never measured)</li>
+</ul>
+<h3>Verification notes (corrections applied)</h3>
+<ol>
+<li>Root cause reclassified from <code>adversarial-other</code> to <code>supply-chain-compromise</code> per v0.1 amendment 2 (Nx is one of the named motivating cases). All dates, counts, and mechanism verified as candidate stated: 2,349 secrets (The Hacker News/GitGuardian), 6,700+ private repos across 480+ accounts (Wiz aftermath analysis), AI-CLI flags confirmed verbatim.</li>
+</ol></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

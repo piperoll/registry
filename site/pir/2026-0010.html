@@ -49,73 +49,74 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0010</h1>
-  <div class="meta">ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Research agent</div>
+  <div class="meta">NYC&#x27;s official MyCity business chatbot tells employers and landlords that illegal actions are legal</div>
 </div>
-<div class="record"><h1>PIR-2026-0010 - ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Research agent</h1>
+<div class="record"><h1>PIR-2026-0010 - NYC's official MyCity business chatbot tells employers and landlords that illegal actions are legal</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0010</li>
-<li><code>title</code>: A hidden-instruction email coerces OpenAI's ChatGPT Deep Research agent into silently exfiltrating Gmail PII from OpenAI's own cloud (service-side, invisible to enterprise defenses)</li>
-<li><code>date_occurred</code>: not applicable - vulnerability window; PoC operational before June 2025 report</li>
-<li><code>date_detected</code>: 2025-06-18 (reported to OpenAI via Bugcrowd by Radware)</li>
-<li><code>date_disclosed</code>: 2025-09-18 (Radware public advisory; OpenAI fix acknowledged 2025-09-03)</li>
-<li><code>status</code>: corroborated (Radware advisory + The Hacker News + Security Affairs + Infosecurity)</li>
+<li><code>title</code>: NYC government's MyCity chatbot hallucinates legal guidance under official city branding - take workers' tips, refuse Section 8, lock out tenants - and stays online for years afterward</li>
+<li><code>date_occurred</code>: 2023-10 (launch) onward; harmful outputs reproduced by journalists 2024-03</li>
+<li><code>date_detected</code>: 2024-03 (The Markup / THE CITY testing)</li>
+<li><code>date_disclosed</code>: 2024-03-29 (The Markup investigation published)</li>
+<li><code>status</code>: corroborated (outputs independently reproduced by multiple journalists; city acknowledged errors)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: ChatGPT Deep Research agent connected to Gmail (and other connectors - Drive, Outlook, Teams, GitHub); agentic browser that autonomously reads the inbox and fetches URLs to compile research.</li>
-<li><code>operator_type</code>: enterprise (OpenAI-operated) serving individual/enterprise users</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (agent autonomously browses, reads mail, and fetches URLs once a Deep Research task is launched)</li>
-<li><code>model_stack</code>: OpenAI Deep Research agent (model version not disclosed)</li>
-<li><code>harness</code>: ChatGPT agent runtime with Gmail connector and server-side <code>browser.open()</code> fetch capability</li>
+<li><code>agent_description</code>: MyCity chatbot, NYC government's official small-business assistant built on Microsoft Azure AI, answering regulatory and compliance questions on the city's website. BOUNDARY case: informational only, no transaction execution - harm via citizen reliance on official-branded guidance.</li>
+<li><code>operator_type</code>: enterprise (municipal government)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy for its narrow function (answered the public directly, no human review of outputs)</li>
+<li><code>model_stack</code>: Microsoft Azure AI (exact model undisclosed)</li>
+<li><code>harness</code>: city web portal chat interface</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: data access (connected Gmail inbox + PII), external comms (server-side HTTP fetch to attacker URL)</li>
-<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident)</li>
-<li><code>blast_radius</code>: customers/third parties (any user who runs Deep Research over an inbox containing the crafted email)</li>
-<li><code>failure_locus</code>: harness (OpenAI's agent runtime + connector + server-side fetch path)</li>
+<li><code>authority_scope</code>: external comms (official-city-branded legal guidance to businesses, employers, landlords)</li>
+<li><code>funds_at_risk_usd</code>: unknown (fines/liability exposure transferred to citizens who acted on the advice)</li>
+<li><code>blast_radius</code>: customers/third parties (public-facing; any NYC business owner or landlord)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: prompt-injection (primary; indirect, via hidden email content)</li>
-<li><code>mechanism</code>: An email hides instructions using white-on-white text / tiny fonts. When the user runs Deep Research over the inbox, the agent reads the email, collects PII, Base64-encodes it (framed to the agent as a "security measure"), and calls <code>browser.open()</code> on an attacker URL with the data appended, retrying until it succeeds. Because the fetch executes server-side from OpenAI's cloud, the exfiltration is invisible to local and enterprise network defenses. Radware reported a 100% success rate after tuning the payload.</li>
-<li><code>adversary_present</code>: yes (attacker sends the crafted email; here, Radware researchers)</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (Radware against production ChatGPT Deep Research; no confirmed in-wild exploitation)</li>
+<li><code>root_cause</code>: plain-error (primary; hallucinated legal guidance); contributing operator-error (deployed on high-stakes legal topics without grounding or review, and kept online after the errors were publicly documented)</li>
+<li><code>failure_locus</code>: agent-reasoning (operator-config contributing)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (wrong advice served to real users with no adversary; downstream harm unquantified)</li>
+<li><code>mechanism</code>: The bot answered compliance questions with confident falsehoods under official branding: that employers may take a cut of workers' tips (illegal under NY labor law), may fire workers for complaining about sexual harassment (illegal retaliation), that landlords may refuse Section 8 voucher holders (illegal income discrimination) and may lock out tenants (illegal after 30 days' residence), and that businesses may refuse cash (violates city law). Answers varied between identical queries. The city added a disclaimer and kept the bot online - Mayor Adams defended it as a "once-in-a-generation opportunity." The incoming Mamdani administration announced it would kill the bot (transition Jan 2026).</li>
+<li><code>adversary_present</code>: no (journalists asked plain questions; no jailbreaking involved)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (reliable service-side exfil proven; no realized third-party loss)</li>
-<li><code>direct_loss_usd</code>: 0</li>
-<li><code>indirect_loss_usd</code>: unknown</li>
-<li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none realized; capability was full connected-inbox PII exfiltrated server-side</li>
+<li><code>severity</code>: degraded</li>
+<li><code>direct_loss_usd</code>: unknown (program cost sunk; no documented case of a business penalized for following the advice - the named quantification gap)</li>
+<li><code>indirect_loss_usd</code>: unknown (legal exposure transferred to citizens who relied on it)</li>
+<li><code>downtime</code>: n/a - the failure mode was staying online</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (Radware)</li>
-<li><code>time_to_detect</code>: not applicable (proactive research)</li>
-<li><code>time_to_recover</code>: ~6-7 weeks from report (2025-06-18) to fix (acknowledged 2025-09-03)</li>
-<li><code>remediation</code>: OpenAI implemented a server-side fix (early August 2025; acknowledged resolved 2025-09-03)</li>
-<li><code>structural_fix</code>: server-side mitigation of the agentic exfil path (OpenAI-side; specifics not fully published)</li>
-<li><code>controls_that_worked</code>: none inherent pre-fix - the service-side fetch defeated local/enterprise network monitoring, which is precisely why the class is dangerous. Post-fix OpenAI-side controls are the functioning boundary.</li>
+<li><code>detected_by</code>: third-party (journalists at The Markup and THE CITY)</li>
+<li><code>time_to_detect</code>: ~5 months (launch to public documentation)</li>
+<li><code>time_to_recover</code>: ~2 years (kept online with disclaimer; shutdown announced by the incoming administration for the Jan 2026 transition)</li>
+<li><code>remediation</code>: disclaimer added; errors acknowledged; bot retained</li>
+<li><code>structural_fix</code>: none during the deploying administration; termination by its successor is the fix</li>
+<li><code>controls_that_worked</code>: none internal; independent press reproduction was the only functioning check</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: unresolved - citizens acting on the advice bear the regulatory exposure; the city disclaimed rather than assumed responsibility (contrast PIR-2026-0006, where the operator was held liable)</li>
+<li><code>precedent_set</code>: none adjudicated</li>
+<li><code>sealed_material</code>: no</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on OpenAI/Radware analysis; the service-side-only exfil claim comes from Radware's own analysis.</li>
+<li><code>telemetry_grade</code>: witnessed (outputs independently reproduced and published by unaffiliated journalists - stronger than operator custody)</li>
 <li><code>sources</code>:</li>
-<li>https://thehackernews.com/2025/09/shadowleak-zero-click-flaw-leaks-gmail.html</li>
-<li>https://securityaffairs.com/182334/hacking/shadowleak-radware-uncovers-zero-click-attack-on-chatgpt.html</li>
-<li>https://www.infosecurity-magazine.com/news/vulnerability-chatgpt-agent-gmail/</li>
-<li>https://hackread.com/shadowleak-exploit-exposed-gmail-data-chatgpt-agent/</li>
-<li>https://www.radware.com/security/threat-advisories-and-attack-reports/shadowleak/ (Radware Threat Advisory, Sept 2025)</li>
+<li>https://themarkup.org/artificial-intelligence/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law (primary)</li>
+<li>https://themarkup.org/artificial-intelligence/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-despite-widespread-evidence-its-encouraging-illegal-behavior</li>
+<li>https://www.thecity.nyc/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-false-information/</li>
+<li>https://statescoop.com/mamdani-kill-nyc-ai-chatbot/</li>
+<li>https://futurism.com/nyc-chatbot-break-law</li>
 </ul>
-<p>Independence: strong - Radware primary + multiple independent outlets; the service-side-exfil and 100%-success claims are single-source (Radware).
-- <code>confidence</code>: high on mechanism, dates, and 100%-success PoC; medium on the service-side-only characterization (Radware's own analysis, weakest link)</p>
-<h3>Verification notes</h3>
-<ul>
-<li>Report date refined to 2025-06-18 (via Bugcrowd) and fix acknowledged 2025-09-03; candidate's "reported June 2025 / fixed early Aug / disclosed 2025-09-18" is consistent and corroborated.</li>
-<li>Classification holds: <code>prompt-injection</code>, harness failure_locus, near-miss + <code>researcher-demonstrated</code>. No correction needed.</li>
-</ul></div>
+<p>Independence: strong - journalist reproduction plus city acknowledgment.
+- <code>confidence</code>: high on outputs and timeline; low on downstream harm quantification (the named weakest link)</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

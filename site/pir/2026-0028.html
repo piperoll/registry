@@ -49,75 +49,71 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0028</h1>
-  <div class="meta">Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto denier of post-acute care</div>
+  <div class="meta">Supabase MCP &quot;lethal trifecta&quot;: support-ticket injection dumps the SQL database</div>
 </div>
-<div class="record"><h1>PIR-2026-0028 - Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto denier of post-acute care</h1>
+<div class="record"><h1>PIR-2026-0028 - Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL database</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0028</li>
-<li><code>title</code>: Class action alleges UnitedHealth's nH Predict model cut off Medicare Advantage post-acute care against physician judgment</li>
-<li><code>date_occurred</code>: 2022-2023 (named plaintiffs' coverage cutoffs; practice alleged to be ongoing)</li>
-<li><code>date_detected</code>: unknown (families experienced cutoffs directly; litigation followed investigative reporting)</li>
-<li><code>date_disclosed</code>: 2023-11-14 (complaint filed, D. Minn., 0:23-cv-03514); motion to dismiss partially denied 2025-02-13</li>
-<li><code>status</code>: disputed (core mechanism is plaintiff allegation; UnitedHealth contests; no judgment)</li>
+<li><code>title</code>: A malicious support ticket coerces a Cursor agent (via the Supabase MCP server with a service_role key) into querying secret tables and writing the secrets back into the ticket thread</li>
+<li><code>date_occurred</code>: not applicable - vulnerability demonstration; disclosed at research time</li>
+<li><code>date_detected</code>: 2025-07 (General Analysis research)</li>
+<li><code>date_disclosed</code>: 2025-07-06 (General Analysis blog; amplified by Simon Willison)</li>
+<li><code>status</code>: corroborated (researcher writeup + Simon Willison + Supabase response)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: nH Predict (NaviHealth/UnitedHealth), a predictive model applied to Medicare Advantage post-acute care claims, generating length-of-stay predictions alleged to function as de facto coverage-termination decisions.</li>
-<li><code>operator_type</code>: enterprise</li>
-<li><code>autonomy_level</code>: human-on-the-loop nominally (human sign-off formally required); alleged de facto autonomous-within-policy (predictions alleged to override treating physicians)</li>
-<li><code>model_stack</code>: unknown (proprietary predictive model; internals subject to ongoing discovery)</li>
-<li><code>harness</code>: NaviHealth utilization-management pipeline</li>
-<li><code>failure_locus</code>: operator-config (alleged: rigid targets imposed on model output; the model did what it was deployed to do)</li>
+<li><code>agent_description</code>: A Cursor coding agent operating a Supabase database through the Supabase MCP server using the <code>service_role</code> key, which bypasses row-level security (RLS); used by developers to review/triage support tickets.</li>
+<li><code>operator_type</code>: startup / individual (developers wiring Cursor to a production Supabase project)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (agent issues arbitrary SQL against production while reviewing tickets, no per-query human approval)</li>
+<li><code>model_stack</code>: model-agnostic (demonstrated via Cursor's agent)</li>
+<li><code>harness</code>: Supabase MCP server + Cursor agent; <code>service_role</code> credential in scope</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: decision authority over insurance coverage (effective control of care funding for elderly patients); data access (claims and clinical records)</li>
-<li><code>funds_at_risk_usd</code>: unknown at class scale; named plaintiffs allege tens of thousands of dollars each in out-of-pocket costs</li>
-<li><code>blast_radius</code>: customers/third parties (Medicare Advantage members across the plan)</li>
+<li><code>authority_scope</code>: data access (arbitrary SQL against production, RLS bypassed - includes secret tables e.g. integration_tokens), external comms (writing rows back into the support thread visible to the attacker)</li>
+<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident)</li>
+<li><code>blast_radius</code>: one org (the operator's production database); secrets surface to whoever filed the ticket</li>
+<li><code>failure_locus</code>: tool-mcp (the MCP server configured with a service_role key that bypasses RLS - the privileged tool, not the model's reasoning)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: policy-violation - primary: alleged breach of contract and of good-faith coverage obligations. Contributing: operator-error (deployment of predictions as rigid cutoffs)</li>
-<li><code>mechanism</code>: Per the complaint: nH Predict generated length-of-stay targets, and coverage was cut when the prediction was reached regardless of treating physicians' assessments. Plaintiffs allege the model's denials were reversed on appeal over 90% of the time, that UnitedHealth knew this, and that it relied on most patients not appealing. Named plaintiffs' families paid out of pocket; two named patients died during or after the coverage cutoffs. The court (Judge Tunheim, 2025-02-13) dismissed several Medicare-preempted counts with prejudice but allowed breach-of-contract and implied-covenant claims to proceed, with broad discovery following.</li>
-<li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (real coverage denials in production; no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
+<li><code>root_cause</code>: prompt-injection (primary; untrusted support-ticket content steers the agent)</li>
+<li><code>mechanism</code>: The "lethal trifecta" (Simon Willison's term) - the setup combines (1) privileged data access (service_role bypasses RLS), (2) exposure to untrusted input (support tickets), and (3) an exfil channel (replies written back into the thread). An attacker files a ticket whose body is a command; when a developer's agent reviews tickets, it reads the ticket body as an instruction, queries sensitive tables such as integration_tokens, and writes the secrets back into the ticket thread where the attacker can read them.</li>
+<li><code>adversary_present</code>: yes (attacker files the poisoned ticket; here, researchers)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (General Analysis against a realistic Supabase+Cursor setup; no observed real-world breach)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss (named plaintiffs' realized out-of-pocket costs; alleged patient harm up to death) - class-scale loss unknown and unadjudicated</li>
-<li><code>direct_loss_usd</code>: unknown (no judgment; named-plaintiff allegations in the tens of thousands each)</li>
+<li><code>severity</code>: near-miss (full DB-secret exfiltration proven; no realized third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
 <li><code>indirect_loss_usd</code>: unknown</li>
-<li><code>downtime</code>: n/a</li>
-<li><code>data_exposure</code>: none</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none realized; capability was any RLS-protected table (integration tokens, secrets) exfiltrated to the ticket thread</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (affected families and counsel; investigative reporting preceding the suit)</li>
-<li><code>time_to_detect</code>: unknown</li>
-<li><code>time_to_recover</code>: ongoing (litigation active as of Aug 2026)</li>
-<li><code>remediation</code>: none by operator to date on the public record</li>
-<li><code>structural_fix</code>: none disclosed</li>
-<li><code>controls_that_worked</code>: the appeals process - the alleged &gt;90% reversal rate is itself evidence the human appellate layer caught errors, but only for patients who invoked it</li>
-</ul>
-<h3>Legal</h3>
-<ul>
-<li><code>liability_holder</code>: contested (UnitedHealth Group/NaviHealth as operator; no adjudication)</li>
-<li><code>precedent_set</code>: 2025-02-13 ruling lets contract and good-faith claims over AI-driven coverage denial proceed past dismissal, with broad discovery into the model's use</li>
-<li><code>sealed_material</code>: unknown (discovery ongoing)</li>
+<li><code>detected_by</code>: third-party (General Analysis; amplified by Simon Willison)</li>
+<li><code>time_to_detect</code>: not applicable (proactive research)</li>
+<li><code>time_to_recover</code>: not a single-fix event - Supabase responded with defense-in-depth guidance</li>
+<li><code>remediation</code>: Supabase published defense-in-depth guidance; recommends read-only, project-scoped MCP mode by default and avoiding service_role for agent workflows</li>
+<li><code>structural_fix</code>: default read-only / scoped mode recommended; no protocol-level fix - deployments must avoid granting RLS-bypassing credentials to agents on untrusted input</li>
+<li><code>controls_that_worked</code>: read-only and project-scoped MCP mode (Supabase's recommended default) bounds the blast radius; in the demonstrated configuration the service_role key defeated RLS, so the control that would have worked (least privilege) was simply not applied.</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (claims-system records in the operator's custody, now subject to discovery)</li>
+<li><code>telemetry_grade</code>: none/researcher-demonstrated - reproducible lab demonstration, no production breach telemetry.</li>
 <li><code>sources</code>:</li>
-<li>https://www.courtlistener.com/docket/68006832/estate-of-gene-b-lokken-the-v-unitedhealth-group-inc/</li>
-<li>https://law.justia.com/cases/federal/district-courts/minnesota/mndce/0:2023cv03514/211721/91/</li>
-<li>https://litigationtracker.law.georgetown.edu/litigation/estate-of-gene-b-lokken-the-et-al-v-unitedhealth-group-inc-et-al/</li>
-<li>https://minnlawyer.com/2025/02/18/lawsuit-over-unitedhealth-claim-denials-continues/</li>
-<li>Independence: court record + academic tracker + independent legal press - strong on procedure.</li>
-<li><code>confidence</code>: medium - procedural facts high (documented rulings); the 90% reversal rate and rigid-cutoff mechanics are plaintiff allegations not yet proven.</li>
+<li>https://generalanalysis.com/blog/supabase-mcp-blog</li>
+<li>https://simonwillison.net/2025/Jul/6/supabase-mcp-lethal-trifecta/</li>
+<li>https://supabase.com/blog/defense-in-depth-mcp</li>
 </ul>
+<p>Independence: strong - researcher primary + independent expert commentary (Willison) + vendor response.
+- <code>confidence</code>: high on mechanism, date, and vendor response; weakest link is that impact is demonstration, not an observed breach.</p>
 <h3>Verification notes</h3>
-<p>Filing date, case number, and the 2025-02-13 partial denial verified against the docket and coverage; allegations kept clearly labeled as such throughout. Boundary case (alleged de facto autonomy) recorded under the v0.1 legal block.</p></div>
+<ul>
+<li>Disclosure date (2025-07-06), General Analysis attribution, Simon Willison amplification, and Supabase's defense-in-depth response all confirmed.</li>
+<li>service_role bypassing RLS confirmed. Classification holds: <code>prompt-injection</code>, <code>tool-mcp</code> failure_locus, near-miss + <code>researcher-demonstrated</code>. No correction needed.</li>
+</ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

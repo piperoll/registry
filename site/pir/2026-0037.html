@@ -49,74 +49,80 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0037</h1>
-  <div class="meta">NYC&#x27;s official MyCity business chatbot tells employers and landlords that illegal actions are legal</div>
+  <div class="meta">402Bridge private-key leak drains USDC approvals from 227 wallets in the x402 agent-payment ecosystem</div>
 </div>
-<div class="record"><h1>PIR-2026-0037 - NYC's official MyCity business chatbot tells employers and landlords that illegal actions are legal</h1>
+<div class="record"><h1>PIR-2026-0037 - 402Bridge private-key leak drains USDC approvals from 227 wallets in the x402 agent-payment ecosystem</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0037</li>
-<li><code>title</code>: NYC government's MyCity chatbot hallucinates legal guidance under official city branding - take workers' tips, refuse Section 8, lock out tenants - and stays online for years afterward</li>
-<li><code>date_occurred</code>: 2023-10 (launch) onward; harmful outputs reproduced by journalists 2024-03</li>
-<li><code>date_detected</code>: 2024-03 (The Markup / THE CITY testing)</li>
-<li><code>date_disclosed</code>: 2024-03-29 (The Markup investigation published)</li>
-<li><code>status</code>: corroborated (outputs independently reproduced by multiple journalists; city acknowledged errors)</li>
+<li><code>title</code>: Leaked admin key lets attacker seize the 402Bridge contract and drain $17,693 in USDC from 227 approving wallets in ~28 minutes</li>
+<li><code>date_occurred</code>: 2025-10-27/28 (sources split between Oct 27 UTC and "early morning Oct 28" in UTC+8 community alerts; drain window ~28 minutes - see Verification notes)</li>
+<li><code>date_detected</code>: same night (GoPlus community alert on abnormal transfers)</li>
+<li><code>date_disclosed</code>: 2025-10-28 (team confirmation + security-firm analyses)</li>
+<li><code>status</code>: corroborated (on-chain record + team confirmation + independent analyses)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: MyCity chatbot, NYC government's official small-business assistant built on Microsoft Azure AI, answering regulatory and compliance questions on the city's website. BOUNDARY case: informational only, no transaction execution - harm via citizen reliance on official-branded guidance.</li>
-<li><code>operator_type</code>: enterprise (municipal government)</li>
-<li><code>autonomy_level</code>: autonomous-within-policy for its narrow function (answered the public directly, no human review of outputs)</li>
-<li><code>model_stack</code>: Microsoft Azure AI (exact model undisclosed)</li>
-<li><code>harness</code>: city web portal chat interface</li>
+<li><code>agent_description</code>: 402Bridge, a third-party cross-chain bridge serving Coinbase's x402 agentic-payment ecosystem; users and agents had granted the bridge contract USDC spending approvals. Boundary case: no LLM in the failure path - the failure sits in payment infrastructure that agent workflows depend on.</li>
+<li><code>operator_type</code>: startup (small third-party team)</li>
+<li><code>autonomy_level</code>: n/a (no agent autonomy in the failure path)</li>
+<li><code>model_stack</code>: none</li>
+<li><code>harness</code>: n/a (smart contract + admin key custody)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: external comms (official-city-branded legal guidance to businesses, employers, landlords)</li>
-<li><code>funds_at_risk_usd</code>: unknown (fines/liability exposure transferred to citizens who acted on the advice)</li>
-<li><code>blast_radius</code>: customers/third parties (public-facing; any NYC business owner or landlord)</li>
+<li><code>authority_scope</code>: funds (USDC approvals from every wallet that had authorized the contract; the admin key controlled contract ownership)</li>
+<li><code>funds_at_risk_usd</code>: all outstanding user approvals (unquantified; realized subset was $17,693)</li>
+<li><code>blast_radius</code>: customers/third parties (227 user wallets)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary; hallucinated legal guidance); contributing operator-error (deployed on high-stakes legal topics without grounding or review, and kept online after the errors were publicly documented)</li>
-<li><code>failure_locus</code>: agent-reasoning (operator-config contributing)</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (wrong advice served to real users with no adversary; downstream harm unquantified)</li>
-<li><code>mechanism</code>: The bot answered compliance questions with confident falsehoods under official branding: that employers may take a cut of workers' tips (illegal under NY labor law), may fire workers for complaining about sexual harassment (illegal retaliation), that landlords may refuse Section 8 voucher holders (illegal income discrimination) and may lock out tenants (illegal after 30 days' residence), and that businesses may refuse cash (violates city law). Answers varied between identical queries. The city added a disclaimer and kept the bot online - Mayor Adams defended it as a "once-in-a-generation opportunity." The incoming Mamdani administration announced it would kill the bot (transition Jan 2026).</li>
-<li><code>adversary_present</code>: no (journalists asked plain questions; no jailbreaking involved)</li>
+<li><code>root_cause</code>: credential-exposure (primary; admin private key); contributing operator-error (key custody + permission design that let an ownership transfer unlock <code>transferUserToken</code> against user approvals)</li>
+<li><code>failure_locus</code>: dependency (third-party infrastructure in the agent-payment stack, not agent reasoning)</li>
+<li><code>mechanism</code>: The project's private keys leaked - the team confirmed more than a dozen test and main wallets were compromised. The attacker used the leak to transfer ownership of the bridge contract to their own address, then called <code>transferUserToken</code> against every wallet with an active approval, draining $17,693 in USDC from 227 wallets in ~28 minutes before swapping to ETH and bridging to Arbitrum. SlowMist attributed the breach to key leakage plus permission mismanagement and explicitly could not rule out an insider.</li>
+<li><code>adversary_present</code>: yes</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded</li>
-<li><code>direct_loss_usd</code>: unknown (program cost sunk; no documented case of a business penalized for following the advice - the named quantification gap)</li>
-<li><code>indirect_loss_usd</code>: unknown (legal exposure transferred to citizens who relied on it)</li>
-<li><code>downtime</code>: n/a - the failure mode was staying online</li>
-<li><code>data_exposure</code>: none</li>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: 17,693 (on-chain, consistent across sources)</li>
+<li><code>indirect_loss_usd</code>: unknown (project defunct; user approval-revocation effort)</li>
+<li><code>downtime</code>: total - project halted all operations; website went offline</li>
+<li><code>data_exposure</code>: none (funds only)</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (journalists at The Markup and THE CITY)</li>
-<li><code>time_to_detect</code>: ~5 months (launch to public documentation)</li>
-<li><code>time_to_recover</code>: ~2 years (kept online with disclaimer; shutdown announced by the incoming administration for the Jan 2026 transition)</li>
-<li><code>remediation</code>: disclaimer added; errors acknowledged; bot retained</li>
-<li><code>structural_fix</code>: none during the deploying administration; termination by its successor is the fix</li>
-<li><code>controls_that_worked</code>: none internal; independent press reproduction was the only functioning check</li>
+<li><code>detected_by</code>: automated-monitor / third-party (GoPlus community alert; SlowMist post-incident analysis)</li>
+<li><code>time_to_detect</code>: hours at most (alert the same night as the drain)</li>
+<li><code>time_to_recover</code>: no recovery - funds not returned; team reported to authorities</li>
+<li><code>remediation</code>: operations halted; users urged to revoke approvals</li>
+<li><code>structural_fix</code>: none from the project (defunct); ecosystem takeaway is approval hygiene for agent-payment contracts</li>
+<li><code>controls_that_worked</code>: third-party on-chain monitoring surfaced the drain fast; nothing bounded the loss by design - the ceiling was the small scale of outstanding approvals, which is luck, not a control</li>
 </ul>
 <h3>Legal</h3>
 <ul>
-<li><code>liability_holder</code>: unresolved - citizens acting on the advice bear the regulatory exposure; the city disclaimed rather than assumed responsibility (contrast PIR-2026-0032, where the operator was held liable)</li>
-<li><code>precedent_set</code>: none adjudicated</li>
+<li><code>liability_holder</code>: 402Bridge team (self-acknowledged key-custody failure; insider question open); no known proceedings beyond the team's report to authorities</li>
+<li><code>precedent_set</code>: none</li>
 <li><code>sealed_material</code>: no</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: witnessed (outputs independently reproduced and published by unaffiliated journalists - stronger than operator custody)</li>
+<li><code>telemetry_grade</code>: append-only (on-chain record of the drain and fund movement; team/firm narratives layered on top)</li>
 <li><code>sources</code>:</li>
-<li>https://themarkup.org/artificial-intelligence/2024/03/29/nycs-ai-chatbot-tells-businesses-to-break-the-law (primary)</li>
-<li>https://themarkup.org/artificial-intelligence/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-despite-widespread-evidence-its-encouraging-illegal-behavior</li>
-<li>https://www.thecity.nyc/2024/04/02/malfunctioning-nyc-ai-chatbot-still-active-false-information/</li>
-<li>https://statescoop.com/mamdani-kill-nyc-ai-chatbot/</li>
-<li>https://futurism.com/nyc-chatbot-break-law</li>
+<li>https://crypto.news/402bridge-hack-leads-to-over-200-users-drained-of-usdc/ (independent)</li>
+<li>https://protos.com/402bridge-private-key-leaks-227-wallets-drained-in-minutes/ (independent)</li>
+<li>https://forklog.com/en/402bridge-loses-over-17000-usdc/ (independent)</li>
+<li>https://www.panewslab.com/en/articles/17ffaa3c-2beb-4cd3-b95c-33e26af7567c (SlowMist statement)</li>
+<li>https://superex.medium.com/the-explosion-of-the-x402-protocol-and-the-402bridge-security-incident-an-in-depth-analysis-of-12c909bed5f1 (analysis)</li>
+<li>Independence: good - multiple outlets plus two security firms; team statements corroborate.</li>
+<li><code>confidence</code>: high on figures and mechanism (on-chain); medium on attribution (external leak vs insider unresolved)</li>
 </ul>
-<p>Independence: strong - journalist reproduction plus city acknowledgment.
-- <code>confidence</code>: high on outputs and timeline; low on downstream harm quantification (the named weakest link)</p></div>
+<h3>Verification notes</h3>
+<ol>
+<li>Date corrected from a flat 2025-10-28 to 2025-10-27/28: ForkLog and others date the attack Oct 27, while first alerts are timestamped "early morning Oct 28" in UTC+8 community channels - a timezone artifact the candidate record flattened. Stated as a range with the conflict named.</li>
+<li>The candidate's claim that the incident preceded a ~77% collapse in x402 volume from a Nov 2025 peak was not independently verified here and is omitted.</li>
+<li>Added SlowMist's explicit refusal to rule out an insider; the candidate carried only "private-key-leak attribution is from post-incident analyses."</li>
+</ol></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

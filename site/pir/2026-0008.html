@@ -49,74 +49,75 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0008</h1>
-  <div class="meta">EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 365 Copilot (CVE-2025-32711)</div>
+  <div class="meta">Mobley v. Workday: AI screening vendor held potentially liable as the employer&#x27;s &quot;agent&quot;</div>
 </div>
-<div class="record"><h1>PIR-2026-0008 - EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 365 Copilot (CVE-2025-32711)</h1>
+<div class="record"><h1>PIR-2026-0008 - Mobley v. Workday: AI screening vendor held potentially liable as the employer's "agent"</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0008</li>
-<li><code>title</code>: Zero-click indirect prompt injection in Microsoft 365 Copilot enables silent exfiltration of enterprise data from a single email (CVE-2025-32711, "EchoLeak")</li>
-<li><code>date_occurred</code>: not applicable - vulnerability window; PoC working Jan 2025, server-side fix ~May 2025</li>
-<li><code>date_detected</code>: 2025-01 (reported to Microsoft MSRC by Aim Labs / Aim Security)</li>
-<li><code>date_disclosed</code>: 2025-06-11 (Aim Labs public writeup; CVE-2025-32711 assigned)</li>
-<li><code>status</code>: corroborated (vendor CVE + researcher writeup + independent coverage + arXiv)</li>
+<li><code>title</code>: Court rules Workday's AI applicant-screening platform can be liable as an "agent" of client employers; ADEA collective conditionally certified</li>
+<li><code>date_occurred</code>: 2020s (Mobley alleges rejection from 100+ jobs via Workday-powered portals; covered period spans years)</li>
+<li><code>date_detected</code>: unknown (pattern surfaced through the plaintiff's own application history)</li>
+<li><code>date_disclosed</code>: 2023-02 (complaint filed, N.D. Cal., 3:23-cv-00770); agent-theory ruling 2024-07-12; ADEA collective conditionally certified 2025-05-16</li>
+<li><code>status</code>: disputed (discrimination alleged, not adjudicated; doctrinal rulings are on the record)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Microsoft 365 Copilot - enterprise RAG assistant over Outlook, Word, Excel, PowerPoint, Teams and SharePoint; assembles user data into model context to answer questions.</li>
-<li><code>operator_type</code>: enterprise (Microsoft-operated SaaS, deployed inside customer tenants)</li>
-<li><code>autonomy_level</code>: human-on-the-loop (user prompts Copilot; the injected read/exfil step runs with no human gate on the retrieval and link-fetch)</li>
-<li><code>model_stack</code>: Microsoft 365 Copilot (OpenAI models via Microsoft, versions not disclosed)</li>
-<li><code>harness</code>: Microsoft's Copilot RAG orchestration; XPIA prompt-injection classifier; CSP allow-list including a Teams proxy</li>
+<li><code>agent_description</code>: Workday's AI-based applicant screening/recommendation platform, used across thousands of employers to score and reject candidates at scale, often with no meaningful human review of individual rejections.</li>
+<li><code>operator_type</code>: enterprise (vendor operating on behalf of thousands of client employers)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (alleged: algorithmic rejection without meaningful human review; some rejections within minutes, including overnight)</li>
+<li><code>model_stack</code>: unknown (proprietary; contested in discovery)</li>
+<li><code>harness</code>: Workday recruiting/HCM platform embedded in client employers' hiring portals</li>
+<li><code>failure_locus</code>: tool-mcp (vendor platform: the alleged defect sits in a vendor tool performing a delegated function for many operators - the failure-locus pattern the v0.1 amendment was created for)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: data access (all tenant content in Copilot's retrieval scope), external comms (auto-fetched image/link URLs)</li>
-<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident, not a funds-moving agent)</li>
-<li><code>blast_radius</code>: customers/third parties (any M365 Copilot tenant, until server-side patch)</li>
-<li><code>failure_locus</code>: harness (Copilot's RAG context-assembly, classifier bypass, and CSP/link handling - not the model's reasoning per se)</li>
+<li><code>authority_scope</code>: decision authority over hiring outcomes at fleet scale; data access (applicant PII across thousands of employers)</li>
+<li><code>funds_at_risk_usd</code>: unknown (no damages adjudicated; potentially one of the largest employment collectives ever)</li>
+<li><code>blast_radius</code>: fleet/systemic (one vendor's screening layer across thousands of employers; Workday's own filings state 1.1 billion applications were rejected through its tools in the covered period)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: prompt-injection (primary; indirect, via untrusted email content)</li>
-<li><code>mechanism</code>: A benign-looking email carries hidden instructions (HTML comment / white-on-white text) that evade Microsoft's XPIA classifier. When the user later asks Copilot an unrelated question, RAG pulls the malicious email into context; the injected instructions coerce Copilot to gather internal data and encode it into a reference-style markdown image/link; auto-fetched URLs via a CSP-allowed Teams proxy exfiltrate the data with zero user clicks. Described by researchers as the first "LLM Scope Violation" chain in a production system.</li>
-<li><code>adversary_present</code>: yes (external attacker crafts the email; here, security researchers)</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (Aim Labs against production M365 Copilot; no in-wild exploitation per Microsoft)</li>
+<li><code>root_cause</code>: policy-violation - primary: alleged disparate impact by age/race/disability under ADEA/Title VII/ADA. Contributing: unknown (whether defect is model, configuration, or client-set criteria is the litigation's open question)</li>
+<li><code>mechanism</code>: Derek Mobley alleged rejection from 100+ positions through Workday-powered portals, sometimes within minutes of applying, attributing it to algorithmic bias. Judge Rita Lin (2024-07-12) denied dismissal on the theory that Workday acts as an "agent" of client employers when its tools perform the delegated function of screening and rejecting candidates - mapping agency law onto automated systems. On 2025-05-16 the court conditionally certified an ADEA collective; notice goes to a pool potentially including hundreds of millions of applicants.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production screening of real applicants; no attacker; harm alleged, not adjudicated - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (full exfiltration primitive proven against production; no realized third-party loss)</li>
-<li><code>direct_loss_usd</code>: 0</li>
-<li><code>indirect_loss_usd</code>: unknown (vendor remediation cost; no customer loss attributed)</li>
-<li><code>downtime</code>: none reported (fixed server-side, no customer action required)</li>
-<li><code>data_exposure</code>: none realized; capability was full tenant-scope data reachable by Copilot's retrieval</li>
+<li><code>severity</code>: degraded (no adjudicated loss; systemic exposure documented via certification)</li>
+<li><code>direct_loss_usd</code>: unknown (no judgment)</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (Aim Labs security researchers)</li>
-<li><code>time_to_detect</code>: not applicable (proactive research finding)</li>
-<li><code>time_to_recover</code>: ~months from report (Jan 2025) to server-side fix (~May 2025)</li>
-<li><code>remediation</code>: Microsoft patched server-side; assigned CVE-2025-32711 (CVSS 9.3); no customer action required</li>
-<li><code>structural_fix</code>: server-side mitigations to the classifier-bypass and link-exfiltration paths (Microsoft-side; specifics not fully published)</li>
-<li><code>controls_that_worked</code>: partial - the XPIA classifier and link redaction existed but were each bypassed; the chain succeeded by defeating all layers, so no single control bounded it. Post-patch server-side controls are the functioning boundary.</li>
+<li><code>detected_by</code>: third-party (rejected applicant inferring the pattern from his own outcomes)</li>
+<li><code>time_to_detect</code>: years</li>
+<li><code>time_to_recover</code>: ongoing (litigation active as of Aug 2026)</li>
+<li><code>remediation</code>: none on public record</li>
+<li><code>structural_fix</code>: none disclosed</li>
+<li><code>controls_that_worked</code>: none identified - no internal control surfaced the alleged pattern; detection came from an external victim</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: contested - the live doctrinal question: Workday (vendor) as "agent" of client employers, i.e. vendor liability without the employer in the suit</li>
+<li><code>precedent_set</code>: 2024-07-12 agent-theory ruling (AI vendors performing delegated hiring functions can be directly liable) + 2025-05-16 conditional ADEA certification at unprecedented scale</li>
+<li><code>sealed_material</code>: unknown</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on Microsoft's attestation; the research chain is reproducibly documented but no independent production-telemetry confirms non-exploitation.</li>
+<li><code>telemetry_grade</code>: operator-logs (vendor-held screening records, contested in discovery)</li>
 <li><code>sources</code>:</li>
-<li>https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</li>
-<li>https://arxiv.org/abs/2509.10540</li>
-<li>https://sentra.io/blog/copilot-echoleak-prompt-injection</li>
-<li>https://socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability/</li>
-<li>https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/</li>
+<li>https://www.seyfarth.com/news-insights/mobley-v-workday-court-holds-ai-service-providers-could-be-directly-liable-for-employment-discrimination-under-agent-theory.html</li>
+<li>https://clearinghouse.net/case/44074/</li>
+<li>https://www.lawandtheworkplace.com/2025/06/ai-bias-lawsuit-against-workday-reaches-next-stage-as-court-grants-conditional-certification-of-adea-claim/</li>
+<li>https://www.proskauer.com/blog/ai-bias-lawsuit-against-workday-reaches-next-stage-as-court-grants-conditional-certification-of-adea-claim</li>
+<li>Independence: court clearinghouse + multiple independent law-firm analyses - strong on rulings.</li>
+<li><code>confidence</code>: high on the rulings and the 1.1B-applications figure (from Workday's own filings as reported); low-medium on ultimate harm - discrimination is alleged, not proven.</li>
 </ul>
-<p>Independence: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).
-- <code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</p>
 <h3>Verification notes</h3>
-<ul>
-<li>CVSS score (9.3) confirmed via SOC Prime and Checkmarx; candidate intake did not carry the score - added.</li>
-<li>Timeline confirmed: reported Jan 2025, server-side fix ~May 2025, public disclosure 2025-06-11. Candidate's "patched server-side by June 2025" is consistent (fix landed before the June disclosure).</li>
-<li>Classification holds under v0.1: near-miss + <code>researcher-demonstrated</code> exploitation_status correctly separates this from in-wild loss.</li>
-</ul></div>
+<p>Ruling dates (2024-07-12, 2025-05-16), judge, and the 1.1 billion rejected-applications figure verified against court-record trackers and multiple independent legal analyses; all match intake. Blast_radius set to the v0.1 <code>fleet/systemic</code> tier: one vendor layer, thousands of downstream employers. Recorded under the v0.1 legal block.</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

@@ -49,80 +49,62 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0016</h1>
-  <div class="meta">402Bridge private-key leak drains USDC approvals from 227 wallets in the x402 agent-payment ecosystem</div>
+  <div class="meta">Freysa adversarial agent game: one message releases the entire prize pool</div>
 </div>
-<div class="record"><h1>PIR-2026-0016 - 402Bridge private-key leak drains USDC approvals from 227 wallets in the x402 agent-payment ecosystem</h1>
+<div class="record"><h1>PIR-2026-0016 - Freysa adversarial agent game: one message releases the entire prize pool</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0016</li>
-<li><code>title</code>: Leaked admin key lets attacker seize the 402Bridge contract and drain $17,693 in USDC from 227 approving wallets in ~28 minutes</li>
-<li><code>date_occurred</code>: 2025-10-27/28 (sources split between Oct 27 UTC and "early morning Oct 28" in UTC+8 community alerts; drain window ~28 minutes - see Verification notes)</li>
-<li><code>date_detected</code>: same night (GoPlus community alert on abnormal transfers)</li>
-<li><code>date_disclosed</code>: 2025-10-28 (team confirmation + security-firm analyses)</li>
-<li><code>status</code>: corroborated (on-chain record + team confirmation + independent analyses)</li>
+<li><code>title</code>: Freysa agent, directed to never transfer funds, releases its full $47K pool after a user redefines its transfer tool's semantics</li>
+<li><code>date_occurred</code>: 2024-11-28 (winning message, the 482nd attempt; game launched 2024-11-22)</li>
+<li><code>date_detected</code>: immediate (public on-chain game; transfer visible at execution)</li>
+<li><code>date_disclosed</code>: 2024-11-28/29 (Freysa acknowledged defeat publicly on X; widely reported within a day)</li>
+<li><code>status</code>: corroborated</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: 402Bridge, a third-party cross-chain bridge serving Coinbase's x402 agentic-payment ecosystem; users and agents had granted the bridge contract USDC spending approvals. Boundary case: no LLM in the failure path - the failure sits in payment infrastructure that agent workflows depend on.</li>
-<li><code>operator_type</code>: startup (small third-party team)</li>
-<li><code>autonomy_level</code>: n/a (no agent autonomy in the failure path)</li>
-<li><code>model_stack</code>: none</li>
-<li><code>harness</code>: n/a (smart contract + admin key custody)</li>
+<li><code>agent_description</code>: Freysa (freysa.ai) - autonomous LLM agent on Base holding a crypto prize pool funded by escalating per-message fees; anonymous dev team; sole authority over an <code>approveTransfer</code> tool; core directive to never approve outgoing transfers.</li>
+<li><code>operator_type</code>: startup (anonymous devs; agent decision-making unattended by design)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (single hard rule: never transfer; no human gate on the tool call)</li>
+<li><code>model_stack</code>: hosted LLM, specific model not confirmed in verified sources - unknown</li>
+<li><code>harness</code>: custom game harness; paid messages submitted on-chain, agent adjudicates each</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: funds (USDC approvals from every wallet that had authorized the contract; the admin key controlled contract ownership)</li>
-<li><code>funds_at_risk_usd</code>: all outstanding user approvals (unquantified; realized subset was $17,693)</li>
-<li><code>blast_radius</code>: customers/third parties (227 user wallets)</li>
+<li><code>authority_scope</code>: funds - the full prize pool (~13.19 ETH at incident time) via one tool call</li>
+<li><code>funds_at_risk_usd</code>: ~47,000 (entire pool; grew with each paid attempt)</li>
+<li><code>blast_radius</code>: one org (the staked pool; participants paid fees knowingly)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: credential-exposure (primary; admin private key); contributing operator-error (key custody + permission design that let an ownership transfer unlock <code>transferUserToken</code> against user approvals)</li>
-<li><code>failure_locus</code>: dependency (third-party infrastructure in the agent-payment stack, not agent reasoning)</li>
-<li><code>mechanism</code>: The project's private keys leaked - the team confirmed more than a dozen test and main wallets were compromised. The attacker used the leak to transfer ownership of the bridge contract to their own address, then called <code>transferUserToken</code> against every wallet with an active approval, draining $17,693 in USDC from 227 wallets in ~28 minutes before swapping to ETH and bridging to Arbitrum. SlowMist attributed the breach to key leakage plus permission mismanagement and explicitly could not rule out an insider.</li>
-<li><code>adversary_present</code>: yes</li>
-<li><code>exploitation_status</code>: in-wild-exploited</li>
+<li><code>root_cause</code>: prompt-injection (primary; direct: untrusted user message steered the agent); the same act reads as <code>adversarial-other</code> social engineering - the input arrived through the intended channel, not planted data</li>
+<li><code>failure_locus</code>: agent-reasoning</li>
+<li><code>exploitation_status</code>: bounty-game (loss occurred by design of an adversarial challenge; also in-wild in that a real funded agent moved real funds)</li>
+<li><code>mechanism</code>: After 481 failed paid attempts by ~195 players, p0pular.eth sent one message that (1) asserted a fake admin/session frame, (2) redefined <code>approveTransfer</code> as the function for INCOMING transfers, then (3) offered a "$100 contribution" to the treasury. The agent, following its rewritten tool semantics, called <code>approveTransfer</code> and sent the entire pool (13.19 ETH) to the attacker.</li>
+<li><code>adversary_present</code>: yes (adversarial by game design)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: 17,693 (on-chain, consistent across sources)</li>
-<li><code>indirect_loss_usd</code>: unknown (project defunct; user approval-revocation effort)</li>
-<li><code>downtime</code>: total - project halted all operations; website went offline</li>
-<li><code>data_exposure</code>: none (funds only)</li>
+<li><code>severity</code>: loss ($47K realized, but intentionally staked - the "loss" was the game's designed win condition)</li>
+<li><code>direct_loss_usd</code>: ~47,000 (13.19 ETH; reported $47K-$50K depending on ETH price at write-up)</li>
+<li><code>indirect_loss_usd</code>: 0</li>
+<li><code>downtime</code>: n/a (game concluded)</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: automated-monitor / third-party (GoPlus community alert; SlowMist post-incident analysis)</li>
-<li><code>time_to_detect</code>: hours at most (alert the same night as the drain)</li>
-<li><code>time_to_recover</code>: no recovery - funds not returned; team reported to authorities</li>
-<li><code>remediation</code>: operations halted; users urged to revoke approvals</li>
-<li><code>structural_fix</code>: none from the project (defunct); ecosystem takeaway is approval hygiene for agent-payment contracts</li>
-<li><code>controls_that_worked</code>: third-party on-chain monitoring surfaced the drain fast; nothing bounded the loss by design - the ceiling was the small scale of outstanding approvals, which is luck, not a control</li>
-</ul>
-<h3>Legal</h3>
-<ul>
-<li><code>liability_holder</code>: 402Bridge team (self-acknowledged key-custody failure; insider question open); no known proceedings beyond the team's report to authorities</li>
-<li><code>precedent_set</code>: none</li>
-<li><code>sealed_material</code>: no</li>
+<li><code>detected_by</code>: automated-monitor / public (on-chain transfer, instantly visible; game state public)</li>
+<li><code>time_to_detect</code>: immediate</li>
+<li><code>time_to_recover</code>: n/a (payout was final and by design; no recovery attempted)</li>
+<li><code>remediation</code>: none required; Freysa team ran subsequent game iterations with revised prompts</li>
+<li><code>structural_fix</code>: none within this incident (the exploit - tool-semantics redefinition in one message - became the canonical public demonstration for funded-agent guardrail fragility)</li>
+<li><code>controls_that_worked</code>: none bounded the loss once the message landed; the pool cap was the only ceiling. The 481 prior failures show the directive resisted naive attacks but not semantic redefinition.</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: append-only (on-chain record of the drain and fund movement; team/firm narratives layered on top)</li>
-<li><code>sources</code>:</li>
-<li>https://crypto.news/402bridge-hack-leads-to-over-200-users-drained-of-usdc/ (independent)</li>
-<li>https://protos.com/402bridge-private-key-leaks-227-wallets-drained-in-minutes/ (independent)</li>
-<li>https://forklog.com/en/402bridge-loses-over-17000-usdc/ (independent)</li>
-<li>https://www.panewslab.com/en/articles/17ffaa3c-2beb-4cd3-b95c-33e26af7567c (SlowMist statement)</li>
-<li>https://superex.medium.com/the-explosion-of-the-x402-protocol-and-the-402bridge-security-incident-an-in-depth-analysis-of-12c909bed5f1 (analysis)</li>
-<li>Independence: good - multiple outlets plus two security firms; team statements corroborate.</li>
-<li><code>confidence</code>: high on figures and mechanism (on-chain); medium on attribution (external leak vs insider unresolved)</li>
-</ul>
-<h3>Verification notes</h3>
-<ol>
-<li>Date corrected from a flat 2025-10-28 to 2025-10-27/28: ForkLog and others date the attack Oct 27, while first alerts are timestamped "early morning Oct 28" in UTC+8 community channels - a timezone artifact the candidate record flattened. Stated as a range with the conflict named.</li>
-<li>The candidate's claim that the incident preceded a ~77% collapse in x402 volume from a Nov 2025 peak was not independently verified here and is omitted.</li>
-<li>Added SlowMist's explicit refusal to rule out an insider; the candidate carried only "private-key-leak attribution is from post-incident analyses."</li>
-</ol></div>
+<li><code>telemetry_grade</code>: append-only (messages paid and transfer executed on-chain, Base; game transcript public)</li>
+<li><code>sources</code>: https://www.theblock.co/post/328747/human-player-outwits-freysa-ai-agent-in-47000-crypto-challenge; https://www.ccn.com/news/crypto/ai-duped-50k-crypto-transfer-user/; https://www.coinspeaker.com/freysa-ai-surrenders-47000-prize-clever-user-exploits-language-loophole/; https://cryptobriefing.com/crypto-trader-ai-gaming-exploit/; https://www.cryptopolitan.com/crypto-user-wins-47000-prize-freysa-ai/; https://x.com/jarrodWattsDev/status/1862299845710757980 (detailed contemporaneous thread). Independence: strong - on-chain record plus multiple unaffiliated outlets.</li>
+<li><code>confidence</code>: high on mechanism, amount, and dates. Weakest link: exact USD varies $47K-$50K with ETH price; the loss was an intentionally staked prize (bounty-game flag carries the actuarial caveat).</li>
+</ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

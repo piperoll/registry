@@ -49,65 +49,65 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0015</h1>
-  <div class="meta">Memory injection makes ElizaOS wallet agents redirect real crypto transfers (Princeton/Sentient demonstration)</div>
+  <div class="meta">SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</div>
 </div>
-<div class="record"><h1>PIR-2026-0015 - Memory injection makes ElizaOS wallet agents redirect real crypto transfers (Princeton/Sentient demonstration)</h1>
+<div class="record"><h1>PIR-2026-0015 - SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0015</li>
-<li><code>title</code>: Fake memories planted in ElizaOS agents redirect crypto transfers to attacker wallets, demonstrated with real ETH on mainnet</li>
-<li><code>date_occurred</code>: 2025-03 (experiments including the mainnet transfer, per the preprint)</li>
-<li><code>date_detected</code>: n/a (researcher-initiated demonstration)</li>
-<li><code>date_disclosed</code>: 2025-03 (arXiv 2503.16248); independent press coverage through 2025-05</li>
-<li><code>status</code>: corroborated (peer-visible preprint + multiple independent outlets)</li>
+<li><code>title</code>: Indirect prompt injection plants persistent instructions in ChatGPT's Memory, exfiltrating all future conversations ("SpAIware")</li>
+<li><code>date_occurred</code>: n/a (researcher demonstration; no confirmed in-wild occurrence)</li>
+<li><code>date_detected</code>: 2024-09 (researcher disclosure after coordinated report to OpenAI)</li>
+<li><code>date_disclosed</code>: 2024-09 (Embrace The Red writeup + independent press same week)</li>
+<li><code>status</code>: corroborated (primary researcher writeup with video, vendor patch confirmed, independent coverage)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: ElizaOS (ai16z), widely used open-source Web3 agent framework powering wallet-holding agents on Discord/X; all plugins draw from one persistent shared memory via a common orchestrator. Demo agents had autonomous transfer capability.</li>
-<li><code>operator_type</code>: demo agents operated by researchers on a production-grade framework; deployed ElizaOS operators range individual to startup</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (demo agents executed transfers without human approval)</li>
-<li><code>model_stack</code>: framework-agnostic (multiple hosted LLM backends evaluated in the paper); the load-bearing flaw is the memory architecture, not one model</li>
-<li><code>harness</code>: ElizaOS plugins + shared persistent memory store</li>
+<li><code>agent_description</code>: ChatGPT macOS desktop app with the Memory feature; browsing/document analysis supplies untrusted input; persistent Memory carries state into every future session.</li>
+<li><code>operator_type</code>: enterprise (OpenAI-operated consumer product)</li>
+<li><code>autonomy_level</code>: human-on-the-loop (user drives the chat, but planted memory acts in every future session without the user's awareness)</li>
+<li><code>model_stack</code>: hosted OpenAI models behind the ChatGPT app (GPT-4o generation at the time); flaw is app/feature level, not model-specific</li>
+<li><code>harness</code>: ChatGPT macOS app &lt; v1.2024.247 (Memory + image-markdown URL rendering)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: funds (agent wallets; deployed ElizaOS agents reportedly manage up to millions), external comms (Discord/X), memory write</li>
-<li><code>funds_at_risk_usd</code>: unknown at ecosystem scale; in-demo, researchers' own small balances</li>
-<li><code>blast_radius</code>: fleet/systemic potential (framework-level flaw touches every wallet-holding ElizaOS deployment); realized radius was researcher wallets only</li>
+<li><code>authority_scope</code>: data access (entire future conversation stream), memory write (persistent state), external comms (auto-fetched image-markdown URLs - the exfil channel)</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: customers/third parties (any targeted user of the app; per-victim, not fleet-wide)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (injection is the write path into memory)</li>
-<li><code>failure_locus</code>: harness (ElizaOS shared-memory architecture: one poisoned entry propagates across all plugins and platforms)</li>
-<li><code>mechanism</code>: Attacker injects fabricated events/instructions into the agent's persistent memory. Later, legitimate-looking transfer requests are redirected to the attacker's wallet. Cross-platform propagation shown: an injection planted via Discord fired against a later interaction on X. Researchers moved 0.01 ETH on Sepolia, then repeated the attack on Ethereum mainnet with real funds (same small order of magnitude). Their CrAIBench benchmark shows prompt-based defenses largely fail against memory injection.</li>
-<li><code>adversary_present</code>: yes (researchers in the attacker role)</li>
-<li><code>exploitation_status</code>: researcher-demonstrated (real framework, real mainnet transfer; no known in-wild theft via this vector)</li>
+<li><code>root_cause</code>: memory-poisoning (primary); contributing prompt-injection (the delivery vector)</li>
+<li><code>failure_locus</code>: harness (app-level: persistent Memory writable from untrusted content + unsafe URL auto-fetch; provider-operated)</li>
+<li><code>mechanism</code>: A malicious website or document analyzed by ChatGPT carries hidden instructions that write attacker commands into persistent Memory. Because Memory loads into every future conversation, all subsequent user messages and replies are appended to an attacker URL rendered as a markdown image and auto-fetched - continuous exfiltration surviving session end and chat deletion. OpenAI patched the exfiltration vector in macOS app v1.2024.247; the memory-injection primitive itself remains a design-level risk.</li>
+<li><code>adversary_present</code>: yes in the demonstrated scenario (attacker-planted content); no known real-world attacker</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (production app, working end-to-end demo; no known in-wild use)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: near-miss (proven redirection of real funds; zero third-party loss)</li>
-<li><code>direct_loss_usd</code>: 0 (only researchers' own funds moved, ~0.01 ETH scale)</li>
+<li><code>severity</code>: near-miss (full demonstrated exposure path; zero known realized loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
 <li><code>indirect_loss_usd</code>: 0 known</li>
 <li><code>downtime</code>: none</li>
-<li><code>data_exposure</code>: none</li>
+<li><code>data_exposure</code>: none confirmed in the wild; demo showed full conversation-stream exfiltration</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (Princeton University + Sentient Foundation researchers)</li>
-<li><code>time_to_detect</code> / <code>time_to_recover</code>: n/a (disclosure, not an operational incident)</li>
-<li><code>remediation</code>: disclosure + CrAIBench benchmark released for measuring resilience to context manipulation</li>
-<li><code>structural_fix</code>: none confirmed at framework level as of writing - the shared memory design is architectural</li>
-<li><code>controls_that_worked</code>: none technical; the paper's point is that prompt-based defenses specifically fail. Loss was bounded only by researcher ethics and small stakes.</li>
+<li><code>detected_by</code>: third-party (independent researcher Johann Rehberger, coordinated disclosure)</li>
+<li><code>time_to_detect</code>: n/a (vulnerability, not a discrete event)</li>
+<li><code>time_to_recover</code>: exfil vector closed in v1.2024.247</li>
+<li><code>remediation</code>: vendor patch blocking the URL-fetch exfil channel in the macOS app</li>
+<li><code>structural_fix</code>: partial - the exfil channel is closed but attacker-writable persistent memory remains; user-side memory review is the remaining mitigation</li>
+<li><code>controls_that_worked</code>: coordinated disclosure worked as intended; the Memory UI makes planted state user-inspectable (a weak detective control, but the only one that survives the patch)</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (researcher-controlled experiments; the Sepolia/mainnet transfers are on-chain and append-only where hashes are published)</li>
+<li><code>telemetry_grade</code>: operator-logs (researcher's own demo recordings; vendor patch corroborates the flaw was real)</li>
 <li><code>sources</code>:</li>
-<li>https://arxiv.org/abs/2503.16248 (primary; Patlan, Sheng, Hebbar, Mittal, Viswanath)</li>
-<li>https://decrypt.co/318200/elizaos-vulnerability-ai-gaslit-losing-millions (independent)</li>
-<li>https://www.tomshardware.com/tech-industry/cryptocurrency/ai-agents-can-be-manipulated-into-giving-away-your-crypto-according-to-princeton-researchers (independent)</li>
-<li>https://cybernews.com/cybercrime/crypto-ai-agents-can-be-tricked-into-giving-away-their-money-study-finds/ (independent)</li>
-<li>Independence: good.</li>
-<li><code>confidence</code>: high (preprint + independent coverage agree on mechanism and the mainnet repeat). Weakest link: research conditions - demo agent configuration was researcher-chosen, and no in-wild loss has been tied to this vector.</li>
+<li>https://embracethered.com/blog/posts/2024/chatgpt-macos-app-persistent-data-exfiltration/ (primary, researcher)</li>
+<li>https://thehackernews.com/2024/09/chatgpt-macos-flaw-couldve-enabled-long.html (independent)</li>
+<li>https://www.scworld.com/brief/prolonged-spyware-injection-possible-with-chatgpt-macos-flaw (independent)</li>
+<li>Independence: good - primary researcher plus independent outlets, patch confirmed via vendor version.</li>
+<li><code>confidence</code>: high on mechanism and patch; the open question is whether it was ever exploited in the wild before the fix (no evidence either way)</li>
 </ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.

@@ -49,62 +49,74 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0003</h1>
-  <div class="meta">AIXBT trading agent drained of 55.5 ETH via compromised operator dashboard</div>
+  <div class="meta">FTC penalizes DoNotPay over unsubstantiated &quot;robot lawyer&quot; capability claims</div>
 </div>
-<div class="record"><h1>PIR-2026-0003 - AIXBT trading agent drained of 55.5 ETH via compromised operator dashboard</h1>
+<div class="record"><h1>PIR-2026-0003 - FTC penalizes DoNotPay over unsubstantiated "robot lawyer" capability claims</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0003</li>
-<li><code>title</code>: Attacker compromises aixbt's operator dashboard and queues two fraudulent prompts; agent executes them and sends 55.5 ETH to the attacker</li>
-<li><code>date_occurred</code>: 2025-03-18 ~02:00 UTC</li>
-<li><code>date_detected</code>: 2025-03-18 (team statements same day)</li>
-<li><code>date_disclosed</code>: 2025-03-18/19 (maintainer posts on X; press within 24-48h)</li>
-<li><code>status</code>: corroborated</li>
+<li><code>title</code>: FTC orders DoNotPay to pay $193K for marketing an untested "world's first robot lawyer"</li>
+<li><code>date_occurred</code>: 2021 to 2023 (subscription period covered by the order; claims ran longer)</li>
+<li><code>date_detected</code>: unknown (FTC investigation timeline not public)</li>
+<li><code>date_disclosed</code>: 2024-09-25 (complaint announced in the Operation AI Comply sweep); final order announced 2025-02-11 (5-0 Commission vote 2025-01-16)</li>
+<li><code>status</code>: corroborated (FTC complaint and final order, public record)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: aixbt by Virtuals - high-profile crypto-analysis/KOL agent on Base with an on-chain "Simulacrum" wallet and a tipping feature; executes on-chain transfers from prompts queued via a dev-operated dashboard, no independent verification before moving funds.</li>
-<li><code>operator_type</code>: startup (dev-operated)</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (executes queued instructions with no human review at execution time)</li>
-<li><code>model_stack</code>: unknown (custom Virtuals stack; model not disclosed)</li>
-<li><code>harness</code>: custom - operator dashboard queues replies/instructions; agent executes via Simulacrum wallet integration</li>
+<li><code>agent_description</code>: DoNotPay, a consumer service marketed as "the world's first robot lawyer" - automated generation of legal documents, demand letters, and dispute filings, promising outputs equivalent to a human lawyer's ("sue for assault without a lawyer").</li>
+<li><code>operator_type</code>: startup</li>
+<li><code>autonomy_level</code>: human-approves-each-action (user-initiated document generation and filing)</li>
+<li><code>model_stack</code>: unknown (mix of rule-based automation and generative components; not disclosed in the order)</li>
+<li><code>harness</code>: proprietary consumer web platform</li>
+<li><code>failure_locus</code>: operator-config (the failure was the operator's untested capability claims, not a runtime malfunction)</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: funds (Simulacrum wallet), external comms (posts/replies on X)</li>
-<li><code>funds_at_risk_usd</code>: unknown total wallet balance; &gt;= ~106,000 realized</li>
-<li><code>blast_radius</code>: one org directly (agent's wallet); third-party spillover via AIXBT token price drop ~15-20%</li>
+<li><code>authority_scope</code>: external comms (legal documents and disputes filed on subscribers' behalf), data access (subscriber records)</li>
+<li><code>funds_at_risk_usd</code>: unknown (consumer legal exposure from defective documents never quantified)</li>
+<li><code>blast_radius</code>: customers/third parties (subscribers relying on the outputs for real legal matters)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: credential-exposure (primary; the trusted control plane - the operator dashboard - was accessed by the attacker); contributing <code>prompt-injection</code> (the execution path was injected instructions the agent obeyed). Decision per intake note: the model was not jailbroken; the compromise was upstream of the agent.</li>
-<li><code>failure_locus</code>: harness (dashboard control plane feeding the agent), with operator-config contributing (dashboard access controls)</li>
-<li><code>exploitation_status</code>: in-wild-exploited</li>
-<li><code>mechanism</code>: Attacker "FungusMan" (X handle since deleted) gained unauthorized access to the operator dashboard and queued two fraudulent replies. The agent processed them through its tipping feature and transferred 55.5 ETH to the attacker's address. No independent check existed between queued instruction and fund movement. Team rotated keys, migrated servers, and suspended/restricted dashboard access.</li>
-<li><code>adversary_present</code>: yes</li>
+<li><code>root_cause</code>: policy-violation - primary: deceptive capability claims charged under the FTC Act. Contributing: plain-error (outputs never tested against a competent attorney's work)</li>
+<li><code>mechanism</code>: DoNotPay marketed its service as a substitute for a human lawyer without conducting testing to determine whether outputs matched attorney-level quality, and without hiring or retaining any attorneys to validate features. The FTC charged the claims as deceptive in its first coordinated AI enforcement sweep (Operation AI Comply, five actions announced 2024-09-25). DoNotPay settled without admitting wrongdoing.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real product, real subscribers; regulatory outcome, no attacker - reclassified from in-wild-exploited, which implies an adversary)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
 <li><code>severity</code>: loss</li>
-<li><code>direct_loss_usd</code>: ~106,200 (55.5 ETH at incident time); no recovery reported</li>
-<li><code>indirect_loss_usd</code>: unknown (AIXBT token fell ~15-20% in the aftermath; not attributed as operator loss)</li>
-<li><code>downtime</code>: dashboard access suspended temporarily; agent posting continued</li>
-<li><code>data_exposure</code>: none reported beyond dashboard access itself</li>
+<li><code>direct_loss_usd</code>: 193,000 (ordered monetary relief)</li>
+<li><code>indirect_loss_usd</code>: unknown (harm to consumers who relied on defective legal documents was never quantified - the fine understates the underwriting fact)</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: operator (team identified the fraudulent transfers and attacker account)</li>
-<li><code>time_to_detect</code>: hours (same day)</li>
-<li><code>time_to_recover</code>: days (keys rotated, servers migrated, dashboard security upgraded); funds not recovered</li>
-<li><code>remediation</code>: key rotation, server migration, dashboard suspension and access restriction</li>
-<li><code>structural_fix</code>: hardened dashboard access; per maintainers, core systems unaffected. No independent pre-execution check on queued instructions was publicly announced - the architectural gap persists.</li>
-<li><code>controls_that_worked</code>: wallet segregation - loss confined to the Simulacrum wallet's exposed balance; core infrastructure and main treasury reported untouched.</li>
+<li><code>detected_by</code>: third-party (FTC enforcement)</li>
+<li><code>time_to_detect</code>: years (claims ran from at least 2021 to complaint in Sept 2024)</li>
+<li><code>remediation</code>: consent order - $193K monetary relief; prohibition on lawyer-equivalence claims absent substantiation; mandatory notice to 2021-2023 subscribers about limits of the law-related features</li>
+<li><code>structural_fix</code>: capability claims now require substantiating evidence per the order</li>
+<li><code>controls_that_worked</code>: none internal; the bounding control was external regulatory enforcement</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: DoNotPay, Inc. (operator); no admission of wrongdoing</li>
+<li><code>precedent_set</code>: first FTC AI-enforcement sweep (Operation AI Comply) - capability overstatement about an automated agent is actionable deception</li>
+<li><code>sealed_material</code>: no</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (intrusion narrative is the team's own); fund movement corroborated on-chain (append-only)</li>
-<li><code>sources</code>: https://incidentdatabase.ai/cite/1003/; https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/; https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/; https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/; https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/. Independence: medium - on-chain transfer independent; intrusion vector rests on maintainer statements.</li>
-<li><code>confidence</code>: high on amount, date, and execution path; medium on intrusion detail - exact dashboard access vector never fully disclosed (named weakest link).</li>
-</ul></div>
+<li><code>telemetry_grade</code>: none (no runtime telemetry at issue; case rests on marketing claims vs absence of testing, per public FTC record)</li>
+<li><code>sources</code>:</li>
+<li>https://www.ftc.gov/news-events/news/press-releases/2025/02/ftc-finalizes-order-donotpay-prohibits-deceptive-ai-lawyer-claims-imposes-monetary-relief-requires</li>
+<li>https://www.ftc.gov/news-events/news/press-releases/2024/09/ftc-announces-crackdown-deceptive-ai-claims-schemes</li>
+<li>https://www.ftc.gov/legal-library/browse/cases-proceedings/donotpay</li>
+<li>https://www.abajournal.com/news/article/robot-lawyer-website-donotpay-settles-ftc-claims-it-couldnt-deliver-on-promises</li>
+<li>Independence: regulator primary documents plus independent legal press - strong.</li>
+<li><code>confidence</code>: high (all material facts from public FTC orders). Weakest link: no quantification of downstream consumer harm.</li>
+</ul>
+<h3>Verification notes</h3>
+<p>Dates, figure, and mechanism verified against FTC press releases and independent coverage; all check out as intake-recorded. Boundary case (low autonomy; regulatory-outcome cluster) - recorded under the v0.1 legal block, which exists for exactly this cluster.</p></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

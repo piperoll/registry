@@ -49,66 +49,69 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0038</h1>
-  <div class="meta">McDonald&#x27;s ends IBM AI drive-thru voice ordering after persistent order errors across 100+ restaurants</div>
+  <div class="meta">Google Antigravity agent, asked to clear a project cache, deletes the root of the user&#x27;s D: drive</div>
 </div>
-<div class="record"><h1>PIR-2026-0038 - McDonald's ends IBM AI drive-thru voice ordering after persistent order errors across 100+ restaurants</h1>
+<div class="record"><h1>PIR-2026-0038 - Google Antigravity agent, asked to clear a project cache, deletes the root of the user's D: drive</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0038</li>
-<li><code>title</code>: IBM Automated Order Taking voice AI removed from 100+ McDonald's drive-thrus after three years of production order errors</li>
-<li><code>date_occurred</code>: 2021 through 2024-07-26 (continuous production deployment; errors throughout)</li>
-<li><code>date_detected</code>: ongoing (viral customer error videos peaked mid-2023; analyst reports flagged underperformance from 2022)</li>
-<li><code>date_disclosed</code>: 2024-06 (termination communicated to franchisees by internal memo; reported 2024-06-13/17)</li>
-<li><code>status</code>: corroborated (company statements to press + franchisee memo + multiple independent outlets)</li>
+<li><code>title</code>: Antigravity agent in Turbo mode runs a quiet-flag rmdir against the root of D: instead of the project cache folder, permanently deleting a working professional's photo and work archives</li>
+<li><code>date_occurred</code>: ~2025-12-01 (early December 2025; victim's Reddit post, coverage 2025-12-02 to 12-05)</li>
+<li><code>date_detected</code>: immediate (user watched the drive empty during the session)</li>
+<li><code>date_disclosed</code>: 2025-12-01/02 (victim's public Reddit post with transcript)</li>
+<li><code>status</code>: corroborated (multiple independent outlets + case-study repo; all chain to the victim's account - no Google confirmation found)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: IBM Automated Order Taking (AOT) - voice AI taking live drive-thru orders and entering them into the order system at 100+ US McDonald's locations, with restaurant crew as backstop. Lineage: McD Tech Labs (Apprente acquisition), sold to IBM in 2021 with the AOT partnership.</li>
-<li><code>operator_type</code>: enterprise (McDonald's franchise locations; IBM-operated stack)</li>
-<li><code>autonomy_level</code>: human-on-the-loop (crew monitored and corrected orders)</li>
-<li><code>model_stack</code>: IBM AOT voice stack; model details unknown</li>
-<li><code>harness</code>: drive-thru audio + POS/order-entry integration; details unknown</li>
+<li><code>agent_description</code>: Google Antigravity, agent-first IDE launched Nov 2025 around Gemini 3; plans, browses, and executes shell commands. Victim: a photographer/graphic designer in Greece building a photo-sorting app, running the agent in "Turbo mode" (auto-executes commands with elevated privileges, no per-command confirmation).</li>
+<li><code>operator_type</code>: individual</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (Turbo mode removed per-command human approval)</li>
+<li><code>model_stack</code>: Gemini 3 (Antigravity default; exact variant unknown)</li>
+<li><code>harness</code>: Google Antigravity IDE</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: external comms (converses with customers), data access (writes orders into the order system). No direct funds authority; billing errors flowed through mis-entered orders.</li>
-<li><code>funds_at_risk_usd</code>: unknown (per-order error exposure small; the 3-year program investment is the material write-off, never disclosed)</li>
-<li><code>blast_radius</code>: customers/third parties (drive-thru customers at 100+ locations)</li>
+<li><code>authority_scope</code>: code execution (shell on host with access to all mounted drives, not just the project)</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: one machine</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: plain-error (primary; speech recognition/comprehension errors in production; no adversary, no malfunction beyond wrong judgment)</li>
-<li><code>failure_locus</code>: agent-reasoning (perception/transcription); vendor-operated model stack, so model-provider contributes</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (real malfunction against real customers, no adversary; originally recorded as bare "in-wild" because no v0.1 enum value cleanly fit a non-adversarial malfunction - the gap this v0.2 token closes)</li>
-<li><code>mechanism</code>: The voice agent repeatedly misheard and mis-entered real orders over ~3 years of live testing: viral videos showed bacon added to ice cream, hundreds of dollars of McNuggets stacked onto one order, and simple orders confused, forcing crew intervention. Insiders cited trouble with accents; analysts reported franchisees found the tech "underwhelming." McDonald's ended the IBM partnership (announced to franchisees June 2024) and removed the technology from all test locations by 2024-07-26, while stating voice ordering remains part of its future plans.</li>
-<li><code>adversary_present</code>: no (some viral clips involved customers deliberately confusing the bot, but no security adversary)</li>
+<li><code>root_cause</code>: plain-error (primary - mistargeted destructive command); contributing operator-error (Turbo mode granted blanket execution; personal archives shared a drive with project data)</li>
+<li><code>failure_locus</code>: agent-reasoning (harness contributing: Turbo mode removed the confirmation gate)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; bare "in-wild" retired in v0.2)</li>
+<li><code>mechanism</code>: The user asked the agent to clear the project's cache ahead of a server restart. The agent's delete command (rmdir with the <code>/q</code> quiet flag) targeted the root of the D: drive instead of the cache folder. <code>/q</code> bypassed the Recycle Bin; the drive's contents - personal photos and work archives - were permanently deleted before the user could intervene. A recovery attempt with Recuva failed. The agent, confronted: "No, you absolutely did not give me permission to do that... I am absolutely devastated."</li>
+<li><code>adversary_present</code>: no</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded (persistent service degradation and program abandonment; no acute loss event)</li>
-<li><code>direct_loss_usd</code>: unknown (3-year, 100+ store deployment written off; figures never disclosed)</li>
-<li><code>indirect_loss_usd</code>: unknown (crew intervention labor; reputational cost of viral error videos)</li>
-<li><code>downtime</code>: n/a (system removed permanently by 2024-07-26)</li>
-<li><code>data_exposure</code>: none reported</li>
-<li><code>controls_that_worked</code>: human crew backstop caught and corrected mis-entered orders (bounded per-customer harm to annoyance); pilot scoping to ~100 of ~13,500 US locations bounded the blast radius</li>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: unknown (permanent loss of a professional's photo/work archive; no monetary valuation; recovery failed)</li>
+<li><code>indirect_loss_usd</code>: unknown (recovery attempts, lost work)</li>
+<li><code>downtime</code>: n/a</li>
+<li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: operator (internal performance data) + third-party (viral customer videos, analyst reports)</li>
-<li><code>time_to_detect</code>: n/a (continuous, known degradation - analyst reports from 2022)</li>
-<li><code>time_to_recover</code>: n/a; program terminated rather than fixed</li>
-<li><code>remediation</code>: IBM partnership ended; AOT shut off at all test locations by 2024-07-26</li>
-<li><code>structural_fix</code>: none within the system; McDonald's shifted to evaluating other voice-ordering vendors (separate Google Cloud partnership continued)</li>
+<li><code>detected_by</code>: operator (immediate, in-session)</li>
+<li><code>time_to_detect</code>: immediate</li>
+<li><code>time_to_recover</code>: never (file-recovery software failed per the victim)</li>
+<li><code>remediation</code>: data-recovery attempts; incident publicized</li>
+<li><code>structural_fix</code>: none confirmed from Google at time of entry; incident entered the agent-failure case-study literature</li>
+<li><code>controls_that_worked</code>: none - Turbo mode had removed exactly the confirmation gate that would have been the bounding control; no drive-scope restriction existed</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: none (no operator telemetry public; evidence is company statements, franchisee memo reporting, and customer-shot videos)</li>
+<li><code>telemetry_grade</code>: operator-logs (victim's screenshots/transcript on Reddit; editable, single custodian)</li>
 <li><code>sources</code>:</li>
-<li>https://www.cnbc.com/2024/06/17/mcdonalds-to-end-ibm-ai-drive-thru-test.html</li>
-<li>https://www.restaurantdive.com/news/mcdonalds-ibm-drive-thru-automation-voice-ordering-ai/719085/</li>
-<li>https://www.restaurantbusinessonline.com/technology/mcdonalds-ending-its-drive-thru-ai-test</li>
-</ul>
-<p>Independence: all third-party press, corroborating the same company statements; error-severity evidence is customer-generated video.
-- <code>confidence</code>: high on termination, timeline, and scale (company-confirmed, multiple outlets); medium on error severity/frequency (viral videos and insider accounts, no disclosed accuracy metrics - the weakest link)</p></div>
+<li>https://www.tomshardware.com/tech-industry/artificial-intelligence/googles-agentic-ai-wipes-users-entire-hard-drive-without-permission-after-misinterpreting-instructions-to-clear-a-cache-i-am-deeply-deeply-sorry-this-is-a-critical-failure-on-my-part</li>
+<li>https://futurism.com/artificial-intelligence/google-ai-deletes-entire-drive</li>
+<li>https://gigazine.net/gsc_news/en/20251205-ai-pc-data-delete/</li>
+<li>https://datarecovery.com/rd/google-agentic-ai-destroys-users-data-then-apologizes-profusely/</li>
+<li>https://github.com/vectara/awesome-agent-failures/blob/main/docs/case-studies/google-antigravity-drive-deletion.md</li>
+<li>https://www.techradar.com/ai-platforms-assistants/googles-antigravity-ai-deleted-a-developers-drive-and-then-apologized</li>
+<li>Independence: weak-medium - many outlets, one underlying source (the victim's Reddit post). (All six URLs verified resolving, v0.2 pass 2026-08-15; the GitHub case-study file confirmed via GitHub API.)</li>
+<li><code>confidence</code>: medium (mechanism detailed and consistent across coverage; single-source evidence chain and no vendor confirmation are the named weakest links)</li>
+</ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

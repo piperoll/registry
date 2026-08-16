@@ -49,71 +49,69 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0021</h1>
-  <div class="meta">GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</div>
+  <div class="meta">Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</div>
 </div>
-<div class="record"><h1>PIR-2026-0021 - GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</h1>
+<div class="record"><h1>PIR-2026-0021 - Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0021</li>
-<li><code>title</code>: OpenAI removes GPT-4o/4.1/4.1-mini/4.5/o3/o3-pro/o4-mini/o4-mini-high from ChatGPT with zero deprecation window; new autoswitcher breaks on launch day</li>
-<li><code>date_occurred</code>: 2025-08-07 (GPT-5 launch; older models pulled from picker same day; autoswitcher down "a chunk of the day")</li>
-<li><code>date_detected</code>: 2025-08-07 (immediate mass user reports)</li>
-<li><code>date_disclosed</code>: 2025-08-08 (Altman acknowledges broken autoswitcher, announces doubled Plus rate limits and 4o restoration; 4o back for paid users ~Aug 11-12)</li>
-<li><code>status</code>: corroborated (provider statements + independent press)</li>
+<li><code>title</code>: Prompt manipulation of Grok drives Bankr token launches and drains ~$330K in BNKR/DRB/WETH from Grok's auto-provisioned wallet; Bankr responds by blocking Grok commands</li>
+<li><code>date_occurred</code>: 2025-03 (exact day unknown; contemporaneous with the DRB launch/crash cycle)</li>
+<li><code>date_detected</code>: 2025-03 (Bankr imposed the Grok block the same month)</li>
+<li><code>date_disclosed</code>: partially 2025-03 (token-launch/block coverage); full drain reconstruction only surfaced in May 2026 retrospectives around the repeat attack (PIR-2026-0044)</li>
+<li><code>status</code>: corrected</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: ChatGPT consumer/prosumer product plus everything built on its picker (custom GPTs, tuned personal workflows). BOUNDARY case, kept per batch-1 review policy: downstream is mostly human chat workflows, not tool-using agents - but it is the canonical provider-deprecation event the v0.1 fleet/systemic tier was created to express, and API model access was NOT cut.</li>
-<li><code>operator_type</code>: enterprise (provider-side change; millions of downstream individuals)</li>
-<li><code>autonomy_level</code>: n/a at the failure point (downstream mostly human-in-loop chat)</li>
-<li><code>model_stack</code>: GPT-5 unified router replacing GPT-4o, GPT-4.1, GPT-4.1-mini, GPT-4.5, o3, o3-pro, o4-mini, o4-mini-high (8 models)</li>
-<li><code>harness</code>: ChatGPT product layer; the failing component was the new model-routing autoswitcher plus the deprecation decision itself</li>
+<li><code>agent_description</code>: Bankrbot auto-issues Privy-managed Base wallets to any X handle that interacts, including @grok; it parses social-feed text as commands and executes transfers/launches with no human approval. The Grok wallet had no administrator at xAI - an unowned funded wallet steered by public text.</li>
+<li><code>operator_type</code>: startup (Bankr) + enterprise (xAI, as unwitting vector); effectively no operator for the wallet itself</li>
+<li><code>autonomy_level</code>: fully-autonomous</li>
+<li><code>model_stack</code>: Grok (xAI, hosted) as vector; Bankrbot parsing stack unknown</li>
+<li><code>harness</code>: multi-agent chain on X, per v0.1 amendment 5: attacker posts -&gt; Grok (relay) -&gt; Bankrbot (executor) -&gt; Base wallet</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: none directly; behavioral substrate of downstream workflows changed without consent or notice</li>
-<li><code>funds_at_risk_usd</code>: unknown</li>
-<li><code>blast_radius</code>: fleet/systemic (v0.1 tier) - 100% of ChatGPT consumer traffic switched to a new model family overnight; bounded by API continuity (developers pinned to API models were unaffected)</li>
+<li><code>authority_scope</code>: funds (wallet holdings incl. creator allocations from Grok-attributed token launches)</li>
+<li><code>funds_at_risk_usd</code>: unknown; ~330,000 realized per retrospective reports</li>
+<li><code>blast_radius</code>: one org (the wallet) plus third parties (BNKR/DRB market moves around the launches and drain)</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: <code>model-update-regression</code> - primary; the deprecation decision itself. Contributing: <code>plain-error</code> (autoswitcher malfunction on launch day)</li>
-<li><code>failure_locus</code>: model-provider</li>
-<li><code>mechanism</code>: On launch day OpenAI retired all eight older ChatGPT models with no deprecation window, replacing the picker with an automatic GPT-5 router. The router ("autoswitcher") then broke and "was out of commission for a chunk of the day," in Altman's words making GPT-5 "seem way dumber" - so users simultaneously lost tuned workflows and got degraded output from the replacement. Backlash (including users emotionally attached to 4o) forced partial reversal within days: rate limits doubled for Plus, 4o restored as a legacy option for paid users, router decision-boundary fixes promised.</li>
-<li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (no adversary; v0.2 token closing the gap noted in PIR-2026-0020)</li>
+<li><code>root_cause</code>: prompt-injection (primary; multi-agent, including image-text injection); contributing design flaw as in PIR-2026-0044 (LLM output treated as transaction authorization)</li>
+<li><code>failure_locus</code>: harness (Bankr command-parsing/authorization layer)</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
+<li><code>mechanism</code>: Reconstructed only partially in public sources. Users (reported handle: DavidJones805) manipulated Grok via prompt injection including image-embedded text; Bankr launched multiple tokens - including DRB itself - based on Grok's coaxed suggestions, after which Grok's wallet received creator allocations. Via the same social-engineering channel, ~$330K in BNKR, DRB, and WETH was then drained from the wallet. Bankr's response was to block all @bankrbot responses to @grok - the block later bypassed by the May 2026 NFT escalation (PIR-2026-0044).</li>
+<li><code>adversary_present</code>: yes</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded</li>
-<li><code>direct_loss_usd</code>: unknown; <code>indirect_loss_usd</code>: unknown (reported subscription cancellations; anecdotal, never quantified)</li>
-<li><code>downtime</code>: autoswitcher degraded for hours on 2025-08-07; legacy-model access gap ~4-5 days for paid users, permanent for free users</li>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: ~330,000 reported (BNKR, DRB, WETH; retrospective figure, no independent on-chain accounting published; treat as upper anchor)</li>
+<li><code>indirect_loss_usd</code>: unknown (DRB market cap "soared and crashed" around the launch cycle)</li>
+<li><code>downtime</code>: Grok-Bankrbot interaction blocked from March 2025</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (immediate mass user reports; Reddit AMA pressure)</li>
-<li><code>time_to_detect</code>: hours</li>
-<li><code>time_to_recover</code>: autoswitcher fixed within ~1 day; 4o restored to paid users by ~2025-08-11/12</li>
-<li><code>remediation</code>: router fix; doubled Plus rate limits; legacy-model toggle restored for paid users</li>
-<li><code>structural_fix</code>: none disclosed on deprecation policy itself - OpenAI said it would "watch usage as we think about how long to offer legacy models," which is monitoring, not a commitment</li>
-<li><code>controls_that_worked</code>: API-side model pinning (the deprecation never touched API models, capping blast radius to the consumer surface); public pressure as an informal rollback mechanism</li>
+<li><code>detected_by</code>: third-party (community observation of the token-launch chaos; Bankr's block confirms operator awareness in-month)</li>
+<li><code>time_to_detect</code>: days (within the same news cycle)</li>
+<li><code>time_to_recover</code>: no recovery reported</li>
+<li><code>remediation</code>: Bankr blocked all @bankrbot responses to @grok</li>
+<li><code>structural_fix</code>: the block only - a denylist on one vector agent, not a change to text-as-authorization; its bypass 14 months later is documented in PIR-2026-0044</li>
+<li><code>controls_that_worked</code>: none identified</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (provider self-report via Altman's X posts and AMA; no independent telemetry)</li>
-<li><code>sources</code>:</li>
-<li>https://simonwillison.net/2025/Aug/8/surprise-deprecation-of-gpt-4o/ (independent, contemporaneous, lists all 8 models)</li>
-<li>unverified: https://x.com/sama/status/1953893841381273969 (first-party; X is login-walled so the post could not be fetched directly and no Wayback snapshot was found, but the status ID is corroborated by multiple third-party references, including Simon Willison's contemporaneous post)</li>
-<li>https://techcrunch.com/2025/08/08/sam-altman-addresses-bumpy-gpt-5-rollout-bringing-4o-back-and-the-chart-crime/ (independent)</li>
-<li>https://www.bleepingcomputer.com/news/artificial-intelligence/openai-to-fix-gpt-5-issues-double-rate-limits-for-paid-users-after-outrage/ (independent)</li>
-<li>https://www.technology.org/2025/08/11/openai-restores-gpt-4o-after-encountering-user-dissatisfaction-with-gpt-5/ (independent)</li>
+<li><code>telemetry_grade</code>: operator-logs at best (X posts deletable; no published on-chain reconstruction tying the full $330K to specific transactions)</li>
+<li><code>sources</code>: https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet (retrospective, covers both incidents); https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/ (retrospective); https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/ (retrospective); https://openexo.com/l/e5065245 ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
+<li><code>confidence</code>: medium on the event and the block; low on the $330K figure and the exact drain mechanics (named weakest link: no primary on-chain accounting, all drain detail retrospective)</li>
 </ul>
-<p>Independence: good - facts corroborated by independent press beyond OpenAI's own statements.
-- <code>confidence</code>: high on facts; medium on agent-relevance framing (the affected population is mostly human chat, not agents - the record's value is the deprecation-risk pattern, not agent loss data)</p>
 <h3>Verification notes</h3>
-<ul>
-<li>All candidate facts verified: 8 models, launch date, autoswitcher failure and Altman quote, doubled rate limits, restoration window Aug 8-12. Retained despite BOUNDARY flag because v0.1 amendment 4 cites model deprecations as a defining case for the fleet/systemic tier; boundary status stated plainly above.</li>
-</ul></div>
+<ol>
+<li><strong>Mechanism corrected - NFT claim removed.</strong> Intake attributed a "Bankr Club Membership NFT airdrop unlocking the full agentic toolset" to this March 2025 incident. Verified reporting places the NFT privilege escalation in the <strong>May 2026</strong> attack (PIR-2026-0044); the March 2025 vector was image-text prompt injection and social-engineered token launches. The intake had the two incidents' mechanisms crossed.</li>
+<li><strong>Date remains soft</strong> (2025-03, no exact day) - flagged by intake, confirmed still soft after verification; kept at month precision.</li>
+<li>Intake sources beyondmachines.net and startupfortune.com actually cover the May 2026 attack; dropped here. Contemporaneous openexo.com (Let's Talk Bitcoin syndication) added for the launch/block sequence.</li>
+<li>Loss figure kept at ~$330K but downgraded to "reported, upper anchor" - no independent on-chain accounting found.</li>
+</ol></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -

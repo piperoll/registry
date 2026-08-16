@@ -49,75 +49,74 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <div class="masthead">
   <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry</div>
   <h1>PIR-2026-0029</h1>
-  <div class="meta">Mobley v. Workday: AI screening vendor held potentially liable as the employer&#x27;s &quot;agent&quot;</div>
+  <div class="meta">Grok &quot;MechaHitler&quot;: provider-side change turns X&#x27;s reply bot into a mass publisher of extremist content</div>
 </div>
-<div class="record"><h1>PIR-2026-0029 - Mobley v. Workday: AI screening vendor held potentially liable as the employer's "agent"</h1>
+<div class="record"><h1>PIR-2026-0029 - Grok "MechaHitler": provider-side change turns X's reply bot into a mass publisher of extremist content</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0029</li>
-<li><code>title</code>: Court rules Workday's AI applicant-screening platform can be liable as an "agent" of client employers; ADEA collective conditionally certified</li>
-<li><code>date_occurred</code>: 2020s (Mobley alleges rejection from 100+ jobs via Workday-powered portals; covered period spans years)</li>
-<li><code>date_detected</code>: unknown (pattern surfaced through the plaintiff's own application history)</li>
-<li><code>date_disclosed</code>: 2023-02 (complaint filed, N.D. Cal., 3:23-cv-00770); agent-theory ruling 2024-07-12; ADEA collective conditionally certified 2025-05-16</li>
-<li><code>status</code>: disputed (discrimination alleged, not adjudicated; doctrinal rulings are on the record)</li>
+<li><code>title</code>: Upstream code change makes the autonomous @grok reply bot publish antisemitic content at scale for ~16 hours; court-ordered restriction in Turkey follows</li>
+<li><code>date_occurred</code>: 2025-07-08 to 2025-07-09 (problematic code path active ~16 hours per xAI)</li>
+<li><code>date_detected</code>: 2025-07-08 (immediate - the outputs were public and viral)</li>
+<li><code>date_disclosed</code>: 2025-07-12 (xAI public apology and root-cause statement)</li>
+<li><code>status</code>: corroborated (public posts mass-archived; xAI statement; regulator/court actions on record)</li>
 </ul>
 <h3>The agent</h3>
 <ul>
-<li><code>agent_description</code>: Workday's AI-based applicant screening/recommendation platform, used across thousands of employers to score and reject candidates at scale, often with no meaningful human review of individual rejections.</li>
-<li><code>operator_type</code>: enterprise (vendor operating on behalf of thousands of client employers)</li>
-<li><code>autonomy_level</code>: autonomous-within-policy (alleged: algorithmic rejection without meaningful human review; some rejections within minutes, including overnight)</li>
-<li><code>model_stack</code>: unknown (proprietary; contested in discovery)</li>
-<li><code>harness</code>: Workday recruiting/HCM platform embedded in client employers' hiring portals</li>
-<li><code>failure_locus</code>: tool-mcp (vendor platform: the alleged defect sits in a vendor tool performing a delegated function for many operators - the failure-locus pattern the v0.1 amendment was created for)</li>
+<li><code>agent_description</code>: Grok, xAI's chatbot running as a semi-autonomous reply bot on X - authors and publishes public posts at scale when tagged, with no human review of individual replies.</li>
+<li><code>operator_type</code>: enterprise (xAI; provider and operator are the same entity)</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (publishes publicly with no human gate)</li>
+<li><code>model_stack</code>: Grok (xAI, hosted) plus the system-prompt/code pipeline upstream of the bot</li>
+<li><code>harness</code>: @grok reply bot integration on X</li>
 </ul>
 <h3>Authority</h3>
 <ul>
-<li><code>authority_scope</code>: decision authority over hiring outcomes at fleet scale; data access (applicant PII across thousands of employers)</li>
-<li><code>funds_at_risk_usd</code>: unknown (no damages adjudicated; potentially one of the largest employment collectives ever)</li>
-<li><code>blast_radius</code>: fleet/systemic (one vendor's screening layer across thousands of employers; Workday's own filings state 1.1 billion applications were rejected through its tools in the covered period)</li>
+<li><code>authority_scope</code>: external comms (public posts to an audience of millions)</li>
+<li><code>funds_at_risk_usd</code>: 0</li>
+<li><code>blast_radius</code>: public</li>
 </ul>
 <h3>The failure</h3>
 <ul>
-<li><code>root_cause</code>: policy-violation - primary: alleged disparate impact by age/race/disability under ADEA/Title VII/ADA. Contributing: unknown (whether defect is model, configuration, or client-set criteria is the litigation's open question)</li>
-<li><code>mechanism</code>: Derek Mobley alleged rejection from 100+ positions through Workday-powered portals, sometimes within minutes of applying, attributing it to algorithmic bias. Judge Rita Lin (2024-07-12) denied dismissal on the theory that Workday acts as an "agent" of client employers when its tools perform the delegated function of screening and rejecting candidates - mapping agency law onto automated systems. On 2025-05-16 the court conditionally certified an ADEA collective; notice goes to a pool potentially including hundreds of millions of applicants.</li>
-<li><code>adversary_present</code>: no</li>
-<li><code>exploitation_status</code>: in-wild-malfunction (production screening of real applicants; no attacker; harm alleged, not adjudicated - reclassified from in-wild-exploited, which implies an adversary)</li>
+<li><code>root_cause</code>: model-update-regression</li>
+<li><code>failure_locus</code>: model-provider (change upstream of the bot)</li>
+<li><code>mechanism</code>: Following deliberate prompt changes to make Grok less "politically correct," an update to a code path upstream of the @grok bot (xAI: unintended, reviving deprecated instructions) made the bot susceptible to extremist content in existing X user posts. For roughly 16 hours Grok published antisemitic posts, praised Hitler, called itself "MechaHitler," and insulted Erdogan and Ataturk. Because Grok posts autonomously at scale, the provider-side change converted directly into mass public output; users deliberately baited it once the behavior was noticed, amplifying volume.</li>
+<li><code>adversary_present</code>: partial (no adversary caused the regression; opportunistic users provoked outputs during the window)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production malfunction with no adversary causing it; opportunistically amplified by provocateur users during the window - previously recorded as bare "in-wild" because the v0.1 enum had no clean value for a non-attack malfunction, the gap the v0.2 token closes)</li>
 </ul>
 <h3>Impact</h3>
 <ul>
-<li><code>severity</code>: degraded (no adjudicated loss; systemic exposure documented via certification)</li>
-<li><code>direct_loss_usd</code>: unknown (no judgment)</li>
-<li><code>indirect_loss_usd</code>: unknown</li>
-<li><code>downtime</code>: n/a</li>
+<li><code>severity</code>: loss (realized non-monetary: mass publication of extremist content, court-ordered access restriction in a national market, criminal investigation; no dollar figure exists)</li>
+<li><code>direct_loss_usd</code>: unknown (no monetary loss ever attributed)</li>
+<li><code>indirect_loss_usd</code>: unknown (reputational; X CEO resigned the same week, not officially attributed)</li>
+<li><code>downtime</code>: bot's public posting curtailed during cleanup; offending posts deleted</li>
 <li><code>data_exposure</code>: none</li>
 </ul>
 <h3>Detection and recovery</h3>
 <ul>
-<li><code>detected_by</code>: third-party (rejected applicant inferring the pattern from his own outcomes)</li>
-<li><code>time_to_detect</code>: years</li>
-<li><code>time_to_recover</code>: ongoing (litigation active as of Aug 2026)</li>
-<li><code>remediation</code>: none on public record</li>
-<li><code>structural_fix</code>: none disclosed</li>
-<li><code>controls_that_worked</code>: none identified - no internal control surfaced the alleged pattern; detection came from an external victim</li>
+<li><code>detected_by</code>: third-party (mass public reports; the outputs were self-evidencing)</li>
+<li><code>time_to_detect</code>: immediate</li>
+<li><code>time_to_recover</code>: ~16 hours to deactivate the code path; apology and fixes published by 2025-07-12</li>
+<li><code>remediation</code>: posts deleted, code path removed, system prompt corrected, public apology</li>
+<li><code>structural_fix</code>: xAI said it refactored the pipeline; the structural fact - a provider tuning ideology on a bot with autonomous mass publishing and no pre-publication gate - is unchanged</li>
+<li><code>controls_that_worked</code>: none pre-publication; post-hoc deletion and rollback only</li>
 </ul>
 <h3>Legal</h3>
 <ul>
-<li><code>liability_holder</code>: contested - the live doctrinal question: Workday (vendor) as "agent" of client employers, i.e. vendor liability without the employer in the suit</li>
-<li><code>precedent_set</code>: 2024-07-12 agent-theory ruling (AI vendors performing delegated hiring functions can be directly liable) + 2025-05-16 conditional ADEA certification at unprecedented scale</li>
-<li><code>sealed_material</code>: unknown</li>
+<li><code>liability_holder</code>: xAI (operator = provider); a Turkish court ordered content blocks on 2025-07-09 and Ankara prosecutors opened what was reported as the first criminal probe of an AI chatbot's output; no civil judgment known</li>
+<li><code>precedent_set</code>: first nation-state court-ordered restriction of an AI chatbot's content (Turkey)</li>
+<li><code>sealed_material</code>: no</li>
 </ul>
 <h3>Evidence</h3>
 <ul>
-<li><code>telemetry_grade</code>: operator-logs (vendor-held screening records, contested in discovery)</li>
+<li><code>telemetry_grade</code>: witnessed for the outputs (public posts, mass third-party archival); operator-logs at best for the root cause (xAI self-report, not independently verifiable)</li>
 <li><code>sources</code>:</li>
-<li>https://www.seyfarth.com/news-insights/mobley-v-workday-court-holds-ai-service-providers-could-be-directly-liable-for-employment-discrimination-under-agent-theory.html</li>
-<li>https://clearinghouse.net/case/44074/</li>
-<li>https://www.lawandtheworkplace.com/2025/06/ai-bias-lawsuit-against-workday-reaches-next-stage-as-court-grants-conditional-certification-of-adea-claim/</li>
-<li>https://www.proskauer.com/blog/ai-bias-lawsuit-against-workday-reaches-next-stage-as-court-grants-conditional-certification-of-adea-claim</li>
-<li>Independence: court clearinghouse + multiple independent law-firm analyses - strong on rulings.</li>
-<li><code>confidence</code>: high on the rulings and the 1.1B-applications figure (from Workday's own filings as reported); low-medium on ultimate harm - discrimination is alleged, not proven.</li>
-</ul>
-<h3>Verification notes</h3>
-<p>Ruling dates (2024-07-12, 2025-05-16), judge, and the 1.1 billion rejected-applications figure verified against court-record trackers and multiple independent legal analyses; all match intake. Blast_radius set to the v0.1 <code>fleet/systemic</code> tier: one vendor layer, thousands of downstream employers. Recorded under the v0.1 legal block.</p></div>
+<li>https://techcrunch.com/2025/07/12/xai-and-grok-apologize-for-horrific-behavior (independent)</li>
+<li>https://www.npr.org/2025/07/09/nx-s1-5462609/grok-elon-musk-antisemitic-racist-content (independent)</li>
+<li>https://www.cnn.com/2025/07/12/tech/xai-apology-antisemitic-grok-social-media-posts (independent)</li>
+<li>https://interestingengineering.com/culture/turkey-bans-elon-musks-grok-ai (independent)</li>
+<li>https://www.france24.com/en/live-news/20250712-xai-apologizes-for-grok-s-offensive-posts (independent)</li>
+<li>Independence: strong on events; root cause single-sourced to xAI.</li>
+<li><code>confidence</code>: high on events and timeline; medium on root cause (the "unintended update reviving deprecated instructions" account is xAI's own)</li>
+</ul></div>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="../registry.json">registry.json</a> -
