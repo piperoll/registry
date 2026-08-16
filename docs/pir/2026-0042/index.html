@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0042 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0042</h1>
+  <div class="meta">Mass exposure of misconfigured OpenClaw instances leaking agent credentials (+ CVE-2026-25253 one-click RCE)</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0042, Mass exposure of misconfigured OpenClaw instances leaking agent… (2026-01) - https://piperoll.org/pir/2026-0042 <button class='copycite' data-cite="PipeRoll PIR-2026-0042, Mass exposure of misconfigured OpenClaw instances leaking agent… (2026-01) - https://piperoll.org/pir/2026-0042">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0042 - Mass exposure of misconfigured OpenClaw instances leaking agent credentials (+ CVE-2026-25253 one-click RCE)</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0042</li>
+<li><code>title</code>: Thousands of self-hosted OpenClaw agent gateways deployed on public IPs leak API keys, tokens, and chat histories; a one-click RCE (CVE-2026-25253) compounded even localhost-bound installs</li>
+<li><code>date_occurred</code>: 2026-01-25 onward (viral adoption wave; exposed population grew ~1,000 to 21,639 in one week)</li>
+<li><code>date_detected</code>: 2026-01-25/31 (Censys internet-wide scan window); independent follow-up scans through Feb-Mar 2026</li>
+<li><code>date_disclosed</code>: 2026-01/02 (Censys publication; CVE-2026-25253 patched in v2026.1.29)</li>
+<li><code>status</code>: corroborated (two independent internet-wide scanning efforts + vendor patch + broad security-industry coverage)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Self-hosted OpenClaw (formerly Clawdbot/Moltbot) personal-agent gateways run by individuals and companies - always-on assistants holding Anthropic API keys, Telegram/Slack/OAuth tokens, and full conversation histories, with shell and messaging access on the host.</li>
+<li><code>operator_type</code>: individual (mostly), with startup/enterprise deployments mixed in</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (always-on agents with shell + external comms)</li>
+<li><code>model_stack</code>: predominantly Claude via user API keys; varies per instance</li>
+<li><code>harness</code>: OpenClaw gateway + Control UI, self-hosted</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: credentials (LLM API keys, messaging OAuth tokens, plaintext creds in Markdown/JSON files), code execution (shell on host), external comms (messaging channels), data access (full chat histories)</li>
+<li><code>funds_at_risk_usd</code>: unknown (per-instance API spend + whatever the host and tokens reach; never aggregated)</li>
+<li><code>blast_radius</code>: fleet/systemic (v0.1 tier - one insecure deployment pattern replicated across 21K+ independent installs of the same product; correlated exposure, not one org)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: operator-error (primary; instances deployed on public IPs with default/insecure configs against explicit docs guidance); contributing harness flaw CVE-2026-25253</li>
+<li><code>failure_locus</code>: operator-config (primary); harness (contributing - the Control UI's trust of URL parameters)</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (the mass credential/data exposure was a real production event with no documented adversarial harvesting - "exposure" reclassified to the v0.2 token; mass plundering undocumented; the CVE-2026-25253 RCE component was researcher-demonstrated, patched before confirmed in-wild exploitation)</li>
+<li><code>mechanism</code>: During the viral adoption wave, users put instances straight onto public IPs despite documentation recommending SSH tunnels. Censys (querying "Moltbot Control"/"clawdbot Control" landing pages) found 21,639 publicly accessible instances by 2026-01-31, up from ~1,000 a week earlier; a later independent study counted 42,665 exposed, ~5,194 verified vulnerable, with most of those exhibiting auth-bypass conditions. Open instances leaked API keys, OAuth tokens, plaintext credentials, and chat histories. Separately, CVE-2026-25253 (CVSS 8.8) chained the Control UI's unvalidated URL parameters with cross-site WebSocket hijacking into a one-click RCE that worked even against localhost-bound instances until v2026.1.29.</li>
+<li><code>adversary_present</code>: unknown (exposure certain; who harvested it is undocumented; individual compromises reported anecdotally)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: degraded (mass credential/data exposure across the fleet; no quantified realized theft attributed)</li>
+<li><code>direct_loss_usd</code>: unknown (no aggregate figure; anecdotal individual compromises)</li>
+<li><code>indirect_loss_usd</code>: unknown (fleet-wide re-keying, hardening, incident response)</li>
+<li><code>downtime</code>: n/a (per-operator)</li>
+<li><code>data_exposure</code>: API keys, OAuth tokens, plaintext credentials, full agent conversation histories, on exposed instances</li>
+<li><code>controls_that_worked</code>: vendor patch velocity (CVE fixed in v2026.1.29); the docs' SSH-tunnel guidance worked for operators who followed it - the failure population is those who did not</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Censys scan; independent researchers; security vendors)</li>
+<li><code>time_to_detect</code>: days (exposure wave to first published scan ~1 week)</li>
+<li><code>time_to_recover</code>: rolling (patching + config hardening per operator; exposed-instance counts kept growing in later scans, so recovery is partial at best)</li>
+<li><code>remediation</code>: CVE patch v2026.1.29; public warnings; hardening guides; third-party audit tooling (e.g. SecureClaw) emerged</li>
+<li><code>structural_fix</code>: partial - later builds tightened defaults, but the root pattern (consumer-grade self-hosting of credential-rich always-on agents) persists</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: population-level witnessed (two independent internet-wide scans agree on scale); none for individual compromises (no victim telemetry public)</li>
+<li><code>sources</code>:</li>
+<li>https://censys.com/blog/openclaw-in-the-wild-mapping-the-public-exposure-of-a-viral-ai-assistant/ (primary scan)</li>
+<li>https://www.securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/</li>
+<li>https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/ (aggregates CVE + 42,665-instance follow-up study)</li>
+<li>https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</li>
+</ul>
+<p>Independence: good - scan data, vendor patch, and multi-firm coverage are mutually independent.
+- <code>confidence</code>: high on exposure scale, CVE details, and timeline (21,639 figure verified against Censys-derived reporting); low on realized harm - how many exposed instances were actually plundered is undocumented (the weakest link)</p></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

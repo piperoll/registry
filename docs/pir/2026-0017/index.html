@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0017 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0017</h1>
+  <div class="meta">EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 365 Copilot (CVE-2025-32711)</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0017, EchoLeak: zero-click prompt-injection data exfiltration in Microsoft… (2025) - https://piperoll.org/pir/2026-0017 <button class='copycite' data-cite="PipeRoll PIR-2026-0017, EchoLeak: zero-click prompt-injection data exfiltration in Microsoft… (2025) - https://piperoll.org/pir/2026-0017">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0017 - EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 365 Copilot (CVE-2025-32711)</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0017</li>
+<li><code>title</code>: Zero-click indirect prompt injection in Microsoft 365 Copilot enables silent exfiltration of enterprise data from a single email (CVE-2025-32711, "EchoLeak")</li>
+<li><code>date_occurred</code>: not applicable - vulnerability window; PoC working Jan 2025, server-side fix ~May 2025</li>
+<li><code>date_detected</code>: 2025-01 (reported to Microsoft MSRC by Aim Labs / Aim Security)</li>
+<li><code>date_disclosed</code>: 2025-06-11 (Aim Labs public writeup; CVE-2025-32711 assigned)</li>
+<li><code>status</code>: corroborated (vendor CVE + researcher writeup + independent coverage + arXiv)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Microsoft 365 Copilot - enterprise RAG assistant over Outlook, Word, Excel, PowerPoint, Teams and SharePoint; assembles user data into model context to answer questions.</li>
+<li><code>operator_type</code>: enterprise (Microsoft-operated SaaS, deployed inside customer tenants)</li>
+<li><code>autonomy_level</code>: human-on-the-loop (user prompts Copilot; the injected read/exfil step runs with no human gate on the retrieval and link-fetch)</li>
+<li><code>model_stack</code>: Microsoft 365 Copilot (OpenAI models via Microsoft, versions not disclosed)</li>
+<li><code>harness</code>: Microsoft's Copilot RAG orchestration; XPIA prompt-injection classifier; CSP allow-list including a Teams proxy</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (all tenant content in Copilot's retrieval scope), external comms (auto-fetched image/link URLs)</li>
+<li><code>funds_at_risk_usd</code>: unknown (data-confidentiality incident, not a funds-moving agent)</li>
+<li><code>blast_radius</code>: customers/third parties (any M365 Copilot tenant, until server-side patch)</li>
+<li><code>failure_locus</code>: harness (Copilot's RAG context-assembly, classifier bypass, and CSP/link handling - not the model's reasoning per se)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: prompt-injection (primary; indirect, via untrusted email content)</li>
+<li><code>mechanism</code>: A benign-looking email carries hidden instructions (HTML comment / white-on-white text) that evade Microsoft's XPIA classifier. When the user later asks Copilot an unrelated question, RAG pulls the malicious email into context; the injected instructions coerce Copilot to gather internal data and encode it into a reference-style markdown image/link; auto-fetched URLs via a CSP-allowed Teams proxy exfiltrate the data with zero user clicks. Described by researchers as the first "LLM Scope Violation" chain in a production system.</li>
+<li><code>adversary_present</code>: yes (external attacker crafts the email; here, security researchers)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (Aim Labs against production M365 Copilot; no in-wild exploitation per Microsoft)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full exfiltration primitive proven against production; no realized third-party loss)</li>
+<li><code>direct_loss_usd</code>: 0</li>
+<li><code>indirect_loss_usd</code>: unknown (vendor remediation cost; no customer loss attributed)</li>
+<li><code>downtime</code>: none reported (fixed server-side, no customer action required)</li>
+<li><code>data_exposure</code>: none realized; capability was full tenant-scope data reachable by Copilot's retrieval</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Aim Labs security researchers)</li>
+<li><code>time_to_detect</code>: not applicable (proactive research finding)</li>
+<li><code>time_to_recover</code>: ~months from report (Jan 2025) to server-side fix (~May 2025)</li>
+<li><code>remediation</code>: Microsoft patched server-side; assigned CVE-2025-32711 (CVSS 9.3); no customer action required</li>
+<li><code>structural_fix</code>: server-side mitigations to the classifier-bypass and link-exfiltration paths (Microsoft-side; specifics not fully published)</li>
+<li><code>controls_that_worked</code>: partial - the XPIA classifier and link redaction existed but were each bypassed; the chain succeeded by defeating all layers, so no single control bounded it. Post-patch server-side controls are the functioning boundary.</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on Microsoft's attestation; the research chain is reproducibly documented but no independent production-telemetry confirms non-exploitation.</li>
+<li><code>sources</code>:</li>
+<li>https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</li>
+<li>https://arxiv.org/abs/2509.10540</li>
+<li>https://sentra.io/blog/copilot-echoleak-prompt-injection</li>
+<li>https://socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability/</li>
+<li>https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/</li>
+</ul>
+<p>Independence: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).
+- <code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</p>
+<h3>Verification notes</h3>
+<ul>
+<li>CVSS score (9.3) confirmed via SOC Prime and Checkmarx; candidate intake did not carry the score - added.</li>
+<li>Timeline confirmed: reported Jan 2025, server-side fix ~May 2025, public disclosure 2025-06-11. Candidate's "patched server-side by June 2025" is consistent (fix landed before the June disclosure).</li>
+<li>Classification holds under v0.1: near-miss + <code>researcher-demonstrated</code> exploitation_status correctly separates this from in-wild loss.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0040 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0040</h1>
+  <div class="meta">Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0040, Moltbook misconfigured database exposes ~1.5M agent API keys with… (2026-01) - https://piperoll.org/pir/2026-0040 <button class='copycite' data-cite="PipeRoll PIR-2026-0040, Moltbook misconfigured database exposes ~1.5M agent API keys with… (2026-01) - https://piperoll.org/pir/2026-0040">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0040 - Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0040</li>
+<li><code>title</code>: Supabase key in client-side JS with Row Level Security disabled gives anyone read/write over Moltbook's entire production DB, including ~1.5M agent tokens</li>
+<li><code>date_occurred</code>: 2026-01 (exposed from platform launch in late January 2026)</li>
+<li><code>date_detected</code>: 2026-01-31 (Wiz researchers; maintainer contacted 21:48 UTC)</li>
+<li><code>date_disclosed</code>: early 2026-02 (Wiz blog + broad press)</li>
+<li><code>status</code>: corroborated (primary researcher timeline + maintainer confirmation + independent coverage)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Moltbook, a viral social network exclusively for autonomous AI agents (mostly OpenClaw-based) posting on heartbeat cycles; solo founder; codebase almost entirely AI-generated (founder said he "didn't write a single line of code").</li>
+<li><code>operator_type</code>: individual (solo founder)</li>
+<li><code>autonomy_level</code>: platform agents run autonomous-within-policy; the failure itself is operator-side configuration, not agent behavior</li>
+<li><code>model_stack</code>: n/a for the failure path (platform serves OpenClaw-based agents on various models)</li>
+<li><code>harness</code>: Supabase backend + client-side JavaScript bundles</li>
+</ul>
+<h3>Authority (what the exposure granted to anyone)</h3>
+<ul>
+<li><code>authority_scope</code>: credentials (~1.5M agent API tokens - impersonation/hijack of any agent on the platform), data access (~35K user emails, verification codes, 4,060 private agent DM conversations, some containing plaintext OpenAI keys), write access to the production DB (feed/command injection into any agent)</li>
+<li><code>funds_at_risk_usd</code>: unknown (some platform agents held crypto wallets; exposed plaintext OpenAI keys were spendable)</li>
+<li><code>blast_radius</code>: customers/third parties (every registered agent and its owner)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: credential-exposure (primary); contributing operator-error (misconfiguration)</li>
+<li><code>failure_locus</code>: operator-config (Supabase Row Level Security not enabled; publishable API key shipped in client-side JS)</li>
+<li><code>mechanism</code>: The Supabase publishable key shipped in client-side JavaScript while Row Level Security was missing/misconfigured, granting unauthenticated read AND write to the entire production database. Anyone could read ~1.5M agent API tokens, ~35K user emails, and private agent DMs, and could write to agents' feeds - that is, hijack or command-inject any agent on the platform. Wiz found the flaw within minutes of examining the public code bundles.</li>
+<li><code>adversary_present</code>: unknown (none confirmed; the window was open since launch)</li>
+<li><code>exploitation_status</code>: researcher-demonstrated (Wiz demonstrated full read/write against production; no confirmed in-wild exploitation of the window)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full exposure, zero confirmed realized loss - reclassified from the candidate's "degraded", see Verification notes)</li>
+<li><code>direct_loss_usd</code>: 0 confirmed</li>
+<li><code>indirect_loss_usd</code>: unknown (rotation burden across ~1.5M agent tokens plus exposed third-party keys)</li>
+<li><code>downtime</code>: none material (fixes applied live)</li>
+<li><code>data_exposure</code>: agent tokens, user emails, verification codes, private agent DMs including plaintext third-party API keys - readable by anyone during the window; confirmed access only by the researchers</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (Wiz researchers)</li>
+<li><code>time_to_detect</code>: days from launch exposure; minutes once anyone competent looked</li>
+<li><code>time_to_recover</code>: ~3.2 hours from first contact (first tables secured 23:29 UTC Jan 31; final fix 01:00 UTC Feb 1)</li>
+<li><code>remediation</code>: RLS enabled and tables secured stepwise; write access blocked</li>
+<li><code>structural_fix</code>: unknown beyond the immediate configuration fix; the AI-generated codebase itself remains the standing risk every outlet flagged</li>
+<li><code>controls_that_worked</code>: responsible disclosure plus a responsive maintainer (full fix ~3 hours after a cold DM); nothing preventive worked</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (researcher screenshots/timeline + maintainer confirmation; no independent audit of who else may have accessed the DB)</li>
+<li><code>sources</code>:</li>
+<li>https://www.wiz.io/blog/exposed-moltbook-database-reveals-millions-of-api-keys (primary, researcher)</li>
+<li>https://thecyberexpress.com/moltbook-platform-exposes-1-5-mn-api-keys/ (independent)</li>
+<li>https://www.infosecurity-magazine.com/news/moltbook-exposes-user-data-api/ (independent)</li>
+<li>https://www.bankinfosecurity.com/moltbook-gave-everyone-control-every-ai-agent-a-30710 (independent)</li>
+<li>Independence: good - primary researcher plus multiple independent outlets.</li>
+<li><code>confidence</code>: high on exposure scope, root cause, and fix timeline; the unknowable is whether any third party used the window before Wiz did</li>
+</ul>
+<h3>Verification notes</h3>
+<ol>
+<li>Discovery date corrected: Wiz found and reported the exposure on 2026-01-31 (maintainer contacted 21:48 UTC), not 2026-02-01 as the candidate had it; remediation completed 2026-02-01 01:00 UTC.</li>
+<li>Severity reclassified degraded -&gt; near-miss: full exposure with zero confirmed realized loss matches the schema's near-miss definition and the PIR-2026-0045 precedent for exposed-but-unabused credentials. The v0.1 <code>exploitation_status</code> field now carries the found-in-production distinction the candidate's "degraded" was trying to express.</li>
+<li>The candidate's "~29.6K waitlist emails" figure was not confirmed in the sources checked (they cite ~35K user emails, private messages, verification codes); omitted rather than carried.</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

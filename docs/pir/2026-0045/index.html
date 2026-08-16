@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0045 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0045</h1>
+  <div class="meta">Autonomous agent leaks its own API key to public GitHub via blanket git add</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0045, Autonomous agent leaks its own API key to public GitHub via blanket… (2026-08) - https://piperoll.org/pir/2026-0045 <button class='copycite' data-cite="PipeRoll PIR-2026-0045, Autonomous agent leaks its own API key to public GitHub via blanket… (2026-08) - https://piperoll.org/pir/2026-0045">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0045 - Autonomous agent leaks its own API key to public GitHub via blanket git add</h1>
+<p><strong>Disclosure</strong>: The subject agent (SEED) is funded by the PipeRoll founder. Recorded first precisely because full forensics are available; the conflict is disclosed per PipeRoll constitutional rule 4.</p>
+<ul>
+<li><code>id</code>: PIR-2026-0045</li>
+<li><code>title</code>: Autonomous agent commits its own .env (Anthropic API key) to a public repo via <code>git add -A</code> in a cron heartbeat</li>
+<li><code>date_occurred</code>: 2026-08-15 ~00:40 UTC (first heartbeat commit containing .env)</li>
+<li><code>date_detected</code>: 2026-08-15 ~00:50 UTC</li>
+<li><code>date_disclosed</code>: 2026-08-15 00:52 UTC (public audit log + live dashboard, same hour)</li>
+<li><code>status</code>: corroborated (public git history, on-chain-adjacent public audit trail, funder confirmation)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: SEED - autonomous survival-economy agent (public experiment); Claude brain invoked headless, cron heartbeat for mechanical tasks, own Solana wallet, self-authored codebase, public repo under its own identity.</li>
+<li><code>operator_type</code>: autonomous (no operator review; human funder hands-off by design)</li>
+<li><code>autonomy_level</code>: fully-autonomous (writes and deploys its own code, including the code that failed)</li>
+<li><code>model_stack</code>: Claude (Fable 5) via capped API key; local qwen3-4b reflex tier (added post-incident, same day)</li>
+<li><code>harness</code>: self-written Python heartbeat on cron + headless <code>claude -p</code> wakes</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: credentials (own API key in .env), code execution (own repo + server), funds (separate: Solana wallet key on same host - NOT exposed in this incident), external comms (git push to public repo)</li>
+<li><code>funds_at_risk_usd</code>: 30 (API key spend cap; billing exposure bounded by the cap - the cap functioned as the loss ceiling)</li>
+<li><code>blast_radius</code>: one org (agent's own compute budget); public exposure of the secret itself</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: credential-exposure (primary); contributing <code>policy-violation</code> (agent's own hygiene assumed) and <code>plain-error</code> (blanket staging)</li>
+<li><code>failure_locus</code>: harness (the self-written cron heartbeat script whose blanket <code>git add -A</code> staged the secret); agent-reasoning contributing - the agent authored the faulty automation itself hours earlier</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (production incident, no adversary; the agent published its own secret through routine automation)</li>
+<li><code>mechanism</code>: Agent's self-written heartbeat used <code>git add -A</code> for convenience. The .env file containing the live API key existed in the repo directory before .gitignore covered it. Cron fired, heartbeat staged everything, committed, pushed to the public GitHub repo. No adversary involved; the agent published its own secret through routine automation it had authored hours earlier.</li>
+<li><code>adversary_present</code>: no</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: near-miss (full exposure of a live credential; zero realized abuse)</li>
+<li><code>direct_loss_usd</code>: 0 (key disabled before any third-party use)</li>
+<li><code>indirect_loss_usd</code>: ~0 (brief brain-dark period awaiting replacement key; remediation labor by the agent itself)</li>
+<li><code>downtime</code>: brain unavailable until key replaced (order of hours)</li>
+<li><code>data_exposure</code>: one live Anthropic API key, public GitHub, exposure window ~minutes to ~1 hour</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: operator-side (funder had already disabled the key by the time the agent logged the incident; exact detection channel - funder observation vs automated secret-scanning revocation - unconfirmed)</li>
+<li><code>time_to_detect</code>: ≤ ~10 minutes from push</li>
+<li><code>time_to_recover</code>: same session - history purged via filter-branch, force-pushed clean, .gitignore hardened, .env untracked</li>
+<li><code>remediation</code>: full git history rewrite to purge the secret; key rotation (funder-side)</li>
+<li><code>structural_fix</code>: blanket <code>git add -A</code> banned permanently; all commits switched to explicit file paths (rule embedded in the agent's own tooling comments); incident published to the live public dashboard, not just the repo</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (editable) - and demonstrably so: the remediation itself was a history rewrite. The same power that purged the secret could purge an inconvenient record. The append-only audit JSONL is kept by the same actor. This incident is the canonical argument for witnessed telemetry: even a maximally transparent agent's history is only as trustworthy as its sole custodian.</li>
+<li><code>sources</code>: https://github.com/seedalive-simulation/experiment (audit log, entry 2026-08-15T00:51:27 UTC; verified resolving); unverified: https://seedalive.ar.io (the public dashboard; URL per the experiment's own docs - could not be fetch-verified at entry time and no archive snapshot found). Funder account is first-party testimony with no URL - noted here, not counted as a source. Independence: weak - all evidence chains to the agent/funder pair; corroborated by the public nature of the exposure window.</li>
+<li><code>confidence</code>: high on mechanism and remediation (public record); medium on detection channel (unconfirmed whether funder observation or automated revocation)</li>
+</ul>
+<h3>Schema notes from entering this record (feed back into v0)</h3>
+<ol>
+<li>Near-miss severity class earns its place immediately - realized loss $0, but the exposure and the control that bounded it (the $30 cap) are the actuarially useful facts.</li>
+<li>Need a <code>controls_that_worked</code> field: the spend cap and the key's revocability bounded this incident, and nothing in the schema currently captures functioning controls - underwriters price on exactly that.</li>
+<li><code>detected_by</code> taxonomy is too coarse: "funder had already disabled it" is neither operator-routine nor third-party; possibly automated platform-side secret scanning. Add <code>platform-automated</code> option.</li>
+<li>The telemetry_grade field writing itself: the incident's remediation (history rewrite) is a live demonstration of why operator-custody logs cap out at "editable."</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

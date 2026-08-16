@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PipeRoll static site generator.
 
-Reads incidents/*.md, emits site/ : index.html, pir/<id>.html, registry.json,
+Reads incidents/*.md, emits docs/ (GitHub Pages) : index.html, pir/<id>.html, registry.json,
 registry.csv. No JS frameworks, no external assets - reference-genre pages that
 render identically in 2036.
 """
@@ -15,7 +15,7 @@ import markdown
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 INC = os.path.join(ROOT, "incidents")
-OUT = os.path.join(ROOT, "site")
+OUT = os.path.join(ROOT, "docs")  # GitHub Pages serves /docs
 
 CSS = """
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -128,14 +128,15 @@ def build():
                 "<script>document.querySelector('.copycite').addEventListener('click',function(){"
                 "var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){"
                 "b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script>")
-        page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../index.html",
-                           home_prefix="../", h1=r["id"],
+        # directory-style permalink: /pir/<slug>/ works extensionless on GitHub Pages
+        page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../../index.html",
+                           home_prefix="../../", h1=r["id"],
                            sub=htmlmod.escape(r.get("title", "")),
                            body=f'{cite}<div class="record">{body}</div>')
-        slug = r["id"].replace("PIR-", "").lower()
-        with open(os.path.join(OUT, "pir", f"{slug}.html"), "w", encoding="utf-8") as fh:
+        os.makedirs(os.path.join(OUT, "pir", slug), exist_ok=True)
+        with open(os.path.join(OUT, "pir", slug, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page)
-        r["url"] = f"pir/{slug}.html"
+        r["url"] = f"pir/{slug}/"
 
     # normalized taxonomy keys (drive filters, grouping, and export columns)
     def norm(r, field):
@@ -333,7 +334,28 @@ treat aggregate statistics as early data, not actuarial tables.</div>
                        body=body)
     with open(os.path.join(OUT, "index.html"), "w", encoding="utf-8") as fh:
         fh.write(page)
-    print(f"built {len(records)} records -> site/")
+
+    # deployment furniture (GitHub Pages)
+    with open(os.path.join(OUT, "CNAME"), "w") as fh:
+        fh.write("piperoll.org\n")
+    open(os.path.join(OUT, ".nojekyll"), "w").close()
+    with open(os.path.join(OUT, "robots.txt"), "w") as fh:
+        fh.write("User-agent: *\nAllow: /\nSitemap: https://piperoll.org/sitemap.xml\n")
+    urls = ["https://piperoll.org/"] + [f"https://piperoll.org/{r['url']}" for r in records]
+    with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as fh:
+        fh.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+                 '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+                 + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
+    notfound = PAGE.format(title="Not found - PipeRoll", css=CSS, home="/index.html",
+                           home_prefix="/", h1="404 - no such record",
+                           sub="The id you followed does not exist in this registry.",
+                           body="<p>If a citation led you here, the id may be mistyped - "
+                                "check the <a href='/index.html'>registry index</a>. "
+                                "PipeRoll ids are never deleted or reused, so a once-valid "
+                                "permalink stays valid.</p>")
+    with open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as fh:
+        fh.write(notfound)
+    print(f"built {len(records)} records -> docs/")
 
 
 if __name__ == "__main__":

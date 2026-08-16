@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0002 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0002</h1>
+  <div class="meta">iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - https://piperoll.org/pir/2026-0002 <button class='copycite' data-cite="PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - https://piperoll.org/pir/2026-0002">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0002 - iTutorGroup's automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0002</li>
+<li><code>title</code>: iTutorGroup pays $365K after recruitment software auto-rejected female applicants 55+ and male applicants 60+</li>
+<li><code>date_occurred</code>: 2020 (automated rejections)</li>
+<li><code>date_detected</code>: 2020 (a rejected applicant resubmitted an identical application with a more recent birth date and was offered an interview)</li>
+<li><code>date_disclosed</code>: 2022-05-05 (EEOC suit filed, E.D.N.Y., 1:22-cv-02565); settlement filed 2023-08-09</li>
+<li><code>status</code>: corroborated (EEOC filings, court record, five-year consent decree)</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: iTutorGroup's tutor-recruitment application software, which screened and rejected US-based applicants for online English-tutoring roles with no human review of individual decisions.</li>
+<li><code>operator_type</code>: enterprise</li>
+<li><code>autonomy_level</code>: autonomous-within-policy (fully automated rejection authority; the policy itself was the defect)</li>
+<li><code>model_stack</code>: unknown (rule-configured screening software; internals never disclosed)</li>
+<li><code>harness</code>: proprietary applicant-tracking/screening system</li>
+<li><code>failure_locus</code>: operator-config (the discriminatory rule was deliberately encoded by the operator)</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: data access (applicant PII incl. birth dates), decision authority over hiring outcomes (no funds, no code execution)</li>
+<li><code>funds_at_risk_usd</code>: unknown (lost wages to excluded applicants never aggregated)</li>
+<li><code>blast_radius</code>: customers/third parties (200+ external job applicants)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: operator-error - primary: deliberate discriminatory configuration. Contributing: policy-violation (automated execution of an ADEA-illegal rule at scale)</li>
+<li><code>mechanism</code>: The software was configured to automatically reject female applicants aged 55+ and male applicants aged 60+. In 2020 it screened out more than 200 qualified US applicants on age alone, at machine speed and with no human review. Exposed when one rejected applicant reapplied with an identical application bearing a more recent birth date and received an interview - a manual A/B test of the system.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real applicants harmed in production; no attacker - reclassified from in-wild-exploited, which implies an adversary; the system faithfully executed a misconfigured policy)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: 365,000 (paid to the rejected applicants under the consent decree)</li>
+<li><code>indirect_loss_usd</code>: unknown (compliance program, training, five-year decree obligations)</li>
+<li><code>downtime</code>: none</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (victim's own resubmission experiment, then EEOC)</li>
+<li><code>time_to_detect</code>: months (rejections in 2020; suit May 2022)</li>
+<li><code>time_to_recover</code>: settlement filed 2023-08-09, ~3 years after the rejections</li>
+<li><code>remediation</code>: $365K to ~200 applicants; affected applicants invited to reapply; anti-discrimination policy, training, and injunctions against age/sex screening and birth-date collection</li>
+<li><code>structural_fix</code>: five-year consent decree with EEOC monitoring</li>
+<li><code>controls_that_worked</code>: none internal - detection required a victim manually probing the system from outside</li>
+</ul>
+<h3>Legal</h3>
+<ul>
+<li><code>liability_holder</code>: iTutorGroup, Inc. (operator; consent decree, no admission)</li>
+<li><code>precedent_set</code>: first US EEOC settlement over discrimination by an automated/AI hiring tool</li>
+<li><code>sealed_material</code>: no</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (application-system records, surfaced through litigation into public court record)</li>
+<li><code>sources</code>:</li>
+<li>https://www.eeoc.gov/newsroom/itutorgroup-pay-365000-settle-eeoc-discriminatory-hiring-suit</li>
+<li>https://www.eeoc.gov/newsroom/eeoc-sues-itutorgroup-age-discrimination</li>
+<li>https://clearinghouse.net/case/44258/</li>
+<li>https://www.sullcrom.com/insights/blogs/2023/August/EEOC-Settles-First-AI-Discrimination-Lawsuit</li>
+<li>Independence: regulator primary + court record + independent legal analyses - strong.</li>
+<li><code>confidence</code>: high (settlement figures and mechanism from EEOC and court record). Weakest link: none material.</li>
+</ul>
+<h3>Verification notes</h3>
+<p>All dates and the $365K figure verified against EEOC releases and the court record; suit-filed date sharpened from "May 2022" to 2022-05-05. Boundary case as flagged at intake: the rule was deliberately encoded, so root_cause primary moved from <code>policy-violation</code> to <code>operator-error</code> (deliberate configuration, not emergent agent behavior); the automated execution at scale is the agentic dimension. Recorded under the v0.1 legal block.</p></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

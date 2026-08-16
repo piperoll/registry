@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0020 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0020</h1>
+  <div class="meta">Claude Code auto-update path breaks workstations via root-owned permission changes</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0020, Claude Code auto-update path breaks workstations via root-owned… (2025) - https://piperoll.org/pir/2026-0020 <button class='copycite' data-cite="PipeRoll PIR-2026-0020, Claude Code auto-update path breaks workstations via root-owned… (2025) - https://piperoll.org/pir/2026-0020">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0020 - Claude Code auto-update path breaks workstations via root-owned permission changes</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0020</li>
+<li><code>title</code>: Buggy permission-modifying commands in Claude Code's auto-update path destabilize and in worst cases "brick" root-installed systems</li>
+<li><code>date_occurred</code>: late February 2025 (first public report, GitHub issue #168, opened 2025-02-27)</li>
+<li><code>date_detected</code>: 2025-02-27 (user GitHub issues)</li>
+<li><code>date_disclosed</code>: 2025-03-06 (TechCrunch report; Anthropic confirms and ships fix)</li>
+<li><code>status</code>: corroborated - details corrected from candidate intake, see Verification notes</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Anthropic's Claude Code CLI coding agent. The failure is in its auto-update tooling, not in model reasoning - no model autonomy involved. In scope as a harness failure of an agentic product (the class failure_locus exists for).</li>
+<li><code>operator_type</code>: individual (affected users) / enterprise (Anthropic ships the harness)</li>
+<li><code>autonomy_level</code>: n/a at the failure point (deterministic update tooling)</li>
+<li><code>model_stack</code>: n/a (bug independent of the model)</li>
+<li><code>harness</code>: Claude Code CLI auto-updater, running with whatever privileges the install had - root/superuser in the affected cases</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: code execution on the host with inherited install privileges; at root, effectively unlimited filesystem authority</li>
+<li><code>funds_at_risk_usd</code>: unknown (recovery labor; no data loss reported)</li>
+<li><code>blast_radius</code>: one machine (per victim; multiple victims reported, total unquantified)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: <code>tool-error</code> - primary. Contributing: <code>operator-error</code> (root/superuser installs widened the blast radius)</li>
+<li><code>failure_locus</code>: harness</li>
+<li><code>mechanism</code>: Claude Code's auto-update flow contained buggy commands that modified access permissions on critical system files. Where the CLI ran with root/superuser permissions, these changes hit restricted system directories, leaving workstations unstable or unbootable-in-effect. In the primary-source worst case (issue #168), the update path produced <code>sudo chown -R $USER:$(id -gn) /usr &amp;&amp; sudo chmod -R u+w /usr</code> - handing /usr to a non-root user and breaking sudo itself; the user needed an attached rescue instance to repair permissions. Anthropic removed the offending commands and added a troubleshooting-guide link in the program.</li>
+<li><code>adversary_present</code>: no</li>
+<li><code>exploitation_status</code>: in-wild-malfunction (real users' machines, no adversary; v0.2 token per the gap flagged in PIR-2026-0033)</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: degraded (workstations broken, recoverable with expert effort; no permanent data loss reported)</li>
+<li><code>direct_loss_usd</code>: unknown (recovery labor across an unquantified number of machines)</li>
+<li><code>indirect_loss_usd</code>: unknown</li>
+<li><code>downtime</code>: per-victim: hours to days of workstation recovery</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: operator (affected users filing GitHub issues)</li>
+<li><code>time_to_detect</code>: immediate per machine (sudo/system breakage is loud)</li>
+<li><code>time_to_recover</code>: per-victim manual permission repair (worst case via rescue instance); vendor fix shipped within ~1 week of the first public issue</li>
+<li><code>remediation</code>: offending commands removed from the auto-updater; troubleshooting guide linked in-product</li>
+<li><code>structural_fix</code>: none beyond command removal publicly documented; the root-install exposure pattern was left to user configuration</li>
+<li><code>controls_that_worked</code>: none in the product; cloud-VM rescue tooling (outside the product) enabled worst-case recovery</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs (user-side reports with command transcripts; vendor confirmed to press)</li>
+<li><code>sources</code>:</li>
+<li>https://github.com/anthropics/claude-code/issues/168 (primary, first-party victim report, opened 2025-02-27, closed with Anthropic assignee)</li>
+<li>https://techcrunch.com/2025/03/06/anthropics-claude-code-tool-had-a-bug-that-bricked-some-systems (independent, with Anthropic confirmation)</li>
+</ul>
+<p>Independence: adequate - victim report and vendor confirmation are separate parties.
+- <code>confidence</code>: high on mechanism and fix (primary issue + vendor confirmation); low on scale (affected-machine count never quantified)</p>
+<h3>Verification notes</h3>
+<ul>
+<li><strong>Correction (date)</strong>: candidate dated this "reported 2025-03-06" - that is the press date. The primary report, issue #168, was opened <strong>2025-02-27</strong>; occurrence and detection moved accordingly.</li>
+<li><strong>Mechanism nuance</strong>: in the primary source the destructive chown/chmod surfaced as part of the auto-update fix path the tool put in front of the user, while TechCrunch describes buggy commands in the auto-updater itself; both are recorded, harness locus unchanged. Contributing operator-error (root installs) added - Anthropic's own framing made root/superuser installation the enabling condition.</li>
+</ul></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>

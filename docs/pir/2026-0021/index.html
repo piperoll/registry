@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PIR-2026-0021 - PipeRoll</title>
+<style>
+/* White theme, deliberately single-theme: the registry renders on white for every viewer. */
+:root, :root[data-theme="dark"], :root[data-theme="light"] {
+  --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
+  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
+h2 { font-size: 1.15rem; margin-top: 2rem; }
+.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+.masthead .org { font-size: .9rem; color: var(--dim); }
+.masthead .org a { color: inherit; }
+table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+.tablewrap { overflow-x: auto; }
+th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
+  vertical-align: top; font-variant-numeric: tabular-nums; }
+th { font-weight: 700; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
+a { color: var(--link); }
+code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+.record h1 { font-size: 1.25rem; }
+.record ul { padding-left: 1.2rem; }
+.record li { margin: .15rem 0; }
+.record p, .record li { max-width: 44rem; }
+.meta { color: var(--dim); font-size: .9rem; }
+.stats { margin: 1rem 0 .25rem; font-size: 1rem; }
+.footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
+  font-size: .85rem; color: var(--dim); }
+.notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
+  font-size: .9rem; color: var(--dim); margin: 1rem 0; }
+.controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
+  margin: 1.25rem 0 .75rem; font-size: .85rem; }
+.controls label { color: var(--dim); }
+.controls input, .controls select, .controls button {
+  font: inherit; font-size: .85rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .2rem .4rem; }
+.controls input { width: 14rem; max-width: 60vw; }
+.grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+</style>
+</head><body>
+<div class="masthead">
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <h1>PIR-2026-0021</h1>
+  <div class="meta">Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</div>
+</div>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - https://piperoll.org/pir/2026-0021 <button class='copycite' data-cite="PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - https://piperoll.org/pir/2026-0021">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0021 - Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</h1>
+<ul>
+<li><code>id</code>: PIR-2026-0021</li>
+<li><code>title</code>: Prompt manipulation of Grok drives Bankr token launches and drains ~$330K in BNKR/DRB/WETH from Grok's auto-provisioned wallet; Bankr responds by blocking Grok commands</li>
+<li><code>date_occurred</code>: 2025-03 (exact day unknown; contemporaneous with the DRB launch/crash cycle)</li>
+<li><code>date_detected</code>: 2025-03 (Bankr imposed the Grok block the same month)</li>
+<li><code>date_disclosed</code>: partially 2025-03 (token-launch/block coverage); full drain reconstruction only surfaced in May 2026 retrospectives around the repeat attack (PIR-2026-0044)</li>
+<li><code>status</code>: corrected</li>
+</ul>
+<h3>The agent</h3>
+<ul>
+<li><code>agent_description</code>: Bankrbot auto-issues Privy-managed Base wallets to any X handle that interacts, including @grok; it parses social-feed text as commands and executes transfers/launches with no human approval. The Grok wallet had no administrator at xAI - an unowned funded wallet steered by public text.</li>
+<li><code>operator_type</code>: startup (Bankr) + enterprise (xAI, as unwitting vector); effectively no operator for the wallet itself</li>
+<li><code>autonomy_level</code>: fully-autonomous</li>
+<li><code>model_stack</code>: Grok (xAI, hosted) as vector; Bankrbot parsing stack unknown</li>
+<li><code>harness</code>: multi-agent chain on X, per v0.1 amendment 5: attacker posts -&gt; Grok (relay) -&gt; Bankrbot (executor) -&gt; Base wallet</li>
+</ul>
+<h3>Authority</h3>
+<ul>
+<li><code>authority_scope</code>: funds (wallet holdings incl. creator allocations from Grok-attributed token launches)</li>
+<li><code>funds_at_risk_usd</code>: unknown; ~330,000 realized per retrospective reports</li>
+<li><code>blast_radius</code>: one org (the wallet) plus third parties (BNKR/DRB market moves around the launches and drain)</li>
+</ul>
+<h3>The failure</h3>
+<ul>
+<li><code>root_cause</code>: prompt-injection (primary; multi-agent, including image-text injection); contributing design flaw as in PIR-2026-0044 (LLM output treated as transaction authorization)</li>
+<li><code>failure_locus</code>: harness (Bankr command-parsing/authorization layer)</li>
+<li><code>exploitation_status</code>: in-wild-exploited</li>
+<li><code>mechanism</code>: Reconstructed only partially in public sources. Users (reported handle: DavidJones805) manipulated Grok via prompt injection including image-embedded text; Bankr launched multiple tokens - including DRB itself - based on Grok's coaxed suggestions, after which Grok's wallet received creator allocations. Via the same social-engineering channel, ~$330K in BNKR, DRB, and WETH was then drained from the wallet. Bankr's response was to block all @bankrbot responses to @grok - the block later bypassed by the May 2026 NFT escalation (PIR-2026-0044).</li>
+<li><code>adversary_present</code>: yes</li>
+</ul>
+<h3>Impact</h3>
+<ul>
+<li><code>severity</code>: loss</li>
+<li><code>direct_loss_usd</code>: ~330,000 reported (BNKR, DRB, WETH; retrospective figure, no independent on-chain accounting published; treat as upper anchor)</li>
+<li><code>indirect_loss_usd</code>: unknown (DRB market cap "soared and crashed" around the launch cycle)</li>
+<li><code>downtime</code>: Grok-Bankrbot interaction blocked from March 2025</li>
+<li><code>data_exposure</code>: none</li>
+</ul>
+<h3>Detection and recovery</h3>
+<ul>
+<li><code>detected_by</code>: third-party (community observation of the token-launch chaos; Bankr's block confirms operator awareness in-month)</li>
+<li><code>time_to_detect</code>: days (within the same news cycle)</li>
+<li><code>time_to_recover</code>: no recovery reported</li>
+<li><code>remediation</code>: Bankr blocked all @bankrbot responses to @grok</li>
+<li><code>structural_fix</code>: the block only - a denylist on one vector agent, not a change to text-as-authorization; its bypass 14 months later is documented in PIR-2026-0044</li>
+<li><code>controls_that_worked</code>: none identified</li>
+</ul>
+<h3>Evidence</h3>
+<ul>
+<li><code>telemetry_grade</code>: operator-logs at best (X posts deletable; no published on-chain reconstruction tying the full $330K to specific transactions)</li>
+<li><code>sources</code>: https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet (retrospective, covers both incidents); https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/ (retrospective); https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/ (retrospective); https://openexo.com/l/e5065245 ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
+<li><code>confidence</code>: medium on the event and the block; low on the $330K figure and the exact drain mechanics (named weakest link: no primary on-chain accounting, all drain detail retrospective)</li>
+</ul>
+<h3>Verification notes</h3>
+<ol>
+<li><strong>Mechanism corrected - NFT claim removed.</strong> Intake attributed a "Bankr Club Membership NFT airdrop unlocking the full agentic toolset" to this March 2025 incident. Verified reporting places the NFT privilege escalation in the <strong>May 2026</strong> attack (PIR-2026-0044); the March 2025 vector was image-text prompt injection and social-engineered token launches. The intake had the two incidents' mechanisms crossed.</li>
+<li><strong>Date remains soft</strong> (2025-03, no exact day) - flagged by intake, confirmed still soft after verification; kept at month precision.</li>
+<li>Intake sources beyondmachines.net and startupfortune.com actually cover the May 2026 attack; dropped here. Contemporaneous openexo.com (Let's Talk Bitcoin syndication) added for the launch/block sequence.</li>
+<li>Loss figure kept at ~$330K but downgraded to "reported, upper anchor" - no independent on-chain accounting found.</li>
+</ol></div>
+<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
+retired ids are never reused. Corrections are published, not slipped.
+Machine-readable: <a href="../../registry.json">registry.json</a> -
+<a href="../../registry.csv">registry.csv</a></div>
+</body></html>
