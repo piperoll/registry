@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+message: "If you use PipeRoll data, cite the registry and the specific PIR id(s)."
+title: "PipeRoll - Agent Incident Registry"
+type: dataset
+authors:
+  - family-names: Gumdelli
+    given-names: Srinivas
+repository-code: "https://github.com/piperoll/registry"
+url: "https://piperoll.org"
+license: CC-BY-4.0
+keywords:
+  - AI agents
+  - incident database
+  - AI safety
+  - agent economy
+  - failure analysis
+abstract: >-
+  Verified public records of AI-agent failures: what the agent controlled,
+  what went wrong, what it cost, and what the evidence is. Open data, open
+  submissions, verified registration. Individual records carry stable
+  permalinks and per-record citation lines at https://piperoll.org.
