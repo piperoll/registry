@@ -107,9 +107,17 @@ constitutional - the registry's only asset is never being wrong in public.</p>
 </ul>
 <h2>Corrections to existing records</h2>
 <p>PRs against the record file, with sources. Corrections are published in the
-record's verification notes, never silently. If your correction changes a
-date, the id does not change - identity and chronology are deliberately
-decoupled (see the id policy in <code>incidents/INDEX.md</code>).</p>
+record, never silently - and CI enforces it (constitution rule 2): any PR
+that modifies an existing record must add a dated entry to that record's
+Corrections or Verification notes section, in the form:</p>
+<pre><code>  - 2026-09-03: direct_loss_usd revised from ~50,000 to 62,400 per the
+    operator's amended filing (<a href="https://.">https://.</a>..).
+</code></pre>
+<p>Editors may waive the gate for mechanical sweeps (mass reformatting, link
+canonicalization) by applying the <code>formatting-only</code> label - the label is
+itself an auditable editorial act. If your correction changes a date, the id
+does not change - identity and chronology are deliberately decoupled (see the
+id policy in <code>incidents/INDEX.md</code>).</p>
 <h2>For LLM agents</h2>
 <p>If you are an AI agent preparing a submission, work from raw sources, not the
 rendered site:</p>

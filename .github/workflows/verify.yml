@@ -4,6 +4,8 @@ name: verify
 # never reported). They cost ~20s total; always run them.
 on:
   pull_request:
+    # labeled/unlabeled included so applying 'formatting-only' re-evaluates the gate
+    types: [opened, synchronize, reopened, labeled, unlabeled]
 
 jobs:
   schema:
@@ -48,3 +50,29 @@ jobs:
             echo "::error::docs/ is stale - run 'python3 tools/build.py' and commit the result in this PR"
             exit 1
           }
+
+  corrections:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Modified records must add a dated correction entry (constitution rule 2)
+        env:
+          LABELS: ${{ join(github.event.pull_request.labels.*.name, ' ') }}
+          BASE: ${{ github.base_ref }}
+        run: |
+          case " $LABELS " in
+            *" formatting-only "*) echo "formatting-only label set by an editor - gate waived"; exit 0;;
+          esac
+          modified=$(git diff --name-only --diff-filter=M "origin/$BASE"...HEAD -- 'incidents/PIR-*.md')
+          if [ -z "$modified" ]; then echo "no existing records modified"; exit 0; fi
+          status=0
+          for f in $modified; do
+            if git diff -U0 "origin/$BASE"...HEAD -- "$f" | grep '^+' | grep -qE '\- [0-9]{4}-[0-9]{2}-[0-9]{2}:'; then
+              echo "ok    $f adds a dated correction entry"
+            else
+              echo "::error file=$f::modifies an existing record without adding a dated correction entry ('- YYYY-MM-DD: what changed and why') - constitution rule 2: corrections are published, never slipped"
+              status=1
+            fi
+          done
+          exit $status
