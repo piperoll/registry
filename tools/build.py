@@ -86,7 +86,7 @@ def parse_record(path):
     m = re.match(r"# (PIR-\d{4}-\d{4}) - (.+)", txt)
     if m:
         rec["id"], rec["title"] = m.group(1), m.group(2).strip()
-    for field in ["date_occurred", "root_cause", "failure_locus", "severity",
+    for field in ["date_occurred", "date_disclosed", "root_cause", "failure_locus", "severity",
                   "exploitation_status", "direct_loss_usd", "status", "confidence",
                   "telemetry_grade", "operator_type", "blast_radius"]:
         fm = re.search(r"`" + field + r"`:\s*(.+)", txt)
@@ -129,8 +129,15 @@ def build():
         r["severity_key"] = norm(r, "severity")
         r["status_key"] = norm(r, "exploitation_status")
         r["locus_key"] = norm(r, "failure_locus")
-        d = (r.get("date_occurred") or "")[:4]
-        r["year_key"] = d if d.isdigit() else "n/a"
+        # best available chronology: occurrence date, else disclosure date (research demos)
+        sd = None
+        for fld in ("date_occurred", "date_disclosed"):
+            m = re.search(r"(\d{4})-(\d{2})(?:-(\d{2}))?", r.get(fld) or "")
+            if m:
+                sd = f"{m.group(1)}-{m.group(2)}-{m.group(3) or '00'}"
+                break
+        r["sort_date"] = sd or "0000-00-00"
+        r["year_key"] = r["sort_date"][:4] if sd else "n/a"
 
     # exports (strip markdown body)
     export = [{k: v for k, v in r.items() if k not in ("markdown", "file")} for r in records]
@@ -157,10 +164,11 @@ def build():
         return (f"<label>{label} <select data-filter='{key}'>"
                 f"<option value=''>all</option>{opts}</select></label>")
 
+    display = sorted(records, key=lambda r: (r["sort_date"], r["id"]), reverse=True)
     rows = "\n".join(
         f"<tr data-cause_key='{r['cause_key']}' data-severity_key='{r['severity_key']}'"
         f" data-status_key='{r['status_key']}' data-locus_key='{r['locus_key']}'"
-        f" data-year_key='{r['year_key']}'"
+        f" data-year_key='{r['year_key']}' data-sortdate='{r['sort_date']}' data-id='{r['id']}'"
         f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
         f"<td><a href='{r['url']}'>{r['id']}</a></td>"
         f"<td>{htmlmod.escape(r.get('title','')[:90])}</td>"
@@ -168,7 +176,7 @@ def build():
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
         f"<td>{htmlmod.escape(r['severity_key'])}</td>"
         f"<td>{htmlmod.escape((r.get('direct_loss_usd') or '')[:28])}</td></tr>"
-        for r in records)
+        for r in display)
 
     controls = f"""
 <div class="controls">
@@ -177,6 +185,9 @@ def build():
   {options('severity_key', 'severity')}
   {options('status_key', 'exploitation')}
   {options('locus_key', 'locus')}
+  <label>sort <select id="sortby">
+    <option value="newest">newest first</option><option value="oldest">oldest first</option>
+    <option value="registration">registration order</option></select></label>
   <label>group by <select id="groupby">
     <option value="">none</option><option value="cause_key">root cause</option>
     <option value="severity_key">severity</option><option value="year_key">year</option>
@@ -192,7 +203,11 @@ def build():
   var all = Array.prototype.slice.call(tbody.querySelectorAll('tr'));
   var selects = document.querySelectorAll('select[data-filter]');
   var q = document.getElementById('q'), groupby = document.getElementById('groupby');
+  var sortby = document.getElementById('sortby');
   var shown = document.getElementById('shown');
+  function cmp(a, b, key, dir) {
+    return a.dataset[key] < b.dataset[key] ? -dir : a.dataset[key] > b.dataset[key] ? dir : 0;
+  }
   function apply() {
     var text = q.value.toLowerCase().trim();
     var active = [];
@@ -201,6 +216,9 @@ def build():
       if (text && tr.dataset.text.indexOf(text) === -1) return false;
       return active.every(function (f) { return tr.dataset[f[0]] === f[1]; });
     });
+    var mode = sortby.value;
+    if (mode === 'registration') kept.sort(function (a, b) { return cmp(a, b, 'id', 1); });
+    else kept.sort(function (a, b) { return cmp(a, b, 'sortdate', mode === 'oldest' ? 1 : -1); });
     tbody.innerHTML = '';
     var g = groupby.value;
     if (!g) { kept.forEach(function (tr) { tbody.appendChild(tr); }); }
@@ -220,8 +238,9 @@ def build():
   selects.forEach(function (s) { s.addEventListener('change', apply); });
   q.addEventListener('input', apply);
   groupby.addEventListener('change', apply);
+  sortby.addEventListener('change', apply);
   document.getElementById('reset').addEventListener('click', function () {
-    q.value = ''; groupby.value = '';
+    q.value = ''; groupby.value = ''; sortby.value = 'newest';
     selects.forEach(function (s) { s.value = ''; });
     apply();
   });
