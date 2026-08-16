@@ -237,7 +237,9 @@ def build():
 <p class="stats"><strong>{len(records)} verified records</strong> &middot; 2 retired ids &middot; schema v0.2</p>
 <div class="notice">Every record is individually verified against primary sources before
 publication; corrections are recorded in the record itself. Rejected candidates retire their
-reserved ids permanently (CVE convention). This registry is young - treat aggregate statistics
+reserved ids permanently (CVE convention). Ids are assigned in registration order and are
+opaque - the year in the id is the registration year, and sequence encodes nothing about
+occurrence date or severity. This registry is young - treat aggregate statistics
 as early data, not actuarial tables.</div>
 {statline('cause_key', 'Root cause')}
 {statline('severity_key', 'Severity')}

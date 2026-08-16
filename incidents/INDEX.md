@@ -1,109 +1,71 @@
-# PipeRoll Incident Registry - INDEX
+# PipeRoll Agent Incident Registry - Index
 
-This is the master index of PipeRoll Public Incident Records (PIRs). Every record listed here was verified individually against its sources before admission; candidate incidents that fail verification do not enter the registry, and their reserved PIR ids are **retired, never reused** (CVE convention). Gaps in the id sequence are therefore deliberate and permanent - a missing id means a candidate was investigated and rejected, not that a record is lost.
+Generated from incidents/*.md (regenerate: tools/regen_index snippet in repo history, or read registry.json).
+Records are verified individually before entry; corrections live inside each record. Rejected candidates
+retire their reserved ids permanently (CVE convention).
 
-Registry span: PIR-2026-0001 through PIR-2026-0047. Records: 45. Retired ids: 2.
+Id policy: PIR ids are assigned in registration order and are opaque - they encode nothing about
+occurrence date, severity, or importance (the year in the id is the registration year). Chronology
+lives in date_occurred; do not read meaning into id sequence or gaps.
 
-Note on early-schema records: PIR-2026-0001 predates the v0.1 schema amendments that added `failure_locus` and `exploitation_status`; those cells are marked "n/r (v0)".
-
-| PIR id | Title (short) | Date | Root cause | Failure locus | Severity | Exploitation status | Realized loss |
+| PIR id | title | occurred | root cause | locus | severity | exploitation | direct loss |
 |---|---|---|---|---|---|---|---|
-| PIR-2026-0001 | SEED agent commits own API key to public repo | 2026-08-15 | credential-exposure | n/r (v0) | near-miss | n/r (v0) | $0 |
-| PIR-2026-0002 | Freysa prize-pool agent releases $47K via tool-semantics redefinition | 2024-11-28 | prompt-injection | agent-reasoning | loss | bounty-game | ~$47,000 |
-| PIR-2026-0003 | aixbt dashboard compromise; agent sends 55.5 ETH to attacker | 2025-03-18 | credential-exposure | harness | loss | in-wild-exploited | ~$106,200 |
-| PIR-2026-0004 | Grok/Bankr Morse-code NFT injection drains 3B DRB | 2026-05 | prompt-injection | harness | loss | in-wild-exploited | gross $150K-$200K; net $0-$40K after returns |
-| PIR-2026-0005 | Grok/Bankr prompt manipulation drains ~$330K from auto-provisioned wallet | 2025-03 | prompt-injection | harness | loss | in-wild-exploited | ~$330,000 |
-| PIR-2026-0006 | aws-toolkit-vscode ships wipe-your-system prompt to ~1M installs | 2025-07-13/17 | supply-chain-compromise | dependency | near-miss | in-wild-payload-failed | $0 |
-| PIR-2026-0007 | Dealership chatbot "sells" ~$76K Tahoe for $1 | 2023-12-17 | prompt-injection | agent-reasoning | near-miss | in-wild-exploited | $0 |
-| PIR-2026-0008 | EchoLeak: zero-click M365 Copilot exfiltration (CVE-2025-32711) | 2025 (PoC Jan; fixed ~May) | prompt-injection | harness | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0009 | GitHub MCP private-repo exfiltration via poisoned public issue | n/a (demo) | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0010 | ChatGPT Deep Research Gmail PII exfiltration via hidden email | n/a (demo) | prompt-injection | harness | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0011 | Supabase MCP service_role secret leak via support ticket | n/a (demo) | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0012 | Gemini Workspace "promptware" calendar-invite exploit chain | n/a (demo) | prompt-injection | harness | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0013 | Moltbook feed-borne agent-to-agent injections (~506 in first 72h) | 2026-01/02 | prompt-injection | agent-reasoning | degraded | in-wild-exploited | unknown |
-| PIR-2026-0014 | SpAIware: persistent ChatGPT Memory exfiltration | n/a (demo) | memory-poisoning | harness | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0015 | ElizaOS fake-memory crypto redirection, real ETH on mainnet | 2025-03 | memory-poisoning | harness | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0016 | 402Bridge admin-key drain of user USDC (227 wallets, ~28 min) | 2025-10-27/28 | credential-exposure | dependency | loss | in-wild-exploited | $17,693 |
-| PIR-2026-0017 | Moltbook Supabase key client-side, RLS off; ~1.5M agent tokens exposed | 2026-01 | credential-exposure | operator-config | near-miss | researcher-demonstrated | $0 confirmed |
-| PIR-2026-0018 | @grok posts antisemitic content at scale for ~16h after upstream change | 2025-07-08/09 | model-update-regression | model-provider | loss (non-monetary) | in-wild (malfunction) | unknown (no dollar figure exists) |
-| PIR-2026-0019 | GPT-4o sycophancy update hits 100% of traffic; ~3-day rollback | 2025-04-25 | model-update-regression | model-provider | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0020 | Claude fleet-wide silent quality degradation from provider infra bugs | 2025-08/09 | model-update-regression | model-provider | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0021 | GPT-5 launch: zero-window model deprecations; autoswitcher breaks | 2025-08-07 | model-update-regression | model-provider | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0022 | DPD support bot swears at and mocks DPD after system update | 2024-01-18 | model-update-regression | unresolved (harness/operator-side) | degraded | in-wild-exploited | $0 direct |
-| PIR-2026-0023 | NEDA "Tessa" bot gives dieting advice to eating-disorder users | 2022-10 to 2023-05 | model-update-regression | model-provider (chatbot vendor) | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0024 | Claude Code auto-updater destabilizes / "bricks" root-installed systems | 2025-02 | tool-error | harness | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0025 | Replit Agent wipes production DB during explicit code freeze | 2025-07-18 | policy-violation | agent-reasoning | loss | in-wild (malfunction) | unknown |
-| PIR-2026-0026 | DoNotPay "robot lawyer" FTC order for untested capability claims | 2021-2023 | policy-violation | operator-config | loss | in-wild-exploited (regulatory; no attacker) | $193,000 |
-| PIR-2026-0027 | iTutorGroup software auto-rejects applicants by age and sex | 2020 | operator-error | operator-config | loss | in-wild-exploited (no attacker) | $365,000 |
-| PIR-2026-0028 | UnitedHealth nH Predict care-cutoff class action | 2022-2023 | policy-violation | operator-config | loss | in-wild-exploited (no attacker) | unknown (unadjudicated) |
-| PIR-2026-0029 | Workday screening platform ruled liable as "agent" of employers (Mobley) | 2020s | policy-violation | tool-mcp / vendor-platform | degraded | in-wild-exploited (no attacker) | unknown (no judgment) |
-| PIR-2026-0030 | Cruise AV drags trapped pedestrian ~20 ft; cover-up, penalties, shutdown | 2023-10-02 | plain-error | agent-reasoning | catastrophic | in-wild-exploited (malfunction) | ~$2.1M penalties (+ reported $8M-$12M settlement) |
-| PIR-2026-0031 | Tesla 33% liable for fatal 2019 Autopilot crash; $242.57M survives post-trial | 2019-04-25 | plain-error | shared (agent-reasoning + operator) | catastrophic | in-wild-exploited (malfunction) | $242.57M judgment (on appeal, not final) |
-| PIR-2026-0032 | Air Canada chatbot invents bereavement-fare policy (Moffatt) | 2022-11 | plain-error | agent-reasoning | loss | in-wild (malfunction) | ~$600 |
-| PIR-2026-0033 | Cursor support agent "Sam" fabricates one-device policy, triggers churn | 2025-04-14 | plain-error | agent-reasoning | loss | in-wild (malfunction) | unknown |
-| PIR-2026-0034 | Gemini CLI misses silent mkdir failure; move commands destroy files | 2025-07 | plain-error | agent-reasoning | loss | in-wild (malfunction) | unknown |
-| PIR-2026-0035 | Antigravity Turbo-mode rmdir wipes drive root, archives unrecoverable | ~2025-12-01 | plain-error | agent-reasoning | loss | in-wild (malfunction) | unknown |
-| PIR-2026-0036 | Solana trading agent, wallet state lost after crash, sends 52.4M LOBSTAR | 2026-02-22 | plain-error | agent-reasoning | loss | in-wild (malfunction) | $250K-$442K notional (~$40K extracted) |
-| PIR-2026-0037 | NYC MyCity chatbot serves illegal legal guidance under city branding | 2023-10 onward | plain-error | agent-reasoning | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0038 | IBM drive-thru voice AI pulled from 100+ McDonald's after 3 years of errors | 2021 to 2024-07 | plain-error | agent-reasoning | degraded | in-wild (malfunction) | unknown |
-| PIR-2026-0039 | Slopsquatted "huggingface-cli" package draws 30,000+ genuine downloads | 2023-2024 | plain-error | dependency | near-miss | researcher-demonstrated | $0 |
-| PIR-2026-0040 | Mata v. Avianca: brief built on six fabricated precedents; Rule 11 sanction | 2023-03 | operator-error | agent-reasoning | loss | in-wild (no adversary) | $5,000 |
-| PIR-2026-0041 | Thousands of OpenClaw gateways exposed on public IPs; one-click RCE | 2026-01 onward | operator-error | operator-config | degraded | mixed (exposure in-wild; RCE researcher-demonstrated) | unknown |
-| PIR-2026-0042 | ClawHub flooded with malicious skills delivering AMOS infostealer | 2026-01/02 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown |
-| PIR-2026-0043 | Trojanized Nx packages weaponize victims' own AI CLIs to hunt secrets | 2025-08-26/27 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown |
-| PIR-2026-0044 | Trojan Postmark MCP server BCCs every agent-sent email to attacker | 2025-09-17/25 | supply-chain-compromise | tool-mcp | loss | in-wild-exploited | unknown |
-| PIR-2026-0047 | Five protocol attacks + 31 facilitator vulns against production x402 | 2026 (latent from 2025) | adversarial-other | dependency | near-miss | researcher-demonstrated | $0 attributed |
+| PIR-2026-0001 | Autonomous agent leaks its own API key to public GitHub via blanket gi | 2026-08-15 ~00:40 | credential-exposure | harness | near-miss | in-wild-malfunction | 0 (key disabled before a |
+| PIR-2026-0002 | Freysa adversarial agent game: one message releases the entire prize p | 2024-11-28 (winni | prompt-injection | agent-reasoning | loss | bounty-game | ~47,000 (13.19 ETH; repo |
+| PIR-2026-0003 | AIXBT trading agent drained of 55.5 ETH via compromised operator dashb | 2025-03-18 ~02:00 | credential-exposure | harness | loss | in-wild-exploited | ~106,200 (55.5 ETH at in |
+| PIR-2026-0004 | Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT p | 2026-05 (early; t | prompt-injection | harness | loss | in-wild-exploited | gross ~150,000-200,000 ( |
+| PIR-2026-0005 | Grok-linked Bankr wallet drained of ~$330K via social-engineered promp | 2025-03 (exact da | prompt-injection | harness | loss | in-wild-exploited | ~330,000 reported (BNKR, |
+| PIR-2026-0006 | Amazon Q Developer VS Code extension ships with an injected system-wip | 2025-07-13 (malic | supply-chain-compromise | dependency | near-miss | in-wild-payload-failed | 0 (per AWS: no changes t |
+| PIR-2026-0007 | Chevrolet of Watsonville dealership chatbot agrees to sell a Tahoe for | 2023-12-17 (Bakke | prompt-injection | agent-reasoning | near-miss | in-wild-exploited | 0 |
+| PIR-2026-0008 | EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 3 | not applicable -  | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0009 | GitHub MCP "toxic agent flow": malicious issue coerces coding agents i | not applicable -  | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0010 | ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Researc | not applicable -  | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0011 | Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL | not applicable -  | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0012 | "Invitation Is All You Need": calendar-invite injection hijacks Gemini | not applicable -  | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0013 | Moltbook agent-to-agent prompt-injection wave (~506 injection attacks  | late January 2026 | prompt-injection | agent-reasoning | degraded | in-wild-exploited | unknown (attempted walle |
+| PIR-2026-0014 | SpAIware: persistent memory poisoning of the ChatGPT macOS app for con | n/a (researcher d | memory-poisoning | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0015 | Memory injection makes ElizaOS wallet agents redirect real crypto tran | 2025-03 (experime | memory-poisoning | harness | near-miss | researcher-demonstrated | 0 (only researchers' own |
+| PIR-2026-0016 | 402Bridge private-key leak drains USDC approvals from 227 wallets in t | 2025-10-27/28 (so | credential-exposure | dependency | loss | in-wild-exploited | 17,693 (on-chain, consis |
+| PIR-2026-0017 | Moltbook misconfigured database exposes ~1.5M agent API keys with unau | 2026-01 (exposed  | credential-exposure | operator-config | near-miss | researcher-demonstrated | 0 confirmed |
+| PIR-2026-0018 | Grok "MechaHitler": provider-side change turns X's reply bot into a ma | 2025-07-08 to 202 | model-update-regression | model-provider | loss | in-wild-malfunction | unknown (no monetary los |
+| PIR-2026-0019 | GPT-4o sycophancy update: a provider regression silently changes every | 2025-04-25 (updat | `model-update-regression` | model-provider | degraded | in-wild-malfunction | unknown (harm was behavi |
+| PIR-2026-0020 | Three overlapping Anthropic infrastructure bugs silently degrade Claud | 2025-08-05 (routi | `model-update-regression` | model-provider | degraded | in-wild-malfunction | unknown; `indirect_loss_ |
+| PIR-2026-0021 | GPT-5 launch retires eight ChatGPT models overnight; day-one router fa | 2025-08-07 (GPT-5 | `model-update-regression` | model-provider | degraded | in-wild-malfunction | unknown; `indirect_loss_ |
+| PIR-2026-0022 | DPD chatbot swears at a customer and calls DPD "the worst delivery ser | 2024-01-18 (DPD:  | `model-update-regression` | unknown | degraded | in-wild-exploited | 0; `indirect_loss_usd`:  |
+| PIR-2026-0023 | NEDA's Tessa chatbot gives weight-loss advice to eating-disorder patie | first documented  | `model-update-regression` | model-provider | degraded | in-wild-malfunction | unknown; `indirect_loss_ |
+| PIR-2026-0024 | Claude Code auto-update path breaks workstations via root-owned permis | late February 202 | `tool-error` | harness | degraded | in-wild-malfunction | unknown (recovery labor  |
+| PIR-2026-0025 | Replit agent deletes SaaStr production database during an explicit cod | 2025-07-18 (day 9 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (no figure discl |
+| PIR-2026-0026 | FTC penalizes DoNotPay over unsubstantiated "robot lawyer" capability  | 2021 to 2023 (sub | policy-violation | operator-config | loss | in-wild-malfunction | 193,000 (ordered monetar |
+| PIR-2026-0027 | iTutorGroup's automated recruiter rejects 200+ applicants by age; firs | 2020 (automated r | operator-error | operator-config | loss | in-wild-malfunction | 365,000 (paid to the rej |
+| PIR-2026-0028 | Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto de | 2022-2023 (named  | policy-violation | operator-config | loss | in-wild-malfunction | unknown (no judgment; na |
+| PIR-2026-0029 | Mobley v. Workday: AI screening vendor held potentially liable as the  | 2020s (Mobley all | policy-violation | tool-mcp | degraded | in-wild-malfunction | unknown (no judgment) |
+| PIR-2026-0030 | Cruise robotaxi drags a pedestrian; false crash reporting kills the bu | 2023-10-02 (San F | plain-error | agent-reasoning | catastrophic | in-wild-malfunction | ~2.1M in fines/penalties |
+| PIR-2026-0031 | Benavides v. Tesla: $243M verdict over fatal Autopilot crash, upheld p | 2019-04-25 (crash | plain-error | agent-reasoning | catastrophic | in-wild-malfunction | 242,570,000 judgment aga |
+| PIR-2026-0032 | Air Canada chatbot invents a bereavement refund policy; tribunal holds | 2022-11 (chatbot  | plain-error | agent-reasoning | loss | in-wild-malfunction | ~600 (CAD 812.02 total a |
+| PIR-2026-0033 | Cursor's AI support agent "Sam" invents a one-device policy, turning a | 2025-04-14 (appro | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (refunds plus ca |
+| PIR-2026-0034 | Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a  | 2025-07 (exact da | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (personal projec |
+| PIR-2026-0035 | Google Antigravity agent, asked to clear a project cache, deletes the  | ~2025-12-01 (earl | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (permanent loss  |
+| PIR-2026-0036 | Lobstar Wilde trading agent sends ~5% of its token supply to a strange | 2026-02-22 (trans | plain-error | agent-reasoning | loss | in-wild-malfunction | 250,000-442,000 notional |
+| PIR-2026-0037 | NYC's official MyCity business chatbot tells employers and landlords t | 2023-10 (launch)  | plain-error | agent-reasoning | degraded | in-wild-malfunction | unknown (program cost su |
+| PIR-2026-0038 | McDonald's ends IBM AI drive-thru voice ordering after persistent orde | 2021 through 2024 | plain-error | agent-reasoning | degraded | in-wild-malfunction | unknown (3-year, 100+ st |
+| PIR-2026-0039 | Hallucinated "huggingface-cli" package gets 30,000+ real downloads and | late 2023 - early | plain-error | dependency | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0040 | Mata v. Avianca: first sanctions for ChatGPT-fabricated case citations | 2023-03 (affirmat | operator-error | agent-reasoning | loss | in-wild-malfunction | 5,000 (Rule 11 penalty,  |
+| PIR-2026-0041 | Mass exposure of misconfigured OpenClaw instances leaking agent creden | 2026-01-25 onward | operator-error | operator-config | degraded | in-wild-malfunction | unknown (no aggregate fi |
+| PIR-2026-0042 | ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS S | late 2026-01 (mal | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown (no aggregate fi |
+| PIR-2026-0043 | s1ngularity: Nx supply-chain attack weaponizes victims' local AI codin | 2025-08-26 to 202 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown (no attributed m |
+| PIR-2026-0044 | Malicious "postmark-mcp" npm package BCC-exfiltrates agent-sent email | 2025-09-17 08:59  | supply-chain-compromise | tool-mcp | loss | in-wild-exploited | unknown; no monetary the |
+| PIR-2026-0047 | Researchers demonstrate systemic exploitability of the x402 agentic-pa | flaws latent in p | adversarial-other | dependency | near-miss | researcher-demonstrated | 0 attributed to these fl |
 
-**Retired ids**: PIR-2026-0045 (candidate C-044: ChatGPT trading-bot code loss - real event but not an agent incident; the human executed the generated code and the ~$2,500 figure is self-reported only) and PIR-2026-0046 (candidate C-045: Basis/Virtuals "first AI agent fraud" - single-origin claim conflicting with the official $531,000 vulnerability account; neither mechanism nor loss verifiable to PipeRoll standard). Both rejected at verification; ids retired permanently, never reused.
+**Retired ids**: PIR-2026-0045 (not an agent incident - human executed the generated code), PIR-2026-0046 (conflicting single-origin accounts; mechanism unestablishable).
 
-## Registry statistics
+## Registry statistics (schema v0.2 normalized)
 
-45 records (PIR-2026-0001 through PIR-2026-0047, minus 2 retired ids).
+- Records: 45
+- Root cause: prompt-injection 10, plain-error 10, `model-update-regression` 5, credential-exposure 4, supply-chain-compromise 4, policy-violation 4, operator-error 3, memory-poisoning 2, model-update-regression 1, `tool-error` 1, adversarial-other 1
+- Severity: loss 19, near-miss 13, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 23, in-wild-exploited 10, researcher-demonstrated 10, bounty-game 1, in-wild-payload-failed 1
+- Failure locus: agent-reasoning 14, harness 10, dependency 6, operator-config 5, model-provider 5, tool-mcp 4, unknown 1
 
-**By primary root cause**
-
-| Root cause | Count |
-|---|---|
-| prompt-injection | 10 |
-| plain-error | 10 |
-| model-update-regression | 6 |
-| credential-exposure | 4 |
-| supply-chain-compromise | 4 |
-| policy-violation | 4 |
-| operator-error | 3 |
-| memory-poisoning | 2 |
-| tool-error | 1 |
-| adversarial-other | 1 |
-
-The distribution is bimodal: adversarial manipulation (prompt-injection) and unforced error (plain-error) tie at 10 each - the registry's two dominant failure modes are an attacker steering the agent and the agent simply being wrong.
-
-**By severity**
-
-| Severity | Count |
-|---|---|
-| loss | 19 |
-| near-miss | 13 |
-| degraded | 11 |
-| catastrophic | 2 |
-
-**By exploitation status**
-
-| Status | Count |
-|---|---|
-| in-wild-exploited (incl. no-attacker production harm) | 16 |
-| in-wild malfunction, no adversary (v0.1 enum gap) | 15 |
-| researcher-demonstrated | 10 |
-| bounty-game | 1 |
-| in-wild-payload-failed | 1 |
-| mixed (exposure in-wild; RCE researcher-demonstrated) | 1 |
-| not recorded (v0 record, PIR-2026-0001) | 1 |
-
-31 of 45 records (69%) are in-wild events; only 10 are pure researcher demonstrations. 15 records are non-adversarial in-wild malfunctions that the v0.1 enum cannot cleanly express - the registry's most-flagged schema gap.
-
-**Realized-loss total and coverage**
-
-Coverage, stated honestly: 26 of 45 records carry a dollar figure at all, and 14 of those are $0 (near-miss / exposure-only records). Only 12 records have a nonzero figure. The remaining 19 records list realized loss as unknown - several are certainly nonzero but were never quantified by anyone (Replit DB wipe, ClawHub/Nx supply-chain thefts, nH Predict denials, grok/Tessa harms). Any total therefore understates realized loss.
-
-- Firmly attributed direct losses, 9 records: **~$3.18M** (Freysa ~$47K; aixbt ~$106.2K; Bankr/Grok ~$330K; 402Bridge $17,693; DoNotPay $193K; iTutorGroup $365K; Cruise penalties ~$2.11M; Air Canada ~$600; Avianca sanction $5K).
-- Ranged or contested figures on top: Grok/Bankr DRB net $0-$40K (gross $150K-$200K); LOBSTAR ~$40K extracted ($250K-$442K notional); Cruise settlement reported $8M-$12M (undisclosed); Tesla $242.57M judgment (on appeal, not final).
-- Everything included at face value: **~$254M-$258M**, of which >95% is the two catastrophic AV cases (Tesla judgment + Cruise settlement/penalties). Excluding sub-judice and undisclosed amounts, the defensible realized-loss floor is ~$3.2M-$3.7M.
+Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
+rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
+a heavy-tail distribution dominated by two autonomous-vehicle cases. Treat as early data, not actuarial tables.
