@@ -1,0 +1,35 @@
+name: claude-verify
+# LLM-assisted adversarial verification of submitted records.
+# Advisory only: it posts a review; a human editor still merges (or not).
+# Requires the ANTHROPIC_API_KEY repo secret. Label-gated to control cost.
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  verify:
+    if: github.event.label.name == 'verify'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: read
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            You are a PipeRoll verification agent. This PR adds or edits incident
+            records under incidents/. Read incident-schema-v0.md (including all
+            amendments), then for each changed PIR record:
+            1. Adversarially verify every factual claim (dates, dollar figures,
+               mechanism, classification) against the record's cited sources via
+               web search. Actively look for corrections, retractions, and
+               inflated figures.
+            2. Check the sources are independent and actually support the claims.
+            3. Verdict per record: CONFIRMED / NEEDS-CORRECTION (say exactly
+               what and cite evidence) / CANNOT-VERIFY (say what is missing).
+            Post your findings as a single PR review comment. Never propose
+            merging; registration authority stays with the human editors.

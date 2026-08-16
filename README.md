@@ -30,7 +30,10 @@ in different hands.
 Records and registry data: CC BY 4.0 (cite PipeRoll and the PIR id).
 Tooling: MIT. The incident schema is open and will remain open.
 
-## Submitting an incident
+## Contributing
 
-Open an issue with sources. Records enter the registry only after verification;
-submissions without independently checkable sources will not be registered.
+Open data, open submissions, verified registration: anyone may submit a record
+via PR, CI enforces the schema and checks every source link, verification is
+editorial, and merge is the act of registration. See `CONTRIBUTING.md` and
+`incidents/TEMPLATE.md`. Merge authority stays with the editors - that split
+(Wikipedia intake, CVE authority) is constitutional.

@@ -1,0 +1,43 @@
+name: verify
+on:
+  pull_request:
+    paths: ["incidents/**", "tools/**"]
+
+jobs:
+  schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Validate all records against schema enums
+        run: python3 tools/validate.py
+
+  links:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Fetch-grade linkcheck on changed records
+        run: |
+          changed=$(git diff --name-only origin/${{ github.base_ref }}...HEAD -- 'incidents/PIR-*.md')
+          if [ -z "$changed" ]; then echo "no record changes"; exit 0; fi
+          status=0
+          for f in $changed; do
+            id=$(basename "$f" .md)
+            python3 tools/linkcheck.py "$id" || status=1
+          done
+          exit $status
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Site builds cleanly from the records
+        run: |
+          pip install --quiet markdown
+          python3 tools/build.py
