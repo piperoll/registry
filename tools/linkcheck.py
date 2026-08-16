@@ -84,6 +84,10 @@ def main():
             total += 1
             res = check(url)
             tag = classify(res)
+            if tag == "FAIL" and not url.endswith("."):
+                res2 = check(url + ".")
+                if classify(res2) != "FAIL":  # trailing dot was part of the URL
+                    url, res, tag = url + ".", res2, classify(res2)
             if known_debt and tag == "FAIL":
                 tag = "known-debt"
             if tag == "FAIL":

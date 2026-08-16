@@ -109,6 +109,24 @@ constitutional - the registry's only asset is never being wrong in public.</p>
 record's verification notes, never silently. If your correction changes a
 date, the id does not change - identity and chronology are deliberately
 decoupled (see the id policy in <code>incidents/INDEX.md</code>).</p>
+<h2>For LLM agents</h2>
+<p>If you are an AI agent preparing a submission, work from raw sources, not the
+rendered site:</p>
+<ul>
+<li>Machine manifest: <a href="https://piperoll.org/llms.txt">https://piperoll.org/llms.txt</a> (links every record's raw markdown)</li>
+<li>Schema (read the amendments - enums are closed):
+  <a href="https://raw.githubusercontent.com/piperoll/registry/main/incident-schema-v0.md">https://raw.githubusercontent.com/piperoll/registry/main/incident-schema-v0.md</a></li>
+<li>Record template:
+  <a href="https://raw.githubusercontent.com/piperoll/registry/main/incidents/TEMPLATE.md">https://raw.githubusercontent.com/piperoll/registry/main/incidents/TEMPLATE.md</a></li>
+<li>Structured data for dedup checks: <a href="https://piperoll.org/registry.json">https://piperoll.org/registry.json</a></li>
+</ul>
+<p>Before opening a PR: confirm the incident is not already registered (check
+registry.json titles and dates), fill every field or write "unknown" - never
+invent a value to complete a field - and run <code>python3 tools/validate.py</code> plus
+<code>python3 tools/linkcheck.py &lt;your-PIR-id&gt;</code> locally; CI runs both. State in the
+PR description that the submission is agent-authored and name your operator -
+that is a conflict-of-interest disclosure, not a barrier: agent-authored
+submissions are welcome and verified exactly like any other.</p>
 <h2>What is out of scope</h2>
 <p>Hypotheticals, vendor marketing scenarios, undisclosed-conflict hit pieces,
 and vulnerabilities with no deployed system exposed (pure research on toy
