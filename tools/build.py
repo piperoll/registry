@@ -9,6 +9,7 @@ import csv
 import json
 import os
 import re
+import subprocess
 import html as htmlmod
 
 import markdown
@@ -49,6 +50,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .stats { margin: 1rem 0 .25rem; font-size: 1rem; }
 .footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
   font-size: .85rem; color: var(--dim); }
+.footer p { margin: .25rem 0; }
 .notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
   font-size: .9rem; color: var(--dim); margin: 1rem 0; }
 .controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
@@ -89,18 +91,23 @@ PAGE = """<!doctype html>
 <style>{css}</style>
 </head><body>
 <div class="masthead">
-  <div class="org"><a href="{home}">PipeRoll</a> - Agent Incident Registry</div>
+  <div class="org"><a href="{home}">PipeRoll</a> - Agent Incident Registry &middot;
+    <a href="{home_prefix}about/">about</a> &middot;
+    <a href="{home_prefix}contribute/">contribute</a> &middot;
+    <a href="{home_prefix}data/">data</a></div>
   <h1>{h1}</h1>
   <div class="meta">{sub}</div>
 </div>
 {body}
-<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
-retired ids are never reused. Corrections are published, not slipped.
-Machine-readable: <a href="{home_prefix}registry.json">registry.json</a> -
-<a href="{home_prefix}registry.csv">registry.csv</a>.
-Records and data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-(cite PipeRoll and the PIR id). Tooling: MIT.
-Archived releases: <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a> (Zenodo, resolves to latest).</div>
+<div class="footer">
+<p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
+never reused; corrections are published, not slipped.</p>
+<p><a href="{home_prefix}about/">About</a> &middot;
+<a href="{home_prefix}contribute/">Contribute</a> &middot;
+<a href="{home_prefix}data/">Data &amp; formats</a> &middot;
+records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
+archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.{footer_extra}</p>
+</div>
 </body></html>
 """
 
@@ -127,6 +134,20 @@ def cut(s, n):
         return s
     c = s[:n].rsplit(" ", 1)[0].rstrip(",;:(-")
     return c + "…"
+
+
+def registered_info(relpath):
+    """(author, date) of the commit that added this record path, from git."""
+    try:
+        out = subprocess.run(
+            ["git", "log", "--diff-filter=A", "--format=%an|%as", "--", relpath],
+            cwd=ROOT, capture_output=True, text=True, timeout=10).stdout.strip()
+        if out:
+            name, date = out.splitlines()[-1].split("|", 1)
+            return name.strip(), date.strip()
+    except Exception:
+        pass
+    return None, None
 
 
 def linkify(html_body):
@@ -160,19 +181,32 @@ def build():
         cite_text = f"PipeRoll {r['id']}, {cut(r.get('title', ''), 70)} ({vintage}) - {permalink}"
         cite_html = (f"PipeRoll {r['id']}, {htmlmod.escape(cut(r.get('title', ''), 70))} ({vintage}) - "
                      f"<a href=\"{permalink}\">{permalink}</a>")
+        bib = ("@misc{" + r['id'].replace('-', '_') + ",\n"
+               "  title = {" + r.get('title', '') + "},\n"
+               "  howpublished = {\\url{" + permalink + "}},\n"
+               "  year = {" + (vintage[:4] if vintage[:4].isdigit() else "n.d.") + "},\n"
+               "  note = {PipeRoll Agent Incident Registry, " + r['id'] +
+               ". Registry DOI: 10.5281/zenodo.21968992}\n}")
+        reg_name, reg_date = registered_info(f"incidents/{r['id']}.md")
+        reg_line = (f" Registered {reg_date} by {htmlmod.escape(reg_name)}." if reg_name else "")
         cite = (f"<div class='notice'>Cite as: {cite_html} "
-                f"<button class='copycite' data-cite=\"{htmlmod.escape(cite_text)}\">copy</button></div>"
-                "<script>document.querySelector('.copycite').addEventListener('click',function(){"
-                "var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){"
-                "b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script>")
+                f"<button class='copycite' data-cite=\"{htmlmod.escape(cite_text)}\">copy</button> "
+                f"<button class='copycite' data-cite=\"{htmlmod.escape(bib)}\">bibtex</button> "
+                f"<a href=\"{permalink}.md\">markdown</a>.{reg_line}</div>"
+                "<script>document.querySelectorAll('.copycite').forEach(function(b){"
+                "b.addEventListener('click',function(){var l=b.textContent;"
+                "navigator.clipboard.writeText(b.dataset.cite).then(function(){"
+                "b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script>")
         # directory-style permalink: /pir/<slug>/ works extensionless on GitHub Pages
         page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../../index.html",
-                           home_prefix="../../", h1=r["id"],
+                           home_prefix="../../", h1=r["id"], footer_extra="",
                            sub=htmlmod.escape(r.get("title", "")),
                            body=f'{cite}<div class="record">{linkify(body)}</div>')
         os.makedirs(os.path.join(OUT, "pir", slug), exist_ok=True)
         with open(os.path.join(OUT, "pir", slug, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page)
+        with open(os.path.join(OUT, "pir", f"{slug}.md"), "w", encoding="utf-8") as fh:
+            fh.write(r["markdown"])
         r["url"] = f"pir/{slug}/"
 
     # normalized taxonomy keys (drive filters, grouping, and export columns)
@@ -363,7 +397,7 @@ unknown.</div>
 {controls}
 <div class="tablewrap">
 <table id="registry">
-<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr></thead>
+<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss (USD)</th></tr></thead>
 <tbody>
 {rows}
 </tbody>
@@ -371,8 +405,11 @@ unknown.</div>
 </div>
 {script}
 """
+    maintainer_foot = ('\nMaintained by <a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - '
+                       'source and submissions at '
+                       '<a href="https://github.com/piperoll/registry">github.com/piperoll/registry</a>.')
     page = PAGE.format(title="PipeRoll - Agent Incident Registry", css=CSS,
-                       home="index.html", home_prefix="",
+                       home="index.html", home_prefix="", footer_extra=maintainer_foot,
                        h1="Agent Incident Registry",
                        sub="Verified public records of AI-agent failures - schema, statistics, permalinks",
                        body=body)
@@ -391,7 +428,7 @@ unknown.</div>
                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     notfound = PAGE.format(title="Not found - PipeRoll", css=CSS, home="/index.html",
-                           home_prefix="/", h1="404 - no such record",
+                           home_prefix="/", h1="404 - no such record", footer_extra="",
                            sub="The id you followed does not exist in this registry.",
                            body="<p>If a citation led you here, the id may be mistyped - "
                                 "check the <a href='/index.html'>registry index</a>. "
@@ -399,6 +436,106 @@ unknown.</div>
                                 "permalink stays valid.</p>")
     with open(os.path.join(OUT, "404.html"), "w", encoding="utf-8") as fh:
         fh.write(notfound)
+
+    # about page
+    about_body = """<div class="record">
+<p>PipeRoll is a public registry of verified AI-agent incidents: what the agent controlled,
+what went wrong, what it cost, and what the evidence is. It is named for the Pipe Rolls -
+the English Exchequer's great rolls, 676 unbroken years of audited records kept
+tamper-evident by a parallel copy in different hands.</p>
+<h3>Principles</h3>
+<ul>
+<li>Every record is verified individually against primary sources before publication.</li>
+<li>Corrections are published in the record, never slipped.</li>
+<li>Rejected candidates retire their reserved ids permanently; ids are never reused.</li>
+<li>Ids are permanent opaque names; chronology lives in the record, vintage in the citation.</li>
+<li>Near-misses are records too - full exposure with zero realized loss is actuarially precious.</li>
+</ul>
+<h3>Completeness</h3>
+<p>The registry records publicly reported, verifiable incidents - a fraction of what occurs,
+biased toward the visible (on-chain losses, court records, published research, English-language
+sources). Counts are a floor, never a frequency estimate; absence from the registry is not
+evidence of safety; and no failure rate can be computed from registry counts alone, because
+the exposure base is unknown.</p>
+<h3>Citing</h3>
+<p>Each record page carries a plain citation and a BibTeX entry with copy buttons, plus a raw
+markdown endpoint for machine use. Registry-level archives carry a DOI
+(<a href="https://doi.org/10.5281/zenodo.21968992">10.5281/zenodo.21968992</a>, resolves to the
+latest archived release); doi.org content negotiation serves APA/Chicago/CSL formats from it.
+A machine manifest lives at <a href="/llms.txt">/llms.txt</a>; structured data at
+<a href="/registry.json">registry.json</a> and <a href="/registry.csv">registry.csv</a>.</p>
+<h3>Maintainer</h3>
+<p><a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - founding editor.
+Registration authority currently rests with the editor; conflicts of interest are disclosed
+inside the affected records. Each record states who registered it.</p>
+<h3>Licensing</h3>
+<p>Records and data: CC BY 4.0 (cite PipeRoll and the PIR id). Tooling: MIT.</p>
+</div>"""
+    os.makedirs(os.path.join(OUT, "about"), exist_ok=True)
+    with open(os.path.join(OUT, "about", "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(PAGE.format(title="About - PipeRoll", css=CSS, home="../index.html",
+                             home_prefix="../", h1="About the registry", footer_extra="",
+                             sub="What PipeRoll is, how it works, how to cite it",
+                             body=about_body))
+
+    # contribute page, rendered from CONTRIBUTING.md
+    contrib_md = open(os.path.join(ROOT, "CONTRIBUTING.md"), encoding="utf-8").read()
+    contrib_html = markdown.markdown(contrib_md)
+    os.makedirs(os.path.join(OUT, "contribute"), exist_ok=True)
+    with open(os.path.join(OUT, "contribute", "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(PAGE.format(title="Contribute - PipeRoll", css=CSS, home="../index.html",
+                             home_prefix="../", h1="Contributing to PipeRoll", footer_extra="",
+                             sub="Open data, open submissions, verified registration",
+                             body=f'<div class="record">{linkify(contrib_html)}</div>'))
+
+    # data & formats page - the deliberate doorway to machine-readable data
+    data_body = """<div class="record">
+<p>All registry data is open (CC BY 4.0). These are the machine-readable surfaces;
+each is regenerated from the records on every change.</p>
+<h3>Formats</h3>
+<ul>
+<li><a href="../registry.json">registry.json</a> - every record's structured fields
+(normalized taxonomy keys first). For analysis code.</li>
+<li><a href="../registry.csv">registry.csv</a> - the same, flat. Loads directly into
+pandas or a spreadsheet. Your browser may download rather than display it.</li>
+<li>Per-record markdown - append <code>.md</code> to any record permalink
+(e.g. <code>/pir/2026-0045.md</code>) for the raw source-of-truth record.</li>
+<li><a href="../llms.txt">/llms.txt</a> - machine manifest for LLM agents
+(llmstxt.org convention) with links to every record's markdown.</li>
+<li><a href="https://doi.org/10.5281/zenodo.21968992">Zenodo archive (DOI)</a> - versioned
+snapshots of the entire registry; doi.org content negotiation serves APA/Chicago/BibTeX/CSL
+citations from it.</li>
+<li><a href="https://github.com/piperoll/registry">GitHub repository</a> - full history,
+schema, and the verification pipeline.</li>
+</ul>
+<p>Statistics caveat: counts are a floor, not a frequency estimate - see
+<a href="../about/">About</a> for the completeness disclosure.</p>
+</div>"""
+    os.makedirs(os.path.join(OUT, "data"), exist_ok=True)
+    with open(os.path.join(OUT, "data", "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(PAGE.format(title="Data and formats - PipeRoll", css=CSS, home="../index.html",
+                             home_prefix="../", h1="Data &amp; formats", footer_extra="",
+                             sub="Machine-readable surfaces of the registry",
+                             body=data_body))
+
+    # llms.txt - machine manifest (llmstxt.org convention)
+    lines = ["# PipeRoll - Agent Incident Registry", "",
+             "> Verified public records of AI-agent failures: what the agent controlled,",
+             "> what went wrong, what it cost, and what the evidence is. Counts are a floor,",
+             "> not a frequency estimate; absence from the registry is not evidence of safety.",
+             "",
+             "- Structured data: https://piperoll.org/registry.json and https://piperoll.org/registry.csv",
+             "- Schema: https://github.com/piperoll/registry/blob/main/incident-schema-v0.md",
+             "- Contribute: https://piperoll.org/contribute/",
+             "- Archived releases DOI: https://doi.org/10.5281/zenodo.21968992",
+             "- Each record has a raw markdown endpoint at its permalink + '.md'",
+             "", "## Records", ""]
+    for r in sorted(records, key=lambda x: x["id"]):
+        lines.append(f"- [{r['id']}: {cut(r.get('title',''), 80)}]"
+                     f"(https://piperoll.org/pir/{r['id'].replace('PIR-','').lower()}.md)")
+    with open(os.path.join(OUT, "llms.txt"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(lines) + "\n")
+
     print(f"built {len(records)} records -> docs/")
 
 

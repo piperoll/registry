@@ -35,6 +35,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .stats { margin: 1rem 0 .25rem; font-size: 1rem; }
 .footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
   font-size: .85rem; color: var(--dim); }
+.footer p { margin: .25rem 0; }
 .notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
   font-size: .9rem; color: var(--dim); margin: 1rem 0; }
 .controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
@@ -68,11 +69,19 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </style>
 </head><body>
 <div class="masthead">
-  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry &middot;
+    <a href="../../about/">about</a> &middot;
+    <a href="../../contribute/">contribute</a> &middot;
+    <a href="../../data/">data</a></div>
   <h1>PIR-2026-0016</h1>
   <div class="meta">Freysa adversarial agent game: one message releases the entire prize pool</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0016, Freysa adversarial agent game: one message releases the entire prize… (2024-11) - <a href="https://piperoll.org/pir/2026-0016">https://piperoll.org/pir/2026-0016</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0016, Freysa adversarial agent game: one message releases the entire prize… (2024-11) - https://piperoll.org/pir/2026-0016">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0016 - Freysa adversarial agent game: one message releases the entire prize pool</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0016, Freysa adversarial agent game: one message releases the entire prize… (2024-11) - <a href="https://piperoll.org/pir/2026-0016">https://piperoll.org/pir/2026-0016</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0016, Freysa adversarial agent game: one message releases the entire prize… (2024-11) - https://piperoll.org/pir/2026-0016">copy</button> <button class='copycite' data-cite="@misc{PIR_2026_0016,
+  title = {Freysa adversarial agent game: one message releases the entire prize pool},
+  howpublished = {\url{https://piperoll.org/pir/2026-0016}},
+  year = {2024},
+  note = {PipeRoll Agent Incident Registry, PIR-2026-0016. Registry DOI: 10.5281/zenodo.21968992}
+}">bibtex</button> <a href="https://piperoll.org/pir/2026-0016.md">markdown</a>. Registered 2026-08-15 by Srinivas G.</div><script>document.querySelectorAll('.copycite').forEach(function(b){b.addEventListener('click',function(){var l=b.textContent;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script><div class="record"><h1>PIR-2026-0016 - Freysa adversarial agent game: one message releases the entire prize pool</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0016</li>
 <li><code>title</code>: Freysa agent, directed to never transfer funds, releases its full $47K pool after a user redefines its transfer tool's semantics</li>
@@ -126,11 +135,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <li><code>sources</code>: <a href="https://www.theblock.co/post/328747/human-player-outwits-freysa-ai-agent-in-47000-crypto-challenge">https://www.theblock.co/post/328747/human-player-outwits-freysa-ai-agent-in-47000-crypto-challenge</a>; <a href="https://www.ccn.com/news/crypto/ai-duped-50k-crypto-transfer-user/">https://www.ccn.com/news/crypto/ai-duped-50k-crypto-transfer-user/</a>; <a href="https://www.coinspeaker.com/freysa-ai-surrenders-47000-prize-clever-user-exploits-language-loophole/">https://www.coinspeaker.com/freysa-ai-surrenders-47000-prize-clever-user-exploits-language-loophole/</a>; <a href="https://cryptobriefing.com/crypto-trader-ai-gaming-exploit/">https://cryptobriefing.com/crypto-trader-ai-gaming-exploit/</a>; <a href="https://www.cryptopolitan.com/crypto-user-wins-47000-prize-freysa-ai/">https://www.cryptopolitan.com/crypto-user-wins-47000-prize-freysa-ai/</a>; <a href="https://x.com/jarrodWattsDev/status/1862299845710757980">https://x.com/jarrodWattsDev/status/1862299845710757980</a> (detailed contemporaneous thread). Independence: strong - on-chain record plus multiple unaffiliated outlets.</li>
 <li><code>confidence</code>: high on mechanism, amount, and dates. Weakest link: exact USD varies $47K-$50K with ETH price; the loss was an intentionally staked prize (bounty-game flag carries the actuarial caveat).</li>
 </ul></div>
-<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
-retired ids are never reused. Corrections are published, not slipped.
-Machine-readable: <a href="../../registry.json">registry.json</a> -
-<a href="../../registry.csv">registry.csv</a>.
-Records and data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-(cite PipeRoll and the PIR id). Tooling: MIT.
-Archived releases: <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a> (Zenodo, resolves to latest).</div>
+<div class="footer">
+<p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
+never reused; corrections are published, not slipped.</p>
+<p><a href="../../about/">About</a> &middot;
+<a href="../../contribute/">Contribute</a> &middot;
+<a href="../../data/">Data &amp; formats</a> &middot;
+records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
+archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.</p>
+</div>
 </body></html>
