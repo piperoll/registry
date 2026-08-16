@@ -9,6 +9,12 @@ in different hands.
 
 **Live site**: https://piperoll.org
 
+## Constitution
+
+The registry's binding rules are published as [CONSTITUTION.md](CONSTITUTION.md)
+(rendered at [piperoll.org/constitution](https://piperoll.org/constitution/)).
+Records cite rules by number; rules are amended by PR and never renumbered.
+
 ## Principles
 
 - Every record is verified individually against primary sources before publication.
