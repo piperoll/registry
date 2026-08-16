@@ -97,6 +97,14 @@ def parse_record(path):
     return rec
 
 
+def cut(s, n):
+    s = (s or "").strip()
+    if len(s) <= n:
+        return s
+    c = s[:n].rsplit(" ", 1)[0].rstrip(",;:(-")
+    return c + "…"
+
+
 def build():
     os.makedirs(os.path.join(OUT, "pir"), exist_ok=True)
     records = []
@@ -107,10 +115,16 @@ def build():
     # per-record pages
     for r in records:
         body = markdown.markdown(r["markdown"], extensions=["tables"])
+        occ = re.search(r"(\d{4})-(0[1-9]|1[0-2])|\b(20[12]\d)\b", r.get("date_occurred") or "")
+        vintage = (f"{occ.group(1)}-{occ.group(2)}" if occ and occ.group(1)
+                   else occ.group(3) if occ else "date in record")
+        cite = (f"<div class='notice'>Cite as: PipeRoll {r['id']}, "
+                f"{htmlmod.escape(cut(r.get('title', ''), 70))} ({vintage}) - "
+                f"https://piperoll.org/pir/{r['id'].replace('PIR-', '').lower()}</div>")
         page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../index.html",
                            home_prefix="../", h1=r["id"],
                            sub=htmlmod.escape(r.get("title", "")),
-                           body=f'<div class="record">{body}</div>')
+                           body=f'{cite}<div class="record">{body}</div>')
         slug = r["id"].replace("PIR-", "").lower()
         with open(os.path.join(OUT, "pir", f"{slug}.html"), "w", encoding="utf-8") as fh:
             fh.write(page)
@@ -170,13 +184,6 @@ def build():
         opts = "".join(f"<option value='{k}'>{k} ({n})</option>" for k, n in count(key))
         return (f"<label>{label} <select data-filter='{key}'>"
                 f"<option value=''>all</option>{opts}</select></label>")
-
-    def cut(s, n):
-        s = (s or "").strip()
-        if len(s) <= n:
-            return s
-        c = s[:n].rsplit(" ", 1)[0].rstrip(",;:(-")
-        return c + "…"
 
     def date_cell(r):
         if r["sort_date"] == "0000-00-00":
