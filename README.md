@@ -41,6 +41,13 @@ institution's roadmap, not a property of this dataset.
 - `docs/` - the built site (GitHub Pages serves this directory), including
   `registry.json` and `registry.csv` machine-readable exports
 
+## Maintainer
+
+[Srinivas Gumdelli](https://github.com/srinivasgumdelli) - founding editor.
+Registration authority currently rests with the editor (see `CONTRIBUTING.md`);
+conflicts of interest are disclosed inside the affected records, per the
+registry's constitution.
+
 ## Licensing
 
 Records and registry data: CC BY 4.0 (cite PipeRoll and the PIR id).
