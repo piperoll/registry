@@ -397,7 +397,7 @@ unknown.</div>
 {controls}
 <div class="tablewrap">
 <table id="registry">
-<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr></thead>
+<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss (USD)</th></tr></thead>
 <tbody>
 {rows}
 </tbody>
