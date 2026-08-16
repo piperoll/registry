@@ -2,15 +2,19 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PIR-2026-0040 - PipeRoll</title>
+<title>PIR-2026-0040: Moltbook misconfigured database exposes ~1.5M agent… - PipeRoll</title>
 <meta name="description" content="Verified AI-agent incident record (2026-01): Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write">
 <link rel="canonical" href="https://piperoll.org/pir/2026-0040/">
 <meta property="og:site_name" content="PipeRoll">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PIR-2026-0040 - PipeRoll">
+<meta property="og:title" content="PIR-2026-0040: Moltbook misconfigured database exposes ~1.5M agent… - PipeRoll">
 <meta property="og:description" content="Verified AI-agent incident record (2026-01): Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write">
 <meta property="og:url" content="https://piperoll.org/pir/2026-0040/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write", "url": "https://piperoll.org/pir/2026-0040", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/"}</script>
+<meta property="og:image" content="https://piperoll.org/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write", "url": "https://piperoll.org/pir/2026-0040", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-16"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0040", "item": "https://piperoll.org/pir/2026-0040/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -54,6 +58,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */
@@ -82,8 +88,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
     <a href="../../contribute/">contribute</a> &middot;
     <a href="../../data/">data</a> &middot;
     <a href="../../constitution/">constitution</a></div>
-  <h1>PIR-2026-0040</h1>
-  <div class="meta">Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</div>
+  <h1>Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated…</h1>
+  <div class="meta">PIR-2026-0040</div>
 </div>
 <div class='notice'>Cite as: PipeRoll PIR-2026-0040, Moltbook misconfigured database exposes ~1.5M agent API keys with… (2026-01) - <a href="https://piperoll.org/pir/2026-0040">https://piperoll.org/pir/2026-0040</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0040, Moltbook misconfigured database exposes ~1.5M agent API keys with… (2026-01) - https://piperoll.org/pir/2026-0040">copy</button> <button class='copycite' data-cite="@misc{PIR_2026_0040,
   title = {Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write},
@@ -156,7 +162,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <li>Discovery date corrected: Wiz found and reported the exposure on 2026-01-31 (maintainer contacted 21:48 UTC), not 2026-02-01 as the candidate had it; remediation completed 2026-02-01 01:00 UTC.</li>
 <li>Severity reclassified degraded -&gt; near-miss: full exposure with zero confirmed realized loss matches the schema's near-miss definition and the PIR-2026-0045 precedent for exposed-but-unabused credentials. The v0.1 <code>exploitation_status</code> field now carries the found-in-production distinction the candidate's "degraded" was trying to express.</li>
 <li>The candidate's "~29.6K waitlist emails" figure was not confirmed in the sources checked (they cite ~35K user emails, private messages, verification codes); omitted rather than carried.</li>
-</ol></div>
+</ol></div><div class="record"><h3>More credential-exposure records</h3><ul><li><a href="../2026-0045/">PIR-2026-0045</a>: Autonomous agent leaks its own API key to public GitHub via blanket…</li><li><a href="../2026-0037/">PIR-2026-0037</a>: 402Bridge private-key leak drains USDC approvals from 227 wallets in…</li><li><a href="../2026-0023/">PIR-2026-0023</a>: AIXBT trading agent drained of 55.5 ETH via compromised operator…</li></ul></div><div class="recnav"><a href="../2026-0039/">&larr; older: PIR-2026-0039</a> &middot; <a href="../../index.html">registry</a> &middot; <a href="../2026-0041/">newer: PIR-2026-0041 &rarr;</a></div>
 <div class="footer">
 <p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
 never reused; corrections are published, not slipped.</p>

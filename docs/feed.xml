@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+<title>PipeRoll - Agent Incident Registry</title>
+<link href="https://piperoll.org/"/>
+<link rel="self" href="https://piperoll.org/feed.xml"/>
+<id>https://piperoll.org/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<entry>
+<title>PIR-2026-0045: Autonomous agent leaks its own API key to public GitHub via blanket git add</title>
+<link href="https://piperoll.org/pir/2026-0045/"/>
+<id>https://piperoll.org/pir/2026-0045/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-08): Autonomous agent leaks its own API key to public GitHub via blanket git add</summary>
+</entry>
+<entry>
+<title>PIR-2026-0044: Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT privilege…</title>
+<link href="https://piperoll.org/pir/2026-0044/"/>
+<id>https://piperoll.org/pir/2026-0044/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-05): Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT privilege escalation</summary>
+</entry>
+<entry>
+<title>PIR-2026-0043: Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead…</title>
+<link href="https://piperoll.org/pir/2026-0043/"/>
+<id>https://piperoll.org/pir/2026-0043/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-02): Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead of a ~$400 donation</summary>
+</entry>
+<entry>
+<title>PIR-2026-0042: Mass exposure of misconfigured OpenClaw instances leaking agent credentials (+…</title>
+<link href="https://piperoll.org/pir/2026-0042/"/>
+<id>https://piperoll.org/pir/2026-0042/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-01): Mass exposure of misconfigured OpenClaw instances leaking agent credentials (+ CVE-2026-25253 one-click RCE)</summary>
+</entry>
+<entry>
+<title>PIR-2026-0041: ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS Stealer to…</title>
+<link href="https://piperoll.org/pir/2026-0041/"/>
+<id>https://piperoll.org/pir/2026-0041/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-01): ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS Stealer to OpenClaw users</summary>
+</entry>
+<entry>
+<title>PIR-2026-0040: Moltbook misconfigured database exposes ~1.5M agent API keys with…</title>
+<link href="https://piperoll.org/pir/2026-0040/"/>
+<id>https://piperoll.org/pir/2026-0040/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-01): Moltbook misconfigured database exposes ~1.5M agent API keys with unauthenticated read/write</summary>
+</entry>
+<entry>
+<title>PIR-2026-0039: Moltbook agent-to-agent prompt-injection wave (~506 injection attacks in the…</title>
+<link href="https://piperoll.org/pir/2026-0039/"/>
+<id>https://piperoll.org/pir/2026-0039/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026): Moltbook agent-to-agent prompt-injection wave (~506 injection attacks in the first 72 hours)</summary>
+</entry>
+<entry>
+<title>PIR-2026-0038: Google Antigravity agent, asked to clear a project cache, deletes the root of…</title>
+<link href="https://piperoll.org/pir/2026-0038/"/>
+<id>https://piperoll.org/pir/2026-0038/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-12): Google Antigravity agent, asked to clear a project cache, deletes the root of the user&#x27;s D: drive</summary>
+</entry>
+<entry>
+<title>PIR-2026-0037: 402Bridge private-key leak drains USDC approvals from 227 wallets in the x402…</title>
+<link href="https://piperoll.org/pir/2026-0037/"/>
+<id>https://piperoll.org/pir/2026-0037/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-10): 402Bridge private-key leak drains USDC approvals from 227 wallets in the x402 agent-payment ecosystem</summary>
+</entry>
+<entry>
+<title>PIR-2026-0036: Malicious &quot;postmark-mcp&quot; npm package BCC-exfiltrates agent-sent email</title>
+<link href="https://piperoll.org/pir/2026-0036/"/>
+<id>https://piperoll.org/pir/2026-0036/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-09): Malicious &quot;postmark-mcp&quot; npm package BCC-exfiltrates agent-sent email</summary>
+</entry>
+<entry>
+<title>PIR-2026-0035: s1ngularity: Nx supply-chain attack weaponizes victims&#x27; local AI coding agents…</title>
+<link href="https://piperoll.org/pir/2026-0035/"/>
+<id>https://piperoll.org/pir/2026-0035/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-08): s1ngularity: Nx supply-chain attack weaponizes victims&#x27; local AI coding agents for credential theft</summary>
+</entry>
+<entry>
+<title>PIR-2026-0034: GPT-5 launch retires eight ChatGPT models overnight; day-one router failure…</title>
+<link href="https://piperoll.org/pir/2026-0034/"/>
+<id>https://piperoll.org/pir/2026-0034/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-08): GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</summary>
+</entry>
+<entry>
+<title>PIR-2026-0033: Three overlapping Anthropic infrastructure bugs silently degrade Claude output…</title>
+<link href="https://piperoll.org/pir/2026-0033/"/>
+<id>https://piperoll.org/pir/2026-0033/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-08): Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks</summary>
+</entry>
+<entry>
+<title>PIR-2026-0032: &quot;Invitation Is All You Need&quot;: calendar-invite injection hijacks Gemini and…</title>
+<link href="https://piperoll.org/pir/2026-0032/"/>
+<id>https://piperoll.org/pir/2026-0032/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (date in record): &quot;Invitation Is All You Need&quot;: calendar-invite injection hijacks Gemini and smart-home devices</summary>
+</entry>
+<entry>
+<title>PIR-2026-0031: Replit agent deletes SaaStr production database during an explicit code freeze…</title>
+<link href="https://piperoll.org/pir/2026-0031/"/>
+<id>https://piperoll.org/pir/2026-0031/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-07): Replit agent deletes SaaStr production database during an explicit code freeze, then misreports recovery as…</summary>
+</entry>
+<entry>
+<title>PIR-2026-0030: Amazon Q Developer VS Code extension ships with an injected system-wipe prompt…</title>
+<link href="https://piperoll.org/pir/2026-0030/"/>
+<id>https://piperoll.org/pir/2026-0030/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-07): Amazon Q Developer VS Code extension ships with an injected system-wipe prompt (v1.84.0)</summary>
+</entry>
+<entry>
+<title>PIR-2026-0029: Grok &quot;MechaHitler&quot;: provider-side change turns X&#x27;s reply bot into a mass…</title>
+<link href="https://piperoll.org/pir/2026-0029/"/>
+<id>https://piperoll.org/pir/2026-0029/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-07): Grok &quot;MechaHitler&quot;: provider-side change turns X&#x27;s reply bot into a mass publisher of extremist content</summary>
+</entry>
+<entry>
+<title>PIR-2026-0028: Supabase MCP &quot;lethal trifecta&quot;: support-ticket injection dumps the SQL database</title>
+<link href="https://piperoll.org/pir/2026-0028/"/>
+<id>https://piperoll.org/pir/2026-0028/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (date in record): Supabase MCP &quot;lethal trifecta&quot;: support-ticket injection dumps the SQL database</summary>
+</entry>
+<entry>
+<title>PIR-2026-0027: Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user&#x27;s…</title>
+<link href="https://piperoll.org/pir/2026-0027/"/>
+<id>https://piperoll.org/pir/2026-0027/</id>
+<updated>2026-08-16T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2025-07): Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user&#x27;s files via Windows move semantics</summary>
+</entry>
+<entry>
+<title>PIR-2026-0026: GitHub MCP &quot;toxic agent flow&quot;: malicious issue coerces coding agents into…</title>
+<link href="https://piperoll.org/pir/2026-0026/"/>
+<id>https://piperoll.org/pir/2026-0026/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (date in record): GitHub MCP &quot;toxic agent flow&quot;: malicious issue coerces coding agents into leaking private repos</summary>
+</entry>
+</feed>

@@ -10,6 +10,9 @@
 <meta property="og:title" content="PipeRoll - Agent Incident Registry">
 <meta property="og:description" content="A verified public registry of 45 AI-agent incidents: what the agent controlled, what went wrong, what it cost, and the evidence. Open data, CC BY 4.0.">
 <meta property="og:url" content="https://piperoll.org/">
+<meta property="og:image" content="https://piperoll.org/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org/", "description": "A verified public registry of 45 AI-agent incidents: what the agent controlled, what went wrong, what it cost, and the evidence. Open data, CC BY 4.0.", "license": "https://creativecommons.org/licenses/by/4.0/", "identifier": "https://doi.org/10.5281/zenodo.21968992", "isAccessibleForFree": true, "creator": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "distribution": [{"@type": "DataDownload", "encodingFormat": "application/json", "contentUrl": "https://piperoll.org/registry.json"}, {"@type": "DataDownload", "encodingFormat": "text/csv", "contentUrl": "https://piperoll.org/registry.csv"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -54,6 +57,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */

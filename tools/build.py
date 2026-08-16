@@ -9,6 +9,7 @@ import csv
 import json
 import os
 import re
+import shutil
 import subprocess
 import html as htmlmod
 
@@ -61,6 +62,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */
@@ -95,6 +98,9 @@ PAGE = """<!doctype html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
+<meta property="og:image" content="https://piperoll.org/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
 {head_extra}<style>{css}</style>
 </head><body>
 <div class="masthead">
@@ -158,6 +164,16 @@ def registered_info(relpath):
     return None, None
 
 
+def last_modified(relpath):
+    """Date of the last commit touching this path, from git (YYYY-MM-DD)."""
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%as", "--", relpath],
+                             cwd=ROOT, capture_output=True, text=True, timeout=10).stdout.strip()
+        return out or None
+    except Exception:
+        return None
+
+
 def linkify(html_body):
     """Turn bare https URLs in rendered record HTML into anchors.
 
@@ -207,7 +223,10 @@ def build():
                 "b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script>")
         # directory-style permalink: /pir/<slug>/ works extensionless on GitHub Pages
         desc = cut(f"Verified AI-agent incident record ({vintage}): {r.get('title', '')}", 155)
-        jsonld = json.dumps({
+        mod_date = last_modified(f"incidents/{r['id']}.md")
+        r["_mod"] = mod_date
+        r["_reg"] = reg_date
+        ld = {
             "@context": "https://schema.org", "@type": "Report",
             "headline": cut(r.get("title", ""), 110), "url": permalink,
             "author": {"@type": "Organization", "name": "PipeRoll",
@@ -215,20 +234,29 @@ def build():
             "isPartOf": {"@type": "Dataset",
                          "name": "PipeRoll Agent Incident Registry",
                          "url": "https://piperoll.org"},
-            "license": "https://creativecommons.org/licenses/by/4.0/"})
-        page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../../index.html",
-                           home_prefix="../../", h1=r["id"], footer_extra="",
-                           desc=htmlmod.escape(desc), canonical=permalink + "/",
-                           ogtype="article",
-                           head_extra=f'<script type="application/ld+json">{jsonld}</script>\n',
-                           sub=htmlmod.escape(r.get("title", "")),
-                           body=f'{cite}<div class="record">{linkify(body)}</div>')
-        os.makedirs(os.path.join(OUT, "pir", slug), exist_ok=True)
-        with open(os.path.join(OUT, "pir", slug, "index.html"), "w", encoding="utf-8") as fh:
-            fh.write(page)
+            "license": "https://creativecommons.org/licenses/by/4.0/"}
+        if reg_date:
+            ld["datePublished"] = reg_date
+        if mod_date:
+            ld["dateModified"] = mod_date
+        crumbs = json.dumps({
+            "@context": "https://schema.org", "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Registry",
+                 "item": "https://piperoll.org/"},
+                {"@type": "ListItem", "position": 2, "name": r["id"],
+                 "item": permalink + "/"}]})
+        r["_page_args"] = dict(
+            title=f"{r['id']}: {cut(r.get('title', ''), 55)} - PipeRoll",
+            desc=htmlmod.escape(desc), canonical=permalink + "/", ogtype="article",
+            head_extra=(f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
+                        f'<script type="application/ld+json">{crumbs}</script>\n'),
+            body_main=f'{cite}<div class="record">{linkify(body)}</div>',
+            sub_id=r["id"])
         with open(os.path.join(OUT, "pir", f"{slug}.md"), "w", encoding="utf-8") as fh:
             fh.write(r["markdown"])
         r["url"] = f"pir/{slug}/"
+        r["_slug"] = slug
 
     # normalized taxonomy keys (drive filters, grouping, and export columns)
     def norm(r, field):
@@ -259,6 +287,39 @@ def build():
                 break
         r["sort_date"] = sd or "0000-00-00"
         r["year_key"] = r["sort_date"][:4] if sd else "n/a"
+
+    # write record pages with chronological neighbors and related-by-cause links
+    chron = sorted(records, key=lambda x: (x["sort_date"], x["id"]))
+    for i, r in enumerate(chron):
+        older = chron[i - 1] if i > 0 else None
+        newer = chron[i + 1] if i < len(chron) - 1 else None
+        parts = []
+        if older:
+            parts.append(f'<a href="../{older["_slug"]}/">&larr; older: {older["id"]}</a>')
+        parts.append('<a href="../../index.html">registry</a>')
+        if newer:
+            parts.append(f'<a href="../{newer["_slug"]}/">newer: {newer["id"]} &rarr;</a>')
+        nav = '<div class="recnav">' + " &middot; ".join(parts) + "</div>"
+        rel = sorted((x for x in records if x is not r and x["cause_key"] == r["cause_key"]),
+                     key=lambda x: x["sort_date"], reverse=True)[:5]
+        relhtml = ""
+        if rel:
+            items = "".join(
+                f'<li><a href="../{x["_slug"]}/">{x["id"]}</a>: '
+                f'{htmlmod.escape(cut(x.get("title", ""), 70))}</li>' for x in rel)
+            relhtml = (f'<div class="record"><h3>More {htmlmod.escape(r["cause_key"])} '
+                       f'records</h3><ul>{items}</ul></div>')
+        a = r["_page_args"]
+        page = PAGE.format(title=a["title"], css=CSS, home="../../index.html",
+                           home_prefix="../../",
+                           h1=htmlmod.escape(cut(r.get("title", ""), 90)),
+                           footer_extra="", desc=a["desc"], canonical=a["canonical"],
+                           ogtype=a["ogtype"], head_extra=a["head_extra"],
+                           sub=a["sub_id"],
+                           body=a["body_main"] + relhtml + nav)
+        os.makedirs(os.path.join(OUT, "pir", r["_slug"]), exist_ok=True)
+        with open(os.path.join(OUT, "pir", r["_slug"], "index.html"), "w", encoding="utf-8") as fh:
+            fh.write(page)
 
     # exports (strip markdown body)
     export = [{k: v for k, v in r.items() if k not in ("markdown", "file")} for r in records]
@@ -463,11 +524,40 @@ unknown.</div>
     open(os.path.join(OUT, ".nojekyll"), "w").close()
     with open(os.path.join(OUT, "robots.txt"), "w") as fh:
         fh.write("User-agent: *\nAllow: /\nSitemap: https://piperoll.org/sitemap.xml\n")
-    urls = ["https://piperoll.org/"] + [f"https://piperoll.org/{r['url']}" for r in records]
+    entries = [("https://piperoll.org/", max((r.get("_mod") or "" for r in records), default=None))]
+    entries += [(f"https://piperoll.org/{r['url']}", r.get("_mod")) for r in records]
+    def _url_xml(u, m):
+        lm = f"<lastmod>{m}</lastmod>" if m else ""
+        return f"<url><loc>{u}</loc>{lm}</url>\n"
     with open(os.path.join(OUT, "sitemap.xml"), "w", encoding="utf-8") as fh:
         fh.write('<?xml version="1.0" encoding="UTF-8"?>\n'
                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                 + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
+                 + "".join(_url_xml(u, m) for u, m in entries) + "</urlset>\n")
+
+    # og image: committed static asset copied verbatim (never generated at build -
+    # PNG encoding varies across library versions and would trip the freshness gate)
+    shutil.copyfile(os.path.join(ROOT, "static", "og.png"), os.path.join(OUT, "og.png"))
+
+    # Atom feed: newest registrations first (id order = registration order)
+    recent = sorted(records, key=lambda x: x["id"], reverse=True)[:20]
+    feed_updated = max((r.get("_mod") or r.get("_reg") or "2026-08-16" for r in records))
+    fe = ['<?xml version="1.0" encoding="utf-8"?>',
+          '<feed xmlns="http://www.w3.org/2005/Atom">',
+          "<title>PipeRoll - Agent Incident Registry</title>",
+          '<link href="https://piperoll.org/"/>',
+          '<link rel="self" href="https://piperoll.org/feed.xml"/>',
+          "<id>https://piperoll.org/</id>",
+          f"<updated>{feed_updated}T00:00:00Z</updated>"]
+    for r in recent:
+        u = f"https://piperoll.org/{r['url']}"
+        d = (r.get("_mod") or r.get("_reg") or "2026-08-16") + "T00:00:00Z"
+        fe += ["<entry>",
+               f"<title>{htmlmod.escape(r['id'] + ': ' + cut(r.get('title', ''), 80))}</title>",
+               f'<link href="{u}"/>', f"<id>{u}</id>", f"<updated>{d}</updated>",
+               f"<summary>{r['_page_args']['desc']}</summary>", "</entry>"]
+    fe.append("</feed>")
+    with open(os.path.join(OUT, "feed.xml"), "w", encoding="utf-8") as fh:
+        fh.write("\n".join(fe) + "\n")
     notfound = PAGE.format(title="Not found - PipeRoll", css=CSS, home="/index.html",
                            home_prefix="/", h1="404 - no such record", footer_extra="",
                            desc="Page not found in the PipeRoll registry.",

@@ -2,15 +2,19 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PIR-2026-0033 - PipeRoll</title>
+<title>PIR-2026-0033: Three overlapping Anthropic infrastructure bugs… - PipeRoll</title>
 <meta name="description" content="Verified AI-agent incident record (2025-08): Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks">
 <link rel="canonical" href="https://piperoll.org/pir/2026-0033/">
 <meta property="og:site_name" content="PipeRoll">
 <meta property="og:type" content="article">
-<meta property="og:title" content="PIR-2026-0033 - PipeRoll">
+<meta property="og:title" content="PIR-2026-0033: Three overlapping Anthropic infrastructure bugs… - PipeRoll">
 <meta property="og:description" content="Verified AI-agent incident record (2025-08): Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks">
 <meta property="og:url" content="https://piperoll.org/pir/2026-0033/">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks", "url": "https://piperoll.org/pir/2026-0033", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/"}</script>
+<meta property="og:image" content="https://piperoll.org/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks", "url": "https://piperoll.org/pir/2026-0033", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-17"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0033", "item": "https://piperoll.org/pir/2026-0033/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -54,6 +58,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
+  font-size: .9rem; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */
@@ -82,8 +88,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
     <a href="../../contribute/">contribute</a> &middot;
     <a href="../../data/">data</a> &middot;
     <a href="../../constitution/">constitution</a></div>
-  <h1>PIR-2026-0033</h1>
-  <div class="meta">Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks</div>
+  <h1>Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to…</h1>
+  <div class="meta">PIR-2026-0033</div>
 </div>
 <div class='notice'>Cite as: PipeRoll PIR-2026-0033, Three overlapping Anthropic infrastructure bugs silently degrade… (2025-08) - <a href="https://piperoll.org/pir/2026-0033">https://piperoll.org/pir/2026-0033</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0033, Three overlapping Anthropic infrastructure bugs silently degrade… (2025-08) - https://piperoll.org/pir/2026-0033">copy</button> <button class='copycite' data-cite="@misc{PIR_2026_0033,
   title = {Three overlapping Anthropic infrastructure bugs silently degrade Claude output for up to five weeks},
@@ -159,7 +165,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <ul>
 <li>Candidate dates and figures check out against the primary postmortem. One refinement: candidate window ended 2025-09-12 (last confirmed rollback); the routing fix's full deployment ran to Sep 16-18.</li>
 <li><code>exploitation_status</code> enum (v0.1 amendment 3) has no value for non-adversarial in-wild malfunction; flagged for v0.2.</li>
-</ul></div>
+</ul></div><div class="record"><h3>More model-update-regression records</h3><ul><li><a href="../2026-0034/">PIR-2026-0034</a>: GPT-5 launch retires eight ChatGPT models overnight; day-one router…</li><li><a href="../2026-0029/">PIR-2026-0029</a>: Grok &quot;MechaHitler&quot;: provider-side change turns X&#x27;s reply bot into a…</li><li><a href="../2026-0025/">PIR-2026-0025</a>: GPT-4o sycophancy update: a provider regression silently changes…</li><li><a href="../2026-0013/">PIR-2026-0013</a>: DPD chatbot swears at a customer and calls DPD &quot;the worst delivery…</li><li><a href="../2026-0004/">PIR-2026-0004</a>: NEDA&#x27;s Tessa chatbot gives weight-loss advice to eating-disorder…</li></ul></div><div class="recnav"><a href="../2026-0032/">&larr; older: PIR-2026-0032</a> &middot; <a href="../../index.html">registry</a> &middot; <a href="../2026-0034/">newer: PIR-2026-0034 &rarr;</a></div>
 <div class="footer">
 <p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
 never reused; corrections are published, not slipped.</p>
