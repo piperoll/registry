@@ -290,7 +290,7 @@ def build():
         return f"<p class='meta'><strong>{label}:</strong> {parts}</p>"
 
     body = f"""
-<p class="stats"><strong>{len(records)} verified records</strong> &middot; 2 retired ids &middot; schema v0.2</p>
+<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2</p>
 <div class="notice">Every record is individually verified against primary sources before
 publication; corrections are recorded in the record itself. Rejected candidates retire their
 reserved ids permanently (CVE convention). Id numbering: the initial import (0001-0045,
