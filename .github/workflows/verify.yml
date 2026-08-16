@@ -35,9 +35,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }  # registered-by provenance needs full history
       - uses: actions/setup-python@v5
         with: { python-version: "3.12" }
-      - name: Site builds cleanly from the records
+      - name: Site builds cleanly and docs/ is freshly rebuilt in this PR
         run: |
           pip install --quiet markdown
           python3 tools/build.py
+          git diff --exit-code -- docs/ || {
+            echo "::error::docs/ is stale - run 'python3 tools/build.py' and commit the result in this PR"
+            exit 1
+          }
