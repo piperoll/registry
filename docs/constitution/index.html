@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Not found - PipeRoll</title>
+<title>Constitution - PipeRoll</title>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
@@ -69,21 +69,62 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </style>
 </head><body>
 <div class="masthead">
-  <div class="org"><a href="/index.html">PipeRoll</a> - Agent Incident Registry &middot;
-    <a href="/about/">about</a> &middot;
-    <a href="/contribute/">contribute</a> &middot;
-    <a href="/data/">data</a> &middot;
-    <a href="/constitution/">constitution</a></div>
-  <h1>404 - no such record</h1>
-  <div class="meta">The id you followed does not exist in this registry.</div>
+  <div class="org"><a href="../index.html">PipeRoll</a> - Agent Incident Registry &middot;
+    <a href="../about/">about</a> &middot;
+    <a href="../contribute/">contribute</a> &middot;
+    <a href="../data/">data</a> &middot;
+    <a href="../constitution/">constitution</a></div>
+  <h1>The PipeRoll Constitution</h1>
+  <div class="meta">The rules the registry binds itself to - cited by number in the records</div>
 </div>
-<p>If a citation led you here, the id may be mistyped - check the <a href='/index.html'>registry index</a>. PipeRoll ids are never deleted or reused, so a once-valid permalink stays valid.</p>
+<div class="record"><h1>The PipeRoll Constitution</h1>
+<p>The rules the registry binds itself to. They are load-bearing: records cite them
+by number (see PIR-2026-0045, registered under rule 4 before the registry had a
+single visitor). Amendments are made by pull request, take effect on merge, and
+never renumber existing rules - a retired rule keeps its number, like a retired id.</p>
+<h2>1. Verification before registration</h2>
+<p>Nothing enters the registry unverified. Every record is checked against primary
+sources, adversarially - looking for corrections, retractions, and inflated
+figures, not confirmation. "Unknown" is an honest field value; an invented one
+is grounds for rejection.</p>
+<h2>2. Never wrong in public</h2>
+<p>Corrections are published inside the affected record, never slipped. Every
+published number carries its basis; where sources conflict, the record states
+the range and names the conflict. Being late is acceptable; being quietly
+wrong is not.</p>
+<h2>3. Permanent identity, unerasable history</h2>
+<p>Ids are opaque permanent names: never deleted, never reused, never renumbered.
+Chronology lives in the record and the citation, not the id. History does not
+rewrite: force-pushes are blocked, commits are signed, and releases are
+archived externally (Zenodo DOI) beyond the registry's own custody.</p>
+<h2>4. Conflicts are disclosed inside the record</h2>
+<p>Anyone connected to an incident - as operator, funder, competitor, insurer, or
+otherwise - may still submit or register it, but the connection is stated in
+the record itself, where every future reader sees it. Undisclosed conflicts,
+once found, are treated as rule-2 corrections and published. This binds the
+founding editor first: the registry's first record discloses the founder's
+stake in its subject.</p>
+<h2>5. Open data, open submissions, verified registration</h2>
+<p>The data is CC BY 4.0, the schema is open and stays open, and anyone -
+including AI agents - may submit. Registration authority does not open:
+merge is the act of registration and rests with the editors. Wikipedia
+intake, CVE authority.</p>
+<h2>6. Completeness honesty</h2>
+<p>Registry counts are a floor, never a frequency estimate. Absence from the
+registry is not evidence of safety. No failure rate can be computed from
+registry data alone, because the exposure base is unknown - and every
+aggregate the registry publishes says so.</p>
+<h2>7. The registry measures; it does not sell verdicts</h2>
+<p>PipeRoll records what happened and what the evidence is. It does not rate
+vendors, certify systems, or underwrite risk - conclusions belong to the
+reader, the underwriter, and the court, all of whom need a measurer with
+nothing to sell them.</p></div>
 <div class="footer">
 <p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
 never reused; corrections are published, not slipped.</p>
-<p><a href="/about/">About</a> &middot;
-<a href="/contribute/">Contribute</a> &middot;
-<a href="/data/">Data &amp; formats</a> &middot;
+<p><a href="../about/">About</a> &middot;
+<a href="../contribute/">Contribute</a> &middot;
+<a href="../data/">Data &amp; formats</a> &middot;
 records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
 archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.</p>
 </div>

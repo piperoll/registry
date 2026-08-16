@@ -94,7 +94,8 @@ PAGE = """<!doctype html>
   <div class="org"><a href="{home}">PipeRoll</a> - Agent Incident Registry &middot;
     <a href="{home_prefix}about/">about</a> &middot;
     <a href="{home_prefix}contribute/">contribute</a> &middot;
-    <a href="{home_prefix}data/">data</a></div>
+    <a href="{home_prefix}data/">data</a> &middot;
+    <a href="{home_prefix}constitution/">constitution</a></div>
   <h1>{h1}</h1>
   <div class="meta">{sub}</div>
 </div>
@@ -517,6 +518,16 @@ schema, and the verification pipeline.</li>
                              home_prefix="../", h1="Data &amp; formats", footer_extra="",
                              sub="Machine-readable surfaces of the registry",
                              body=data_body))
+
+    # constitution page - the numbered rules records cite
+    const_md = open(os.path.join(ROOT, "CONSTITUTION.md"), encoding="utf-8").read()
+    const_html = markdown.markdown(const_md, tab_length=2)
+    os.makedirs(os.path.join(OUT, "constitution"), exist_ok=True)
+    with open(os.path.join(OUT, "constitution", "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(PAGE.format(title="Constitution - PipeRoll", css=CSS, home="../index.html",
+                             home_prefix="../", h1="The PipeRoll Constitution", footer_extra="",
+                             sub="The rules the registry binds itself to - cited by number in the records",
+                             body=f'<div class="record">{linkify(const_html)}</div>'))
 
     # llms.txt - machine manifest (llmstxt.org convention)
     lines = ["# PipeRoll - Agent Incident Registry", "",
