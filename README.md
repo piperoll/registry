@@ -1,5 +1,7 @@
 # PipeRoll - Agent Incident Registry
 
+[![DOI](https://zenodo.org/badge/1336197642.svg)](https://zenodo.org/badge/latestdoi/1336197642)
+
 Verified public records of AI-agent failures: what the agent controlled, what went wrong,
 what it cost, and what the evidence is. Named for the Pipe Rolls - the English Exchequer's
 great rolls, 676 unbroken years of audited records kept tamper-evident by a parallel copy
