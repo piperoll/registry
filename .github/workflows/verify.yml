@@ -1,7 +1,9 @@
 name: verify
+# Runs on every PR: the three jobs are required by branch protection, and a
+# paths filter would deadlock any PR that does not match it (checks expected,
+# never reported). They cost ~20s total; always run them.
 on:
   pull_request:
-    paths: ["incidents/**", "tools/**"]
 
 jobs:
   schema:
