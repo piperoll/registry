@@ -36,7 +36,8 @@ table { border-collapse: collapse; width: 100%; font-size: .85rem; }
 th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
   vertical-align: top; font-variant-numeric: tabular-nums; }
 th { font-weight: 700; }
-td:first-child, .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
+.ord { color: var(--dim); font-size: .8em; text-align: right; }
 a { color: var(--link); }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
 .record h1 { font-size: 1.25rem; }
@@ -170,17 +171,18 @@ def build():
         f" data-status_key='{r['status_key']}' data-locus_key='{r['locus_key']}'"
         f" data-year_key='{r['year_key']}' data-sortdate='{r['sort_date']}' data-id='{r['id']}'"
         f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
+        f"<td class='ord'>{i + 1}</td>"
         f"<td><a href='{r['url']}'>{r['id']}</a></td>"
         f"<td>{htmlmod.escape(r.get('title','')[:90])}</td>"
         f"<td>{htmlmod.escape((r.get('date_occurred') or '')[:24])}</td>"
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
         f"<td>{htmlmod.escape(r['severity_key'])}</td>"
         f"<td>{htmlmod.escape((r.get('direct_loss_usd') or '')[:28])}</td></tr>"
-        for r in display)
+        for i, r in enumerate(display))
 
     controls = f"""
 <div class="controls">
-  <label>search <input type="search" id="q" placeholder="id, title, cause&hellip;"></label>
+  <label>search <input type="search" id="q" autocomplete="off" placeholder="id, title, cause&hellip;"></label>
   {options('cause_key', 'root cause')}
   {options('severity_key', 'severity')}
   {options('status_key', 'exploitation')}
@@ -205,6 +207,9 @@ def build():
   var q = document.getElementById('q'), groupby = document.getElementById('groupby');
   var sortby = document.getElementById('sortby');
   var shown = document.getElementById('shown');
+  // browsers restore form state across soft reloads; a reference page must never open pre-filtered
+  q.value = ''; groupby.value = ''; sortby.value = 'newest';
+  selects.forEach(function (s) { s.value = ''; });
   function cmp(a, b, key, dir) {
     return a.dataset[key] < b.dataset[key] ? -dir : a.dataset[key] > b.dataset[key] ? dir : 0;
   }
@@ -228,11 +233,15 @@ def build():
       Object.keys(groups).sort(function (a, b) { return groups[b].length - groups[a].length; })
         .forEach(function (k) {
           var h = document.createElement('tr');
-          h.innerHTML = "<th colspan='6' class='grouphead'>" + k + ' (' + groups[k].length + ')</th>';
+          h.innerHTML = "<th colspan='7' class='grouphead'>" + k + ' (' + groups[k].length + ')</th>';
           tbody.appendChild(h);
           groups[k].forEach(function (tr) { tbody.appendChild(tr); });
         });
     }
+    kept.forEach(function (tr, i) {
+      var ord = tr.querySelector('.ord');
+      if (ord) ord.textContent = i + 1;
+    });
     shown.textContent = kept.length + ' of ' + all.length + ' records';
   }
   selects.forEach(function (s) { s.addEventListener('change', apply); });
@@ -266,7 +275,7 @@ as early data, not actuarial tables.</div>
 {controls}
 <div class="tablewrap">
 <table id="registry">
-<thead><tr><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr></thead>
+<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss</th></tr></thead>
 <tbody>
 {rows}
 </tbody>
