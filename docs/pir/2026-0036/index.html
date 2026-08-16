@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://piperoll.org/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Malicious \"postmark-mcp\" npm package BCC-exfiltrates agent-sent email", "url": "https://piperoll.org/pir/2026-0036", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-16"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Malicious \"postmark-mcp\" npm package BCC-exfiltrates agent-sent email", "url": "https://piperoll.org/pir/2026-0036", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-17"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0036", "item": "https://piperoll.org/pir/2026-0036/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -153,7 +153,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <li><a href="https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package">https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package</a> (impersonated vendor)</li>
 <li><a href="https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/">https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/</a></li>
 <li><a href="https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc">https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc</a></li>
-<li>All five URLs verified resolving 2026-08-15. Independence: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
+<li>All five URLs verified resolving 2026-08-15.</li>
+<li><code>independence</code>: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
 </ul>
 </li>
 <li><code>confidence</code>: high on mechanism and timeline (registry-verified); low on impact magnitude (org and email counts are extrapolations from download stats)</li>

@@ -49,5 +49,8 @@
 ### Evidence
 - `telemetry_grade`: none | operator-logs | append-only | witnessed
 - `sources`: full https:// URLs only, each one you actually opened (one per sub-bullet)
-  - `independence`: how independent the sources are of each other and of the operator
+  - https://first-url (annotation, e.g. "independent", "original reporting", "operator's own account")
+  - https://second-url (annotation)
+  - unverified: https://url-that-could-not-be-fetch-verified (reason kept)
+  - `independence`: how independent the sources are of each other and of the operator (always the final sub-bullet)
 - `confidence`: low | medium | high, with the weakest link named

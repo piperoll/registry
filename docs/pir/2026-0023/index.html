@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://piperoll.org/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "AIXBT trading agent drained of 55.5 ETH via compromised operator dashboard", "url": "https://piperoll.org/pir/2026-0023", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-16"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "AIXBT trading agent drained of 55.5 ETH via compromised operator dashboard", "url": "https://piperoll.org/pir/2026-0023", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-17"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0023", "item": "https://piperoll.org/pir/2026-0023/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -147,7 +147,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (intrusion narrative is the team's own); fund movement corroborated on-chain (append-only)</li>
-<li><code>sources</code>: <a href="https://incidentdatabase.ai/cite/1003/">https://incidentdatabase.ai/cite/1003/</a>; <a href="https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/">https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/</a>; <a href="https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/">https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/</a>; <a href="https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/">https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/</a>; <a href="https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/">https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/</a>. Independence: medium - on-chain transfer independent; intrusion vector rests on maintainer statements.</li>
+<li><code>sources</code>:<ul>
+<li><a href="https://incidentdatabase.ai/cite/1003/">https://incidentdatabase.ai/cite/1003/</a></li>
+<li><a href="https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/">https://crypto.news/aixbt-agent-hacked-losing-55eth-aixbt-token-drops-2025/</a></li>
+<li><a href="https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/">https://cryptonews.com/news/hacker-exploits-ai-crypto-bot-aixbt-steals-55-eth/</a></li>
+<li><a href="https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/">https://coincentral.com/aixbt-ai-agent-loses-55-5-eth-in-security-breach-token-falls-20/</a></li>
+<li><a href="https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/">https://blockonomi.com/ai-crypto-bot-aixbt-loses-106200-in-eth-through-dashboard-breach/</a></li>
+<li><code>independence</code>: medium - on-chain transfer independent; intrusion vector rests on maintainer statements.</li>
+</ul>
+</li>
 <li><code>confidence</code>: high on amount, date, and execution path; medium on intrusion detail - exact dashboard access vector never fully disclosed (named weakest link).</li>
 </ul></div><div class="record"><h3>More credential-exposure records</h3><ul><li><a href="../2026-0045/">PIR-2026-0045</a>: Autonomous agent leaks its own API key to public GitHub via blanket…</li><li><a href="../2026-0040/">PIR-2026-0040</a>: Moltbook misconfigured database exposes ~1.5M agent API keys with…</li><li><a href="../2026-0037/">PIR-2026-0037</a>: 402Bridge private-key leak drains USDC approvals from 227 wallets in…</li></ul></div><div class="recnav"><a href="../2026-0022/">&larr; older: PIR-2026-0022</a> &middot; <a href="../../index.html">registry</a> &middot; <a href="../2026-0024/">newer: PIR-2026-0024 &rarr;</a></div>
 <div class="footer">
