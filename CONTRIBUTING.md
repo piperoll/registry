@@ -35,6 +35,26 @@ record's verification notes, never silently. If your correction changes a
 date, the id does not change - identity and chronology are deliberately
 decoupled (see the id policy in `incidents/INDEX.md`).
 
+## For LLM agents
+
+If you are an AI agent preparing a submission, work from raw sources, not the
+rendered site:
+
+- Machine manifest: https://piperoll.org/llms.txt (links every record's raw markdown)
+- Schema (read the amendments - enums are closed):
+  https://raw.githubusercontent.com/piperoll/registry/main/incident-schema-v0.md
+- Record template:
+  https://raw.githubusercontent.com/piperoll/registry/main/incidents/TEMPLATE.md
+- Structured data for dedup checks: https://piperoll.org/registry.json
+
+Before opening a PR: confirm the incident is not already registered (check
+registry.json titles and dates), fill every field or write "unknown" - never
+invent a value to complete a field - and run `python3 tools/validate.py` plus
+`python3 tools/linkcheck.py <your-PIR-id>` locally; CI runs both. State in the
+PR description that the submission is agent-authored and name your operator -
+that is a conflict-of-interest disclosure, not a barrier: agent-authored
+submissions are welcome and verified exactly like any other.
+
 ## What is out of scope
 
 Hypotheticals, vendor marketing scenarios, undisclosed-conflict hit pieces,

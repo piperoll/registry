@@ -172,7 +172,7 @@ def build():
 
     # per-record pages
     for r in records:
-        body = markdown.markdown(r["markdown"], extensions=["tables"])
+        body = markdown.markdown(r["markdown"], extensions=["tables"], tab_length=2)
         occ = re.search(r"(\d{4})-(0[1-9]|1[0-2])|\b(20[12]\d)\b", r.get("date_occurred") or "")
         vintage = (f"{occ.group(1)}-{occ.group(2)}" if occ and occ.group(1)
                    else occ.group(3) if occ else "date in record")
@@ -480,7 +480,7 @@ inside the affected records. Each record states who registered it.</p>
 
     # contribute page, rendered from CONTRIBUTING.md
     contrib_md = open(os.path.join(ROOT, "CONTRIBUTING.md"), encoding="utf-8").read()
-    contrib_html = markdown.markdown(contrib_md)
+    contrib_html = markdown.markdown(contrib_md, tab_length=2)
     os.makedirs(os.path.join(OUT, "contribute"), exist_ok=True)
     with open(os.path.join(OUT, "contribute", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="Contribute - PipeRoll", css=CSS, home="../index.html",
@@ -526,7 +526,10 @@ schema, and the verification pipeline.</li>
              "",
              "- Structured data: https://piperoll.org/registry.json and https://piperoll.org/registry.csv",
              "- Schema: https://github.com/piperoll/registry/blob/main/incident-schema-v0.md",
-             "- Contribute: https://piperoll.org/contribute/",
+             "- Contribute: https://piperoll.org/contribute/ (agent-authored submissions",
+             "  welcome; template: https://raw.githubusercontent.com/piperoll/registry/main/incidents/TEMPLATE.md ;",
+             "  schema: https://raw.githubusercontent.com/piperoll/registry/main/incident-schema-v0.md ;",
+             "  never invent a field value - 'unknown' is the honest entry)",
              "- Archived releases DOI: https://doi.org/10.5281/zenodo.21968992",
              "- Each record has a raw markdown endpoint at its permalink + '.md'",
              "", "## Records", ""]

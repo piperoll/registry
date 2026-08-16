@@ -132,15 +132,23 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none/vendor-attested - "no in-wild exploitation" rests on Microsoft's attestation; the research chain is reproducibly documented but no independent production-telemetry confirms non-exploitation.</li>
-<li><code>sources</code>:</li>
+<li>
+<p><code>sources</code>:</p>
+<ul>
 <li><a href="https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability">https://www.hackthebox.com/blog/cve-2025-32711-echoleak-copilot-vulnerability</a></li>
 <li><a href="https://arxiv.org/abs/2509.10540">https://arxiv.org/abs/2509.10540</a></li>
 <li><a href="https://sentra.io/blog/copilot-echoleak-prompt-injection">https://sentra.io/blog/copilot-echoleak-prompt-injection</a></li>
 <li><a href="https://socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability/">https://socprime.com/blog/cve-2025-32711-zero-click-ai-vulnerability/</a></li>
-<li><a href="https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/">https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/</a></li>
+<li>
+<p><a href="https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/">https://www.securityweek.com/echoleak-ai-attack-enabled-theft-of-sensitive-data-via-microsoft-365-copilot/</a></p>
+</li>
+<li>
+<p><code>independence</code>: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).</p>
+</li>
+<li><code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</li>
 </ul>
-<p>Independence: strong - independent security firms + arXiv + trade press corroborate the researcher account; the "no exploitation" claim is single-source (Microsoft).
-- <code>confidence</code>: high on mechanism, dates, and CVE (multiple independent sources agree); medium on the no-in-wild-exploitation claim (vendor attestation only)</p>
+</li>
+</ul>
 <h3>Verification notes</h3>
 <ul>
 <li>CVSS score (9.3) confirmed via SOC Prime and Checkmarx; candidate intake did not carry the score - added.</li>

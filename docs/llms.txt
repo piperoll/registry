@@ -6,7 +6,10 @@
 
 - Structured data: https://piperoll.org/registry.json and https://piperoll.org/registry.csv
 - Schema: https://github.com/piperoll/registry/blob/main/incident-schema-v0.md
-- Contribute: https://piperoll.org/contribute/
+- Contribute: https://piperoll.org/contribute/ (agent-authored submissions
+  welcome; template: https://raw.githubusercontent.com/piperoll/registry/main/incidents/TEMPLATE.md ;
+  schema: https://raw.githubusercontent.com/piperoll/registry/main/incident-schema-v0.md ;
+  never invent a field value - 'unknown' is the honest entry)
 - Archived releases DOI: https://doi.org/10.5281/zenodo.21968992
 - Each record has a raw markdown endpoint at its permalink + '.md'
 

@@ -26,11 +26,16 @@ def urls_of(path):
         return []
     src = m.group(1)
     out = []
-    for u in re.findall(r"https?://[^\s;,)\]>'\"]+", src):
-        u = u.rstrip(".;,")
+    # commas are legal inside URLs (Mata_v._Avianca,_Inc.) - split on whitespace
+    # and angle quotes only, then strip trailing sentence punctuation
+    for u in re.findall(r"https?://[^\s<>\"']+", src):
+        u = u.rstrip(".;,)]")
         known_debt = f"unverified: {u}" in src or f"unverified:{u}" in src
         out.append((u, known_debt))
     return out
+
+
+GUARDED = {401, 403, 405, 406, 429, 999}  # alive but hostile to robots
 
 
 def check(url):
@@ -42,6 +47,28 @@ def check(url):
         except Exception as e:  # try GET after HEAD failure; report last error
             err = e
     return err
+
+
+def classify(res):
+    """ok | guarded | slow | FAIL - only proof-of-death fails the run.
+
+    Bot-blockers answer a robot differently than a reader; a link check must
+    not fail on 403/429-class hostility or slow hosts. Hard failure means the
+    URL provably has no document: 404/410, DNS failure, connection refused.
+    """
+    import socket
+    import urllib.error
+    if isinstance(res, urllib.error.HTTPError):
+        res = res.code
+    if isinstance(res, int):
+        if res < 400:
+            return "ok"
+        if res in (404, 410):
+            return "FAIL"
+        return "guarded"
+    if isinstance(res, socket.timeout) or "timed out" in str(res):
+        return "slow"
+    return "FAIL"
 
 
 def main():
@@ -56,8 +83,13 @@ def main():
         for url, known_debt in urls_of(os.path.join(INC, f)):
             total += 1
             res = check(url)
-            ok = isinstance(res, int) and res < 400
-            tag = "ok" if ok else ("known-debt" if known_debt else "FAIL")
+            tag = classify(res)
+            if tag == "FAIL" and not url.endswith("."):
+                res2 = check(url + ".")
+                if classify(res2) != "FAIL":  # trailing dot was part of the URL
+                    url, res, tag = url + ".", res2, classify(res2)
+            if known_debt and tag == "FAIL":
+                tag = "known-debt"
             if tag == "FAIL":
                 failed += 1
             print(f"{tag:10} {res!s:>26.26}  {f[:16]}  {url}")
