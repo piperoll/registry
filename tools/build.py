@@ -21,6 +21,7 @@ CSS = """
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
   --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  --key:#0f6674; --chip:#f4f4f1;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -60,6 +61,24 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+/* record page: section heads and field keys scan differently from values */
+.record h3 { font-size: .95rem; color: var(--dim); text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--rule); padding-bottom: .15rem;
+  margin: 1.5rem 0 .5rem; }
+.record code { color: var(--key); background: var(--chip); padding: 0 .25em;
+  border-radius: 2px; }
+.record a, .notice, .record code { overflow-wrap: anywhere; }
+/* small screens */
+@media (max-width: 640px) {
+  body { padding: 1rem .75rem 3rem; font-size: 16px; }
+  h1 { font-size: 1.25rem; }
+  .controls { gap: .4rem .6rem; font-size: .8rem; }
+  .controls input { width: 100%; max-width: 100%; }
+  .controls label { flex: 1 1 45%; }
+  table { font-size: .78rem; }
+  th, td { padding: .25rem .4rem; }
+  .record p, .record li { max-width: 100%; }
+}
 """
 
 PAGE = """<!doctype html>
@@ -110,6 +129,19 @@ def cut(s, n):
     return c + "…"
 
 
+def linkify(html_body):
+    """Turn bare https URLs in rendered record HTML into anchors.
+
+    Guarded against touching attribute values (preceded by quote or =) and
+    keeps trailing punctuation outside the link.
+    """
+    def repl(m):
+        url, tail = m.group(1), m.group(2)
+        return f'<a href="{url}">{url}</a>{tail}'
+    return re.sub(r'(?<!["\'=>])(https://[^\s<>"\']+?)([.,;)\]]*)(?=[\s<]|$)',
+                  repl, html_body)
+
+
 def build():
     os.makedirs(os.path.join(OUT, "pir"), exist_ok=True)
     records = []
@@ -124,9 +156,11 @@ def build():
         vintage = (f"{occ.group(1)}-{occ.group(2)}" if occ and occ.group(1)
                    else occ.group(3) if occ else "date in record")
         slug = r["id"].replace("PIR-", "").lower()
-        cite_text = (f"PipeRoll {r['id']}, {cut(r.get('title', ''), 70)} ({vintage}) - "
-                     f"https://piperoll.org/pir/{slug}")
-        cite = (f"<div class='notice'>Cite as: {htmlmod.escape(cite_text)} "
+        permalink = f"https://piperoll.org/pir/{slug}"
+        cite_text = f"PipeRoll {r['id']}, {cut(r.get('title', ''), 70)} ({vintage}) - {permalink}"
+        cite_html = (f"PipeRoll {r['id']}, {htmlmod.escape(cut(r.get('title', ''), 70))} ({vintage}) - "
+                     f"<a href=\"{permalink}\">{permalink}</a>")
+        cite = (f"<div class='notice'>Cite as: {cite_html} "
                 f"<button class='copycite' data-cite=\"{htmlmod.escape(cite_text)}\">copy</button></div>"
                 "<script>document.querySelector('.copycite').addEventListener('click',function(){"
                 "var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){"
@@ -135,7 +169,7 @@ def build():
         page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../../index.html",
                            home_prefix="../../", h1=r["id"],
                            sub=htmlmod.escape(r.get("title", "")),
-                           body=f'{cite}<div class="record">{body}</div>')
+                           body=f'{cite}<div class="record">{linkify(body)}</div>')
         os.makedirs(os.path.join(OUT, "pir", slug), exist_ok=True)
         with open(os.path.join(OUT, "pir", slug, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page)

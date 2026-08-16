@@ -7,6 +7,7 @@
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
   --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  --key:#0f6674; --chip:#f4f4f1;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -46,6 +47,24 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+/* record page: section heads and field keys scan differently from values */
+.record h3 { font-size: .95rem; color: var(--dim); text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--rule); padding-bottom: .15rem;
+  margin: 1.5rem 0 .5rem; }
+.record code { color: var(--key); background: var(--chip); padding: 0 .25em;
+  border-radius: 2px; }
+.record a, .notice, .record code { overflow-wrap: anywhere; }
+/* small screens */
+@media (max-width: 640px) {
+  body { padding: 1rem .75rem 3rem; font-size: 16px; }
+  h1 { font-size: 1.25rem; }
+  .controls { gap: .4rem .6rem; font-size: .8rem; }
+  .controls input { width: 100%; max-width: 100%; }
+  .controls label { flex: 1 1 45%; }
+  table { font-size: .78rem; }
+  th, td { padding: .25rem .4rem; }
+  .record p, .record li { max-width: 100%; }
+}
 </style>
 </head><body>
 <div class="masthead">
@@ -53,7 +72,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   <h1>PIR-2026-0034</h1>
   <div class="meta">GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0034, GPT-5 launch retires eight ChatGPT models overnight; day-one router… (2025-08) - https://piperoll.org/pir/2026-0034 <button class='copycite' data-cite="PipeRoll PIR-2026-0034, GPT-5 launch retires eight ChatGPT models overnight; day-one router… (2025-08) - https://piperoll.org/pir/2026-0034">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0034 - GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0034, GPT-5 launch retires eight ChatGPT models overnight; day-one router… (2025-08) - <a href="https://piperoll.org/pir/2026-0034">https://piperoll.org/pir/2026-0034</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0034, GPT-5 launch retires eight ChatGPT models overnight; day-one router… (2025-08) - https://piperoll.org/pir/2026-0034">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0034 - GPT-5 launch retires eight ChatGPT models overnight; day-one router failure degrades output</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0034</li>
 <li><code>title</code>: OpenAI removes GPT-4o/4.1/4.1-mini/4.5/o3/o3-pro/o4-mini/o4-mini-high from ChatGPT with zero deprecation window; new autoswitcher breaks on launch day</li>
@@ -105,7 +124,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <li><code>telemetry_grade</code>: operator-logs (provider self-report via Altman's X posts and AMA; no independent telemetry)</li>
 <li><code>sources</code>:</li>
 <li>https://simonwillison.net/2025/Aug/8/surprise-deprecation-of-gpt-4o/ (independent, contemporaneous, lists all 8 models)</li>
-<li>unverified: https://x.com/sama/status/1953893841381273969 (first-party; X is login-walled so the post could not be fetched directly and no Wayback snapshot was found, but the status ID is corroborated by multiple third-party references, including Simon Willison's contemporaneous post)</li>
+<li>unverified: <a href="https://x.com/sama/status/1953893841381273969">https://x.com/sama/status/1953893841381273969</a> (first-party; X is login-walled so the post could not be fetched directly and no Wayback snapshot was found, but the status ID is corroborated by multiple third-party references, including Simon Willison's contemporaneous post)</li>
 <li>https://techcrunch.com/2025/08/08/sam-altman-addresses-bumpy-gpt-5-rollout-bringing-4o-back-and-the-chart-crime/ (independent)</li>
 <li>https://www.bleepingcomputer.com/news/artificial-intelligence/openai-to-fix-gpt-5-issues-double-rate-limits-for-paid-users-after-outrage/ (independent)</li>
 <li>https://www.technology.org/2025/08/11/openai-restores-gpt-4o-after-encountering-user-dissatisfaction-with-gpt-5/ (independent)</li>

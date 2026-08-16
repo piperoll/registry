@@ -7,6 +7,7 @@
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
 :root, :root[data-theme="dark"], :root[data-theme="light"] {
   --ink:#111; --paper:#fff; --rule:#ddd; --link:#0645ad; --dim:#555;
+  --key:#0f6674; --chip:#f4f4f1;
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -46,6 +47,24 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
+/* record page: section heads and field keys scan differently from values */
+.record h3 { font-size: .95rem; color: var(--dim); text-transform: uppercase;
+  letter-spacing: .06em; border-bottom: 1px solid var(--rule); padding-bottom: .15rem;
+  margin: 1.5rem 0 .5rem; }
+.record code { color: var(--key); background: var(--chip); padding: 0 .25em;
+  border-radius: 2px; }
+.record a, .notice, .record code { overflow-wrap: anywhere; }
+/* small screens */
+@media (max-width: 640px) {
+  body { padding: 1rem .75rem 3rem; font-size: 16px; }
+  h1 { font-size: 1.25rem; }
+  .controls { gap: .4rem .6rem; font-size: .8rem; }
+  .controls input { width: 100%; max-width: 100%; }
+  .controls label { flex: 1 1 45%; }
+  table { font-size: .78rem; }
+  th, td { padding: .25rem .4rem; }
+  .record p, .record li { max-width: 100%; }
+}
 </style>
 </head><body>
 <div class="masthead">
@@ -53,7 +72,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   <h1>PIR-2026-0021</h1>
   <div class="meta">Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - https://piperoll.org/pir/2026-0021 <button class='copycite' data-cite="PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - https://piperoll.org/pir/2026-0021">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0021 - Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - <a href="https://piperoll.org/pir/2026-0021">https://piperoll.org/pir/2026-0021</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0021, Grok-linked Bankr wallet drained of ~$330K via social-engineered… (2025-03) - https://piperoll.org/pir/2026-0021">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0021 - Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March 2025)</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0021</li>
 <li><code>title</code>: Prompt manipulation of Grok drives Bankr token launches and drains ~$330K in BNKR/DRB/WETH from Grok's auto-provisioned wallet; Bankr responds by blocking Grok commands</li>
@@ -104,7 +123,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs at best (X posts deletable; no published on-chain reconstruction tying the full $330K to specific transactions)</li>
-<li><code>sources</code>: https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet (retrospective, covers both incidents); https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/ (retrospective); https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/ (retrospective); https://openexo.com/l/e5065245 ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
+<li><code>sources</code>: <a href="https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet">https://www.giskard.ai/knowledge/how-grok-got-prompt-injected-an-x-user-drained-150-000-from-an-ai-wallet</a> (retrospective, covers both incidents); <a href="https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/">https://memeburn.com/grok-hack-explained-how-prompt-injection-drained-nearly-200k/</a> (retrospective); <a href="https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/">https://beincrypto.com/grok-wallet-bankr-drb-prompt-injection/</a> (retrospective); <a href="https://openexo.com/l/e5065245">https://openexo.com/l/e5065245</a> ("Bankrbot Blocks Grok After AI Creates Tokens, DRB Market Cap Soars and Crashes" - contemporaneous on the launches and the block). Independence: weak-to-medium - the drain figure circulates through retrospectives that may share one root analysis; the block and token launches are independently contemporaneous.</li>
 <li><code>confidence</code>: medium on the event and the block; low on the $330K figure and the exact drain mechanics (named weakest link: no primary on-chain accounting, all drain detail retrospective)</li>
 </ul>
 <h3>Verification notes</h3>
