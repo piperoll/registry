@@ -159,7 +159,7 @@ def linkify(html_body):
     def repl(m):
         url, tail = m.group(1), m.group(2)
         return f'<a href="{url}">{url}</a>{tail}'
-    return re.sub(r'(?<!["\'=>])(https://[^\s<>"\']+?)([.,;)\]]*)(?=[\s<]|$)',
+    return re.sub(r'(?<!["\'=])(https://[^\s<>"\']+?)([.,;)\]]*)(?=[\s<]|$)',
                   repl, html_body)
 
 
