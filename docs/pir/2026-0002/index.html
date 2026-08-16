@@ -35,6 +35,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 .stats { margin: 1rem 0 .25rem; font-size: 1rem; }
 .footer { margin-top: 3rem; border-top: 1px solid var(--rule); padding-top: .75rem;
   font-size: .85rem; color: var(--dim); }
+.footer p { margin: .25rem 0; }
 .notice { background: none; border-left: 3px solid var(--rule); padding: .1rem 0 .1rem .9rem;
   font-size: .9rem; color: var(--dim); margin: 1rem 0; }
 .controls { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center;
@@ -68,11 +69,19 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </style>
 </head><body>
 <div class="masthead">
-  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry</div>
+  <div class="org"><a href="../../index.html">PipeRoll</a> - Agent Incident Registry &middot;
+    <a href="../../about/">about</a> &middot;
+    <a href="../../contribute/">contribute</a> &middot;
+    <a href="../../data/">data</a></div>
   <h1>PIR-2026-0002</h1>
   <div class="meta">iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - <a href="https://piperoll.org/pir/2026-0002">https://piperoll.org/pir/2026-0002</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - https://piperoll.org/pir/2026-0002">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0002 - iTutorGroup's automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - <a href="https://piperoll.org/pir/2026-0002">https://piperoll.org/pir/2026-0002</a> <button class='copycite' data-cite="PipeRoll PIR-2026-0002, iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age… (2020) - https://piperoll.org/pir/2026-0002">copy</button> <button class='copycite' data-cite="@misc{PIR_2026_0002,
+  title = {iTutorGroup&#x27;s automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement},
+  howpublished = {\url{https://piperoll.org/pir/2026-0002}},
+  year = {2020},
+  note = {PipeRoll Agent Incident Registry, PIR-2026-0002. Registry DOI: 10.5281/zenodo.21968992}
+}">bibtex</button> <a href="https://piperoll.org/pir/2026-0002.md">markdown</a>. Registered 2026-08-15 by Srinivas G.</div><script>document.querySelectorAll('.copycite').forEach(function(b){b.addEventListener('click',function(){var l=b.textContent;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script><div class="record"><h1>PIR-2026-0002 - iTutorGroup's automated recruiter rejects 200+ applicants by age; first US AI-hiring settlement</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0002</li>
 <li><code>title</code>: iTutorGroup pays $365K after recruitment software auto-rejected female applicants 55+ and male applicants 60+</li>
@@ -139,13 +148,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 </ul>
 <h3>Verification notes</h3>
 <p>All dates and the $365K figure verified against EEOC releases and the court record; suit-filed date sharpened from "May 2022" to 2022-05-05. Boundary case as flagged at intake: the rule was deliberately encoded, so root_cause primary moved from <code>policy-violation</code> to <code>operator-error</code> (deliberate configuration, not emergent agent behavior); the automated execution at scale is the agentic dimension. Recorded under the v0.1 legal block.</p></div>
-<div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
-retired ids are never reused. Corrections are published, not slipped.
-Machine-readable: <a href="../../registry.json">registry.json</a> -
-<a href="../../registry.csv">registry.csv</a>.
-Records and data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
-(cite PipeRoll and the PIR id). Tooling: MIT.
-Archived releases: <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a> (Zenodo, resolves to latest).
-Maintained by <a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> -
-source and submissions at <a href="https://github.com/piperoll/registry">github.com/piperoll/registry</a>.</div>
+<div class="footer">
+<p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
+never reused; corrections are published, not slipped.</p>
+<p><a href="../../about/">About</a> &middot;
+<a href="../../contribute/">Contribute</a> &middot;
+<a href="../../data/">Data &amp; formats</a> &middot;
+records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
+archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.</p>
+</div>
 </body></html>

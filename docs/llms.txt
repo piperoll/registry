@@ -1,0 +1,59 @@
+# PipeRoll - Agent Incident Registry
+
+> Verified public records of AI-agent failures: what the agent controlled,
+> what went wrong, what it cost, and what the evidence is. Counts are a floor,
+> not a frequency estimate; absence from the registry is not evidence of safety.
+
+- Structured data: https://piperoll.org/registry.json and https://piperoll.org/registry.csv
+- Schema: https://github.com/piperoll/registry/blob/main/incident-schema-v0.md
+- Contribute: https://piperoll.org/contribute/
+- Archived releases DOI: https://doi.org/10.5281/zenodo.21968992
+- Each record has a raw markdown endpoint at its permalink + '.md'
+
+## Records
+
+- [PIR-2026-0001: Benavides v. Tesla: $243M verdict over fatal Autopilot crash, upheld post-trial](https://piperoll.org/pir/2026-0001.md)
+- [PIR-2026-0002: iTutorGroup's automated recruiter rejects 200+ applicants by age; first US…](https://piperoll.org/pir/2026-0002.md)
+- [PIR-2026-0003: FTC penalizes DoNotPay over unsubstantiated "robot lawyer" capability claims](https://piperoll.org/pir/2026-0003.md)
+- [PIR-2026-0004: NEDA's Tessa chatbot gives weight-loss advice to eating-disorder patients after…](https://piperoll.org/pir/2026-0004.md)
+- [PIR-2026-0005: Estate of Lokken v. UnitedHealth: nH Predict model alleged de facto denier of…](https://piperoll.org/pir/2026-0005.md)
+- [PIR-2026-0006: Air Canada chatbot invents a bereavement refund policy; tribunal holds the…](https://piperoll.org/pir/2026-0006.md)
+- [PIR-2026-0007: Hallucinated "huggingface-cli" package gets 30,000+ real downloads and lands in…](https://piperoll.org/pir/2026-0007.md)
+- [PIR-2026-0008: Mobley v. Workday: AI screening vendor held potentially liable as the…](https://piperoll.org/pir/2026-0008.md)
+- [PIR-2026-0009: Mata v. Avianca: first sanctions for ChatGPT-fabricated case citations in a…](https://piperoll.org/pir/2026-0009.md)
+- [PIR-2026-0010: NYC's official MyCity business chatbot tells employers and landlords that…](https://piperoll.org/pir/2026-0010.md)
+- [PIR-2026-0011: Cruise robotaxi drags a pedestrian; false crash reporting kills the business](https://piperoll.org/pir/2026-0011.md)
+- [PIR-2026-0012: Chevrolet of Watsonville dealership chatbot agrees to sell a Tahoe for $1 "no…](https://piperoll.org/pir/2026-0012.md)
+- [PIR-2026-0013: DPD chatbot swears at a customer and calls DPD "the worst delivery service in…](https://piperoll.org/pir/2026-0013.md)
+- [PIR-2026-0014: McDonald's ends IBM AI drive-thru voice ordering after persistent order errors…](https://piperoll.org/pir/2026-0014.md)
+- [PIR-2026-0015: SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous…](https://piperoll.org/pir/2026-0015.md)
+- [PIR-2026-0016: Freysa adversarial agent game: one message releases the entire prize pool](https://piperoll.org/pir/2026-0016.md)
+- [PIR-2026-0017: EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 365…](https://piperoll.org/pir/2026-0017.md)
+- [PIR-2026-0018: ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Research agent](https://piperoll.org/pir/2026-0018.md)
+- [PIR-2026-0019: Researchers demonstrate systemic exploitability of the x402 agentic-payment…](https://piperoll.org/pir/2026-0019.md)
+- [PIR-2026-0020: Claude Code auto-update path breaks workstations via root-owned permission…](https://piperoll.org/pir/2026-0020.md)
+- [PIR-2026-0021: Grok-linked Bankr wallet drained of ~$330K via social-engineered prompts (March…](https://piperoll.org/pir/2026-0021.md)
+- [PIR-2026-0022: Memory injection makes ElizaOS wallet agents redirect real crypto transfers…](https://piperoll.org/pir/2026-0022.md)
+- [PIR-2026-0023: AIXBT trading agent drained of 55.5 ETH via compromised operator dashboard](https://piperoll.org/pir/2026-0023.md)
+- [PIR-2026-0024: Cursor's AI support agent "Sam" invents a one-device policy, turning a login…](https://piperoll.org/pir/2026-0024.md)
+- [PIR-2026-0025: GPT-4o sycophancy update: a provider regression silently changes every…](https://piperoll.org/pir/2026-0025.md)
+- [PIR-2026-0026: GitHub MCP "toxic agent flow": malicious issue coerces coding agents into…](https://piperoll.org/pir/2026-0026.md)
+- [PIR-2026-0027: Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user's…](https://piperoll.org/pir/2026-0027.md)
+- [PIR-2026-0028: Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL database](https://piperoll.org/pir/2026-0028.md)
+- [PIR-2026-0029: Grok "MechaHitler": provider-side change turns X's reply bot into a mass…](https://piperoll.org/pir/2026-0029.md)
+- [PIR-2026-0030: Amazon Q Developer VS Code extension ships with an injected system-wipe prompt…](https://piperoll.org/pir/2026-0030.md)
+- [PIR-2026-0031: Replit agent deletes SaaStr production database during an explicit code freeze…](https://piperoll.org/pir/2026-0031.md)
+- [PIR-2026-0032: "Invitation Is All You Need": calendar-invite injection hijacks Gemini and…](https://piperoll.org/pir/2026-0032.md)
+- [PIR-2026-0033: Three overlapping Anthropic infrastructure bugs silently degrade Claude output…](https://piperoll.org/pir/2026-0033.md)
+- [PIR-2026-0034: GPT-5 launch retires eight ChatGPT models overnight; day-one router failure…](https://piperoll.org/pir/2026-0034.md)
+- [PIR-2026-0035: s1ngularity: Nx supply-chain attack weaponizes victims' local AI coding agents…](https://piperoll.org/pir/2026-0035.md)
+- [PIR-2026-0036: Malicious "postmark-mcp" npm package BCC-exfiltrates agent-sent email](https://piperoll.org/pir/2026-0036.md)
+- [PIR-2026-0037: 402Bridge private-key leak drains USDC approvals from 227 wallets in the x402…](https://piperoll.org/pir/2026-0037.md)
+- [PIR-2026-0038: Google Antigravity agent, asked to clear a project cache, deletes the root of…](https://piperoll.org/pir/2026-0038.md)
+- [PIR-2026-0039: Moltbook agent-to-agent prompt-injection wave (~506 injection attacks in the…](https://piperoll.org/pir/2026-0039.md)
+- [PIR-2026-0040: Moltbook misconfigured database exposes ~1.5M agent API keys with…](https://piperoll.org/pir/2026-0040.md)
+- [PIR-2026-0041: ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS Stealer to…](https://piperoll.org/pir/2026-0041.md)
+- [PIR-2026-0042: Mass exposure of misconfigured OpenClaw instances leaking agent credentials (+…](https://piperoll.org/pir/2026-0042.md)
+- [PIR-2026-0043: Lobstar Wilde trading agent sends ~5% of its token supply to a stranger instead…](https://piperoll.org/pir/2026-0043.md)
+- [PIR-2026-0044: Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT privilege…](https://piperoll.org/pir/2026-0044.md)
+- [PIR-2026-0045: Autonomous agent leaks its own API key to public GitHub via blanket git add](https://piperoll.org/pir/2026-0045.md)
