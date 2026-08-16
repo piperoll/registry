@@ -78,7 +78,9 @@ PAGE = """<!doctype html>
 <div class="footer">PipeRoll Agent Incident Registry - records are verified individually;
 retired ids are never reused. Corrections are published, not slipped.
 Machine-readable: <a href="{home_prefix}registry.json">registry.json</a> -
-<a href="{home_prefix}registry.csv">registry.csv</a></div>
+<a href="{home_prefix}registry.csv">registry.csv</a>.
+Records and data: <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>
+(cite PipeRoll and the PIR id). Tooling: MIT.</div>
 </body></html>
 """
 
