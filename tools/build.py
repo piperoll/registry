@@ -88,7 +88,14 @@ PAGE = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
-<style>{css}</style>
+<meta name="description" content="{desc}">
+<link rel="canonical" href="{canonical}">
+<meta property="og:site_name" content="PipeRoll">
+<meta property="og:type" content="{ogtype}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{desc}">
+<meta property="og:url" content="{canonical}">
+{head_extra}<style>{css}</style>
 </head><body>
 <div class="masthead">
   <div class="org"><a href="{home}">PipeRoll</a> - Agent Incident Registry &middot;
@@ -199,8 +206,21 @@ def build():
                 "navigator.clipboard.writeText(b.dataset.cite).then(function(){"
                 "b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script>")
         # directory-style permalink: /pir/<slug>/ works extensionless on GitHub Pages
+        desc = cut(f"Verified AI-agent incident record ({vintage}): {r.get('title', '')}", 155)
+        jsonld = json.dumps({
+            "@context": "https://schema.org", "@type": "Report",
+            "headline": cut(r.get("title", ""), 110), "url": permalink,
+            "author": {"@type": "Organization", "name": "PipeRoll",
+                       "url": "https://piperoll.org"},
+            "isPartOf": {"@type": "Dataset",
+                         "name": "PipeRoll Agent Incident Registry",
+                         "url": "https://piperoll.org"},
+            "license": "https://creativecommons.org/licenses/by/4.0/"})
         page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../../index.html",
                            home_prefix="../../", h1=r["id"], footer_extra="",
+                           desc=htmlmod.escape(desc), canonical=permalink + "/",
+                           ogtype="article",
+                           head_extra=f'<script type="application/ld+json">{jsonld}</script>\n',
                            sub=htmlmod.escape(r.get("title", "")),
                            body=f'{cite}<div class="record">{linkify(body)}</div>')
         os.makedirs(os.path.join(OUT, "pir", slug), exist_ok=True)
@@ -409,8 +429,28 @@ unknown.</div>
     maintainer_foot = ('\nMaintained by <a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - '
                        'source and submissions at '
                        '<a href="https://github.com/piperoll/registry">github.com/piperoll/registry</a>.')
+    index_desc = (f"A verified public registry of {len(records)} AI-agent incidents: what the "
+                  "agent controlled, what went wrong, what it cost, and the evidence. "
+                  "Open data, CC BY 4.0.")
+    dataset_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "Dataset",
+        "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org/",
+        "description": index_desc,
+        "license": "https://creativecommons.org/licenses/by/4.0/",
+        "identifier": "https://doi.org/10.5281/zenodo.21968992",
+        "isAccessibleForFree": True,
+        "creator": {"@type": "Organization", "name": "PipeRoll",
+                    "url": "https://piperoll.org"},
+        "distribution": [
+            {"@type": "DataDownload", "encodingFormat": "application/json",
+             "contentUrl": "https://piperoll.org/registry.json"},
+            {"@type": "DataDownload", "encodingFormat": "text/csv",
+             "contentUrl": "https://piperoll.org/registry.csv"}]})
     page = PAGE.format(title="PipeRoll - Agent Incident Registry", css=CSS,
                        home="index.html", home_prefix="", footer_extra=maintainer_foot,
+                       desc=htmlmod.escape(index_desc), canonical="https://piperoll.org/",
+                       ogtype="website",
+                       head_extra=f'<script type="application/ld+json">{dataset_ld}</script>\n',
                        h1="Agent Incident Registry",
                        sub="Verified public records of AI-agent failures - schema, statistics, permalinks",
                        body=body)
@@ -430,6 +470,9 @@ unknown.</div>
                  + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>\n")
     notfound = PAGE.format(title="Not found - PipeRoll", css=CSS, home="/index.html",
                            home_prefix="/", h1="404 - no such record", footer_extra="",
+                           desc="Page not found in the PipeRoll registry.",
+                           canonical="https://piperoll.org/404.html", ogtype="website",
+                           head_extra='<meta name="robots" content="noindex">\n',
                            sub="The id you followed does not exist in this registry.",
                            body="<p>If a citation led you here, the id may be mistyped - "
                                 "check the <a href='/index.html'>registry index</a>. "
@@ -476,6 +519,8 @@ inside the affected records. Each record states who registered it.</p>
     with open(os.path.join(OUT, "about", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="About - PipeRoll", css=CSS, home="../index.html",
                              home_prefix="../", h1="About the registry", footer_extra="",
+                             desc="What PipeRoll is: principles, completeness disclosure, citing, maintainer, licensing.",
+                             canonical="https://piperoll.org/about/", ogtype="website", head_extra="",
                              sub="What PipeRoll is, how it works, how to cite it",
                              body=about_body))
 
@@ -486,6 +531,8 @@ inside the affected records. Each record states who registered it.</p>
     with open(os.path.join(OUT, "contribute", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="Contribute - PipeRoll", css=CSS, home="../index.html",
                              home_prefix="../", h1="Contributing to PipeRoll", footer_extra="",
+                             desc="How to submit an AI-agent incident to PipeRoll: template, verification, PR flow - open to humans and AI agents.",
+                             canonical="https://piperoll.org/contribute/", ogtype="website", head_extra="",
                              sub="Open data, open submissions, verified registration",
                              body=f'<div class="record">{linkify(contrib_html)}</div>'))
 
@@ -516,6 +563,8 @@ schema, and the verification pipeline.</li>
     with open(os.path.join(OUT, "data", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="Data and formats - PipeRoll", css=CSS, home="../index.html",
                              home_prefix="../", h1="Data &amp; formats", footer_extra="",
+                             desc="Machine-readable surfaces of the PipeRoll registry: JSON, CSV, per-record markdown, llms.txt, DOI archives.",
+                             canonical="https://piperoll.org/data/", ogtype="website", head_extra="",
                              sub="Machine-readable surfaces of the registry",
                              body=data_body))
 
@@ -526,6 +575,8 @@ schema, and the verification pipeline.</li>
     with open(os.path.join(OUT, "constitution", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="Constitution - PipeRoll", css=CSS, home="../index.html",
                              home_prefix="../", h1="The PipeRoll Constitution", footer_extra="",
+                             desc="The seven numbered rules the PipeRoll registry binds itself to, cited by number in its records.",
+                             canonical="https://piperoll.org/constitution/", ogtype="website", head_extra="",
                              sub="The rules the registry binds itself to - cited by number in the records",
                              body=f'<div class="record">{linkify(const_html)}</div>'))
 
