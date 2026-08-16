@@ -172,7 +172,7 @@ def build():
 
     # per-record pages
     for r in records:
-        body = markdown.markdown(r["markdown"], extensions=["tables"])
+        body = markdown.markdown(r["markdown"], extensions=["tables"], tab_length=2)
         occ = re.search(r"(\d{4})-(0[1-9]|1[0-2])|\b(20[12]\d)\b", r.get("date_occurred") or "")
         vintage = (f"{occ.group(1)}-{occ.group(2)}" if occ and occ.group(1)
                    else occ.group(3) if occ else "date in record")
@@ -480,7 +480,7 @@ inside the affected records. Each record states who registered it.</p>
 
     # contribute page, rendered from CONTRIBUTING.md
     contrib_md = open(os.path.join(ROOT, "CONTRIBUTING.md"), encoding="utf-8").read()
-    contrib_html = markdown.markdown(contrib_md)
+    contrib_html = markdown.markdown(contrib_md, tab_length=2)
     os.makedirs(os.path.join(OUT, "contribute"), exist_ok=True)
     with open(os.path.join(OUT, "contribute", "index.html"), "w", encoding="utf-8") as fh:
         fh.write(PAGE.format(title="Contribute - PipeRoll", css=CSS, home="../index.html",

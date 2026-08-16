@@ -132,15 +132,23 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: artifact-level witnessed (malicious packages are public artifacts independently audited by multiple firms); none victim-side (no infection telemetry public)</li>
-<li><code>sources</code>:</li>
+<li>
+<p><code>sources</code>:</p>
+<ul>
 <li><a href="https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting">https://www.koi.ai/blog/clawhavoc-341-malicious-clawedbot-skills-found-by-the-bot-they-were-targeting</a> (primary)</li>
 <li><a href="https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html">https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html</a></li>
 <li><a href="https://www.trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html">https://www.trendmicro.com/en_us/research/26/b/openclaw-skills-used-to-distribute-atomic-macos-stealer.html</a> (independent payload analysis)</li>
 <li><a href="https://www.scworld.com/news/openclaw-agents-targeted-with-341-malicious-clawhub-skills">https://www.scworld.com/news/openclaw-agents-targeted-with-341-malicious-clawhub-skills</a></li>
-<li><a href="https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain">https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain</a></li>
+<li>
+<p><a href="https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain">https://www.darkreading.com/cyber-risk/malicious-openclaw-skills-clawhub-threaten-ai-supply-chain</a></p>
+</li>
+<li>
+<p><code>independence</code>: strong - Koi's audit independently corroborated by Trend Micro and McCarty on public artifacts.</p>
+</li>
+<li><code>confidence</code>: high on campaign existence, counts, and payload (multi-firm, artifact-based); low on victim losses (never quantified - the weakest link)</li>
 </ul>
-<p>Independence: strong - Koi's audit independently corroborated by Trend Micro and McCarty on public artifacts.
-- <code>confidence</code>: high on campaign existence, counts, and payload (multi-firm, artifact-based); low on victim losses (never quantified - the weakest link)</p>
+</li>
+</ul>
 <h3>Verification notes (corrections applied)</h3>
 <ol>
 <li>Candidate claimed later findings reached "~20% of the registry." Corrected: initial audit was 341 of 2,857 (~12%); by 2026-02-16 findings were 824 as the registry grew past 10,700 - a <em>falling</em> share (~8%), because the registry grew faster than confirmed findings. Higher counts (1,184; Snyk's 1,467) come from later/broader methodologies and are noted, not headline.</li>

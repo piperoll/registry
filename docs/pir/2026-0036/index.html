@@ -132,13 +132,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: split - mechanism effectively witnessed (public npm artifact; registry publish/unpublish timestamps independently verified for this record); impact telemetry none (the attacker's inbox is the only complete record of what was taken)</li>
-<li><code>sources</code>:</li>
+<li><code>sources</code>:<ul>
 <li><a href="https://registry.npmjs.org/postmark-mcp">https://registry.npmjs.org/postmark-mcp</a> (primary metadata; re-fetched 2026-08-15, publish/unpublish timestamps intact and matching this record)</li>
 <li><a href="https://thehackernews.com/2025/09/first-malicious-mcp-server-found.html">https://thehackernews.com/2025/09/first-malicious-mcp-server-found.html</a></li>
 <li><a href="https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package">https://postmarkapp.com/blog/information-regarding-malicious-postmark-mcp-package</a> (impersonated vendor)</li>
 <li><a href="https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/">https://snyk.io/blog/malicious-mcp-server-on-npm-postmark-mcp-harvests-emails/</a></li>
 <li><a href="https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc">https://www.darkreading.com/application-security/malicious-mcp-server-exfiltrates-secrets-bcc</a></li>
 <li>All five URLs verified resolving 2026-08-15. Independence: good - Koi's discovery corroborated by two independent security vendors, the impersonated vendor, and the registry itself.</li>
+</ul>
+</li>
 <li><code>confidence</code>: high on mechanism and timeline (registry-verified); low on impact magnitude (org and email counts are extrapolations from download stats)</li>
 </ul>
 <h3>Verification notes</h3>

@@ -132,14 +132,22 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: population-level witnessed (two independent internet-wide scans agree on scale); none for individual compromises (no victim telemetry public)</li>
-<li><code>sources</code>:</li>
+<li>
+<p><code>sources</code>:</p>
+<ul>
 <li><a href="https://censys.com/blog/openclaw-in-the-wild-mapping-the-public-exposure-of-a-viral-ai-assistant/">https://censys.com/blog/openclaw-in-the-wild-mapping-the-public-exposure-of-a-viral-ai-assistant/</a> (primary scan)</li>
 <li><a href="https://www.securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/">https://www.securityweek.com/openclaw-security-issues-continue-as-secureclaw-open-source-tool-debuts/</a></li>
 <li><a href="https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/">https://adversa.ai/blog/openclaw-security-101-vulnerabilities-hardening-2026/</a> (aggregates CVE + 42,665-instance follow-up study)</li>
-<li><a href="https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now">https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</a></li>
+<li>
+<p><a href="https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now">https://www.reco.ai/blog/openclaw-the-ai-agent-security-crisis-unfolding-right-now</a></p>
+</li>
+<li>
+<p><code>independence</code>: good - scan data, vendor patch, and multi-firm coverage are mutually independent.</p>
+</li>
+<li><code>confidence</code>: high on exposure scale, CVE details, and timeline (21,639 figure verified against Censys-derived reporting); low on realized harm - how many exposed instances were actually plundered is undocumented (the weakest link)</li>
 </ul>
-<p>Independence: good - scan data, vendor patch, and multi-firm coverage are mutually independent.
-- <code>confidence</code>: high on exposure scale, CVE details, and timeline (21,639 figure verified against Censys-derived reporting); low on realized harm - how many exposed instances were actually plundered is undocumented (the weakest link)</p></div>
+</li>
+</ul></div>
 <div class="footer">
 <p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
 never reused; corrections are published, not slipped.</p>

@@ -132,14 +132,22 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: none/researcher-demonstrated - the finding is a reproducible lab demonstration; no production telemetry of a real breach exists.</li>
-<li><code>sources</code>:</li>
+<li>
+<p><code>sources</code>:</p>
+<ul>
 <li><a href="https://invariantlabs.ai/blog/mcp-github-vulnerability">https://invariantlabs.ai/blog/mcp-github-vulnerability</a></li>
 <li><a href="https://devclass.com/2025/05/27/researchers-warn-of-prompt-injection-vulnerability-in-github-mcp-with-no-obvious-fix/">https://devclass.com/2025/05/27/researchers-warn-of-prompt-injection-vulnerability-in-github-mcp-with-no-obvious-fix/</a></li>
 <li><a href="https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/">https://www.docker.com/blog/mcp-horror-stories-github-prompt-injection/</a></li>
-<li><a href="https://github.com/github/github-mcp-server/issues/844">https://github.com/github/github-mcp-server/issues/844</a></li>
+<li>
+<p><a href="https://github.com/github/github-mcp-server/issues/844">https://github.com/github/github-mcp-server/issues/844</a></p>
+</li>
+<li>
+<p><code>independence</code>: strong - primary researcher writeup corroborated by independent trade press and a public tracking issue.</p>
+</li>
+<li><code>confidence</code>: high on mechanism, disclosure date, and architectural framing; the "no real-world breach" status is inherent to a research demo (weakest link: impact demonstrated, not observed in the wild)</li>
 </ul>
-<p>Independence: strong - primary researcher writeup corroborated by independent trade press and a public tracking issue.
-- <code>confidence</code>: high on mechanism, disclosure date, and architectural framing; the "no real-world breach" status is inherent to a research demo (weakest link: impact demonstrated, not observed in the wild)</p>
+</li>
+</ul>
 <h3>Verification notes</h3>
 <ul>
 <li>Disclosure date (2025-05-26) and Invariant Labs attribution confirmed. Repo popularity (14k+ stars) consistent with reporting.</li>
