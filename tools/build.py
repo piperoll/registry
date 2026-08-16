@@ -314,7 +314,14 @@ reserved ids permanently (CVE convention). Id numbering: the initial import (000
 registered Aug 2026) is ordered by occurrence date, oldest first, as a one-time property;
 from here on ids are assigned at registration, so sequence is not guaranteed chronological
 for later records. The year in the id is the registration year. This registry is young -
-treat aggregate statistics as early data, not actuarial tables.</div>
+treat aggregate statistics as early data, not actuarial tables.
+<br><br>Completeness: this registry records publicly reported, verifiable incidents - a fraction
+of what occurs. Most agent failures are never disclosed, and coverage skews toward incidents
+that are visible (on-chain losses, court records, published research) and English-language
+sources. Counts here are a floor, never an estimate of true frequency; the absence of a
+system from this registry is not evidence of its safety, and no failure rate can be computed
+from registry counts alone because the exposure base (how many agents run, doing what) is
+unknown.</div>
 {statline('cause_key', 'Root cause')}
 {statline('severity_key', 'Severity')}
 {statline('status_key', 'Exploitation status')}

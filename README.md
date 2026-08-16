@@ -16,6 +16,20 @@ in different hands.
   occurrence date as a one-time property; later ids are assigned at registration.
 - Near-misses are records too - full exposure with zero realized loss is actuarially precious.
 
+## Completeness disclosure
+
+This registry records what is publicly reported and independently verifiable - a fraction
+of what occurs. Most agent failures are never disclosed. Coverage is biased toward the
+visible: on-chain losses, court and regulator records, published research, viral
+postmortems, and English-language sources; crypto-agent incidents are overrepresented
+relative to silent enterprise failures for exactly this reason. The initial 45 records
+were gathered by structured research sweeps (Aug 2026), not systematic sampling.
+Consequences: registry counts are a floor, never a frequency estimate; absence of a
+system from the registry is not evidence of its safety; and no failure *rate* can be
+computed from this data alone, because the exposure base - how many agents run, with
+what authority - is unknown. Correcting that denominator problem is part of the
+institution's roadmap, not a property of this dataset.
+
 ## Layout
 
 - `incidents/` - the records (one markdown file per PIR id) + `INDEX.md`

@@ -69,3 +69,8 @@ the mapping is preserved in git history.
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
 a heavy-tail distribution dominated by two autonomous-vehicle cases. Treat as early data, not actuarial tables.
+
+Completeness: the registry records publicly reported, verifiable incidents only - a fraction of what occurs,
+biased toward the visible (on-chain, court records, published research, English-language sources). Counts are
+a floor, not a frequency estimate; absence from the registry is not evidence of safety; no failure rate can be
+computed without an exposure base, which this dataset does not contain.
