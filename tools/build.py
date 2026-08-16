@@ -165,6 +165,26 @@ def build():
         return (f"<label>{label} <select data-filter='{key}'>"
                 f"<option value=''>all</option>{opts}</select></label>")
 
+    def cut(s, n):
+        s = (s or "").strip()
+        if len(s) <= n:
+            return s
+        c = s[:n].rsplit(" ", 1)[0].rstrip(",;:(-")
+        return c + "…"
+
+    def date_cell(r):
+        if r["sort_date"] == "0000-00-00":
+            return "n/a"
+        d = r["sort_date"][:7] if r["sort_date"].endswith("-00") else r["sort_date"]
+        occ = r.get("date_occurred") or ""
+        if not re.search(r"\d{4}-\d{2}", occ):
+            return f"{d} (disclosed)"
+        return d
+
+    def loss_cell(r):
+        v = (r.get("direct_loss_usd") or "").strip()
+        return cut(v.split("(")[0].strip() or v, 26)
+
     display = sorted(records, key=lambda r: (r["sort_date"], r["id"]), reverse=True)
     rows = "\n".join(
         f"<tr data-cause_key='{r['cause_key']}' data-severity_key='{r['severity_key']}'"
@@ -173,11 +193,11 @@ def build():
         f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
         f"<td class='ord'>{i + 1}</td>"
         f"<td><a href='{r['url']}'>{r['id']}</a></td>"
-        f"<td>{htmlmod.escape(r.get('title','')[:90])}</td>"
-        f"<td>{htmlmod.escape((r.get('date_occurred') or '')[:24])}</td>"
+        f"<td>{htmlmod.escape(cut(r.get('title',''), 90))}</td>"
+        f"<td>{htmlmod.escape(date_cell(r))}</td>"
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
         f"<td>{htmlmod.escape(r['severity_key'])}</td>"
-        f"<td>{htmlmod.escape((r.get('direct_loss_usd') or '')[:28])}</td></tr>"
+        f"<td>{htmlmod.escape(loss_cell(r))}</td></tr>"
         for i, r in enumerate(display))
 
     controls = f"""
