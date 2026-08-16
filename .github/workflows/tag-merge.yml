@@ -1,0 +1,25 @@
+name: tag-merge
+# Snapshot tag on every merged PR. Tags are cheap bookmarks; they do NOT
+# trigger Zenodo - only Releases mint DOI versions, and releases stay
+# deliberate editorial acts (see README principles).
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  tag:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create snapshot tag at the merge commit
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SHA: ${{ github.event.pull_request.merge_commit_sha }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          tag="merge/$(date -u +%Y.%m.%d)-pr${PR}"
+          gh api repos/${{ github.repository }}/git/refs -f ref="refs/tags/${tag}" -f sha="$SHA"
+          echo "tagged $SHA as $tag"
