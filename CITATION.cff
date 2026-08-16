@@ -5,6 +5,13 @@ type: dataset
 authors:
   - family-names: Gumdelli
     given-names: Srinivas
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21968992
+    description: "Concept DOI - resolves to the latest archived release"
+  - type: doi
+    value: 10.5281/zenodo.21968993
+    description: "Zenodo archive of release v2026.08.16 (launch batch, 45 records)"
 repository-code: "https://github.com/piperoll/registry"
 url: "https://piperoll.org"
 license: CC-BY-4.0
