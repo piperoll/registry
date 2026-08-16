@@ -58,6 +58,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 """
 
 PAGE = """<!doctype html>
@@ -118,9 +120,14 @@ def build():
         occ = re.search(r"(\d{4})-(0[1-9]|1[0-2])|\b(20[12]\d)\b", r.get("date_occurred") or "")
         vintage = (f"{occ.group(1)}-{occ.group(2)}" if occ and occ.group(1)
                    else occ.group(3) if occ else "date in record")
-        cite = (f"<div class='notice'>Cite as: PipeRoll {r['id']}, "
-                f"{htmlmod.escape(cut(r.get('title', ''), 70))} ({vintage}) - "
-                f"https://piperoll.org/pir/{r['id'].replace('PIR-', '').lower()}</div>")
+        slug = r["id"].replace("PIR-", "").lower()
+        cite_text = (f"PipeRoll {r['id']}, {cut(r.get('title', ''), 70)} ({vintage}) - "
+                     f"https://piperoll.org/pir/{slug}")
+        cite = (f"<div class='notice'>Cite as: {htmlmod.escape(cite_text)} "
+                f"<button class='copycite' data-cite=\"{htmlmod.escape(cite_text)}\">copy</button></div>"
+                "<script>document.querySelector('.copycite').addEventListener('click',function(){"
+                "var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){"
+                "b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script>")
         page = PAGE.format(title=f"{r['id']} - PipeRoll", css=CSS, home="../index.html",
                            home_prefix="../", h1=r["id"],
                            sub=htmlmod.escape(r.get("title", "")),

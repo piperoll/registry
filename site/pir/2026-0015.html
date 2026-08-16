@@ -44,6 +44,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 </style>
 </head><body>
 <div class="masthead">
@@ -51,7 +53,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   <h1>PIR-2026-0015</h1>
   <div class="meta">SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0015, SpAIware: persistent memory poisoning of the ChatGPT macOS app for… (date in record) - https://piperoll.org/pir/2026-0015</div><div class="record"><h1>PIR-2026-0015 - SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0015, SpAIware: persistent memory poisoning of the ChatGPT macOS app for… (date in record) - https://piperoll.org/pir/2026-0015 <button class='copycite' data-cite="PipeRoll PIR-2026-0015, SpAIware: persistent memory poisoning of the ChatGPT macOS app for… (date in record) - https://piperoll.org/pir/2026-0015">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0015 - SpAIware: persistent memory poisoning of the ChatGPT macOS app for continuous exfiltration</h1>
 <ul>
 <li><code>id</code>: PIR-2026-0015</li>
 <li><code>title</code>: Indirect prompt injection plants persistent instructions in ChatGPT's Memory, exfiltrating all future conversations ("SpAIware")</li>

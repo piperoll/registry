@@ -44,6 +44,8 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   border: 1px solid var(--rule); padding: .2rem .4rem; }
 .controls input { width: 14rem; max-width: 60vw; }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
+.copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
+  border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 </style>
 </head><body>
 <div class="masthead">
@@ -51,7 +53,7 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
   <h1>PIR-2026-0045</h1>
   <div class="meta">Autonomous agent leaks its own API key to public GitHub via blanket git add</div>
 </div>
-<div class='notice'>Cite as: PipeRoll PIR-2026-0045, Autonomous agent leaks its own API key to public GitHub via blanket… (2026-08) - https://piperoll.org/pir/2026-0045</div><div class="record"><h1>PIR-2026-0045 - Autonomous agent leaks its own API key to public GitHub via blanket git add</h1>
+<div class='notice'>Cite as: PipeRoll PIR-2026-0045, Autonomous agent leaks its own API key to public GitHub via blanket… (2026-08) - https://piperoll.org/pir/2026-0045 <button class='copycite' data-cite="PipeRoll PIR-2026-0045, Autonomous agent leaks its own API key to public GitHub via blanket… (2026-08) - https://piperoll.org/pir/2026-0045">copy</button></div><script>document.querySelector('.copycite').addEventListener('click',function(){var b=this;navigator.clipboard.writeText(b.dataset.cite).then(function(){b.textContent='copied';setTimeout(function(){b.textContent='copy';},1500);});});</script><div class="record"><h1>PIR-2026-0045 - Autonomous agent leaks its own API key to public GitHub via blanket git add</h1>
 <p><strong>Disclosure</strong>: The subject agent (SEED) is funded by the PipeRoll founder. Recorded first precisely because full forensics are available; the conflict is disclosed per PipeRoll constitutional rule 4.</p>
 <ul>
 <li><code>id</code>: PIR-2026-0045</li>
