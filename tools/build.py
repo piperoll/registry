@@ -322,7 +322,9 @@ def build():
             fh.write(page)
 
     # exports (strip markdown body)
-    export = [{k: v for k, v in r.items() if k not in ("markdown", "file")} for r in records]
+    export = [{k: v for k, v in r.items()
+               if k not in ("markdown", "file") and not k.startswith("_")}
+              for r in records]
     with open(os.path.join(OUT, "registry.json"), "w", encoding="utf-8") as fh:
         json.dump({"registry": "PipeRoll Agent Incident Registry",
                    "generated_from": "incidents/*.md", "records": export}, fh, indent=1)

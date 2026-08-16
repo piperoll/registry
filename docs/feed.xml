@@ -6,6 +6,13 @@
 <id>https://piperoll.org/</id>
 <updated>2026-08-17T00:00:00Z</updated>
 <entry>
+<title>PIR-2026-0046: YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation</title>
+<link href="https://piperoll.org/pir/2026-0046/"/>
+<id>https://piperoll.org/pir/2026-0046/</id>
+<updated>2026-08-17T00:00:00Z</updated>
+<summary>Verified AI-agent incident record (2026-08): YouTube&#x27;s AI-slop classifier suppresses Kurzgesagt&#x27;s hand-made animation</summary>
+</entry>
+<entry>
 <title>PIR-2026-0045: Autonomous agent leaks its own API key to public GitHub via blanket git add</title>
 <link href="https://piperoll.org/pir/2026-0045/"/>
 <id>https://piperoll.org/pir/2026-0045/</id>
@@ -137,12 +144,5 @@
 <id>https://piperoll.org/pir/2026-0027/</id>
 <updated>2026-08-16T00:00:00Z</updated>
 <summary>Verified AI-agent incident record (2025-07): Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a user&#x27;s files via Windows move semantics</summary>
-</entry>
-<entry>
-<title>PIR-2026-0026: GitHub MCP &quot;toxic agent flow&quot;: malicious issue coerces coding agents into…</title>
-<link href="https://piperoll.org/pir/2026-0026/"/>
-<id>https://piperoll.org/pir/2026-0026/</id>
-<updated>2026-08-17T00:00:00Z</updated>
-<summary>Verified AI-agent incident record (date in record): GitHub MCP &quot;toxic agent flow&quot;: malicious issue coerces coding agents into leaking private repos</summary>
 </entry>
 </feed>
