@@ -48,6 +48,7 @@ jobs:
             grep -o 'tlog entry created with index: [0-9]*' cosign.log || true
           } > docs/witness/provenance.txt
           cat docs/witness/provenance.txt
+          printf '{"logIndex": "%s", "commit": "%s"}\n'             "$(grep -o '[0-9]*$' <<<"$(grep 'index:' docs/witness/provenance.txt || true)")"             "${{ github.sha }}" > docs/witness/provenance.json
           idx=$(grep -o '[0-9]*$' <<<"$(grep 'index:' docs/witness/provenance.txt || true)")
           cat > docs/witness/index.html <<HTML
           <!doctype html><html lang="en"><head><meta charset="utf-8">
