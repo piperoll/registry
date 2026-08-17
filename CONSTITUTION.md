@@ -23,8 +23,11 @@ wrong is not.
 
 Ids are opaque permanent names: never deleted, never reused, never renumbered.
 Chronology lives in the record and the citation, not the id. History does not
-rewrite: force-pushes are blocked, commits are signed, and releases are
-archived externally (Zenodo DOI) beyond the registry's own custody.
+rewrite: force-pushes are blocked, commits are signed, releases are archived
+externally (Zenodo DOI) beyond the registry's own custody, and every
+deployment's record manifest is witnessed in a public append-only
+transparency log (Sigstore Rekor) that neither the registry nor its
+maintainer can alter.
 
 ## 4. Conflicts are disclosed inside the record
 

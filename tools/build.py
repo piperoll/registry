@@ -605,6 +605,25 @@ markdown endpoint for machine use. Registry-level archives carry a DOI
 latest archived release); doi.org content negotiation serves APA/Chicago/CSL formats from it.
 A machine manifest lives at <a href="/llms.txt">/llms.txt</a>; structured data at
 <a href="/registry.json">registry.json</a> and <a href="/registry.csv">registry.csv</a>.</p>
+<h3>Tamper evidence</h3>
+<p>Four layers, honestly scoped. Commits are GPG-signed and main is protected (no
+force-pushes, four required checks) - which binds outsiders, not the maintainer.
+What binds the maintainer: every release is archived immutably at CERN
+(<a href="https://doi.org/10.5281/zenodo.21968992">Zenodo, DOI</a>), and every
+deployment writes a signature over a manifest of every record's bytes to the
+<a href="https://docs.sigstore.dev/logging/overview/">Sigstore Rekor</a> public
+append-only transparency log - an external witness this registry cannot rewrite.
+The manifest, signature bundle, and Rekor pointer ship with the site at
+<a href="../witness/checksums.txt">/witness/</a>. Verify any deployment:</p>
+<pre><code>cosign verify-blob \
+  --bundle checksums.bundle.json \
+  --certificate-identity-regexp 'github.com/piperoll/registry' \
+  --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+  checksums.txt</code></pre>
+<p>A silently rewritten record would hash differently from every witnessed
+manifest that came before it. Between the git history, the CERN snapshots, the
+Rekor entries, and every clone anyone has ever pulled, the registry's past is
+distributed beyond its own custody - the Chancellor's Roll, updated.</p>
 <h3>Maintainer</h3>
 <p><a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - founding editor.
 Registration authority currently rests with the editor; conflicts of interest are disclosed
