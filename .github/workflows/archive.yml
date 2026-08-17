@@ -1,0 +1,60 @@
+name: archive-sources
+
+# Submit record source URLs to the Internet Archive's Wayback Machine.
+# On merge: archives sources of records changed in the push (archive at
+# registration). Manual dispatch: full backfill or a single record.
+# Deliberately NOT a required check - Wayback outages are not registry
+# regressions; failures are visible in the run log.
+
+on:
+  push:
+    branches: [main]
+    paths: ["incidents/PIR-*.md"]
+  workflow_dispatch:
+    inputs:
+      record:
+        description: "Record id (e.g. PIR-2026-0047); empty = full backfill"
+        required: false
+        default: ""
+      force:
+        description: "Archive even if a fresh snapshot exists"
+        type: boolean
+        default: false
+
+concurrency:
+  group: archive-sources
+  cancel-in-progress: false
+
+jobs:
+  archive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Determine targets
+        id: targets
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "records=${{ inputs.record }}" >> "$GITHUB_OUTPUT"
+          else
+            changed=$(git diff --name-only HEAD^ HEAD -- 'incidents/PIR-*.md' \
+              | xargs -r -n1 basename | sed 's/\.md$//' | tr '\n' ' ')
+            echo "records=$changed" >> "$GITHUB_OUTPUT"
+            if [ -z "$changed" ]; then
+              echo "no record files changed; nothing to archive"
+            fi
+          fi
+
+      - name: Archive to Wayback
+        if: steps.targets.outputs.records != '' || github.event_name == 'workflow_dispatch'
+        env:
+          IA_ACCESS_KEY: ${{ secrets.IA_ACCESS_KEY }}
+          IA_SECRET: ${{ secrets.IA_SECRET }}
+        run: |
+          FORCE=""
+          if [ "${{ inputs.force }}" = "true" ]; then FORCE="--force"; fi
+          # dispatch with empty record input = full backfill (no positional args)
+          python3 tools/archive.py ${{ steps.targets.outputs.records }} $FORCE
