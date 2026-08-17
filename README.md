@@ -1,6 +1,7 @@
 # PipeRoll - Agent Incident Registry
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21968992.svg)](https://doi.org/10.5281/zenodo.21968992)
+[![Witnessed](https://img.shields.io/badge/dynamic/json?label=witnessed&query=%24.logIndex&prefix=rekor%20index%20&url=https%3A%2F%2Fpiperoll.org%2Fwitness%2Fprovenance.json&color=2b4a6f)](https://piperoll.org/witness/)
 
 Verified public records of AI-agent failures: what the agent controlled, what went wrong,
 what it cost, and what the evidence is. Named for the Pipe Rolls - the English Exchequer's

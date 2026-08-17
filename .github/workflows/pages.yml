@@ -48,6 +48,36 @@ jobs:
             grep -o 'tlog entry created with index: [0-9]*' cosign.log || true
           } > docs/witness/provenance.txt
           cat docs/witness/provenance.txt
+          printf '{"logIndex": "%s", "commit": "%s"}\n'             "$(grep -o '[0-9]*$' <<<"$(grep 'index:' docs/witness/provenance.txt || true)")"             "${{ github.sha }}" > docs/witness/provenance.json
+          idx=$(grep -o '[0-9]*$' <<<"$(grep 'index:' docs/witness/provenance.txt || true)")
+          cat > docs/witness/index.html <<HTML
+          <!doctype html><html lang="en"><head><meta charset="utf-8">
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+          <meta name="robots" content="noindex">
+          <title>Witness - PipeRoll</title>
+          <style>body{font:17px/1.6 Georgia,serif;max-width:44rem;margin:0 auto;padding:2rem 1rem;color:#111}
+          code,pre{font-family:ui-monospace,Menlo,monospace;font-size:.85em}
+          pre{overflow-x:auto;background:#f4f4f1;border:1px solid #ddd;padding:.6rem .8rem}
+          a{color:#0645ad}</style></head><body>
+          <h1>Deployment witness</h1>
+          <p>This deployment's record manifest is signed and entered in the
+          <a href="https://search.sigstore.dev/?logIndex=${idx}">Sigstore Rekor public
+          transparency log (index ${idx})</a> - an append-only ledger the registry cannot rewrite.</p>
+          <ul>
+          <li><a href="checksums.txt">checksums.txt</a> - sha256 of every record, the schema, the constitution, and the exports</li>
+          <li><a href="checksums.bundle.json">checksums.bundle.json</a> - signature, certificate, and inclusion proof</li>
+          <li><a href="provenance.txt">provenance.txt</a> - commit, workflow run, log index</li>
+          </ul>
+          <p>Verify (no account needed):</p>
+          <pre>cosign verify-blob \
+            --bundle checksums.bundle.json \
+            --certificate-identity-regexp 'github.com/piperoll/registry' \
+            --certificate-oidc-issuer https://token.actions.githubusercontent.com \
+            checksums.txt</pre>
+          <p><a href="../about/">About the registry's tamper evidence</a> &middot;
+          <a href="../index.html">registry</a></p>
+          </body></html>
+          HTML
 
       - uses: actions/upload-pages-artifact@v3
         with: { path: docs }
