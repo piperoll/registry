@@ -6,6 +6,7 @@ name: pages
 on:
   push:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -31,6 +32,23 @@ jobs:
         run: |
           pip install --quiet markdown
           python3 tools/build.py
+      - uses: sigstore/cosign-installer@v3
+      - name: Witness the registry in the Rekor public transparency log
+        # Keyless (OIDC) signature over a manifest of every record's bytes,
+        # uploaded to Sigstore's append-only Rekor log - an external witness
+        # neither the maintainer nor the repo can rewrite. The bundle ships
+        # with the site at /witness/ so anyone can verify.
+        run: |
+          mkdir -p docs/witness
+          sha256sum incidents/PIR-*.md incident-schema-v0.md CONSTITUTION.md             docs/registry.json docs/registry.csv > docs/witness/checksums.txt
+          cosign sign-blob --yes             --bundle docs/witness/checksums.bundle.json             docs/witness/checksums.txt 2>cosign.log || { cat cosign.log; exit 1; }
+          {
+            echo "commit: ${{ github.sha }}"
+            echo "run: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+            grep -o 'tlog entry created with index: [0-9]*' cosign.log || true
+          } > docs/witness/provenance.txt
+          cat docs/witness/provenance.txt
+
       - uses: actions/upload-pages-artifact@v3
         with: { path: docs }
       - id: deploy
