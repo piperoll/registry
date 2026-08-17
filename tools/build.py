@@ -43,6 +43,9 @@ td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, mono
 .ord { color: var(--dim); font-size: .8em; text-align: right; }
 a { color: var(--link); }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+pre { overflow-x: auto; background: var(--chip); padding: .6rem .8rem; font-size: .82rem;
+  border: 1px solid var(--rule); }
+pre code { background: none; padding: 0; color: var(--ink); }
 .record h1 { font-size: 1.25rem; }
 .record ul { padding-left: 1.2rem; }
 .record li { margin: .15rem 0; }
