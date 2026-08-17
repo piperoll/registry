@@ -461,6 +461,8 @@ def build():
 
     body = f"""
 <p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2</p>
+<p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
+no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before
 publication; corrections are recorded in the record itself. Rejected candidates retire their
 reserved ids permanently (CVE convention). Id numbering: the initial import (0001-0045,
