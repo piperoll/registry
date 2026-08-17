@@ -24,6 +24,9 @@ Records cite rules by number; rules are amended by PR and never renumbered.
 - Ids are permanent opaque names. The initial import (PIR-2026-0001..0045) was numbered by
   occurrence date as a one-time property; later ids are assigned at registration.
 - Near-misses are records too - full exposure with zero realized loss is actuarially precious.
+- Sources are archived to the Internet Archive's Wayback Machine at registration
+  (`tools/archive.py`, run by CI on merge; backfill by dispatch). The Archive's own
+  timestamps are the independent witness of what a source said when it was cited.
 
 ## Completeness disclosure
 
@@ -45,6 +48,7 @@ institution's roadmap, not a property of this dataset.
 - `incident-schema-v0.md` - the schema, including its amendment history (v0.1, v0.2)
 - `tools/build.py` - static site generator: `python3 tools/build.py` regenerates `docs/`
 - `tools/linkcheck.py` - fetch-grade liveness check for every source URL
+- `tools/archive.py` - submit every source URL to the Wayback Machine (Save Page Now)
 - the site is a build product, not a committed copy: `python3 tools/build.py`
   renders `incidents/*.md` into `docs/` locally (gitignored); CI builds and
   deploys it to Pages on every merge, exports included
