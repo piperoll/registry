@@ -3,6 +3,8 @@
   "upload_type": "dataset",
   "description": "Verified public records of AI-agent failures: what the agent controlled, what went wrong, what it cost, and what the evidence is. Each release archives the full registry: incident records, schema, index, and machine-readable exports (registry.json, registry.csv). Records are individually verified against primary sources before registration; ids are permanent and never reused; corrections are published in the record. Records and data: CC BY 4.0. Tooling: MIT. Live registry: https://piperoll.org",
   "creators": [{"name": "Gumdelli, Srinivas"}],
+  "version": "v2026.08.17",
+  "publication_date": "2026-08-17",
   "license": "cc-by-4.0",
   "keywords": ["AI agents", "incident database", "AI safety", "agent economy",
                "failure analysis", "prompt injection", "AI incidents"],

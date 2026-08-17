@@ -2,6 +2,8 @@ cff-version: 1.2.0
 message: "If you use PipeRoll data, cite the registry and the specific PIR id(s)."
 title: "PipeRoll - Agent Incident Registry"
 type: dataset
+version: v2026.08.17
+date-released: "2026-08-17"
 authors:
   - family-names: Gumdelli
     given-names: Srinivas
