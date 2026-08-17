@@ -614,7 +614,7 @@ deployment writes a signature over a manifest of every record's bytes to the
 <a href="https://docs.sigstore.dev/logging/overview/">Sigstore Rekor</a> public
 append-only transparency log - an external witness this registry cannot rewrite.
 The manifest, signature bundle, and Rekor pointer ship with the site at
-<a href="../witness/checksums.txt">/witness/</a>. Verify any deployment:</p>
+<a href="../witness/">/witness/</a>. Verify any deployment:</p>
 <pre><code>cosign verify-blob \
   --bundle checksums.bundle.json \
   --certificate-identity-regexp 'github.com/piperoll/registry' \
