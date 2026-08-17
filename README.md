@@ -1,6 +1,6 @@
 # PipeRoll - Agent Incident Registry
 
-[![DOI](https://zenodo.org/badge/1336197642.svg)](https://zenodo.org/badge/latestdoi/1336197642)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21968992.svg)](https://doi.org/10.5281/zenodo.21968992)
 
 Verified public records of AI-agent failures: what the agent controlled, what went wrong,
 what it cost, and what the evidence is. Named for the Pipe Rolls - the English Exchequer's
