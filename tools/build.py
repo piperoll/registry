@@ -31,9 +31,13 @@ body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
   background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
 h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
 h2 { font-size: 1.15rem; margin-top: 2rem; }
-.masthead { border-bottom: 1px solid var(--rule); padding-bottom: .75rem; margin-bottom: 1.25rem; }
+/* identity: the masthead closes with the accountant's double rule - thick ink, thin key */
+.masthead { border-bottom: 2.5px solid var(--ink); padding-bottom: .75rem; margin-bottom: 0; }
+.mastrule { border-top: 1.2px solid var(--key); margin: 3px 0 1.25rem; }
 .masthead .org { font-size: .9rem; color: var(--dim); }
 .masthead .org a { color: inherit; }
+/* identity: the seal marks registration, once per record page */
+.record-seal { float: right; width: 62px; height: 62px; margin: -.4rem 0 .4rem 1rem; }
 table { border-collapse: collapse; width: 100%; font-size: .85rem; }
 .tablewrap { overflow-x: auto; }
 th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(--rule);
@@ -103,6 +107,8 @@ PAGE = """<!doctype html>
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="https://piperoll.org/og.png">
 <meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
 {head_extra}<style>{css}</style>
 </head><body>
@@ -115,6 +121,7 @@ PAGE = """<!doctype html>
   <h1>{h1}</h1>
   <div class="meta">{sub}</div>
 </div>
+<div class="mastrule"></div>
 {body}
 <div class="footer">
 <p>PipeRoll Agent Incident Registry - records are verified individually; retired ids are
@@ -318,7 +325,9 @@ def build():
                            h1=htmlmod.escape(cut(r.get("title", ""), 90)),
                            footer_extra="", desc=a["desc"], canonical=a["canonical"],
                            ogtype=a["ogtype"], head_extra=a["head_extra"],
-                           sub=a["sub_id"],
+                           sub=('<img class="record-seal" src="/seal.svg" '
+                                'alt="PipeRoll seal - registered record">'
+                                + a["sub_id"]),
                            body=a["body_main"] + relhtml + nav)
         os.makedirs(os.path.join(OUT, "pir", r["_slug"]), exist_ok=True)
         with open(os.path.join(OUT, "pir", r["_slug"], "index.html"), "w", encoding="utf-8") as fh:
@@ -541,9 +550,14 @@ unknown.</div>
                  '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
                  + "".join(_url_xml(u, m) for u, m in entries) + "</urlset>\n")
 
-    # og image: committed static asset copied verbatim (never generated at build -
-    # PNG encoding varies across library versions and would trip the freshness gate)
-    shutil.copyfile(os.path.join(ROOT, "static", "og.png"), os.path.join(OUT, "og.png"))
+    # identity assets: committed static files copied verbatim (never generated at
+    # build - PNG encoding varies across library versions and would trip the
+    # freshness gate). avatar-512.png stays out: it is the GitHub org avatar
+    # source, not a site asset.
+    for asset in ("og.png", "seal.svg", "favicon.svg",
+                  "favicon-16.png", "favicon-32.png", "wordmark.svg"):
+        shutil.copyfile(os.path.join(ROOT, "static", asset),
+                        os.path.join(OUT, asset))
 
     # Atom feed: newest registrations first (id order = registration order)
     recent = sorted(records, key=lambda x: x["id"], reverse=True)[:20]
