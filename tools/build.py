@@ -624,6 +624,19 @@ The manifest, signature bundle, and Rekor pointer ship with the site at
 manifest that came before it. Between the git history, the CERN snapshots, the
 Rekor entries, and every clone anyone has ever pulled, the registry's past is
 distributed beyond its own custody - the Chancellor's Roll, updated.</p>
+<h3>Verifying a source</h3>
+<p>A live source link tells you a page still resolves; it does not tell you what the page
+said when the record cited it. So every record's sources are submitted to the Internet
+Archive's <a href="https://web.archive.org/">Wayback Machine</a> at registration - a neutral
+third party that fetches and timestamps the page itself. To read the archived copy of any
+source, ask the Archive for its closest snapshot:</p>
+<pre><code>https://archive.org/wayback/available?url=THE-SOURCE-URL</code></pre>
+<p>The JSON reply gives a timestamped snapshot URL of the form
+<code>https://web.archive.org/web/YYYYMMDDhhmmss/THE-SOURCE-URL</code>; shortening or dropping
+the timestamp resolves to the nearest or latest capture. The Archive's own timestamp is the
+witness of what the source served - no lookup table from PipeRoll is needed or kept. (A few
+hosts block automated archiving; where a source cannot be captured, the record says so and
+cites a reachable copy.)</p>
 <h3>Maintainer</h3>
 <p><a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - founding editor.
 Registration authority currently rests with the editor; conflicts of interest are disclosed
