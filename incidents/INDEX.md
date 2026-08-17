@@ -57,14 +57,16 @@ the mapping is preserved in git history.
 | PIR-2026-0043 | Lobstar Wilde trading agent sends ~5% of its token supply to a strange | 2026-02-22 | plain-error | agent-reasoning | loss | in-wild-malfunction | 250,000-442,000 notional |
 | PIR-2026-0044 | Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT p | 2026-05 | prompt-injection | harness | loss | in-wild-exploited | gross ~150,000-200,000 ( |
 | PIR-2026-0045 | Autonomous agent leaks its own API key to public GitHub via blanket gi | 2026-08-15 | credential-exposure | harness | near-miss | in-wild-malfunction | 0 (key disabled before a |
+| PIR-2026-0046 | YouTube's automated low-quality/AI-content detection system misclassif | 2026-08 | plain-error | model-provider | loss | in-wild-malfunction | unknown (flagship upload |
+| PIR-2026-0047 | During a UK AI Security Institute cyber evaluation run with safeguards | 2026-07-25 to 2026-07-28 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 confirmed (attempted i |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 45
-- Root cause: plain-error 10, prompt-injection 10, model-update-regression 6, policy-violation 4, credential-exposure 4, supply-chain-compromise 4, operator-error 3, memory-poisoning 2, adversarial-other 1, tool-error 1
-- Severity: loss 19, near-miss 13, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 23, researcher-demonstrated 10, in-wild-exploited 10, bounty-game 1, in-wild-payload-failed 1
-- Failure locus: agent-reasoning 14, harness 10, dependency 6, operator-config 5, model-provider 5, tool-mcp 4, unknown 1
+- Records: 47
+- Root cause: plain-error 11, prompt-injection 10, model-update-regression 6, policy-violation 5, credential-exposure 4, supply-chain-compromise 4, operator-error 3, memory-poisoning 2, adversarial-other 1, tool-error 1
+- Severity: loss 20, near-miss 14, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 24, researcher-demonstrated 10, in-wild-exploited 10, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 15, harness 10, dependency 6, model-provider 6, operator-config 5, tool-mcp 4, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
