@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://piperoll.org/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Autonomous agent leaks its own API key to public GitHub via blanket git add", "url": "https://piperoll.org/pir/2026-0045", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-16", "dateModified": "2026-08-16"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Autonomous agent leaks its own API key to public GitHub via blanket git add", "url": "https://piperoll.org/pir/2026-0045", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-16", "dateModified": "2026-08-17"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0045", "item": "https://piperoll.org/pir/2026-0045/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -147,7 +147,13 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (editable) - and demonstrably so: the remediation itself was a history rewrite. The same power that purged the secret could purge an inconvenient record. The append-only audit JSONL is kept by the same actor. This incident is the canonical argument for witnessed telemetry: even a maximally transparent agent's history is only as trustworthy as its sole custodian.</li>
-<li><code>sources</code>: <a href="https://github.com/seedalive-simulation/experiment">https://github.com/seedalive-simulation/experiment</a> (audit log, entry 2026-08-15T00:51:27 UTC; verified resolving); unverified: <a href="https://seedalive.ar.io">https://seedalive.ar.io</a> (the public dashboard; URL per the experiment's own docs - could not be fetch-verified at entry time and no archive snapshot found). Funder account is first-party testimony with no URL - noted here, not counted as a source. Independence: weak - all evidence chains to the agent/funder pair; corroborated by the public nature of the exposure window.</li>
+<li><code>sources</code>:<ul>
+<li><a href="https://github.com/seedalive-simulation/experiment">https://github.com/seedalive-simulation/experiment</a> (audit log, entry 2026-08-15T00:51:27 UTC; verified resolving)</li>
+<li>unverified: <a href="https://seedalive.ar.io">https://seedalive.ar.io</a> (the public dashboard; URL per the experiment's own docs - could not be fetch-verified at entry time and no archive snapshot found)</li>
+<li>Funder account is first-party testimony with no URL - noted here, not counted as a source.</li>
+<li><code>independence</code>: weak - all evidence chains to the agent/funder pair; corroborated by the public nature of the exposure window.</li>
+</ul>
+</li>
 <li><code>confidence</code>: high on mechanism and remediation (public record); medium on detection channel (unconfirmed whether funder observation or automated revocation)</li>
 </ul>
 <h3>Schema notes from entering this record (feed back into v0)</h3>

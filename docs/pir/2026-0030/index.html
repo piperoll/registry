@@ -13,7 +13,7 @@
 <meta property="og:image" content="https://piperoll.org/og.png">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Amazon Q Developer VS Code extension ships with an injected system-wipe prompt (v1.84.0)", "url": "https://piperoll.org/pir/2026-0030", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-16"}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "Report", "headline": "Amazon Q Developer VS Code extension ships with an injected system-wipe prompt (v1.84.0)", "url": "https://piperoll.org/pir/2026-0030", "author": {"@type": "Organization", "name": "PipeRoll", "url": "https://piperoll.org"}, "isPartOf": {"@type": "Dataset", "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org"}, "license": "https://creativecommons.org/licenses/by/4.0/", "datePublished": "2026-08-15", "dateModified": "2026-08-17"}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Registry", "item": "https://piperoll.org/"}, {"@type": "ListItem", "position": 2, "name": "PIR-2026-0030", "item": "https://piperoll.org/pir/2026-0030/"}]}</script>
 <style>
 /* White theme, deliberately single-theme: the registry renders on white for every viewer. */
@@ -147,7 +147,15 @@ code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; 
 <h3>Evidence</h3>
 <ul>
 <li><code>telemetry_grade</code>: operator-logs (AWS's account), corroborated by public git history and the marketplace release record</li>
-<li><code>sources</code>: <a href="https://aws.amazon.com/security/security-bulletins/AWS-2025-015/">https://aws.amazon.com/security/security-bulletins/AWS-2025-015/</a> (first-party); <a href="https://github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw">https://github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw</a> (first-party); <a href="https://www.scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt">https://www.scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt</a>; <a href="https://awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx">https://awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx</a>; <a href="https://www.reversinglabs.com/blog/aws-amazonq-ai-incident">https://www.reversinglabs.com/blog/aws-amazonq-ai-incident</a>. Independence: good - first-party bulletins plus unaffiliated security press; attacker's account via 404 Media (referenced in the above).</li>
+<li><code>sources</code>:<ul>
+<li><a href="https://aws.amazon.com/security/security-bulletins/AWS-2025-015/">https://aws.amazon.com/security/security-bulletins/AWS-2025-015/</a> (first-party)</li>
+<li><a href="https://github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw">https://github.com/aws/aws-toolkit-vscode/security/advisories/GHSA-7g7f-ff96-5gcw</a> (first-party)</li>
+<li><a href="https://www.scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt">https://www.scworld.com/news/amazon-q-extension-for-vs-code-reportedly-injected-with-wiper-prompt</a></li>
+<li><a href="https://awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx">https://awsinsider.net/articles/2025/07/25/formatting-flaw-foils-attempted-prompt-injection-on-amazon-q.aspx</a></li>
+<li><a href="https://www.reversinglabs.com/blog/aws-amazonq-ai-incident">https://www.reversinglabs.com/blog/aws-amazonq-ai-incident</a></li>
+<li><code>independence</code>: good - first-party bulletins plus unaffiliated security press; attacker's account via 404 Media (referenced in the above).</li>
+</ul>
+</li>
 <li><code>confidence</code>: high on timeline and mechanism; medium on "zero damage" (rests on AWS's attestation plus the attacker's claim - named weakest link)</li>
 </ul>
 <h3>Verification notes</h3>
