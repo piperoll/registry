@@ -4,6 +4,20 @@ PipeRoll is open data with verified registration: anyone can submit, only verifi
 records enter, and merge authority stays with the editors. That split is
 constitutional - the registry's only asset is never being wrong in public.
 
+## Submitting without code
+
+Not a developer, or no time for the PR flow? Use the
+[incident report form](https://github.com/piperoll/registry/issues/new?template=incident-report.yml) -
+a structured GitHub issue. Editors (and, in time, a triage agent) turn qualifying
+reports into records through the same verification gates; you are credited as the
+reporting party via the issue. Reports need public, checkable sources; conflicts
+must be disclosed and do not disqualify you - hiding them does.
+
+Reading a postmortem or news story you want to flag? This bookmarklet opens the
+form prefilled with the page you are on - drag it to your bookmarks bar:
+
+    javascript:(()=>{window.open('https://github.com/piperoll/registry/issues/new?template=incident-report.yml&title='+encodeURIComponent('[incident] '+document.title)+'&sources='+encodeURIComponent(location.href))})()
+
 ## Submitting an incident
 
 1. Copy `incidents/TEMPLATE.md` to `incidents/PIR-YYYY-NNNN.md` using the next free

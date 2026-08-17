@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How submissions work
+    url: https://piperoll.org/contribute/
+    about: The full contribution guide - verification, PR path for developers, correction policy.

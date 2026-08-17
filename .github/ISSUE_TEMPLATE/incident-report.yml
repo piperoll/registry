@@ -1,0 +1,70 @@
+name: Report an AI-agent incident
+description: No-code submission path. Your report becomes an issue; verification and registration follow the same gates as any PR.
+title: "[incident] "
+labels: ["incident-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Before you start: PipeRoll registers only **publicly verifiable** incidents.
+        Every claim will be checked against your sources, adversarially, before anything is
+        published (constitution rule 1). "Unknown" is an honest answer for any field - an
+        invented detail is grounds for rejection.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: The causal chain in plain words - what the system was, what it did, what resulted.
+      placeholder: "A customer-support agent operated by X was asked to... it then..."
+    validations:
+      required: true
+  - type: input
+    id: date-occurred
+    attributes:
+      label: When did it happen
+      description: Date or best approximation (YYYY-MM-DD, YYYY-MM, or YYYY).
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources (one URL per line)
+      description: Public, checkable links - news coverage, postmortems, court filings, on-chain transactions. Reports without checkable sources cannot be registered.
+    validations:
+      required: true
+  - type: textarea
+    id: authority
+    attributes:
+      label: What could the system touch
+      description: Funds (how much), credentials, code execution, communications, data - whatever it had authority over.
+  - type: input
+    id: loss
+    attributes:
+      label: Realized loss, if known
+      description: USD, with basis if you have one. "0 (near-miss)" and "unknown" are both honest answers.
+  - type: dropdown
+    id: relationship
+    attributes:
+      label: Your relationship to this incident
+      description: Conflicts do not disqualify a report - undisclosed conflicts do (constitution rule 4).
+      options:
+        - No connection - I read about it
+        - Affected party
+        - Operator or vendor of the system involved
+        - Competitor of a party involved
+        - Other connection (describe below)
+    validations:
+      required: true
+  - type: textarea
+    id: conflict-details
+    attributes:
+      label: Connection details (if any)
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Understanding
+      options:
+        - label: My sources are public and checkable, and I have not invented any detail.
+          required: true
+        - label: I understand this contribution is licensed CC BY 4.0 and may be edited, corrected, or rejected during verification.
+          required: true
