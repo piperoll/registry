@@ -1,0 +1,37 @@
+name: pages
+# Builds the site from incidents/*.md and deploys it as a Pages artifact.
+# docs/ is no longer committed - the markdown records are the only copy;
+# HTML is a build product. Full history checkout so registered-by and
+# last-modified provenance derive correctly.
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Build site from records
+        run: |
+          pip install --quiet markdown
+          python3 tools/build.py
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: docs }
+      - id: deploy
+        uses: actions/deploy-pages@v4
