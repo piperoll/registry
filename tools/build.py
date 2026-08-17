@@ -43,6 +43,9 @@ td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, mono
 .ord { color: var(--dim); font-size: .8em; text-align: right; }
 a { color: var(--link); }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
+pre { overflow-x: auto; background: var(--chip); padding: .6rem .8rem; font-size: .82rem;
+  border: 1px solid var(--rule); }
+pre code { background: none; padding: 0; color: var(--ink); }
 .record h1 { font-size: 1.25rem; }
 .record ul { padding-left: 1.2rem; }
 .record li { margin: .15rem 0; }
@@ -461,6 +464,8 @@ def build():
 
     body = f"""
 <p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2</p>
+<p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
+no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before
 publication; corrections are recorded in the record itself. Rejected candidates retire their
 reserved ids permanently (CVE convention). Id numbering: the initial import (0001-0045,
