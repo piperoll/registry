@@ -44,8 +44,9 @@ institution's roadmap, not a property of this dataset.
 - `incident-schema-v0.md` - the schema, including its amendment history (v0.1, v0.2)
 - `tools/build.py` - static site generator: `python3 tools/build.py` regenerates `docs/`
 - `tools/linkcheck.py` - fetch-grade liveness check for every source URL
-- `docs/` - the built site (GitHub Pages serves this directory), including
-  `registry.json` and `registry.csv` machine-readable exports
+- the site is a build product, not a committed copy: `python3 tools/build.py`
+  renders `incidents/*.md` into `docs/` locally (gitignored); CI builds and
+  deploys it to Pages on every merge, exports included
 
 ## Maintainer
 
