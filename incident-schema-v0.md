@@ -80,6 +80,35 @@ Closed enums. The primary value of each field below MUST be exactly one token fr
 
 Source format rule: every entry in `sources` is a full clickable URL (https://...), one per line or semicolon-separated, each verified to resolve at entry time. Dead links are replaced or paired with a web.archive.org snapshot. Publication-name-only citations are not sources.
 
+## v0.3 amendments (Aug 17 2026 - external cross-references)
+
+- **`aiid_incident_id`** (new field, optional, in the Evidence block): the numeric id
+  of the corresponding incident in the AI Incident Database (AIID), if one exists -
+  e.g. `1234`, which resolves to `https://incidentdatabase.ai/cite/1234`. One id per
+  record; if AIID catalogs the same event across multiple incident ids, name the
+  closest and note the others in prose. Omit the field entirely when there is no
+  AIID entry (most records); an empty or "none" value is not required.
+
+  Semantics - a cross-reference, NOT a verification substitute. `aiid_incident_id`
+  records that AIID also catalogs this event and gives readers the crosswalk. It does
+  NOT mean the record was verified via AIID: PipeRoll records are always verified
+  against primary sources independently, per constitution rule 1, whether or not AIID
+  also lists the incident. AIID may be the *discovery signal* that surfaced a
+  candidate; it is never the *evidence*. The record's `sources` still carry the
+  primaries actually opened.
+
+  Attribution - AIID data is CC BY 4.0. Referencing an AIID incident id is citation,
+  not content reuse, and needs only the id/link. If a record ever reuses AIID's own
+  editorial text or structured metadata (not merely its id), that reuse must credit
+  "AI Incident Database (incidentdatabase.ai), CC BY 4.0" in the record. Reusing
+  AIID's *linked source articles* is governed by those articles' own publishers, not
+  by AIID's licence - so verify and cite the primary, do not lift AIID's copy of it.
+
+  Direction of the relationship (doctrine): PipeRoll is the NVD to AIID's CVE - AIID
+  is the broad discovery feed, PipeRoll adds the agent-specific underwriting layer
+  (authority, loss, controls, provenance) it does not carry. The cross-reference makes
+  that layering explicit and machine-followable in both directions.
+
 ## Open questions (running list, updated per incident entered)
 - Does `root_cause` need a separate axis for "where in the loop" (perception / memory / planning / action)? (partially answered by failure_locus - keep watching)
 - How to weight anonymous/operator-only accounts vs independently corroborated records in aggregate statistics?

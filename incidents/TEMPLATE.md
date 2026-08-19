@@ -53,4 +53,5 @@
   - https://second-url (annotation)
   - unverified: https://url-that-could-not-be-fetch-verified (reason kept)
   - `independence`: how independent the sources are of each other and of the operator (always the final sub-bullet)
+- `aiid_incident_id`: AIID incident id if the event is also catalogued there (e.g. 1234 -> https://incidentdatabase.ai/cite/1234); omit if none. A cross-reference, not a verification substitute - still verify primaries yourself. (schema v0.3)
 - `confidence`: low | medium | high, with the weakest link named

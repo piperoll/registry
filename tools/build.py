@@ -144,7 +144,7 @@ def parse_record(path):
         rec["id"], rec["title"] = m.group(1), m.group(2).strip()
     for field in ["date_occurred", "date_disclosed", "root_cause", "failure_locus", "severity",
                   "exploitation_status", "direct_loss_usd", "status", "confidence",
-                  "telemetry_grade", "operator_type", "blast_radius"]:
+                  "telemetry_grade", "operator_type", "blast_radius", "aiid_incident_id"]:
         fm = re.search(r"`" + field + r"`:\s*(.+)", txt)
         if fm:
             rec[field] = fm.group(1).strip()
