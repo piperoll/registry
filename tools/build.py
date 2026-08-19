@@ -655,6 +655,19 @@ cites a reachable copy.)</p>
 <p><a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - founding editor.
 Registration authority currently rests with the editor; conflicts of interest are disclosed
 inside the affected records. Each record states who registered it.</p>
+<h3>External data and attribution</h3>
+<p>Where a PipeRoll record's event is also catalogued by the
+<a href="https://incidentdatabase.ai/">AI Incident Database</a> (AIID), the record
+carries an <code>aiid_incident_id</code> cross-reference. These were matched against
+AIID's weekly database export dated 2026-08-17. The AIID is a project of the
+Responsible AI Collaborative and is licensed CC BY 4.0; we gratefully credit it, and
+cite it as a whole via McGregor, S. (2021), <em>Preventing Repeated Real World AI
+Failures by Cataloging Incidents: The AI Incident Database</em> (IAAI-21).</p>
+<p>The cross-reference is a pointer, not a source: PipeRoll verifies each record against
+its own primary sources, and AIID is never the evidence for a claim. Each AIID incident
+carries its own suggested citation - crediting that incident's submitters and editors,
+with an access date - on its <code>incidentdatabase.ai/cite/&lt;id&gt;</code> page; cite
+AIID there when citing AIID itself.</p>
 <h3>Licensing</h3>
 <p>Records and data: CC BY 4.0 (cite PipeRoll and the PIR id). Tooling: MIT.</p>
 </div>"""
