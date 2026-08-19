@@ -677,12 +677,19 @@ the PipeRoll record cross-references AIID (an <code>aiid_incident_id</code> and 
 &ldquo;see also&rdquo; link) and verifies its own primary sources; AIID is a sibling
 catalog, never PipeRoll's evidence.</p>
 <p>Cross-references were matched against AIID's weekly database export dated 2026-08-17.
-AIID is a project of the Responsible AI Collaborative, licensed CC BY 4.0; we gratefully
-credit it and cite it as a whole via McGregor, S. (2021), <em>Preventing Repeated Real
-World AI Failures by Cataloging Incidents: The AI Incident Database</em> (IAAI-21). Each
-AIID incident carries its own suggested citation - crediting that incident's submitters
-and editors, with an access date - on its <code>incidentdatabase.ai/cite/&lt;id&gt;</code>
-page; cite AIID there when citing AIID itself.</p>
+AIID's incident data is a project of the Responsible AI Collaborative, licensed
+CC BY-SA (Creative Commons Attribution-ShareAlike); we gratefully credit it and cite it
+as a whole via McGregor, S. (2021), <em>Preventing Repeated Real World AI Failures by
+Cataloging Incidents: The AI Incident Database</em> (IAAI-21). Each AIID incident carries
+its own suggested citation - crediting that incident's submitters and editors, with an
+access date - on its <code>incidentdatabase.ai/cite/&lt;id&gt;</code> page; cite AIID
+there when citing AIID itself.</p>
+<p>On share-alike: a PipeRoll record cross-references AIID by incident id and is written
+from its own verified primary sources - it does not incorporate AIID's incident text,
+descriptions, or classifications - so we take the view that the share-alike term is not
+triggered and PipeRoll's records remain CC BY 4.0. Any artifact derived directly from
+AIID's licensed data (for example, a standalone PIR-to-AIID crosswalk we might publish)
+would carry AIID's CC BY-SA terms. We welcome RAIC's guidance on this.</p>
 <h3>Licensing</h3>
 <p>Records and data: CC BY 4.0 (cite PipeRoll and the PIR id). Tooling: MIT.</p>
 </div>"""

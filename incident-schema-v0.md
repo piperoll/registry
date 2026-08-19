@@ -97,12 +97,16 @@ Source format rule: every entry in `sources` is a full clickable URL (https://..
   candidate; it is never the *evidence*. The record's `sources` still carry the
   primaries actually opened.
 
-  Attribution - AIID data is CC BY 4.0. Referencing an AIID incident id is citation,
-  not content reuse, and needs only the id/link. If a record ever reuses AIID's own
-  editorial text or structured metadata (not merely its id), that reuse must credit
-  "AI Incident Database (incidentdatabase.ai), CC BY 4.0" in the record. Reusing
-  AIID's *linked source articles* is governed by those articles' own publishers, not
-  by AIID's licence - so verify and cite the primary, do not lift AIID's copy of it.
+  Attribution - AIID's incident data is licensed CC BY-SA (Creative Commons
+  Attribution-ShareAlike), per RAIC's terms of use. Referencing an AIID incident id is
+  citation, not content reuse, and needs only the id/link - so a bare cross-reference
+  does not trigger share-alike and records stay CC BY 4.0. But because CC BY-SA is
+  copyleft, records MUST NOT incorporate AIID's editorial text, descriptions, or
+  taxonomy classifications - reusing that expressive content would pull the share-alike
+  obligation onto the reusing work. Verify and write from primary sources; the AIID id
+  is a pointer, never a content source. AIID's *linked source articles* are governed by
+  those articles' own publishers, not by AIID's licence, and AIID explicitly excludes
+  the report "text" field from its data licence - so never lift AIID's copy of a source.
 
   Direction of the relationship (doctrine): PipeRoll is the NVD to AIID's CVE - AIID
   is the broad discovery feed, PipeRoll adds the agent-specific underwriting layer
