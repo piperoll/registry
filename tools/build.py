@@ -71,6 +71,7 @@ pre code { background: none; padding: 0; color: var(--ink); }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 .recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
   font-size: .9rem; }
+.seealso { margin-top: 2rem; font-size: .85rem; color: var(--dim); }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */
@@ -256,12 +257,23 @@ def build():
                  "item": "https://piperoll.org/"},
                 {"@type": "ListItem", "position": 2, "name": r["id"],
                  "item": permalink + "/"}]})
+        # AIID cross-reference: a quiet reader-facing "see also" in the footer,
+        # not a header callout - PipeRoll cross-references AIID, it is not a view
+        # over it. Attribution + how-to-cite-AIID live once on the About page.
+        aiid_seealso = ""
+        am = re.match(r"\s*(\d+)", r.get("aiid_incident_id", "") or "")
+        if am:
+            aid = am.group(1)
+            aiid_seealso = (
+                '<p class="seealso">See also - this event in the '
+                f'<a href="https://incidentdatabase.ai/cite/{aid}/">AI Incident Database</a>: '
+                f'incident {aid}.</p>')
         r["_page_args"] = dict(
             title=f"{r['id']}: {cut(r.get('title', ''), 55)} - PipeRoll",
             desc=htmlmod.escape(desc), canonical=permalink + "/", ogtype="article",
             head_extra=(f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
                         f'<script type="application/ld+json">{crumbs}</script>\n'),
-            body_main=f'{cite}<div class="record">{linkify(body)}</div>',
+            body_main=f'{cite}<div class="record">{linkify(body)}</div>{aiid_seealso}',
             sub_id=r["id"])
         with open(os.path.join(OUT, "pir", f"{slug}.md"), "w", encoding="utf-8") as fh:
             fh.write(r["markdown"])
