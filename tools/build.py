@@ -71,6 +71,7 @@ pre code { background: none; padding: 0; color: var(--ink); }
 .grouphead { padding-top: .9rem; font-family: Georgia, serif; }
 .recnav { margin-top: 2.5rem; padding-top: .75rem; border-top: 1px solid var(--rule);
   font-size: .9rem; }
+.seealso { margin-top: 2rem; font-size: .85rem; color: var(--dim); }
 .copycite { font: inherit; font-size: .8rem; color: var(--ink); background: var(--paper);
   border: 1px solid var(--rule); padding: .05rem .5rem; margin-left: .5rem; cursor: pointer; }
 /* record page: section heads and field keys scan differently from values */
@@ -148,7 +149,7 @@ def parse_record(path):
         rec["id"], rec["title"] = m.group(1), m.group(2).strip()
     for field in ["date_occurred", "date_disclosed", "root_cause", "failure_locus", "severity",
                   "exploitation_status", "direct_loss_usd", "status", "confidence",
-                  "telemetry_grade", "operator_type", "blast_radius"]:
+                  "telemetry_grade", "operator_type", "blast_radius", "aiid_incident_id"]:
         fm = re.search(r"`" + field + r"`:\s*(.+)", txt)
         if fm:
             rec[field] = fm.group(1).strip()
@@ -236,7 +237,28 @@ def build():
                 "navigator.clipboard.writeText(b.dataset.cite).then(function(){"
                 "b.textContent='copied';setTimeout(function(){b.textContent=l;},1500);});});});</script>")
         # directory-style permalink: /pir/<slug>/ works extensionless on GitHub Pages
-        desc = cut(f"Verified AI-agent incident record ({vintage}): {r.get('title', '')}", 155)
+        # description carries the registry's distinguishing facts (taxonomy + loss),
+        # phrased from the same values the index table already shows publicly
+        def taxo(field):
+            tm = re.match(r"^`?([a-z0-9][a-z0-9-]*)", (r.get(field) or "").strip())
+            return tm.group(1) if tm and tm.group(1) != "unknown" else ""
+        desc = f"Verified AI-agent incident ({vintage}): {cut(r.get('title', ''), 100)}."
+        tags = "; ".join(t for t in (taxo("root_cause"),
+                                     ("severity " + taxo("severity")) if taxo("severity") else "")
+                         if t)
+        if tags:
+            desc += f" {tags[0].upper()}{tags[1:]}."
+        # keep any " - " qualifier (e.g. "judgment ... - not final"): dropping it
+        # would overstate a contested figure; the wider cut keeps it intact
+        lv = (r.get("direct_loss_usd") or "").split("(")[0].strip()
+        if lv.startswith(("0", "~0")):
+            desc += " No confirmed direct loss."
+        elif lv and not lv.startswith("unknown"):
+            desc += f" Direct loss (USD): {cut(lv, 60)}."
+        desc = cut(desc, 240)
+        rec_keywords = [t for t in (taxo("root_cause"), taxo("severity"),
+                                    taxo("exploitation_status"), taxo("failure_locus"))
+                        if t] + ["AI agent incident"]
         mod_date = last_modified(f"incidents/{r['id']}.md")
         r["_mod"] = mod_date
         r["_reg"] = reg_date
@@ -248,7 +270,8 @@ def build():
             "isPartOf": {"@type": "Dataset",
                          "name": "PipeRoll Agent Incident Registry",
                          "url": "https://piperoll.org"},
-            "license": "https://creativecommons.org/licenses/by/4.0/"}
+            "license": "https://creativecommons.org/licenses/by/4.0/",
+            "keywords": rec_keywords}
         if reg_date:
             ld["datePublished"] = reg_date
         if mod_date:
@@ -265,13 +288,24 @@ def build():
             article_meta += f'<meta property="article:published_time" content="{reg_date}">\n'
         if mod_date:
             article_meta += f'<meta property="article:modified_time" content="{mod_date}">\n'
+        # AIID cross-reference: a quiet reader-facing "see also" in the footer,
+        # not a header callout - PipeRoll cross-references AIID, it is not a view
+        # over it. Attribution + how-to-cite-AIID live once on the About page.
+        aiid_seealso = ""
+        am = re.match(r"\s*(\d+)", r.get("aiid_incident_id", "") or "")
+        if am:
+            aid = am.group(1)
+            aiid_seealso = (
+                '<p class="seealso">See also - this event in the '
+                f'<a href="https://incidentdatabase.ai/cite/{aid}/">AI Incident Database</a>: '
+                f'incident {aid}.</p>')
         r["_page_args"] = dict(
             title=f"{r['id']}: {cut(r.get('title', ''), 55)} - PipeRoll",
             desc=htmlmod.escape(desc), canonical=permalink + "/", ogtype="article",
             head_extra=(article_meta
                         + f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
                         f'<script type="application/ld+json">{crumbs}</script>\n'),
-            body_main=f'{cite}<div class="record">{linkify(body)}</div>',
+            body_main=f'{cite}<div class="record">{linkify(body)}</div>{aiid_seealso}',
             sub_id=r["id"])
         with open(os.path.join(OUT, "pir", f"{slug}.md"), "w", encoding="utf-8") as fh:
             fh.write(r["markdown"])
@@ -529,7 +563,11 @@ unknown.</div>
         "isAccessibleForFree": True,
         "keywords": ["AI agent incidents", "AI incident database",
                      "AI agent failures", "AI incident tracker",
-                     "agent risk", "AI safety incidents"],
+                     "agent risk", "AI safety incidents",
+                     "AI agent loss data", "verified AI incidents",
+                     "AI incident financial loss", "AI agent near miss",
+                     "controls that worked", "AI agent liability",
+                     "prompt injection incidents", "AI incident provenance"],
         "sameAs": "https://github.com/piperoll/registry",
         "creator": {"@type": "Organization", "name": "PipeRoll",
                     "url": "https://piperoll.org"},
@@ -688,6 +726,29 @@ cites a reachable copy.)</p>
 <p><a href="https://github.com/srinivasgumdelli">Srinivas Gumdelli</a> - founding editor.
 Registration authority currently rests with the editor; conflicts of interest are disclosed
 inside the affected records. Each record states who registered it.</p>
+<h3>Relationship to the AI Incident Database</h3>
+<p>PipeRoll and the <a href="https://incidentdatabase.ai/">AI Incident Database</a> (AIID)
+are complementary, not competing. AIID is the broad catalog of AI harms across every
+domain; PipeRoll is a deep, individually verified registry of the <em>agent</em> subset,
+adding what an underwriter or auditor needs - what authority the agent held, what it could
+lose, what bounded the loss, and tamper-evident provenance. Where an event appears in both,
+the PipeRoll record cross-references AIID (an <code>aiid_incident_id</code> and a
+&ldquo;see also&rdquo; link) and verifies its own primary sources; AIID is a sibling
+catalog, never PipeRoll's evidence.</p>
+<p>Cross-references were matched against AIID's weekly database export dated 2026-08-17.
+AIID's incident data is a project of the Responsible AI Collaborative, licensed
+CC BY-SA (Creative Commons Attribution-ShareAlike); we gratefully credit it and cite it
+as a whole via McGregor, S. (2021), <em>Preventing Repeated Real World AI Failures by
+Cataloging Incidents: The AI Incident Database</em> (IAAI-21). Each AIID incident carries
+its own suggested citation - crediting that incident's submitters and editors, with an
+access date - on its <code>incidentdatabase.ai/cite/&lt;id&gt;</code> page; cite AIID
+there when citing AIID itself.</p>
+<p>On share-alike: a PipeRoll record cross-references AIID by incident id and is written
+from its own verified primary sources - it does not incorporate AIID's incident text,
+descriptions, or classifications - so we take the view that the share-alike term is not
+triggered and PipeRoll's records remain CC BY 4.0. Any artifact derived directly from
+AIID's licensed data (for example, a standalone PIR-to-AIID crosswalk we might publish)
+would carry AIID's CC BY-SA terms. We welcome RAIC's guidance on this.</p>
 <h3>Licensing</h3>
 <p>Records and data: CC BY 4.0 (cite PipeRoll and the PIR id). Tooling: MIT.</p>
 </div>"""
