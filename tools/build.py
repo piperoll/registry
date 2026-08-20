@@ -106,9 +106,13 @@ PAGE = """<!doctype html>
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{canonical}">
 <meta property="og:image" content="https://piperoll.org/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="PipeRoll - Agent Incident Registry">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
 {head_extra}<style>{css}</style>
 </head><body>
@@ -256,10 +260,16 @@ def build():
                  "item": "https://piperoll.org/"},
                 {"@type": "ListItem", "position": 2, "name": r["id"],
                  "item": permalink + "/"}]})
+        article_meta = ""
+        if reg_date:
+            article_meta += f'<meta property="article:published_time" content="{reg_date}">\n'
+        if mod_date:
+            article_meta += f'<meta property="article:modified_time" content="{mod_date}">\n'
         r["_page_args"] = dict(
             title=f"{r['id']}: {cut(r.get('title', ''), 55)} - PipeRoll",
             desc=htmlmod.escape(desc), canonical=permalink + "/", ogtype="article",
-            head_extra=(f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
+            head_extra=(article_meta
+                        + f'<script type="application/ld+json">{json.dumps(ld)}</script>\n'
                         f'<script type="application/ld+json">{crumbs}</script>\n'),
             body_main=f'{cite}<div class="record">{linkify(body)}</div>',
             sub_id=r["id"])
@@ -509,25 +519,45 @@ unknown.</div>
     index_desc = (f"A verified public registry of {len(records)} AI-agent incidents: what the "
                   "agent controlled, what went wrong, what it cost, and the evidence. "
                   "Open data, CC BY 4.0.")
-    dataset_ld = json.dumps({
+    registry_mod = max((r.get("_mod") or "" for r in records), default="")
+    dataset_ld_obj = {
         "@context": "https://schema.org", "@type": "Dataset",
         "name": "PipeRoll Agent Incident Registry", "url": "https://piperoll.org/",
         "description": index_desc,
         "license": "https://creativecommons.org/licenses/by/4.0/",
         "identifier": "https://doi.org/10.5281/zenodo.21968992",
         "isAccessibleForFree": True,
+        "keywords": ["AI agent incidents", "AI incident database",
+                     "AI agent failures", "AI incident tracker",
+                     "agent risk", "AI safety incidents"],
+        "sameAs": "https://github.com/piperoll/registry",
         "creator": {"@type": "Organization", "name": "PipeRoll",
                     "url": "https://piperoll.org"},
         "distribution": [
             {"@type": "DataDownload", "encodingFormat": "application/json",
              "contentUrl": "https://piperoll.org/registry.json"},
             {"@type": "DataDownload", "encodingFormat": "text/csv",
-             "contentUrl": "https://piperoll.org/registry.csv"}]})
-    page = PAGE.format(title="PipeRoll - Agent Incident Registry", css=CSS,
+             "contentUrl": "https://piperoll.org/registry.csv"}]}
+    if registry_mod:
+        dataset_ld_obj["dateModified"] = registry_mod
+    dataset_ld = json.dumps(dataset_ld_obj)
+    site_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "WebSite",
+        "name": "PipeRoll",
+        "alternateName": "PipeRoll Agent Incident Registry",
+        "url": "https://piperoll.org/"})
+    org_ld = json.dumps({
+        "@context": "https://schema.org", "@type": "Organization",
+        "name": "PipeRoll", "url": "https://piperoll.org/",
+        "logo": "https://piperoll.org/seal.svg",
+        "sameAs": "https://github.com/piperoll"})
+    page = PAGE.format(title="PipeRoll - AI Agent Incident Registry", css=CSS,
                        home="index.html", home_prefix="", footer_extra=maintainer_foot,
                        desc=htmlmod.escape(index_desc), canonical="https://piperoll.org/",
                        ogtype="website",
-                       head_extra=f'<script type="application/ld+json">{dataset_ld}</script>\n',
+                       head_extra=(f'<script type="application/ld+json">{dataset_ld}</script>\n'
+                                   f'<script type="application/ld+json">{site_ld}</script>\n'
+                                   f'<script type="application/ld+json">{org_ld}</script>\n'),
                        h1="Agent Incident Registry",
                        sub="Verified public records of AI-agent failures - schema, statistics, permalinks",
                        body=body)
@@ -540,8 +570,10 @@ unknown.</div>
     open(os.path.join(OUT, ".nojekyll"), "w").close()
     with open(os.path.join(OUT, "robots.txt"), "w") as fh:
         fh.write("User-agent: *\nAllow: /\nSitemap: https://piperoll.org/sitemap.xml\n")
-    entries = [("https://piperoll.org/", max((r.get("_mod") or "" for r in records), default=None))]
+    entries = [("https://piperoll.org/", registry_mod or None)]
     entries += [(f"https://piperoll.org/{r['url']}", r.get("_mod")) for r in records]
+    entries += [(f"https://piperoll.org/{p}/", None)
+                for p in ("about", "contribute", "data", "constitution", "witness")]
     def _url_xml(u, m):
         lm = f"<lastmod>{m}</lastmod>" if m else ""
         return f"<url><loc>{u}</loc>{lm}</url>\n"
@@ -555,7 +587,8 @@ unknown.</div>
     # freshness gate). avatar-512.png stays out: it is the GitHub org avatar
     # source, not a site asset.
     for asset in ("og.png", "seal.svg", "favicon.svg",
-                  "favicon-16.png", "favicon-32.png", "wordmark.svg"):
+                  "favicon-16.png", "favicon-32.png", "wordmark.svg",
+                  "apple-touch-icon.png"):
         shutil.copyfile(os.path.join(ROOT, "static", asset),
                         os.path.join(OUT, asset))
 
