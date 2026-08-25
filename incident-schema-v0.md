@@ -117,3 +117,17 @@ Source format rule: every entry in `sources` is a full clickable URL (https://..
 - Does `root_cause` need a separate axis for "where in the loop" (perception / memory / planning / action)? (partially answered by failure_locus - keep watching)
 - How to weight anonymous/operator-only accounts vs independently corroborated records in aggregate statistics?
 - `exploitation_status` gap flagged by the registry index: 15 of the 31 in-wild records are non-adversarial malfunctions the enum cannot cleanly express (in-wild-exploited implies an attacker). Candidate fix for v0.2: add `in-wild-malfunction`.
+- `failure_locus` may need an **inference-engine / serving-stack** value,
+  distinct from `model-provider` (the model's behavior) and `dependency`
+  (a library the agent calls): the layer that loads weights and parses
+  token streams into chat is itself an attack surface, where a token
+  sequence can be misparsed as code. Not yet earned by a registered
+  record - watching for a real in-wild event. Anchor: CVE-2025-9141
+  (arbitrary code execution in vLLM's Qwen3-Coder tool parser via `eval()`,
+  vulnerable 0.10.0-0.10.1, fixed 0.10.1.1; disclosed, no known in-wild
+  exploitation - a vulnerability, not yet an incident). Threat-model
+  source: boydkane.com essay "LLMs could control their host machines by
+  exploiting inference engines" (Aug 2026) - the model's own OUTPUT tokens
+  as the code-execution vector, a genuinely new agent-relevant class. When
+  a real agent-through-serving-stack compromise is registered, add the
+  value then, per discovered-not-designed.
