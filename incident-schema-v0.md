@@ -124,10 +124,13 @@ Source format rule: every entry in `sources` is a full clickable URL (https://..
   sequence can be misparsed as code. Not yet earned by a registered
   record - watching for a real in-wild event. Anchor: CVE-2025-9141
   (arbitrary code execution in vLLM's Qwen3-Coder tool parser via `eval()`,
-  vulnerable 0.10.0-0.10.1, fixed 0.10.1.1; disclosed, no known in-wild
+  vulnerable >= 0.10.0 and < 0.10.1.1, fixed 0.10.1.1, GHSA-79j6-g2m3-jgfw
+  published 2025-08-21, severity high; disclosed, no known in-wild
   exploitation - a vulnerability, not yet an incident). Threat-model
-  source: boydkane.com essay "LLMs could control their host machines by
-  exploiting inference engines" (Aug 2026) - the model's own OUTPUT tokens
-  as the code-execution vector, a genuinely new agent-relevant class. When
+  source: Boyd Kane, "LLMs could control their host machines by exploiting
+  inference engines" (Aug 2026),
+  https://boydkane.com/essays/llms-could-control-their-host-machines-by-exploiting-inference-engines
+  - the model's own OUTPUT tokens as the code-execution vector, a genuinely
+  new agent-relevant class. When
   a real agent-through-serving-stack compromise is registered, add the
   value then, per discovered-not-designed.
