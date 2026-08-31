@@ -63,14 +63,15 @@ the mapping is preserved in git history.
 | PIR-2026-0049 | Autonomous coding agent deletes a production database and all its back | 2026-04-24 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (data destroyed, |
 | PIR-2026-0050 | OpenAI pre-release models, run with cyber-safety refusals reduced, esc | 2026-07-09 to 2026-07-13 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown (HF creds+datase |
 | PIR-2026-0051 | OpenClaw agent, told to suggest-not-action, lost its safety instructio | 2026-02-23 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (200+ emails) |
+| PIR-2026-0052 | Amazon's own Kiro coding agent deleted and recreated a customer-facing | 2025-12 | operator-error | operator-config | loss | in-wild-malfunction | unknown (13h outage) |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 51
-- Root cause: plain-error 13, prompt-injection 10, model-update-regression 6, policy-violation 7, credential-exposure 4, supply-chain-compromise 4, operator-error 3, memory-poisoning 2, adversarial-other 1, tool-error 1
-- Severity: loss 23, near-miss 15, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 27, researcher-demonstrated 10, in-wild-exploited 11, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 18, harness 11, dependency 6, model-provider 6, operator-config 5, tool-mcp 4, unknown 1
+- Records: 52
+- Root cause: plain-error 13, prompt-injection 10, model-update-regression 6, policy-violation 7, credential-exposure 4, supply-chain-compromise 4, operator-error 4, memory-poisoning 2, adversarial-other 1, tool-error 1
+- Severity: loss 24, near-miss 15, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 28, researcher-demonstrated 10, in-wild-exploited 11, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 18, harness 11, dependency 6, model-provider 6, operator-config 6, tool-mcp 4, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
