@@ -45,6 +45,20 @@ th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(-
 th { font-weight: 700; }
 td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
 .ord { color: var(--dim); font-size: .8em; text-align: right; }
+/* index registry table: break out wider than the prose measure, tune columns,
+   quiet monochrome severity hierarchy. Prose blocks stay at the 56rem body. */
+.breakout { width: min(74rem, 96vw); position: relative; left: 50%;
+  transform: translateX(-50%); }
+#registry { font-size: .9rem; }
+#registry th:nth-child(3), #registry td:nth-child(3) { width: 46%; }
+#registry td:nth-child(1) { width: 2.5rem; }
+#registry th:nth-child(2), #registry td:nth-child(2),
+#registry th:nth-child(4), #registry td:nth-child(4),
+#registry th:nth-child(5), #registry td:nth-child(5),
+#registry th:nth-child(6), #registry td:nth-child(6) { white-space: nowrap; }
+#registry tbody tr:hover td { background: var(--chip); }
+.sev-catastrophic { font-weight: 700; }
+.sev-degraded, .sev-near-miss { color: var(--dim); }
 a { color: var(--link); }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
 pre { overflow-x: auto; background: var(--chip); padding: .6rem .8rem; font-size: .82rem;
@@ -89,8 +103,12 @@ pre code { background: none; padding: 0; color: var(--ink); }
   .controls input { width: 100%; max-width: 100%; }
   .controls label { flex: 1 1 45%; }
   table { font-size: .78rem; }
+  #registry { font-size: .78rem; }
   th, td { padding: .25rem .4rem; }
   .record p, .record li { max-width: 100%; }
+  /* drop the breakout on small screens: the table returns to the body width
+     and the .tablewrap horizontal scroll handles any overflow */
+  .breakout { width: 100%; left: auto; transform: none; }
 }
 """
 
@@ -417,7 +435,7 @@ def build():
 
     def loss_cell(r):
         v = (r.get("direct_loss_usd") or "").strip()
-        return cut(v.split("(")[0].strip() or v, 26)
+        return cut(v.split("(")[0].strip() or v, 40)
 
     display = sorted(records, key=lambda r: (r["sort_date"], r["id"]), reverse=True)
     rows = "\n".join(
@@ -427,10 +445,10 @@ def build():
         f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
         f"<td class='ord'>{i + 1}</td>"
         f"<td><a href='{r['url']}'>{r['id']}</a></td>"
-        f"<td>{htmlmod.escape(cut(r.get('title',''), 90))}</td>"
+        f"<td>{htmlmod.escape(cut(r.get('title',''), 120))}</td>"
         f"<td>{htmlmod.escape(date_cell(r))}</td>"
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
-        f"<td>{htmlmod.escape(r['severity_key'])}</td>"
+        f"<td class='sev sev-{r['severity_key']}'>{htmlmod.escape(r['severity_key'])}</td>"
         f"<td>{htmlmod.escape(loss_cell(r))}</td></tr>"
         for i, r in enumerate(display))
 
@@ -536,6 +554,7 @@ unknown.</div>
 {statline('cause_key', 'Root cause')}
 {statline('severity_key', 'Severity')}
 {statline('status_key', 'Exploitation status')}
+<div class="breakout">
 {controls}
 <div class="tablewrap">
 <table id="registry">
@@ -544,6 +563,7 @@ unknown.</div>
 {rows}
 </tbody>
 </table>
+</div>
 </div>
 {script}
 """
