@@ -28,7 +28,7 @@ CSS = """
 }
 * { box-sizing: border-box; }
 body { font: 17px/1.6 Georgia, 'Times New Roman', serif; color: var(--ink);
-  background: var(--paper); margin: 0 auto; max-width: 56rem; padding: 2rem 1rem 4rem; }
+  background: var(--paper); margin: 0 auto; max-width: 64rem; padding: 2rem 1rem 4rem; }
 h1 { font-size: 1.5rem; margin: 0 0 .3rem; line-height: 1.25; }
 h2 { font-size: 1.15rem; margin-top: 2rem; }
 /* identity: the masthead closes with the accountant's double rule - thick ink, thin key */
@@ -45,10 +45,8 @@ th, td { text-align: left; padding: .3rem .55rem; border-bottom: 1px solid var(-
 th { font-weight: 700; }
 td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .95em; }
 .ord { color: var(--dim); font-size: .8em; text-align: right; }
-/* index registry table: break out wider than the prose measure, tune columns,
-   quiet monochrome severity hierarchy. Prose blocks stay at the 56rem body. */
-.breakout { width: min(74rem, 96vw); position: relative; left: 50%;
-  transform: translateX(-50%); }
+/* index registry table: tune columns and a quiet monochrome severity hierarchy.
+   The whole page shares one width (the 64rem body) - table and prose align. */
 #registry { font-size: .9rem; }
 #registry th:nth-child(3), #registry td:nth-child(3) { width: 46%; }
 #registry td:nth-child(1) { width: 2.5rem; }
@@ -116,16 +114,12 @@ pre code { background: none; padding: 0; color: var(--ink); }
   #registry { font-size: .78rem; }
   th, td { padding: .25rem .4rem; }
   .record p, .record li { max-width: 100%; }
-  /* drop the breakout on small screens: the table returns to the body width
-     and the .tablewrap horizontal scroll handles any overflow */
-  .breakout { width: 100%; left: auto; transform: none; }
 }
 /* print: records are citation documents - drop interactive chrome, let the
    text reflow to the page, keep the ink black on white it already is */
 @media print {
   body { max-width: none; padding: 0; font-size: 11pt; }
   .controls, .copycite, .recnav { display: none; }
-  .breakout { width: 100%; left: auto; transform: none; }
   .tablewrap { overflow-x: visible; }
   a { color: var(--ink); text-decoration: underline; }
   .factbox, pre, tr { break-inside: avoid; }
@@ -615,7 +609,6 @@ unknown.</div>
 {statline('cause_key', 'Root cause')}
 {statline('severity_key', 'Severity')}
 {statline('status_key', 'Exploitation status')}
-<div class="breakout">
 {controls}
 <div class="tablewrap">
 <table id="registry">
@@ -625,7 +618,6 @@ unknown.</div>
 {rows}
 </tbody>
 </table>
-</div>
 </div>
 {script}
 """
