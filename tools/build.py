@@ -59,6 +59,16 @@ td:nth-child(2), .record code { font-family: ui-monospace, Menlo, Consolas, mono
 #registry tbody tr:hover td { background: var(--chip); }
 .sev-catastrophic { font-weight: 700; }
 .sev-degraded, .sev-near-miss { color: var(--dim); }
+#registry td.loss-dim { color: var(--dim); }
+/* record fact box: a uniform at-a-glance spec strip atop every record */
+.factbox { border: 1px solid var(--rule); background: var(--chip);
+  padding: .55rem .8rem; margin: 0 0 1.4rem; font-size: .85rem;
+  display: grid; grid-template-columns: max-content 1fr; gap: .12rem .9rem; }
+.factbox dt { color: var(--dim); font-weight: 400; white-space: nowrap; }
+.factbox dd { margin: 0; overflow-wrap: anywhere; }
+/* visually hidden, still available to screen readers and search */
+.vh { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 a { color: var(--link); }
 code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: .88em; }
 pre { overflow-x: auto; background: var(--chip); padding: .6rem .8rem; font-size: .82rem;
@@ -109,6 +119,17 @@ pre code { background: none; padding: 0; color: var(--ink); }
   /* drop the breakout on small screens: the table returns to the body width
      and the .tablewrap horizontal scroll handles any overflow */
   .breakout { width: 100%; left: auto; transform: none; }
+}
+/* print: records are citation documents - drop interactive chrome, let the
+   text reflow to the page, keep the ink black on white it already is */
+@media print {
+  body { max-width: none; padding: 0; font-size: 11pt; }
+  .controls, .copycite, .recnav { display: none; }
+  .breakout { width: 100%; left: auto; transform: none; }
+  .tablewrap { overflow-x: visible; }
+  a { color: var(--ink); text-decoration: underline; }
+  .factbox, pre, tr { break-inside: avoid; }
+  .record p, .record li { max-width: none; }
 }
 """
 
@@ -360,6 +381,39 @@ def build():
         r["sort_date"] = sd or "0000-00-00"
         r["year_key"] = r["sort_date"][:4] if sd else "n/a"
 
+    # a uniform at-a-glance spec strip atop every record. Values come from the
+    # same parsed fields the record body carries; optional fields are omitted
+    # when a record does not state them (never invented as "unknown").
+    def factbox(r):
+        def short(field, n=44):
+            s = (r.get(field) or "").strip().split("(")[0].strip().strip("`").strip()
+            return htmlmod.escape(cut(s, n))
+        pairs = []
+        if r.get("date_occurred"):
+            pairs.append(("Occurred", short("date_occurred", 30)))
+        if r.get("date_disclosed"):
+            pairs.append(("Disclosed", short("date_disclosed", 30)))
+        if r.get("operator_type"):
+            pairs.append(("Operator", short("operator_type")))
+        if r.get("blast_radius"):
+            pairs.append(("Blast radius", short("blast_radius", 60)))
+        pairs.append(("Root cause", htmlmod.escape(r["cause_key"])))
+        pairs.append(("Failure locus", htmlmod.escape(r["locus_key"])))
+        pairs.append(("Severity",
+                      f'<span class="sev sev-{r["severity_key"]}">'
+                      f'{htmlmod.escape(r["severity_key"])}</span>'))
+        pairs.append(("Exploitation", htmlmod.escape(r["status_key"])))
+        if r.get("direct_loss_usd"):
+            pairs.append(("Direct loss (USD)", short("direct_loss_usd", 60)))
+        if r.get("telemetry_grade"):
+            pairs.append(("Telemetry", short("telemetry_grade")))
+        if r.get("confidence"):
+            pairs.append(("Confidence", short("confidence")))
+        if r.get("status"):
+            pairs.append(("Status", short("status")))
+        items = "".join(f"<dt>{k}</dt><dd>{v}</dd>" for k, v in pairs)
+        return f'<dl class="factbox">{items}</dl>'
+
     # write record pages with chronological neighbors and related-by-cause links
     chron = sorted(records, key=lambda x: (x["sort_date"], x["id"]))
     for i, r in enumerate(chron):
@@ -390,7 +444,7 @@ def build():
                            sub=('<img class="record-seal" src="/seal.svg" '
                                 'alt="PipeRoll seal - registered record">'
                                 + a["sub_id"]),
-                           body=a["body_main"] + relhtml + nav)
+                           body=factbox(r) + a["body_main"] + relhtml + nav)
         os.makedirs(os.path.join(OUT, "pir", r["_slug"]), exist_ok=True)
         with open(os.path.join(OUT, "pir", r["_slug"], "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page)
@@ -437,6 +491,11 @@ def build():
         v = (r.get("direct_loss_usd") or "").strip()
         return cut(v.split("(")[0].strip() or v, 40)
 
+    def loss_class(r):
+        # dim the non-informative "unknown" values so real dollar figures stand out
+        v = (r.get("direct_loss_usd") or "").strip().lower()
+        return " loss-dim" if (not v or v.startswith("unknown")) else ""
+
     display = sorted(records, key=lambda r: (r["sort_date"], r["id"]), reverse=True)
     rows = "\n".join(
         f"<tr data-cause_key='{r['cause_key']}' data-severity_key='{r['severity_key']}'"
@@ -449,7 +508,7 @@ def build():
         f"<td>{htmlmod.escape(date_cell(r))}</td>"
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
         f"<td class='sev sev-{r['severity_key']}'>{htmlmod.escape(r['severity_key'])}</td>"
-        f"<td>{htmlmod.escape(loss_cell(r))}</td></tr>"
+        f"<td class='loss{loss_class(r)}'>{htmlmod.escape(loss_cell(r))}</td></tr>"
         for i, r in enumerate(display))
 
     controls = f"""
@@ -467,7 +526,7 @@ def build():
     <option value="severity_key">severity</option><option value="year_key">year</option>
     <option value="status_key">exploitation</option></select></label>
   <button id="reset" type="button">reset</button>
-  <span class="meta" id="shown"></span>
+  <span class="meta" id="shown" aria-live="polite"></span>
 </div>"""
 
     script = """
@@ -533,8 +592,10 @@ def build():
         parts = " &middot; ".join(f"{k} {n}" for k, n in count(key)[:6])
         return f"<p class='meta'><strong>{label}:</strong> {parts}</p>"
 
+    registry_mod = max((r.get("_mod") or "" for r in records), default="")
+    updated_bit = f" &middot; updated {registry_mod}" if registry_mod else ""
     body = f"""
-<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2</p>
+<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2{updated_bit}</p>
 <p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
 no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before
@@ -558,7 +619,8 @@ unknown.</div>
 {controls}
 <div class="tablewrap">
 <table id="registry">
-<thead><tr><th>#</th><th>id</th><th>title</th><th>occurred</th><th>root cause</th><th>severity</th><th>direct loss (USD)</th></tr></thead>
+<caption class="vh">PipeRoll agent incident records: id, title, date occurred, root cause, severity, and direct loss.</caption>
+<thead><tr><th scope="col">#</th><th scope="col">id</th><th scope="col">title</th><th scope="col">occurred</th><th scope="col">root cause</th><th scope="col">severity</th><th scope="col">direct loss (USD)</th></tr></thead>
 <tbody>
 {rows}
 </tbody>
