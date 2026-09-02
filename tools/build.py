@@ -155,6 +155,7 @@ PAGE = """<!doctype html>
     <a href="{home_prefix}about/">about</a> &middot;
     <a href="{home_prefix}contribute/">contribute</a> &middot;
     <a href="{home_prefix}data/">data</a> &middot;
+    <a href="{home_prefix}notes/">notes</a> &middot;
     <a href="{home_prefix}constitution/">constitution</a></div>
   <h1>{h1}</h1>
   <div class="meta">{sub}</div>
@@ -167,6 +168,7 @@ never reused; corrections are published, not slipped.</p>
 <p><a href="{home_prefix}about/">About</a> &middot;
 <a href="{home_prefix}contribute/">Contribute</a> &middot;
 <a href="{home_prefix}data/">Data &amp; formats</a> &middot;
+<a href="{home_prefix}notes/">Field notes</a> &middot;
 records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
 archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.{footer_extra}</p>
 </div>
@@ -685,7 +687,7 @@ unknown.</div>
     entries = [("https://piperoll.org/", registry_mod or None)]
     entries += [(f"https://piperoll.org/{r['url']}", r.get("_mod")) for r in records]
     entries += [(f"https://piperoll.org/{p}/", None)
-                for p in ("about", "contribute", "data", "constitution", "witness")]
+                for p in ("about", "contribute", "data", "notes", "constitution", "witness")]
     def _url_xml(u, m):
         lm = f"<lastmod>{m}</lastmod>" if m else ""
         return f"<url><loc>{u}</loc>{lm}</url>\n"
@@ -890,6 +892,52 @@ schema, and the verification pipeline.</li>
                              canonical="https://piperoll.org/constitution/", ogtype="website", head_extra="",
                              sub="The rules the registry binds itself to - cited by number in the records",
                              body=f'<div class="record">{linkify(const_html)}</div>'))
+
+    # field notes - editorial observations on adjacent events and near-registry
+    # signals. Explicitly NOT verified records and carry no PIR id; this keeps
+    # the registry surface disciplined while giving out-of-scope loss signals a
+    # citable home. Read from notes/*.md (first "# " line = title, a "date:" line,
+    # markdown body). Rendered as dated anchored entries on one /notes/ page.
+    note_files = sorted((f for f in os.listdir(os.path.join(ROOT, "notes"))
+                         if re.match(r"\d{4}-\d{2}-\d{2}-.+\.md$", f)), reverse=True) \
+        if os.path.isdir(os.path.join(ROOT, "notes")) else []
+    note_entries = []
+    for nf in note_files:
+        raw = open(os.path.join(ROOT, "notes", nf), encoding="utf-8").read()
+        tm = re.match(r"#\s+(.+)", raw)
+        title = tm.group(1).strip() if tm else nf
+        dm = re.search(r"^date:\s*(\d{4}-\d{2}-\d{2})", raw, re.M)
+        ndate = dm.group(1) if dm else nf[:10]
+        slug = nf[:-3]
+        body_md = re.sub(r"^#\s+.+\n", "", raw, count=1)
+        body_md = re.sub(r"^date:\s*\d{4}-\d{2}-\d{2}\s*\n", "", body_md, count=1, flags=re.M)
+        note_entries.append((slug, ndate, title,
+                             linkify(markdown.markdown(body_md.strip(), tab_length=2))))
+    notes_items = "\n".join(
+        f'<article id="{slug}" class="record" style="margin:0 0 2.5rem;padding-bottom:1.5rem;'
+        f'border-bottom:1px solid var(--rule)">'
+        f'<h2 style="margin:.2rem 0 .1rem"><a href="#{slug}" '
+        f'style="color:inherit;text-decoration:none">{htmlmod.escape(title)}</a></h2>'
+        f'<div class="meta">{ndate} &middot; field note &middot; '
+        f'<a href="https://piperoll.org/notes/#{slug}">permalink</a></div>{body}</article>'
+        for slug, ndate, title, body in note_entries) or \
+        '<p class="meta">No field notes yet.</p>'
+    notes_body = (
+        '<div class="notice">Field notes are editorial observations on adjacent events '
+        'and near-registry signals - the month in agent risk as the editors read it. '
+        'They are <strong>not verified registry records</strong> and carry no PIR id; '
+        'they cite their sources and do not rate anyone. Events become records only when '
+        'an agent holding authority is the actor or the vector (see '
+        '<a href="../contribute/">what is in scope</a>).</div>'
+        f'{notes_items}')
+    os.makedirs(os.path.join(OUT, "notes"), exist_ok=True)
+    with open(os.path.join(OUT, "notes", "index.html"), "w", encoding="utf-8") as fh:
+        fh.write(PAGE.format(title="Field notes - PipeRoll", css=CSS, home="../index.html",
+                             home_prefix="../", h1="Field notes", footer_extra="",
+                             desc="Editorial notes on adjacent AI-agent risk events and near-registry signals - cited, not rated, and not verified registry records.",
+                             canonical="https://piperoll.org/notes/", ogtype="website", head_extra="",
+                             sub="Adjacent events and near-registry signals - cited, not rated",
+                             body=notes_body))
 
     # llms.txt - machine manifest (llmstxt.org convention)
     lines = ["# PipeRoll - Agent Incident Registry", "",
