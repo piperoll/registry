@@ -1,0 +1,7 @@
+{
+  "comment": "Ids reserved for records in preparation - assigned but not yet published. Reserved ids are permanent: they will publish when verified, and are never reused for anything else. Neutral by design; no record content lives here. Distinct from retired ids (rejected candidates, CVE convention), of which there are none.",
+  "reserved": [
+    { "id": "PIR-2026-0054", "note": "Record in preparation; will publish when verified." },
+    { "id": "PIR-2026-0055", "note": "Record in preparation; will publish when verified." }
+  ]
+}
