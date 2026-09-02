@@ -244,6 +244,17 @@ def build():
         if re.match(r"PIR-\d{4}-\d{4}\.md$", f):
             records.append(parse_record(os.path.join(INC, f)))
 
+    # reserved ids: assigned but not yet published (records in preparation).
+    # Not records - they carry no schema fields and are not validated; they exist
+    # so the id sequence has no unexplained gaps and so a reserved permalink
+    # resolves to a neutral holding page rather than a 404.
+    reserved = []
+    _resv_path = os.path.join(ROOT, "reserved.json")
+    if os.path.exists(_resv_path):
+        reserved = json.load(open(_resv_path, encoding="utf-8")).get("reserved", [])
+    _rec_ids = {r["id"] for r in records}
+    reserved = [x for x in reserved if x["id"] not in _rec_ids]  # a published id is never also reserved
+
     # per-record pages
     for r in records:
         body = markdown.markdown(r["markdown"], extensions=["tables"], tab_length=2)
@@ -445,6 +456,30 @@ def build():
         with open(os.path.join(OUT, "pir", r["_slug"], "index.html"), "w", encoding="utf-8") as fh:
             fh.write(page)
 
+    # reserved-id holding pages: a reserved permalink resolves to a neutral
+    # "record in preparation" page, never a 404 (ids are permanent).
+    for x in reserved:
+        rslug = x["id"].replace("PIR-", "").lower()
+        note = htmlmod.escape(x.get("note", "Record in preparation."))
+        rbody = (f'<div class="record"><p>This id (<code>{htmlmod.escape(x["id"])}</code>) is '
+                 f'<strong>reserved</strong>: it is assigned to a record in preparation that has not '
+                 f'yet been published. {note}</p>'
+                 f'<p>Reserved ids are permanent - they publish when verified and are never reused. '
+                 f'A reserved id is not a retired id: retirement is for rejected candidates '
+                 f'(CVE convention), of which this registry has none. When this record publishes, '
+                 f'this page becomes the record.</p>'
+                 f'<p><a href="../../index.html">Back to the registry</a>.</p></div>')
+        rpage = PAGE.format(title=f"{x['id']}: reserved - PipeRoll", css=CSS,
+                            home="../../index.html", home_prefix="../../",
+                            h1=f"{htmlmod.escape(x['id'])} - reserved", footer_extra="",
+                            desc=f"{x['id']} is a reserved PipeRoll id - a record in preparation, not yet published.",
+                            canonical=f"https://piperoll.org/pir/{rslug}/", ogtype="website",
+                            head_extra='<meta name="robots" content="noindex">\n',
+                            sub="Reserved id - record in preparation", body=rbody)
+        os.makedirs(os.path.join(OUT, "pir", rslug), exist_ok=True)
+        with open(os.path.join(OUT, "pir", rslug, "index.html"), "w", encoding="utf-8") as fh:
+            fh.write(rpage)
+
     # exports (strip markdown body)
     export = [{k: v for k, v in r.items()
                if k not in ("markdown", "file") and not k.startswith("_")}
@@ -590,8 +625,15 @@ def build():
 
     registry_mod = max((r.get("_mod") or "" for r in records), default="")
     updated_bit = f" &middot; updated {registry_mod}" if registry_mod else ""
+    if reserved:
+        _rlinks = ", ".join(f'<a href="pir/{x["id"].replace("PIR-","").lower()}/">{x["id"]}</a>'
+                            for x in sorted(reserved, key=lambda z: z["id"]))
+        reserved_bit = (f' &middot; {len(reserved)} reserved '
+                        f'(<span class="meta">records in preparation: {_rlinks}</span>)')
+    else:
+        reserved_bit = ""
     body = f"""
-<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2{updated_bit}</p>
+<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2{updated_bit}{reserved_bit}</p>
 <p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
 no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before

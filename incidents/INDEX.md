@@ -10,6 +10,11 @@ chronological. The year in the id is the registration year. A pre-launch numberi
 order, with two retired ids) was superseded by this chronological renumber before publication;
 the mapping is preserved in git history.
 
+Reserved ids (records in preparation, not yet published): PIR-2026-0054, PIR-2026-0055. Reserved
+ids are permanent - they publish when verified and are never reused - and are distinct from
+retired ids (rejected candidates, of which there are none). They are why the id sequence may skip
+ahead of the record count. See reserved.json.
+
 | PIR id | title | occurred | root cause | locus | severity | exploitation | direct loss |
 |---|---|---|---|---|---|---|---|
 | PIR-2026-0001 | Benavides v. Tesla: $243M verdict over fatal Autopilot crash, upheld p | 2019-04-25 | plain-error | agent-reasoning | catastrophic | in-wild-malfunction | 242,570,000 judgment aga |
