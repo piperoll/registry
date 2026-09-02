@@ -86,3 +86,17 @@ targets). Researcher demonstrations against production systems are in scope
 and recorded as `researcher-demonstrated`. Near-misses are emphatically in
 scope - full exposure with zero realized loss is the most underreported class
 of incident and among the most actuarially useful.
+
+**The subject is always an agent.** PipeRoll records incidents where an AI
+agent holding some authority did something that went wrong - the agent is the
+actor or the vector. Events where an AI product or account is merely the
+*target* or the *loot* are out of scope, even when they involve AI: account
+takeover, session-cookie or credential theft, infostealer malware, and stolen
+or resold AI usage/credits are ordinary platform-security and fraud incidents
+that happen to involve an AI service, and belong to general catalogs (AIID,
+OECD AIM), not here. The line is who acts: an agent leaking its *own*
+credentials is in scope (see PIR-2026-0045); a human replaying a stolen session
+to burn a victim's AI usage is not. Such a case flips in-scope only if an agent
+is the exfiltration vector (tricked into leaking the session or credentials) or
+if the stolen usage is demonstrably running malicious agents downstream - then
+the agent activity, not the theft, is the incident.
