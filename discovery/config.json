@@ -1,0 +1,49 @@
+{
+  "comment": "Config for the incident-discovery pipeline. Sources produce candidate leads; triage scores them against the registry's scope ('the subject is always an agent') and dedupes against the published registry. Output is leads for editorial verification - NEVER auto-registered records.",
+  "min_score": 2,
+
+  "scope_terms": [
+    "ai agent", "agentic", "autonomous agent", "llm agent", "coding agent",
+    "mcp server", "model context protocol", "tool call", "ai assistant",
+    "copilot", "claude", "gpt", "gemini", "llm", "chatbot", "prompt injection"
+  ],
+  "incident_terms": [
+    "deleted", "wiped", "exfiltrat", "breach", "leak", "prompt injection",
+    "ssrf", "rce", "jailbreak", "data exposure", "unauthorized", "hijack",
+    "drained", "misconfigur", "hallucinat", "rogue", "outage", "sandbox escape",
+    "credential", "lawsuit", "sanction", "vulnerability", "cve-"
+  ],
+  "out_of_scope_terms": [
+    "funding round", "raises $", "series a", "series b", "launches", "announces",
+    "now available", "waitlist", "benchmark results", "pricing update",
+    "acquires", "partnership"
+  ],
+
+  "sources": {
+    "github_advisories": {
+      "enabled": true,
+      "keywords": ["mcp", "agent", "llm", "ai assistant", "prompt"],
+      "per_page": 100,
+      "max_age_days": 3
+    },
+    "rss": {
+      "enabled": true,
+      "max_age_days": 3,
+      "feeds": [
+        "https://www.bleepingcomputer.com/feed/",
+        "https://thehackernews.com/feeds/posts/default",
+        "https://simonwillison.net/atom/everything/"
+      ]
+    },
+    "websearch": {
+      "enabled": false,
+      "note": "Stub. GitHub Actions runners have no WebSearch tool; wire a search-API provider here (key via secret) to enable. Left off so the pipeline runs with no secrets.",
+      "queries": [
+        "AI agent deleted production database",
+        "MCP server vulnerability",
+        "autonomous agent incident",
+        "prompt injection exploited in the wild"
+      ]
+    }
+  }
+}
