@@ -2,3 +2,7 @@
 *.env
 node_modules/
 docs/
+
+# python bytecode
+__pycache__/
+*.pyc

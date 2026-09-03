@@ -1,0 +1,39 @@
+name: discover
+# Daily incident-discovery. Surfaces candidate LEADS into candidates/ for
+# editorial review. Never edits incidents/ and never registers a record.
+
+on:
+  schedule:
+    - cron: "17 7 * * *"   # 07:17 UTC daily (off the :00 rush)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write   # to commit candidates/; nothing else
+
+concurrency:
+  group: discover
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run discovery
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python3 discovery/discover.py
+      - name: Commit candidates (if any)
+        run: |
+          if [ -n "$(git status --porcelain candidates/)" ]; then
+            git config user.name "piperoll-discovery"
+            git config user.email "actions@users.noreply.github.com"
+            git add candidates/
+            git commit -m "candidates: $(date -u +%F) [skip ci]"
+            git push
+          else
+            echo "no new candidates to commit"
+          fi

@@ -1,0 +1,1 @@
+# already-surfaced candidate URLs (one per line); keeps a lead from being proposed twice
