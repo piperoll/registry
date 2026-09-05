@@ -1,6 +1,10 @@
 name: discover
-# Daily incident-discovery. Surfaces candidate LEADS into candidates/ for
-# editorial review. Never edits incidents/ and never registers a record.
+# Daily incident-discovery. Surfaces candidate LEADS for editorial review WITHOUT
+# writing to the repo: main is protected (signed commits + required checks) and
+# unverified leads must never land on the verified-only main anyway. So a run
+# uploads the candidates file as an artifact and opens one triage issue; the
+# dedup seen-list is carried across runs via the Actions cache. Nothing here
+# registers a record - promotion to a record is a human PR into incidents/.
 
 on:
   schedule:
@@ -8,7 +12,8 @@ on:
   workflow_dispatch: {}
 
 permissions:
-  contents: write   # to commit candidates/; nothing else
+  contents: read       # read the repo (incidents/ for dedup); never writes to it
+  issues: write        # open the daily triage issue
 
 concurrency:
   group: discover
@@ -22,18 +27,46 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      # persist the dedup seen-list across runs (best-effort; eviction only
+      # risks re-surfacing a lead, never a crash)
+      - name: Restore dedup state
+        uses: actions/cache@v4
+        with:
+          path: candidates/seen.txt
+          key: discovery-seen-${{ github.run_id }}
+          restore-keys: discovery-seen-
       - name: Run discovery
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python3 discovery/discover.py
-      - name: Commit candidates (if any)
+      - name: Upload candidates artifact (if any)
+        id: art
         run: |
-          if [ -n "$(git status --porcelain candidates/)" ]; then
-            git config user.name "piperoll-discovery"
-            git config user.email "actions@users.noreply.github.com"
-            git add candidates/
-            git commit -m "candidates: $(date -u +%F) [skip ci]"
-            git push
-          else
-            echo "no new candidates to commit"
-          fi
+          f=$(ls candidates/*.md 2>/dev/null | grep -E '[0-9]{4}-[0-9]{2}-[0-9]{2}\.md$' | tail -1 || true)
+          if [ -n "$f" ]; then echo "file=$f" >> "$GITHUB_OUTPUT"; else echo "none"; fi
+      - uses: actions/upload-artifact@v4
+        if: steps.art.outputs.file != ''
+        with:
+          name: candidates-${{ github.run_id }}
+          path: candidates/*.md
+          retention-days: 90
+      - name: Open triage issue (if any)
+        if: steps.art.outputs.file != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          date=$(date -u +%F)
+          body=$(mktemp)
+          {
+            echo "Machine-surfaced candidate leads for editorial review. **Unverified, not records.**"
+            echo "Downloadable copy: the \`candidates-${{ github.run_id }}\` artifact on [this run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})."
+            echo
+            cat "${{ steps.art.outputs.file }}"
+          } > "$body"
+          gh issue create --repo "${{ github.repository }}" \
+            --title "Discovery candidates - $date" \
+            --label discovery \
+            --body-file "$body" \
+          || gh issue create --repo "${{ github.repository }}" \
+            --title "Discovery candidates - $date" \
+            --body-file "$body"
