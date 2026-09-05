@@ -30,7 +30,13 @@ def test_scope():
     assert _score("Startup launches new AI agent, announces $20M Series A funding round") < CFG["min_score"]
     # non-agent security news -> below threshold (no agent subject)
     assert _score("WordPress plugin SQL injection patched") < CFG["min_score"]
-    print("ok  scope filter keeps incidents, drops product/non-agent news")
+    # hard gate: a CVE'd app vuln with incident language but NO agent subject
+    # is dropped regardless (the SiYuan-type false positive)
+    assert _score("SiYuan: session-cookie signing key disclosed to anonymous readers",
+                  "vulnerability information disclosure", cve="CVE-2026-72794") < CFG["min_score"]
+    # a product-named agent incident with no generic subject word is still kept
+    assert _score("Replit agent wiped the production database during a code freeze") >= CFG["min_score"]
+    print("ok  scope gate: keeps agent incidents (incl. named products), drops non-agent CVEs")
 
 
 def test_dedup():

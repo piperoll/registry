@@ -18,12 +18,18 @@ def scope_score(item, cfg):
     score = 0
 
     hit_scope = [t for t in cfg.get("scope_terms", []) if t in text]
+    # Hard gate: "the subject is always an agent". With no agent/LLM subject
+    # term, this is not an agent incident regardless of CVE or incident
+    # language, so it can never be a candidate (a CVE'd app vuln with no agent
+    # in the loop belongs to a general CVE feed, not here).
+    if not hit_scope:
+        return -99, ["no agent/LLM subject - out of scope"]
+
     hit_incident = [t for t in cfg.get("incident_terms", []) if t in text]
     hit_oos = [t for t in cfg.get("out_of_scope_terms", []) if t in text]
 
-    if hit_scope:
-        score += 1
-        reasons.append("agent/LLM subject: " + ", ".join(hit_scope[:3]))
+    score = 1
+    reasons.append("agent/LLM subject: " + ", ".join(hit_scope[:3]))
     if hit_incident:
         score += 1 + (1 if len(hit_incident) > 1 else 0)
         reasons.append("incident language: " + ", ".join(hit_incident[:3]))
@@ -33,9 +39,6 @@ def scope_score(item, cfg):
     if hit_oos and not hit_incident:
         score -= 2
         reasons.append("looks like product/funding news: " + ", ".join(hit_oos[:2]))
-    if not hit_scope:
-        score -= 1
-        reasons.append("no agent/LLM subject term")
 
     return score, reasons
 

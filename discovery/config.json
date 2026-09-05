@@ -5,7 +5,10 @@
   "scope_terms": [
     "ai agent", "agentic", "autonomous agent", "llm agent", "coding agent",
     "mcp server", "model context protocol", "tool call", "ai assistant",
-    "copilot", "claude", "gpt", "gemini", "llm", "chatbot", "prompt injection"
+    "copilot", "claude", "gpt", "gemini", "llm", "chatbot", "prompt injection",
+    "openai", "anthropic", "cursor", "replit", "devin", "windsurf", "langchain",
+    "autogpt", "grok", "llama", "mistral", "qwen", "deepseek", "kimi",
+    "abliterat", "uncensored model", "large language model"
   ],
   "incident_terms": [
     "deleted", "wiped", "exfiltrat", "breach", "leak", "prompt injection",
