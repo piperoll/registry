@@ -48,7 +48,7 @@ jobs:
         if: steps.art.outputs.file != ''
         with:
           name: candidates-${{ github.run_id }}
-          path: candidates/*.md
+          path: ${{ steps.art.outputs.file }}
           retention-days: 90
       - name: Open triage issue (if any)
         if: steps.art.outputs.file != ''
@@ -56,6 +56,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           date=$(date -u +%F)
+          # ensure the label exists so --label never fails the run
+          gh label create discovery --repo "${{ github.repository }}" \
+            --color BFD4F2 --description "Machine-surfaced candidate lead" 2>/dev/null || true
           body=$(mktemp)
           {
             echo "Machine-surfaced candidate leads for editorial review. **Unverified, not records.**"
@@ -66,7 +69,4 @@ jobs:
           gh issue create --repo "${{ github.repository }}" \
             --title "Discovery candidates - $date" \
             --label discovery \
-            --body-file "$body" \
-          || gh issue create --repo "${{ github.repository }}" \
-            --title "Discovery candidates - $date" \
             --body-file "$body"
