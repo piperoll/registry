@@ -24,7 +24,10 @@ import sources  # noqa: E402
 import triage  # noqa: E402
 
 CONFIG = os.path.join(HERE, "config.json")
-REGISTRY_JSON = os.path.join(ROOT, "docs", "registry.json")
+# Dedup against the records themselves (incidents/), the source of truth that is
+# always present - not docs/registry.json, which is a build artifact absent on a
+# fresh CI checkout.
+REGISTRY_SRC = os.path.join(ROOT, "incidents")
 CAND_DIR = os.path.join(ROOT, "candidates")
 SEEN = os.path.join(CAND_DIR, "seen.txt")
 INTAKE = ("https://github.com/piperoll/registry/issues/new?"
@@ -72,7 +75,7 @@ def main():
     raw = sources.gather(cfg)
     print(f"gathered {len(raw)} raw items")
     seen = load_seen()
-    cands = triage.triage(raw, cfg, REGISTRY_JSON, seen)
+    cands = triage.triage(raw, cfg, REGISTRY_SRC, seen)
     print(f"{len(cands)} candidate(s) after scope + dedup (min_score={cfg.get('min_score')})")
 
     if dry:

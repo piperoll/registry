@@ -35,7 +35,13 @@ present) raises the GitHub advisory API rate limit but is optional.
   registry (`docs/registry.json` titles) or in `candidates/seen.txt`, keeps leads
   at or above `min_score`, and ranks them.
 - **`discover.py`** - orchestrates and writes `candidates/<date>.md` plus the
-  running `seen.txt`.
+  running `seen.txt`. Dedup reads the records straight from `incidents/` (the
+  source of truth, always present), not the built `docs/registry.json`.
+- **Output**: the workflow does not commit to the repo (main is protected and
+  verified-only). It uploads `candidates/<date>.md` as a run **artifact** and
+  opens one **triage issue** (label `discovery`); `seen.txt` persists across runs
+  via the Actions cache. Promotion of a lead to a record is a human PR into
+  `incidents/`.
 - **`config.json`** - sources, keyword lists, `min_score`. Tune here.
 
 ## Tuning

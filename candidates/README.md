@@ -14,5 +14,10 @@ and it passes the scope test ("the subject is always an agent" - see
 CONTRIBUTING). To register one, open the
 [incident intake form](https://github.com/piperoll/registry/issues/new?template=incident-report.yml).
 
-Files: `YYYY-MM-DD.md` is one run's leads; `seen.txt` is the running list of
-already-surfaced URLs so the same lead is not proposed twice. Prune freely.
+**Where leads go.** The daily job does not commit here (main is protected and
+verified-only). Each run instead uploads its `YYYY-MM-DD.md` as a workflow
+**artifact** and opens one **triage issue** (label `discovery`) with the leads.
+Triage there; promote a real one via the normal PR into `incidents/`. Dedup
+state (`seen.txt`) is carried across runs by the Actions cache, so the same lead
+is not surfaced twice. This directory holds the seed `seen.txt` and this README;
+`YYYY-MM-DD.md` files here are only transient run output.

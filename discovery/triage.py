@@ -49,17 +49,33 @@ def _norm_title(t):
     return re.sub(r"[^a-z0-9]+", " ", (t or "").lower()).strip()
 
 
-def load_registry_keys(registry_json_path):
-    """URLs and normalized titles already in the published registry, for dedup."""
+def load_registry_keys(registry_src):
+    """Normalized titles and source URLs already in the registry, for dedup.
+
+    Reads the records directly from an incidents/ directory (the source of
+    truth, always present) - not docs/registry.json, which is a build artifact
+    absent on a fresh CI checkout. Scanning the markdown also yields the source
+    URLs (which the JSON export omits), so a lead can be deduped by URL too.
+    Accepts either an incidents/ dir or a registry.json path, for flexibility.
+    """
     urls, titles = set(), set()
-    if not os.path.exists(registry_json_path):
+    if not registry_src or not os.path.exists(registry_src):
         return urls, titles
-    data = json.load(open(registry_json_path, encoding="utf-8"))
-    for r in data.get("records", []):
-        if r.get("title"):
-            titles.add(_norm_title(r["title"]))
-        # sources live in the markdown, not the export; title dedup carries most
-        # of the weight. URL dedup below also checks the running seen-file.
+    if os.path.isdir(registry_src):
+        for fn in os.listdir(registry_src):
+            if not re.match(r"PIR-\d{4}-\d{4}\.md$", fn):
+                continue
+            txt = open(os.path.join(registry_src, fn), encoding="utf-8").read()
+            m = re.match(r"# PIR-\d{4}-\d{4} - (.+)", txt)
+            if m:
+                titles.add(_norm_title(m.group(1)))
+            for u in re.findall(r"https://[^\s;,)\]>'\"]+", txt):
+                urls.add(_norm_url(u))
+    else:  # a registry.json export (titles only)
+        data = json.load(open(registry_src, encoding="utf-8"))
+        for r in data.get("records", []):
+            if r.get("title"):
+                titles.add(_norm_title(r["title"]))
     return urls, titles
 
 
@@ -78,8 +94,8 @@ def is_duplicate(item, reg_urls, reg_titles, seen_urls):
     return False
 
 
-def triage(items, cfg, registry_json_path, seen_urls):
-    reg_urls, reg_titles = load_registry_keys(registry_json_path)
+def triage(items, cfg, registry_src, seen_urls):
+    reg_urls, reg_titles = load_registry_keys(registry_src)
     min_score = cfg.get("min_score", 2)
     kept = []
     for it in items:
