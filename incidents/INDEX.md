@@ -71,14 +71,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0052 | Amazon's own Kiro coding agent deleted and recreated a customer-facing | 2025-12 | operator-error | operator-config | loss | in-wild-malfunction | unknown (13h outage) |
 | PIR-2026-0053 | An approved internal Meta AI agent posted a response publicly without  | 2026-03 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (~2h exposure) |
 | PIR-2026-0056 | Grafana MCP server SSRF (CVE-2026-19516): caller-controlled X-Grafana- | 2026-08 | plain-error | tool-mcp | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0057 | CodeWhale coding agent: a cloned repo silently takes over - config gra | 2026-07 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 54
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 8, credential-exposure 4, supply-chain-compromise 4, operator-error 4, memory-poisoning 2, adversarial-other 1, tool-error 1
-- Severity: loss 25, near-miss 16, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 29, researcher-demonstrated 11, in-wild-exploited 11, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 19, harness 11, dependency 6, model-provider 6, operator-config 6, tool-mcp 5, unknown 1
+- Records: 55
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 8, credential-exposure 4, supply-chain-compromise 4, operator-error 4, memory-poisoning 2, tool-error 2, adversarial-other 1
+- Severity: loss 25, near-miss 17, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 29, researcher-demonstrated 12, in-wild-exploited 11, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 19, harness 12, dependency 6, model-provider 6, operator-config 6, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
