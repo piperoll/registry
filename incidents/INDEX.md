@@ -74,14 +74,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0057 | CodeWhale coding agent: a cloned repo silently takes over - config gra | 2026-07 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0058 | n8n: workflow "can be called by" access control skipped on the AI Agen | 2026-09 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0059 | OpenAI test agents flood RubyGems with hundreds of malicious packages | 2026-05-11 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
+| PIR-2026-0060 | DeepSeek Harness: a sandboxed coding agent turns off its own sandbox w | 2026 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 57
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 9, credential-exposure 4, supply-chain-compromise 4, operator-error 4, tool-error 3, memory-poisoning 2, adversarial-other 1
-- Severity: loss 25, near-miss 19, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 29, researcher-demonstrated 13, in-wild-exploited 12, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 20, harness 13, dependency 6, model-provider 6, operator-config 6, tool-mcp 5, unknown 1
+- Records: 58
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 9, credential-exposure 4, supply-chain-compromise 4, operator-error 4, tool-error 4, memory-poisoning 2, adversarial-other 1
+- Severity: loss 25, near-miss 20, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 29, researcher-demonstrated 14, in-wild-exploited 12, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 20, harness 14, dependency 6, model-provider 6, operator-config 6, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
