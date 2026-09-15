@@ -148,6 +148,7 @@ PAGE = """<!doctype html>
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="alternate" type="application/atom+xml" title="PipeRoll new records" href="https://piperoll.org/feed.xml">
+<script data-goatcounter="https://piperoll.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 {head_extra}<style>{css}</style>
 </head><body>
 <div class="masthead">
