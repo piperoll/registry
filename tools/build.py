@@ -156,7 +156,8 @@ PAGE = """<!doctype html>
     <a href="{home_prefix}contribute/">contribute</a> &middot;
     <a href="{home_prefix}data/">data</a> &middot;
     <a href="{home_prefix}notes/">notes</a> &middot;
-    <a href="{home_prefix}constitution/">constitution</a></div>
+    <a href="{home_prefix}constitution/">constitution</a> &middot;
+    <a href="https://seismo.piperoll.org/">seismograph &#8599;</a></div>
   <h1>{h1}</h1>
   <div class="meta">{sub}</div>
 </div>
@@ -169,6 +170,7 @@ never reused; corrections are published, not slipped.</p>
 <a href="{home_prefix}contribute/">Contribute</a> &middot;
 <a href="{home_prefix}data/">Data &amp; formats</a> &middot;
 <a href="{home_prefix}notes/">Field notes</a> &middot;
+<a href="https://seismo.piperoll.org/">Seismograph</a> &middot;
 records <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>, tooling MIT &middot;
 archived releases <a href="https://doi.org/10.5281/zenodo.21968992">DOI 10.5281/zenodo.21968992</a>.{footer_extra}</p>
 </div>
@@ -787,6 +789,13 @@ unknown.</div>
 what went wrong, what it cost, and what the evidence is. It is named for the Pipe Rolls -
 the English Exchequer's great rolls, 676 unbroken years of audited records kept
 tamper-evident by a parallel copy in different hands.</p>
+<p>The registry is the first of PipeRoll's two instruments. The second is the
+<a href="https://seismo.piperoll.org/">seismograph</a> - an independent observatory
+that measures each frontier model's behavioural drift against its own past, publishing
+witnessed statistical readings ("model X changed on date Y, in dimension Z"). The
+registry records verified facts; the seismograph publishes statistical readings with a
+stated false-positive posture. Two instruments, one institution, separate methodology
+charters.</p>
 <h3>Principles</h3>
 <ul>
 <li>Every record is verified individually against primary sources before publication.</li>
