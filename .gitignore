@@ -6,3 +6,8 @@ docs/
 # python bytecode
 __pycache__/
 *.pyc
+
+# held until launch: Loss & Drift bulletin drafts are not published before the
+# flip - ignore so a `git add -A` cannot publish an unfinished issue early.
+# When an issue is ready, force-add it: `git add -f loss-and-drift/<issue>.md`.
+loss-and-drift/
