@@ -10,7 +10,7 @@ chronological. The year in the id is the registration year. A pre-launch numberi
 order, with two retired ids) was superseded by this chronological renumber before publication;
 the mapping is preserved in git history.
 
-Reserved ids (records in preparation, not yet published): PIR-2026-0054, PIR-2026-0055. Reserved
+Reserved ids (records in preparation, not yet published): none currently. Reserved
 ids are permanent - they publish when verified and are never reused - and are distinct from
 retired ids (rejected candidates, of which there are none). They are why the id sequence may skip
 ahead of the record count. See reserved.json.
@@ -76,14 +76,16 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0059 | OpenAI test agents flood RubyGems with hundreds of malicious packages | 2026-05-11 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
 | PIR-2026-0060 | DeepSeek Harness: a sandboxed coding agent turns off its own sandbox w | 2026 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0061 | UNC6780/TeamPCP wire an AI coding agent into an autonomous attack fram | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (23,800+ secrets) |
+| PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | operator-error | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 59
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 9, credential-exposure 4, supply-chain-compromise 4, operator-error 4, tool-error 4, memory-poisoning 2, adversarial-other 2
-- Severity: loss 26, near-miss 20, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 29, researcher-demonstrated 14, in-wild-exploited 13, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 21, harness 14, dependency 6, model-provider 6, operator-config 6, tool-mcp 5, unknown 1
+- Records: 61
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 9, credential-exposure 4, supply-chain-compromise 4, operator-error 6, tool-error 4, memory-poisoning 2, adversarial-other 2
+- Severity: loss 26, near-miss 22, degraded 11, catastrophic 2
+- Exploitation status: in-wild-malfunction 31, researcher-demonstrated 14, in-wild-exploited 13, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 22, harness 14, dependency 6, model-provider 6, operator-config 7, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
