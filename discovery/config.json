@@ -1,5 +1,5 @@
 {
-  "comment": "Config for the incident-discovery pipeline. Sources produce candidate leads; triage scores them against the registry's scope ('the subject is always an agent') and dedupes against the published registry. Output is leads for editorial verification - NEVER auto-registered records.",
+  "comment": "Config for the incident-discovery pipeline. Sources produce candidate leads; triage scores them against the registry's scope and dedupes against the published registry. Scope: the subject is always an agent AND the agent's behaviour is the failure (divergence from operator intent, lost control, manipulation, regression, unintended harm) - NOT a human using an agent as a weapon. AI-enabled attacks, where an attacker's autonomous agent does exactly what the attacker intended, belong to threat-intel catalogs (GTIG, Mandiant), not here; attacker_frame_terms down-weight those. Output is leads for editorial verification - NEVER auto-registered records.",
   "min_score": 2,
 
   "scope_terms": [
@@ -20,6 +20,13 @@
     "funding round", "raises $", "series a", "series b", "launches", "announces",
     "now available", "waitlist", "benchmark results", "pricing update",
     "acquires", "partnership"
+  ],
+  "_attacker_frame_comment": "Human-attacker-primary framing: an adversary using AI as a weapon (AI-enabled attack), which is out of scope even though an agent 'acts'. Kept to strongly offensive-campaign phrases so a genuine 'agent was manipulated / lost control' incident is NOT suppressed. Down-weights the lead; editorial review is the real gate.",
+  "attacker_frame_terms": [
+    "financially motivated", "hacking group", "cyber espionage", "espionage group",
+    "state-sponsored", "credential harvesting campaign", "credential-harvesting campaign",
+    "penetration testing framework", "ransomware", "malware campaign",
+    "supply chain compromise", "supply-chain compromise", "phishing campaign"
   ],
 
   "sources": {

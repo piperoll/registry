@@ -1,10 +1,14 @@
 """Scope-scoring and dedup for discovery candidates.
 
-The scope rule mirrors CONTRIBUTING ("the subject is always an agent"): a lead is
-interesting only if it plausibly involves an AI agent AND reads like an incident,
-and is penalised if it reads like routine product/funding news. This is a cheap
-keyword pass - a first filter to cut noise, never a verification. Verification is
-editorial and happens on the record PR, exactly as today.
+The scope rule mirrors CONTRIBUTING: a lead is interesting only if it plausibly
+involves an AI agent AND reads like an incident, and the incident must be the
+agent's behaviour *failing* (divergence, lost control, manipulation, regression,
+unintended harm), not a human using an agent as a weapon. So it is penalised if it
+reads like routine product/funding news, and penalised again if it reads like an
+AI-enabled attack (an attacker's autonomous agent doing exactly what the attacker
+intended - offensive capability, which belongs to threat-intel, not here). This is
+a cheap keyword pass, a first filter to cut noise, never a verification.
+Verification is editorial and happens on the record PR, exactly as today.
 """
 import json
 import os
@@ -39,6 +43,16 @@ def scope_score(item, cfg):
     if hit_oos and not hit_incident:
         score -= 2
         reasons.append("looks like product/funding news: " + ", ".join(hit_oos[:2]))
+    # An agent that merely "acts" is not enough: an attacker's autonomous agent
+    # doing exactly what the attacker intended is an AI-enabled attack (offensive
+    # capability), not an agent-reliability failure. Down-weight the human-attacker
+    # framing even when incident language is present. Editorial review is the gate.
+    hit_attack = [t for t in cfg.get("attacker_frame_terms", []) if t in text]
+    if hit_attack:
+        score -= 2
+        reasons.append(
+            "AI-enabled attack / offensive use by a human actor, not an "
+            "agent-reliability failure: " + ", ".join(hit_attack[:2]))
 
     return score, reasons
 

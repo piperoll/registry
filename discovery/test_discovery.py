@@ -36,7 +36,16 @@ def test_scope():
                   "vulnerability information disclosure", cve="CVE-2026-72794") < CFG["min_score"]
     # a product-named agent incident with no generic subject word is still kept
     assert _score("Replit agent wiped the production database during a code freeze") >= CFG["min_score"]
-    print("ok  scope gate: keeps agent incidents (incl. named products), drops non-agent CVEs")
+    # AI-enabled attack: an attacker's autonomous agent doing exactly what the
+    # attacker intended is offensive capability, not an agent-reliability failure
+    # -> down-weighted below threshold even though an agent "acts" and there is
+    # incident language (credential/exfiltrat).
+    assert _score("Financially motivated hacking group used an autonomous AI agent to harvest credentials") < CFG["min_score"]
+    assert _score("China-aligned cyber espionage group builds an AI agent penetration testing framework") < CFG["min_score"]
+    # but a genuine divergence incident (the agent was manipulated / lost control)
+    # is still kept - attacker involvement alone must not suppress it
+    assert _score("Prompt injection tricked the support agent into leaking its own API credentials") >= CFG["min_score"]
+    print("ok  scope gate: keeps agent failures (incl. named products + manipulation), drops non-agent CVEs and AI-enabled attacks")
 
 
 def test_dedup():
