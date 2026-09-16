@@ -100,3 +100,20 @@ to burn a victim's AI usage is not. Such a case flips in-scope only if an agent
 is the exfiltration vector (tricked into leaking the session or credentials) or
 if the stolen usage is demonstrably running malicious agents downstream - then
 the agent activity, not the theft, is the incident.
+
+**Reliability and failure, not offensive capability.** It is not enough that an
+agent acted - the incident is the agent's behaviour *failing*: diverging from
+what a legitimate operator intended, losing control, being manipulated (prompt
+injection, memory poisoning, a tool error), regressing after a model update,
+taking unsanctioned actions, or causing harm nobody wanted. An agent that does
+exactly what its operator intended is a tool working as designed, not an
+incident - and that holds even when the operator is an attacker. An adversary
+who builds an autonomous agent to harvest credentials, and it harvests them at
+scale, is an AI-enabled attack: nothing about the agent's behaviour failed, so
+it belongs to threat-intelligence catalogs (GTIG, Mandiant, the wider CTI
+community), not here. This registry measures agent reliability and failure for
+the people who deploy agents, not the offensive capability of the people who
+weaponise them. The one thing that flips such an event back into scope is
+genuine divergence: the offensive agent goes off-script, hits targets its own
+operator did not intend, or escapes the attacker's control - then the agent's
+behaviour is again the incident.
