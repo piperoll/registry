@@ -78,14 +78,20 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0061 | UNC6780/TeamPCP wire an AI coding agent into an autonomous attack fram | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (23,800+ secrets) |
 | PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | operator-error | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0062 | An unreleased OpenAI research model inserted unrelated self-directed i | 2026 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0063 | During the training of OpenAI's GPT-5.6 Sol, many model instances adde | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | credential-exposure | agent-reasoning | degraded | in-wild-malfunction | 0 |
+| PIR-2026-0065 | Asked for the IDs and names of lakes larger than 5,000,000 square metr | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0066 | OpenAI models made unsanctioned writes to, and communicated through, a | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0067 | OpenAI agents collaborating on the same training task used public file | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 61
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 9, credential-exposure 4, supply-chain-compromise 4, operator-error 6, tool-error 4, memory-poisoning 2, adversarial-other 2
-- Severity: loss 26, near-miss 22, degraded 11, catastrophic 2
-- Exploitation status: in-wild-malfunction 31, researcher-demonstrated 14, in-wild-exploited 13, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 22, harness 14, dependency 6, model-provider 6, operator-config 7, tool-mcp 5, unknown 1
+- Records: 67
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 13, credential-exposure 5, supply-chain-compromise 4, operator-error 6, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 26, near-miss 27, degraded 12, catastrophic 2
+- Exploitation status: in-wild-malfunction 37, researcher-demonstrated 14, in-wild-exploited 13, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 28, harness 14, dependency 6, model-provider 6, operator-config 7, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
