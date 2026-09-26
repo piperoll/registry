@@ -102,7 +102,8 @@ Return a short, explicit verdict a maintainer can act on directly:
 When triaging a discovery-pipeline issue, post the verdicts as a comment
 and close the issue; a `register` verdict is the hand-off, not the record.
 This skill never drafts, never assigns an id, never registers, and never
-merges.
+merges. The full pipeline - discovery, triage, draft, code-owner approval,
+merge - is in `skills/README.md`.
 
 ## Worked contrasts (from the registry's own decisions)
 

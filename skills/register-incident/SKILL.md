@@ -135,6 +135,10 @@ enter INDEX.
 - **Do not merge, do not enable auto-merge, do not bypass checks.** Merge
   authority is editorial and human. CI runs four required checks (schema,
   links, build, corrections); a red check is a defect in the PR.
+- **The PR must be approved by the repository's code owner** (see
+  `CODEOWNERS`) before it merges. Your job ends when the PR is open, green,
+  and its description says what you verified; the approval and the merge are
+  the code owner's act. See `skills/README.md` for the full pipeline.
 
 ## What good looks like
 

@@ -87,6 +87,10 @@ python3 tools/build.py                                  # must not error
   any conflict of interest.
 - **Do not merge, do not enable auto-merge, do not bypass checks.** Merge
   authority is editorial and human.
+- **The PR must be approved by the repository's code owner** (see
+  `CODEOWNERS`) before it merges. Your job ends when the PR is open, green,
+  and its description says what changed and how it was verified. See
+  `skills/README.md` for the full pipeline.
 
 ## What good looks like
 
