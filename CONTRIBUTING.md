@@ -20,6 +20,13 @@ form prefilled with the page you are on - drag it to your bookmarks bar:
 
 ## Submitting an incident
 
+Using an AI coding agent (Claude Code, Codex, Cursor, or any other)? Point it
+at `skills/register-incident/SKILL.md` - a harness-agnostic, step-by-step
+workflow that covers scope, dedup, primary-source verification, the schema,
+validation, and the PR. To add new evidence to an existing record, use
+`skills/enrich-incident/SKILL.md`. Either way the steps below are the rules;
+the skills just walk through them.
+
 1. Copy `incidents/TEMPLATE.md` to `incidents/PIR-YYYY-NNNN.md` using the next free
    id (check `incidents/INDEX.md`; the year is the current registration year).
 2. Fill every field. Enum fields must start with one canonical token from
