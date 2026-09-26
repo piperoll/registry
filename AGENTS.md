@@ -60,3 +60,25 @@ open a source yourself, say so in the PR rather than asserting it.
 The site is a build product: `incidents/*.md` is the single source of truth;
 `docs/` is generated locally and gitignored; Pages deploys from Actions on
 merge. Never commit generated output.
+
+## Skills (any agent)
+
+Step-by-step workflows for the two common contribution tasks live in
+`skills/`, in the open Agent Skills format (a `SKILL.md` with `name` and
+`description` front matter and a plain-markdown body). They are
+harness-agnostic: no tool names, so Claude Code, Codex, Cursor, or any other
+agent - or a human - can follow them.
+
+- `skills/triage-lead/SKILL.md` - the front door: check a lead against the
+  rules (scope, dedup, is there a primary) and return `register` / `enrich`
+  / `reject` with the reasoning. Never drafts. This is how daily discovery
+  issues get closed with a verdict.
+- `skills/register-incident/SKILL.md` - turn a lead into a new record: scope
+  test, dedup, primary-source verification, draft to schema, validate, PR.
+- `skills/enrich-incident/SKILL.md` - add new evidence to an existing record
+  with a dated verification note; never rewrite history silently.
+
+The skills point at the canonical files above rather than restating them;
+if a skill and `CONTRIBUTING.md`, `incident-schema-v0.md` or this file ever
+disagree, the canonical file wins and the skill is the bug. Both skills end
+in a pull request and never merge - the hard rules apply unchanged.
