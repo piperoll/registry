@@ -1,0 +1,12 @@
+# Code owners for piperoll/registry.
+#
+# Every path is owned by the editor. This file declares ownership so that
+# branch protection can require a code-owner review before any pull request
+# merges into main - the enforcement half of "every record is individually
+# verified and merging is a human, editorial act" (CONSTITUTION.md, AGENTS.md).
+#
+# Note: GitHub does not count a pull request author's own review as an
+# approval. For the review requirement to be enforceable, contributions made
+# by an automated agent must be opened under a separate identity from the
+# code owner's; see skills/README.md, stage 3.
+*   @srinivasgumdelli
