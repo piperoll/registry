@@ -69,6 +69,10 @@ Step-by-step workflows for the two common contribution tasks live in
 harness-agnostic: no tool names, so Claude Code, Codex, Cursor, or any other
 agent - or a human - can follow them.
 
+- `skills/triage-lead/SKILL.md` - the front door: check a lead against the
+  rules (scope, dedup, is there a primary) and return `register` / `enrich`
+  / `reject` with the reasoning. Never drafts. This is how daily discovery
+  issues get closed with a verdict.
 - `skills/register-incident/SKILL.md` - turn a lead into a new record: scope
   test, dedup, primary-source verification, draft to schema, validate, PR.
 - `skills/enrich-incident/SKILL.md` - add new evidence to an existing record

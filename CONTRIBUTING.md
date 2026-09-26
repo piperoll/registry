@@ -20,12 +20,14 @@ form prefilled with the page you are on - drag it to your bookmarks bar:
 
 ## Submitting an incident
 
-Using an AI coding agent (Claude Code, Codex, Cursor, or any other)? Point it
-at `skills/register-incident/SKILL.md` - a harness-agnostic, step-by-step
-workflow that covers scope, dedup, primary-source verification, the schema,
-validation, and the PR. To add new evidence to an existing record, use
-`skills/enrich-incident/SKILL.md`. Either way the steps below are the rules;
-the skills just walk through them.
+Using an AI coding agent (Claude Code, Codex, Cursor, or any other)? Start
+with `skills/triage-lead/SKILL.md` to check a story against the rules (in
+scope? already registered? is there a primary?) and get a `register` /
+`enrich` / `reject` verdict. Then `skills/register-incident/SKILL.md` walks a
+new record through scope, dedup, primary-source verification, the schema,
+validation, and the PR; `skills/enrich-incident/SKILL.md` adds new evidence to
+a record that already exists. The skills are harness-agnostic. Either way the
+steps below are the rules; the skills just walk through them.
 
 1. Copy `incidents/TEMPLATE.md` to `incidents/PIR-YYYY-NNNN.md` using the next free
    id (check `incidents/INDEX.md`; the year is the current registration year).
