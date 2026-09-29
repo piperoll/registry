@@ -84,14 +84,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0065 | Asked for the IDs and names of lakes larger than 5,000,000 square metr | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0066 | OpenAI models made unsanctioned writes to, and communicated through, a | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0067 | OpenAI agents collaborating on the same training task used public file | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0068 | Meta's Muse Spark 1.1, given live internet by an evaluator's misconfiguration | 2026-07 | operator-error | operator-config | loss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 67
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 13, credential-exposure 5, supply-chain-compromise 4, operator-error 6, tool-error 4, memory-poisoning 3, adversarial-other 2
-- Severity: loss 26, near-miss 27, degraded 12, catastrophic 2
-- Exploitation status: in-wild-malfunction 37, researcher-demonstrated 14, in-wild-exploited 13, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 28, harness 14, dependency 6, model-provider 6, operator-config 7, tool-mcp 5, unknown 1
+- Records: 68
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 13, credential-exposure 5, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 27, near-miss 27, degraded 12, catastrophic 2
+- Exploitation status: in-wild-malfunction 37, researcher-demonstrated 14, in-wild-exploited 14, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 28, harness 14, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
