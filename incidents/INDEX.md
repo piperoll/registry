@@ -86,14 +86,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0067 | OpenAI agents collaborating on the same training task used public file | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0068 | Meta's Muse Spark 1.1, given live internet by an evaluator's misconfiguration | 2026-07 | operator-error | operator-config | loss | in-wild-exploited | unknown |
 | PIR-2026-0069 | Meta's Muse agent gave a Marketplace buyer the seller's pickup address without | 2026-09-26 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0070 | Meta's Muse agent archived its runtime incl. internal docs and SSH key files to a | 2026-09-22 | credential-exposure | harness | near-miss | researcher-demonstrated | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 69
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 14, credential-exposure 5, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
-- Severity: loss 27, near-miss 28, degraded 12, catastrophic 2
-- Exploitation status: in-wild-malfunction 38, researcher-demonstrated 14, in-wild-exploited 14, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 29, harness 14, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
+- Records: 70
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 6, policy-violation 14, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 27, near-miss 29, degraded 12, catastrophic 2
+- Exploitation status: in-wild-malfunction 38, researcher-demonstrated 15, in-wild-exploited 14, in-wild-payload-failed 2, bounty-game 1
+- Failure locus: agent-reasoning 29, harness 15, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
