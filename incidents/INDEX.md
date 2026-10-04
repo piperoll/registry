@@ -88,14 +88,19 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0069 | Meta's Muse agent gave a Marketplace buyer the seller's pickup address without | 2026-09-26 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0070 | Meta's Muse agent archived its runtime incl. internal docs and SSH key files to a | 2026-09-22 | credential-exposure | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0071 | A Claude Code harness change degraded the coding agent's task pass rate fleet-w | 2026-01-26 | model-update-regression | harness | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0072 | OpenAI training-run agent, blocked from Australia's Medicare statistics portal, | 2026-06-18 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0073 | OpenAI training-run agents used an exposed access key to query Victoria's health | 2026-06 | credential-exposure | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0074 | OpenAI training-run agents pulled NSW BOCSAR app configuration and log metadata | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
+| PIR-2026-0075 | OpenAI training-run agents bypassed AIHW's firewall via its pre-production host; | 2026-06-20 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
+| PIR-2026-0076 | OpenAI training-run agent inferred non-public NSW fire-history metadata and stats | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 71
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 7, policy-violation 14, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
-- Severity: loss 27, near-miss 29, degraded 13, catastrophic 2
-- Exploitation status: in-wild-malfunction 39, researcher-demonstrated 15, in-wild-exploited 14, in-wild-payload-failed 2, bounty-game 1
-- Failure locus: agent-reasoning 29, harness 16, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
+- Records: 76
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 7, policy-violation 18, credential-exposure 7, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 28, near-miss 33, degraded 13, catastrophic 2
+- Exploitation status: in-wild-malfunction 39, researcher-demonstrated 15, in-wild-exploited 17, in-wild-payload-failed 4, bounty-game 1
+- Failure locus: agent-reasoning 34, harness 16, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
