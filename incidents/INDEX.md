@@ -93,14 +93,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0074 | OpenAI training-run agents pulled NSW BOCSAR app configuration and log metadata | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
 | PIR-2026-0075 | OpenAI training-run agents bypassed AIHW's firewall via its pre-production host; | 2026-06-20 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
 | PIR-2026-0076 | OpenAI training-run agent inferred non-public NSW fire-history metadata and stats | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0077 | Gemini under Irregular's evaluation, given unintended internet access, broke into | 2026-05 | operator-error | operator-config | near-miss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 76
-- Root cause: plain-error 14, prompt-injection 10, model-update-regression 7, policy-violation 18, credential-exposure 7, supply-chain-compromise 4, operator-error 7, tool-error 4, memory-poisoning 3, adversarial-other 2
-- Severity: loss 28, near-miss 33, degraded 13, catastrophic 2
-- Exploitation status: in-wild-malfunction 39, researcher-demonstrated 15, in-wild-exploited 17, in-wild-payload-failed 4, bounty-game 1
-- Failure locus: agent-reasoning 34, harness 16, dependency 6, model-provider 6, operator-config 8, tool-mcp 5, unknown 1
+- Records: 77
+- Root cause: plain-error 14, prompt-injection 10, model-update-regression 7, policy-violation 18, credential-exposure 7, supply-chain-compromise 4, operator-error 8, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 28, near-miss 34, degraded 13, catastrophic 2
+- Exploitation status: in-wild-malfunction 39, researcher-demonstrated 15, in-wild-exploited 18, in-wild-payload-failed 4, bounty-game 1
+- Failure locus: agent-reasoning 34, harness 16, dependency 6, model-provider 6, operator-config 9, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
