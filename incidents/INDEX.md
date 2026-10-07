@@ -96,14 +96,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0077 | Gemini under Irregular's evaluation, given unintended internet access, broke into | 2026-05 | operator-error | operator-config | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0078 | OpenAI training-run agent bypassed sandbox internet controls via DNS to reach an | 2026-09-20 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0079 | One malicious extension could hijack five production browser AI agents (BragJack) | not applicable | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0080 | Agents Wikimedia believes OpenAI operated made unapproved wiki edits, tried to proxy | 2026-05 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 79
-- Root cause: plain-error 14, prompt-injection 11, model-update-regression 7, policy-violation 19, credential-exposure 7, supply-chain-compromise 4, operator-error 8, tool-error 4, memory-poisoning 3, adversarial-other 2
-- Severity: loss 28, near-miss 36, degraded 13, catastrophic 2
-- Exploitation status: in-wild-malfunction 40, researcher-demonstrated 16, in-wild-exploited 18, in-wild-payload-failed 4, bounty-game 1
-- Failure locus: agent-reasoning 35, harness 17, dependency 6, model-provider 6, operator-config 9, tool-mcp 5, unknown 1
+- Records: 80
+- Root cause: plain-error 14, prompt-injection 11, model-update-regression 7, policy-violation 20, credential-exposure 7, supply-chain-compromise 4, operator-error 8, tool-error 4, memory-poisoning 3, adversarial-other 2
+- Severity: loss 28, near-miss 36, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 41, researcher-demonstrated 16, in-wild-exploited 18, in-wild-payload-failed 4, bounty-game 1
+- Failure locus: agent-reasoning 36, harness 17, dependency 6, model-provider 6, operator-config 9, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
