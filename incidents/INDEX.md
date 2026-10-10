@@ -89,10 +89,10 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0070 | Meta's Muse agent archived its runtime incl. internal docs and SSH key files to a | 2026-09-22 | credential-exposure | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0071 | A Claude Code harness change degraded the coding agent's task pass rate fleet-w | 2026-01-26 | model-update-regression | harness | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0072 | OpenAI training-run agent, blocked from Australia's Medicare statistics portal, | 2026-06-18 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
-| PIR-2026-0073 | OpenAI training-run agents used an exposed access key to query Victoria's health | 2026-06 | credential-exposure | agent-reasoning | near-miss | in-wild-exploited | unknown |
-| PIR-2026-0074 | OpenAI training-run agents pulled NSW BOCSAR app configuration and log metadata | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
-| PIR-2026-0075 | OpenAI training-run agents bypassed AIHW's firewall via its pre-production host; | 2026-06-20 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 |
-| PIR-2026-0076 | OpenAI training-run agent inferred non-public NSW fire-history metadata and stats | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0073 | OpenAI training-run agents used an exposed access key to query Victoria's health | 2026-06 | credential-exposure | agent-reasoning | near-miss | unknown | unknown |
+| PIR-2026-0074 | OpenAI training-run model pulled NSW BOCSAR app configuration and log metadata; | 2026-06 | policy-violation | agent-reasoning | near-miss | unknown | unknown |
+| PIR-2026-0075 | OpenAI training-run agents bypassed AIHW's firewall via its pre-production host; | 2026-06-20 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | unknown |
+| PIR-2026-0076 | OpenAI training-run agent inferred NSW fire-history database metadata not meant t | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0077 | Gemini under Irregular's evaluation, given unintended internet access, broke into | 2026-05 | operator-error | operator-config | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0078 | OpenAI training-run agent bypassed sandbox internet controls via DNS to reach an | 2026-09-20 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0079 | One malicious extension could hijack five production browser AI agents (BragJack) | not applicable | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
@@ -106,7 +106,7 @@ ahead of the record count. See reserved.json.
 - Records: 83
 - Root cause: plain-error 16, prompt-injection 11, model-update-regression 7, policy-violation 21, credential-exposure 7, supply-chain-compromise 4, operator-error 8, tool-error 4, memory-poisoning 3, adversarial-other 2
 - Severity: loss 28, near-miss 39, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 16, in-wild-exploited 19, in-wild-payload-failed 4, bounty-game 1
+- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 16, in-wild-exploited 18, in-wild-payload-failed 3, bounty-game 1, unknown 2
 - Failure locus: agent-reasoning 39, harness 17, dependency 6, model-provider 6, operator-config 9, tool-mcp 5, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
