@@ -10,7 +10,8 @@ Record ID format: `PIR-YYYY-NNNN` (PipeRoll Incident Record).
 - `id` - PIR-YYYY-NNNN
 - `title` - one line, plain words
 - `date_occurred` / `date_detected` / `date_disclosed` - the gaps between these three are themselves data (time-to-detect, time-to-disclose)
-- `status` - draft | corroborated | disputed | corrected
+- `status` - draft | corroborated | disputed | corrected | withdrawn
+  (withdrawn, added 2026-10-10: a published record later found outside scope or unsupported. The file and id are permanent; the field carries the date and reason; the record is excluded from INDEX statistics and marked withdrawn on the site. Distinct from a retired id, which never published.)
 
 ### The agent
 - `agent_description` - what the system is, in one paragraph

@@ -537,7 +537,8 @@ def build():
         f" data-year_key='{r['year_key']}' data-sortdate='{r['sort_date']}' data-id='{r['id']}'"
         f" data-text='{htmlmod.escape((r['id'] + ' ' + r.get('title','') + ' ' + r['cause_key'] + ' ' + r['status_key']).lower())}'>"
         f"<td class='ord'>{i + 1}</td>"
-        f"<td><a href='{r['url']}'>{r['id']}</a></td>"
+        f"<td><a href='{r['url']}'>{r['id']}</a>"
+        f"{' <span class=\"meta\">withdrawn</span>' if (r.get('status') or '').strip().lower().startswith('withdrawn') else ''}</td>"
         f"<td>{htmlmod.escape(cut(r.get('title',''), 120))}</td>"
         f"<td>{htmlmod.escape(date_cell(r))}</td>"
         f"<td>{htmlmod.escape(r['cause_key'])}</td>"
@@ -635,8 +636,13 @@ def build():
                         f'(<span class="meta">records in preparation: {_rlinks}</span>)')
     else:
         reserved_bit = ""
+    # withdrawn: published, later found outside scope or unsupported (schema
+    # amendment 2026-10-10). Kept with their permanent ids, marked, and left
+    # out of the verified count.
+    _withdrawn = [r for r in records if (r.get("status") or "").strip().lower().startswith("withdrawn")]
+    _wd_bit = f" &middot; {len(_withdrawn)} withdrawn" if _withdrawn else ""
     body = f"""
-<p class="stats"><strong>{len(records)} verified records</strong> &middot; 0 retired ids &middot; schema v0.2{updated_bit}{reserved_bit}</p>
+<p class="stats"><strong>{len(records) - len(_withdrawn)} verified records</strong>{_wd_bit} &middot; 0 retired ids &middot; schema v0.2{updated_bit}{reserved_bit}</p>
 <p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
 no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before
