@@ -82,3 +82,4 @@ The skills point at the canonical files above rather than restating them;
 if a skill and `CONTRIBUTING.md`, `incident-schema-v0.md` or this file ever
 disagree, the canonical file wins and the skill is the bug. Both skills end
 in a pull request and never merge - the hard rules apply unchanged.
+- `skills/triage-discovery/` - the daily loop over open `discovery` issues: sheet, decide, draft, close with outcomes.
