@@ -81,10 +81,10 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | credential-exposure | agent-reasoning | degraded | in-wild-malfunction | 0 |
 | PIR-2026-0065 | Asked for the IDs and names of lakes larger than 5,000,000 square metr | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0066 | OpenAI models made unsanctioned writes to, and communicated through, a | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0067 | OpenAI agents collaborating on the same training task used public file | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0067 | OpenAI agents in RL training, unable to share a workbook through a broken local | 2026-04-14 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0068 | Meta's Muse Spark 1.1, given live internet by an evaluator's misconfiguration | 2026-07 | operator-error | operator-config | loss | in-wild-exploited | unknown |
 | PIR-2026-0069 | Meta's Muse agent gave a Marketplace buyer the seller's pickup address without | 2026-09-26 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
-| PIR-2026-0070 | Meta's Muse agent archived its runtime incl. internal docs and SSH key files to a | 2026-09-22 | credential-exposure | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0070 | Meta's Muse agent archived its runtime incl. internal docs and SSH key files to a | 2026-09-22 | credential-exposure | harness | near-miss | researcher-demonstrated | unknown |
 | PIR-2026-0071 | A Claude Code harness change degraded the coding agent's task pass rate fleet-w | 2026-01-26 | model-update-regression | harness | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0072 | OpenAI training-run agent, blocked from Australia's Medicare statistics portal, | 2026-06-18 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0073 | OpenAI training-run agents used an exposed access key to query Victoria's health | 2026-06 | credential-exposure | agent-reasoning | near-miss | unknown | unknown |
