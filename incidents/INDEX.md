@@ -30,7 +30,7 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0011 | Cruise robotaxi drags a pedestrian; false crash reporting kills the bu | 2023-10-02 | plain-error | agent-reasoning | catastrophic | in-wild-malfunction | ~2.1M in fines/penalties |
 | PIR-2026-0012 | Chevrolet of Watsonville dealership chatbot agrees to sell a Tahoe for | 2023-12-17 | prompt-injection | agent-reasoning | near-miss | in-wild-exploited | 0 |
 | PIR-2026-0013 | DPD chatbot swears at a customer and calls DPD "the worst delivery ser | 2024-01-18 | model-update-regression | unknown | degraded | in-wild-exploited | 0; `indirect_loss_usd`:  |
-| PIR-2026-0014 | McDonald's ends IBM AI drive-thru voice ordering after persistent orde | 2024-07-26 | plain-error | agent-reasoning | degraded | in-wild-malfunction | unknown (3-year, 100+ st |
+| PIR-2026-0014 | McDonald's ends IBM AI drive-thru voice ordering after persistent orde | 2024-07-26 | plain-error | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0015 | SpAIware: persistent memory poisoning of the ChatGPT macOS app for con | n/a | memory-poisoning | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0016 | Freysa adversarial agent game: one message releases the entire prize p | 2024-11-28 | prompt-injection | agent-reasoning | loss | bounty-game | ~47,000 (13.19 ETH; repo |
 | PIR-2026-0017 | EchoLeak: zero-click prompt-injection data exfiltration in Microsoft 3 | 2025 | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
