@@ -37,11 +37,11 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0018 | ShadowLeak: zero-click Gmail exfiltration via the ChatGPT Deep Researc | 2025 | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0019 | Researchers demonstrate systemic exploitability of the x402 agentic-pa | 2025 | adversarial-other | dependency | near-miss | researcher-demonstrated | 0 attributed to these fl |
 | PIR-2026-0020 | Claude Code auto-update path breaks workstations via root-owned permis | 2025-02-27 | tool-error | harness | degraded | in-wild-malfunction | unknown (recovery labor  |
-| PIR-2026-0021 | Grok-linked Bankr wallet drained of ~$330K via social-engineered promp | 2025-03 | prompt-injection | harness | loss | in-wild-exploited | ~330,000 reported (BNKR, |
+| PIR-2026-0021 | Reported prompt manipulation of Grok drives Bankr token launches; ~$330K drain r | 2025-03 | prompt-injection | harness | loss | in-wild-exploited | unknown (~330,000 reported, upper anchor) |
 | PIR-2026-0022 | Memory injection makes ElizaOS wallet agents redirect real crypto tran | 2025-03 | memory-poisoning | harness | near-miss | researcher-demonstrated | 0 (only researchers' own |
 | PIR-2026-0023 | AIXBT trading agent drained of 55.5 ETH via compromised operator dashb | 2025-03-18 | credential-exposure | harness | loss | in-wild-exploited | ~106,200 (55.5 ETH at in |
 | PIR-2026-0024 | Cursor's AI support agent "Sam" invents a one-device policy, turning a | 2025-04-14 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (refunds plus ca |
-| PIR-2026-0025 | GPT-4o sycophancy update: a provider regression silently changes every | 2025-04-25 | model-update-regression | model-provider | degraded | in-wild-malfunction | unknown (harm was behavi |
+| PIR-2026-0025 | GPT-4o sycophancy update: a provider regression silently changes every | 2025-04-24 | model-update-regression | model-provider | degraded | in-wild-malfunction | unknown (harm was behavi |
 | PIR-2026-0026 | GitHub MCP "toxic agent flow": malicious issue coerces coding agents i | n/a | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0027 | Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a  | 2025-07 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (personal projec |
 | PIR-2026-0028 | Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL | n/a | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 (demonstration) |
