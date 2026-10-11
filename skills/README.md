@@ -18,7 +18,16 @@ as GitHub issues labelled `discovery`, uploads the candidate list as a run
 artifact, and never writes a record or touches `main`. See
 `discovery/README.md`. A lead can also arrive by hand: a story, a tip, a URL.
 
-## Stage 1 - Triage: `triage-lead`
+## Stage 1 - Triage: `triage-lead` (daily loop: `triage-discovery`)
+
+`triage-discovery` is the daily wrapper: it builds a sheet of every open
+`discovery` issue with `discovery/triage_issues.py sheet` (pre-classifying
+advisories, quote posts and already-registered leads with a written reason),
+leaves the judgement calls to `triage-lead`, routes `register` / `enrich`
+verdicts to the drafting skills, and closes each issue with a per-lead
+outcome via `discovery/triage_issues.py close`. The outcomes are the audit
+trail of what the registry declined and why.
+
 
 Check every candidate against the rules before anyone drafts anything:
 is the subject an agent, did its behaviour fail (reliability, not offensive

@@ -71,3 +71,16 @@ if __name__ == "__main__":
     test_scope()
     test_dedup()
     print("all discovery tests passed")
+
+
+
+def test_triage_issues_parse_and_classify():
+    import triage_issues as ti
+    body = ("# x\n\n## Langflow: RCE via MCP config\n- source: github-advisories\n- url: https://github.com/advisories/GHSA-1\n"
+            "- score: 3 (x)\n- why look: summary one\n\n## Quoting Someone\n- source: willison\n- url: https://simonwillison.net/a\n"
+            "- score: 2 (y)\n- why look: summary two\n\n## Agent deletes prod DB\n- source: news\n- url: https://example.com/story\n"
+            "- score: 4 (z)\n- why look: summary three")
+    leads = ti.parse_leads(body)
+    assert [l["title"] for l in leads] == ["Langflow: RCE via MCP config", "Quoting Someone", "Agent deletes prod DB"]
+    assert [ti.classify(l, {}, {})[0] for l in leads] == ["advisory", "quote-or-roundup", "review"]
+    assert ti.classify(leads[2], {"example.com/story": "PIR-2026-0001"}, {}) == ("registered", "already registered: PIR-2026-0001")
