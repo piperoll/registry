@@ -55,13 +55,13 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0036 | Malicious "postmark-mcp" npm package BCC-exfiltrates agent-sent email | 2025-09-17 | supply-chain-compromise | tool-mcp | loss | in-wild-exploited | unknown; no monetary the |
 | PIR-2026-0037 | 402Bridge private-key leak drains USDC approvals from 227 wallets in t | 2025-10-27 | credential-exposure | dependency | loss | in-wild-exploited | 17,693 (on-chain, consis |
 | PIR-2026-0038 | Google Antigravity agent, asked to clear a project cache, deletes the  | 2025-12-01 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (permanent loss  |
-| PIR-2026-0039 | Moltbook agent-to-agent prompt-injection wave (~506 injection attacks  | 2026 | prompt-injection | agent-reasoning | degraded | in-wild-exploited | unknown (attempted walle |
-| PIR-2026-0040 | Moltbook misconfigured database exposes ~1.5M agent API keys with unau | 2026-01 | credential-exposure | operator-config | near-miss | researcher-demonstrated | 0 confirmed |
-| PIR-2026-0041 | ClawHavoc: hundreds of malicious ClawHub skills delivered, or were built to deli | 2026-01 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown (no aggregate fi |
-| PIR-2026-0042 | Mass public exposure of misconfigured OpenClaw instances, with credential leaks | 2026-01-25 | operator-error | operator-config | degraded | in-wild-malfunction | unknown (no aggregate fi |
+| PIR-2026-0039 | Moltbook agent-to-agent prompt-injection wave (~506 injection attacks  | 2026 | prompt-injection | agent-reasoning | degraded | in-wild-payload-failed | unknown |
+| PIR-2026-0040 | Moltbook misconfigured database exposes ~1.5M agent API keys with unau | 2026-01 | credential-exposure | operator-config | near-miss | researcher-demonstrated | unknown |
+| PIR-2026-0041 | ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS S | 2026-01 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown (no aggregate fi |
+| PIR-2026-0042 | Mass exposure of misconfigured OpenClaw instances leaking agent creden | 2026-01-25 | operator-error | operator-config | degraded | in-wild-malfunction | unknown (no aggregate fi |
 | PIR-2026-0043 | Lobstar Wilde trading agent sends ~5% of its token supply to a strange | 2026-02-22 | plain-error | agent-reasoning | loss | in-wild-malfunction | 250,000-442,000 notional |
 | PIR-2026-0044 | Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT p | 2026-05 | prompt-injection | harness | loss | in-wild-exploited | gross ~150,000-200,000 ( |
-| PIR-2026-0045 | Autonomous agent leaks its own API key to public GitHub via blanket gi | 2026-08-15 | credential-exposure | harness | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0045 | Autonomous agent leaks its own API key to public GitHub via blanket gi | 2026-08-15 | credential-exposure | harness | near-miss | in-wild-malfunction | 0 (key disabled before a |
 | PIR-2026-0046 | YouTube's automated low-quality/AI-content detection system misclassif | 2026-08 | plain-error | model-provider | loss | in-wild-malfunction | unknown (flagship upload |
 | PIR-2026-0047 | During a UK AI Security Institute cyber evaluation run with safeguards | 2026-07-25 to 2026-07-28 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 confirmed (attempted i |
 | PIR-2026-0048 | Autonomous agent's debt reflex schedules by weekday, not due date; ne | 2026-08-21 | plain-error | harness | near-miss | in-wild-malfunction | 0 (payment made ~3 hours |
@@ -104,7 +104,7 @@ ahead of the record count. See reserved.json.
 - Records: 81 (plus 2 withdrawn, listed below, excluded from these counts)
 - Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 23, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 3, memory-poisoning 3, adversarial-other 2
 - Severity: loss 29, near-miss 36, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 18, in-wild-payload-failed 3, bounty-game 1, unknown 2
+- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 17, in-wild-payload-failed 4, bounty-game 1, unknown 2
 - Failure locus: agent-reasoning 39, harness 16, dependency 6, model-provider 6, operator-config 9, tool-mcp 4, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
