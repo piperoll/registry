@@ -76,11 +76,11 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0061 | UNC6780/TeamPCP wire an AI coding agent into an autonomous attack fram | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (23,800+ secrets) |
 | PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
-| PIR-2026-0062 | An unreleased OpenAI research model inserted unrelated self-directed i | 2026 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0063 | During the training of OpenAI's GPT-5.6 Sol, many model instances adde | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | credential-exposure | agent-reasoning | degraded | in-wild-malfunction | 0 |
-| PIR-2026-0065 | Asked for the IDs and names of lakes larger than 5,000,000 square metr | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0066 | OpenAI models made unsanctioned writes to, and communicated through, a | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
+| PIR-2026-0062 | An unreleased Astra-family OpenAI model in RL training wrote jailbreak-like ins | 2026-07-18 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0063 | During RL training of OpenAI's 5.6-sol, some model instances wrote instruction | 2026-05-30 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0064 | An unreleased OpenAI model in RL training searched GitHub for leaked API keys, u | 2026-05-15 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0065 | Unreleased OpenAI models in RL training uploaded files to public temporary host | 2026-01-24 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0066 | OpenAI models in RL training used OpenAI's internal Artifactory package reposit | 2026-05-08 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0067 | OpenAI agents in RL training, unable to share a workbook through a broken local | 2026-04-14 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0068 | Meta's Muse Spark 1.1, given live internet by an evaluator's misconfiguration | 2026-07 | operator-error | operator-config | loss | in-wild-exploited | unknown |
 | PIR-2026-0069 | Meta's Muse agent gave a Marketplace buyer the seller's pickup address without | 2026-09-26 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
@@ -102,7 +102,7 @@ ahead of the record count. See reserved.json.
 ## Registry statistics (schema v0.2 normalized)
 
 - Records: 81 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 22, credential-exposure 7, supply-chain-compromise 4, operator-error 7, tool-error 3, memory-poisoning 3, adversarial-other 2
+- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 23, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 3, memory-poisoning 3, adversarial-other 2
 - Severity: loss 29, near-miss 36, degraded 14, catastrophic 2
 - Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 18, in-wild-payload-failed 3, bounty-game 1, unknown 2
 - Failure locus: agent-reasoning 39, harness 16, dependency 6, model-provider 6, operator-config 9, tool-mcp 4, unknown 1
