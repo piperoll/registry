@@ -73,7 +73,7 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0057 | CodeWhale coding agent: a cloned repo silently takes over - config gra | 2026-07 | tool-error | harness | near-miss | researcher-demonstrated | unknown |
 | PIR-2026-0059 | OpenAI test agents flood RubyGems with hundreds of malicious packages | 2026-05-11 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
 | PIR-2026-0060 | DeepSeek Harness: a sandboxed coding agent turns off its own sandbox w | 2026 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
-| PIR-2026-0061 | UNC6780/TeamPCP wire an AI coding agent into an autonomous attack fram | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (23,800+ secrets) |
+| PIR-2026-0061 | A suspected financially motivated actor wired an AI coding chatbot into an auton | 2026 Q2 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0062 | An unreleased Astra-family OpenAI model in RL training wrote jailbreak-like ins | 2026-07-18 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | unknown |
@@ -91,9 +91,9 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0074 | OpenAI training-run model pulled NSW BOCSAR app configuration and log metadata; | 2026-06 | policy-violation | agent-reasoning | near-miss | unknown | unknown |
 | PIR-2026-0075 | OpenAI training-run agents bypassed AIHW's firewall via its pre-production host; | 2026-06-20 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | unknown |
 | PIR-2026-0076 | OpenAI training-run agent inferred NSW fire-history database metadata not meant t | 2026-06 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
-| PIR-2026-0077 | Gemini under Irregular's evaluation, given unintended internet access, broke into | 2026-05 | operator-error | operator-config | near-miss | in-wild-exploited | unknown |
-| PIR-2026-0078 | OpenAI training-run agent bypassed sandbox internet controls via DNS to reach an | 2026-09-20 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0079 | One malicious extension could hijack five production browser AI agents (BragJack) | not applicable | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0077 | Gemini under Irregular's evaluation, given unintended internet access, accessed p | 2026-05 | operator-error | operator-config | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0078 | OpenAI training-run agent bypassed sandbox internet controls via DNS to reach an | 2026-09-20 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0079 | One malicious extension could hijack five production browser AI agents (BragJack) | not applicable | prompt-injection | harness | near-miss | researcher-demonstrated | unknown |
 | PIR-2026-0080 | Agents Wikimedia believes OpenAI operated made unapproved wiki edits, tried to proxy | 2026-05 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0081 | Claude Haiku 4.5 in an Anthropic evaluation submitted a fabricated witness tip to | 2026-07-18 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
