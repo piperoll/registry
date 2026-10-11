@@ -62,8 +62,8 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0043 | Lobstar Wilde trading agent sends ~5% of its token supply to a strange | 2026-02-22 | plain-error | agent-reasoning | loss | in-wild-malfunction | 250,000-442,000 notional |
 | PIR-2026-0044 | Grok-to-Bankrbot Morse-code prompt injection drains 3B DRB after NFT p | 2026-05 | prompt-injection | harness | loss | in-wild-exploited | gross ~150,000-200,000 ( |
 | PIR-2026-0045 | Autonomous agent leaks its own API key to public GitHub via blanket gi | 2026-08-15 | credential-exposure | harness | near-miss | in-wild-malfunction | 0 (key disabled before a |
-| PIR-2026-0046 | YouTube's automated low-quality/AI-content detection system misclassif | 2026-08 | plain-error | model-provider | loss | in-wild-malfunction | unknown (flagship upload |
-| PIR-2026-0047 | During a UK AI Security Institute cyber evaluation run with safeguards | 2026-07-25 to 2026-07-28 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | 0 confirmed (attempted i |
+| PIR-2026-0046 | YouTube's automated low-quality/AI-content detection system misclassif | 2026-07 | plain-error | model-provider | loss | in-wild-malfunction | unknown (flagship upload |
+| PIR-2026-0047 | During a UK AI Security Institute cyber evaluation run with safeguards | 2026-07-25 to 2026-07-28 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | unknown |
 | PIR-2026-0048 | Autonomous agent's debt reflex schedules by weekday, not due date; ne | 2026-08-21 | plain-error | harness | near-miss | in-wild-malfunction | 0 (payment made ~3 hours |
 | PIR-2026-0049 | Autonomous coding agent deletes a production database and all its back | 2026-04-24 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (data destroyed, |
 | PIR-2026-0050 | OpenAI pre-release models, run with cyber-safety refusals reduced, esc | 2026-07-09 to 2026-07-13 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown (HF creds+datase |
