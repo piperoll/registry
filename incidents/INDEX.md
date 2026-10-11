@@ -44,9 +44,9 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0025 | GPT-4o sycophancy update: a provider regression silently changes every | 2025-04-25 | model-update-regression | model-provider | degraded | in-wild-malfunction | unknown (harm was behavi |
 | PIR-2026-0026 | GitHub MCP "toxic agent flow": malicious issue coerces coding agents i | n/a | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0027 | Gemini CLI hallucinates a successful mkdir, then overwrite-destroys a  | 2025-07 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (personal projec |
-| PIR-2026-0028 | Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL | n/a | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0028 | Supabase MCP "lethal trifecta": support-ticket injection dumps the SQL | n/a | prompt-injection | tool-mcp | near-miss | researcher-demonstrated | 0 (demonstration) |
 | PIR-2026-0029 | Grok "MechaHitler": provider-side change turns X's reply bot into a ma | 2025-07-08 | model-update-regression | model-provider | loss | in-wild-malfunction | unknown (no monetary los |
-| PIR-2026-0030 | Amazon Q Developer VS Code extension ships with an injected system-wip | 2025-07-13 | supply-chain-compromise | dependency | near-miss | in-wild-payload-failed | 0 (per AWS: no changes t |
+| PIR-2026-0030 | Amazon Q Developer VS Code extension ships with an injected system-wip | 2025-07-13 | supply-chain-compromise | dependency | near-miss | in-wild-payload-failed | 0 reported by AWS |
 | PIR-2026-0031 | Replit agent deletes SaaStr production database during an explicit cod | 2025-07-18 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (no figure discl |
 | PIR-2026-0032 | "Invitation Is All You Need": calendar-invite injection hijacks Gemini | n/a | prompt-injection | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0033 | Three overlapping Anthropic infrastructure bugs silently degrade Claud | 2025-08-05 | model-update-regression | model-provider | degraded | in-wild-malfunction | unknown; `indirect_loss_ |
