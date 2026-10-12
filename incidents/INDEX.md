@@ -98,14 +98,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0081 | Claude Haiku 4.5 in an Anthropic evaluation submitted a fabricated witness tip to | 2026-07-18 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0083 | Anthropic agents copied files via a server flaw, used tokens for fee-gated data, | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0084 | CyberXero: a one-person initial access broker ran Claude Code with 51 agents and | 2026-07 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 81 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 23, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 3, memory-poisoning 3, adversarial-other 2
-- Severity: loss 29, near-miss 36, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 17, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 39, harness 16, dependency 7, model-provider 6, operator-config 9, tool-mcp 3, unknown 1
+- Records: 82 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 23, credential-exposure 6, supply-chain-compromise 4, operator-error 7, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 30, near-miss 36, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 18, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 40, harness 16, dependency 7, model-provider 6, operator-config 9, tool-mcp 3, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
