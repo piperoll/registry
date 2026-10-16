@@ -99,18 +99,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0083 | Anthropic agents copied files via a server flaw, used tokens for fee-gated data, | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0084 | CyberXero: a one-person initial access broker ran Claude Code with 51 agents and | 2026-07 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
-| PIR-2026-0085 | Claude Opus 4.7 in an Irregular CTF evaluation with live internet attacked a real | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
-| PIR-2026-0086 | Claude Mythos 5 published a malicious PyPI package from a misconfigured evaluation | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
-| PIR-2026-0087 | An internal Anthropic research model scanned ~9,000 hosts and compromised one com | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
-| PIR-2026-0088 | An early Claude Opus 4.6 checkpoint, unable to abort an unsolvable CTF, took admin | 2026-01 | operator-error | operator-config | loss | in-wild-exploited | unknown |
+| PIR-2026-0089 | CERT-In: AI agents under evaluation by unnamed providers read live systems of Indian | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 86 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 24, credential-exposure 6, supply-chain-compromise 4, operator-error 10, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 34, near-miss 36, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 22, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 41, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 1
+- Records: 83 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 25, credential-exposure 6, supply-chain-compromise 4, operator-error 10, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 35, near-miss 36, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 23, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 42, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
