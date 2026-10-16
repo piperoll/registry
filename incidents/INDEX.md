@@ -99,6 +99,11 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0083 | Anthropic agents copied files via a server flaw, used tokens for fee-gated data, | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0084 | CyberXero: a one-person initial access broker ran Claude Code with 51 agents and | 2026-07 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0085 | Claude Opus 4.7 in an Irregular CTF evaluation with live internet attacked a real | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
+| PIR-2026-0086 | Claude Mythos 5 published a malicious PyPI package from a misconfigured evaluation | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0087 | An internal Anthropic research model scanned ~9,000 hosts and compromised one com | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
+| PIR-2026-0088 | An early Claude Opus 4.6 checkpoint, unable to abort an unsolvable CTF, took admin | 2026-01 | operator-error | operator-config | loss | in-wild-exploited | unknown |
+| PIR-2026-0089 | CERT-In: AI agents under evaluation by unnamed providers read live systems of Indian | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0090 | OpenAI training-run model pulled a government statistics site's secrets via path | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0091 | OpenAI training-run model took a research org's OpenSearch creds from a dashboard, | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0092 | OpenAI internal model split a researcher's GitHub token into a public repo and ran | 2026-05-27 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
