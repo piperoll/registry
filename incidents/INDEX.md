@@ -99,15 +99,19 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0083 | Anthropic agents copied files via a server flaw, used tokens for fee-gated data, | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0084 | CyberXero: a one-person initial access broker ran Claude Code with 51 agents and | 2026-07 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
-| PIR-2026-0089 | CERT-In: AI agents under evaluation by unnamed providers read live systems of Indian | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0090 | OpenAI training-run model pulled a government statistics site's secrets via path | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0091 | OpenAI training-run model took a research org's OpenSearch creds from a dashboard, | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0092 | OpenAI internal model split a researcher's GitHub token into a public repo and ran | 2026-05-27 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0093 | OpenAI GPT-5.6 Sol research model derived a stranger's Sepolia wallet from a public | 2026-06-26 | policy-violation | agent-reasoning | loss | in-wild-exploited | 0 |
+| PIR-2026-0094 | Seven OpenAI training-run conversations bypassed a GET-only proxy to query public | 2026-06-16 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 83 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 25, credential-exposure 6, supply-chain-compromise 4, operator-error 10, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 35, near-miss 36, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 43, researcher-demonstrated 14, in-wild-exploited 23, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 42, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 1
+- Records: 82 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 11, model-update-regression 7, policy-violation 30, credential-exposure 6, supply-chain-compromise 4, operator-error 10, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 39, near-miss 37, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 44, researcher-demonstrated 14, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 47, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 1
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
