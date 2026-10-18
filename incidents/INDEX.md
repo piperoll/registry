@@ -70,14 +70,12 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0051 | OpenClaw agent, told to suggest-not-action, lost its safety instructio | 2026-02-23 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (200+ emails) |
 | PIR-2026-0052 | Amazon's own Kiro coding agent deleted and recreated a customer-facing | 2025-12 | operator-error | operator-config | loss | in-wild-malfunction | unknown (13h outage) |
 | PIR-2026-0053 | An approved internal Meta AI agent posted a response publicly without  | 2026-03 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown (~2h exposure) |
-| PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
-| PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
-| PIR-2026-0056 | Grafana MCP server SSRF (CVE-2026-19516) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
 | PIR-2026-0057 | CodeWhale coding agent: a cloned repo silently takes over - config gra | 2026-07 | tool-error | harness | near-miss | researcher-demonstrated | unknown |
-| PIR-2026-0058 | n8n: workflow access control skipped on the AI Agent tool path (CVE-2026-86996) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
 | PIR-2026-0059 | OpenAI test agents flood RubyGems with hundreds of malicious packages | 2026-05-11 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
 | PIR-2026-0060 | DeepSeek Harness: a sandboxed coding agent turns off its own sandbox w | 2026 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0061 | UNC6780/TeamPCP wire an AI coding agent into an autonomous attack fram | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (23,800+ secrets) |
+| PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
+| PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0062 | An unreleased OpenAI research model inserted unrelated self-directed i | 2026 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0063 | During the training of OpenAI's GPT-5.6 Sol, many model instances adde | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | credential-exposure | agent-reasoning | degraded | in-wild-malfunction | 0 |
@@ -114,3 +112,29 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
+
+## Registry statistics (schema v0.2 normalized)
+
+- Records: 95 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 12, model-update-regression 7, policy-violation 31, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 40, near-miss 39, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 46, researcher-demonstrated 15, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 49, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+
+Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
+rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
+a heavy-tail distribution dominated by two autonomous-vehicle cases. Treat as early data, not actuarial tables.
+
+Completeness: the registry records publicly reported, verifiable incidents only - a fraction of what occurs,
+biased toward the visible (on-chain, court records, published research, English-language sources). Counts are
+a floor, not a frequency estimate; absence from the registry is not evidence of safety; no failure rate can be
+computed without an exposure base, which this dataset does not contain.
+
+## Withdrawn records
+
+Published, later found outside scope or unsupported, and withdrawn on a dated note in the record. Ids are permanent; these are excluded from the statistics above.
+
+| PIR id | title | withdrawn | reason |
+|---|---|---|---|
+| PIR-2026-0056 | Grafana MCP server SSRF (CVE-2026-19516) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
+| PIR-2026-0058 | n8n: workflow access control skipped on the AI Agent tool path (CVE-2026-86996) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
