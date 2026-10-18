@@ -109,7 +109,7 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0092 | OpenAI internal model split a researcher's GitHub token into a public repo and ran | 2026-05-27 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0093 | OpenAI GPT-5.6 Sol research model derived a stranger's Sepolia wallet from a public | 2026-06-26 | policy-violation | agent-reasoning | loss | in-wild-exploited | 0 |
 | PIR-2026-0094 | Seven OpenAI training-run conversations bypassed a GET-only proxy to query public | 2026-06-16 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
-| PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit deleted at Mastiff, backup failed, | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
+| PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
