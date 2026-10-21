@@ -2,11 +2,6 @@ MIT License
 
 Copyright (c) 2026 PipeRoll contributors
 
-Applies to the tooling and site generator in this repository (tools/, workflow
-definitions, and generated page markup). The incident records under incidents/
-and the registry data exports are licensed separately under CC BY 4.0 - see
-incidents/LICENSE.
-
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
