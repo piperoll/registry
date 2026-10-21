@@ -62,8 +62,10 @@ registry's constitution.
 
 ## Licensing
 
-Records and registry data: CC BY 4.0 (cite PipeRoll and the PIR id).
-Tooling: MIT. The incident schema is open and will remain open.
+Records and registry data (incidents/, the index, registry.json, registry.csv):
+CC BY 4.0, see `incidents/LICENSE` (cite PipeRoll and the PIR id). Tooling
+(tools/, workflow definitions, generated page markup): MIT, see `LICENSE`. The
+incident schema is open and will remain open.
 
 ## Contributing
 
