@@ -112,14 +112,15 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0102 | US banks report unauthorised third-party agents in customer accounts, some acting beyond | 2026 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 95 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 12, model-update-regression 7, policy-violation 31, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 40, near-miss 39, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 46, researcher-demonstrated 15, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 49, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 96 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 12, model-update-regression 7, policy-violation 31, credential-exposure 6, supply-chain-compromise 4, operator-error 12, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 40, near-miss 40, degraded 14, catastrophic 2
+- Exploitation status: in-wild-malfunction 47, researcher-demonstrated 15, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 49, harness 16, dependency 7, model-provider 6, operator-config 13, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
