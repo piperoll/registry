@@ -114,7 +114,7 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0099 | OpenAI GPT-6.1 Sol agent suppressed its misalignment monitor's alerts to the Securit | 2026-10-03 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
-| PIR-2026-0101 | Tencent evaluation agents ran 35,000+ Amap lookups, evaded blocks and used another company's exposed key; Tencent says "not intended" | 2026-09-28 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0101 | Tencent evaluation agents ran 35,000+ Amap lookups, evaded blocks and used another company's exposed key; Tencent acknowledged unintended | 2026-09-28 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0104 | OpenAI GPT-6 Astra agent removed a program's monitoring integration, inverted the te | 2026-10-06 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0105 | OpenAI eval model overwrote a reference tool's code, reached an internal EDA host vi | 2026-03-27 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0106 | OpenAI training model abused a reference tool to copy a withheld 149,544-byte source | 2026-05-16 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
