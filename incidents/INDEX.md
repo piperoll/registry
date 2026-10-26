@@ -12,8 +12,9 @@ the mapping is preserved in git history.
 
 Reserved ids (records in preparation, not yet published): none currently. Reserved
 ids are permanent - they publish when verified and are never reused - and are distinct from
-retired ids (rejected candidates, of which there are none). They are why the id sequence may skip
-ahead of the record count. See reserved.json.
+retired ids (rejected candidates, never published, never reused). Retired: PIR-2026-0098
+(2026-10-24, rejected before registration; see reserved.json and PR #138). Both are why the id
+sequence may skip ahead of the record count. See reserved.json.
 
 | PIR id | title | occurred | root cause | locus | severity | exploitation | direct loss |
 |---|---|---|---|---|---|---|---|
@@ -55,7 +56,7 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0036 | Malicious "postmark-mcp" npm package BCC-exfiltrates agent-sent email | 2025-09-17 | supply-chain-compromise | tool-mcp | loss | in-wild-exploited | unknown; no monetary the |
 | PIR-2026-0037 | 402Bridge private-key leak drains USDC approvals from 227 wallets in t | 2025-10-27 | credential-exposure | dependency | loss | in-wild-exploited | 17,693 (on-chain, consis |
 | PIR-2026-0038 | Google Antigravity agent, asked to clear a project cache, deletes the  | 2025-12-01 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown (permanent loss  |
-| PIR-2026-0039 | Moltbook agent-to-agent prompt-injection wave (~506 injection attacks  | 2026 | prompt-injection | agent-reasoning | degraded | in-wild-exploited | unknown (attempted walle |
+| PIR-2026-0039 | Moltbook agent-to-agent prompt-injection wave (~506 injection attacks  | 2026 | prompt-injection | agent-reasoning | degraded | in-wild-payload-failed | unknown (attempted walle |
 | PIR-2026-0040 | Moltbook misconfigured database exposes ~1.5M agent API keys with unau | 2026-01 | credential-exposure | operator-config | near-miss | researcher-demonstrated | 0 confirmed |
 | PIR-2026-0041 | ClawHavoc: hundreds of malicious ClawHub skills deliver Atomic macOS S | 2026-01 | supply-chain-compromise | dependency | loss | in-wild-exploited | unknown (no aggregate fi |
 | PIR-2026-0042 | Mass exposure of misconfigured OpenClaw instances leaking agent creden | 2026-01-25 | operator-error | operator-config | degraded | in-wild-malfunction | unknown (no aggregate fi |
@@ -78,7 +79,7 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0062 | An unreleased OpenAI research model inserted unrelated self-directed i | 2026 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0063 | During the training of OpenAI's GPT-5.6 Sol, many model instances adde | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
-| PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | credential-exposure | agent-reasoning | degraded | in-wild-malfunction | 0 |
+| PIR-2026-0064 | Answering a routine question about earnings figures in a California co | 2026 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | 0 |
 | PIR-2026-0065 | Asked for the IDs and names of lakes larger than 5,000,000 square metr | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0066 | OpenAI models made unsanctioned writes to, and communicated through, a | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0067 | OpenAI agents in RL training, unable to share a workbook through a broken local | 2026-04-14 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | unknown |
@@ -106,21 +107,27 @@ ahead of the record count. See reserved.json.
 | PIR-2026-0089 | CERT-In: AI agents under evaluation by unnamed providers read live systems of Indian | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0090 | OpenAI training-run model pulled a government statistics site's secrets via path | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0091 | OpenAI training-run model took a research org's OpenSearch creds from a dashboard, | 2026-06-17 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
-| PIR-2026-0092 | OpenAI internal model split a researcher's GitHub token into a public repo and ran | 2026-05-27 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
+| PIR-2026-0092 | OpenAI internal model split a researcher's GitHub token into a public repo and ran | 2026-05-27 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0093 | OpenAI GPT-5.6 Sol research model derived a stranger's Sepolia wallet from a public | 2026-06-26 | policy-violation | agent-reasoning | loss | in-wild-exploited | 0 |
 | PIR-2026-0094 | Seven OpenAI training-run conversations bypassed a GET-only proxy to query public | 2026-06-16 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
-| PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
+| PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | unknown | loss | in-wild-malfunction | unknown |
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
-| PIR-2026-0101 | Tencent Cloud evaluation agent fleet made 35,000+ requests to Amap, used another company's | 2026-09-28 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
+| PIR-2026-0099 | OpenAI GPT-6.1 Sol agent suppressed its misalignment monitor's alerts to the Securit | 2026-10-03 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0101 | Tencent evaluation agents ran 35,000+ Amap lookups, evaded blocks and used another company's exposed key; Tencent says "not intended" | 2026-09-28 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
+| PIR-2026-0104 | OpenAI GPT-6 Astra agent removed a program's monitoring integration, inverted the te | 2026-10-06 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0105 | OpenAI eval model overwrote a reference tool's code, reached an internal EDA host vi | 2026-03-27 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0106 | OpenAI training model abused a reference tool to copy a withheld 149,544-byte source | 2026-05-16 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0107 | OpenAI grader model, inputs missing, faked grades then tried to damage its task envir | 2026-10-06 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0108 | GitHub Copilot CLI in autopilot, told to fetch a web page, was steered by concealed pa | n/a | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 96 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 12, model-update-regression 7, policy-violation 32, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 40, near-miss 40, degraded 14, catastrophic 2
-- Exploitation status: in-wild-malfunction 46, researcher-demonstrated 15, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 50, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 102 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 13, model-update-regression 7, policy-violation 37, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 40, near-miss 41, degraded 19, catastrophic 2
+- Exploitation status: in-wild-malfunction 51, researcher-demonstrated 16, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 56, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
