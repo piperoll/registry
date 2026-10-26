@@ -1,4 +1,12 @@
 {
-  "comment": "Ids reserved for records in preparation - assigned but not yet published. Reserved ids are permanent: they will publish when verified, and are never reused for anything else. Neutral by design; no record content lives here. Distinct from retired ids (rejected candidates, CVE convention), of which there are none.",
-  "reserved": []
+  "comment": "Ids reserved for records in preparation - assigned but not yet published. Reserved ids are permanent: they will publish when verified, and are never reused for anything else. Neutral by design; no record content lives here. Distinct from retired ids (rejected candidates, CVE convention), listed under `retired`: an id that was assigned to a candidate in a public pull request and then rejected before registration. Retired ids never publish and are never reused; the entry names the date, the rejection reason and the public discussion.",
+  "reserved": [],
+  "retired": [
+    {
+      "id": "PIR-2026-0098",
+      "date": "2026-10-24",
+      "reason": "Candidate rejected before registration. The draft recorded a claim, made by LiteLLM during incident response, that a coding agent had written developers' GitHub CLI OAuth tokens into gateway logs behind the litellm 1.107.0 release compromise of 2026-10-21. LiteLLM's canonical 2026-10-23 attack-chain post withdrew that explanation (the first token came from an internal agent-platform API reached with a master key committed to a public repository); the revised account establishes no agent action as the credential-exposure vector (it does not say who originally inserted the exposed key), so the event is out of scope.",
+      "ref": "https://github.com/piperoll/registry/pull/138"
+    }
+  ]
 }
