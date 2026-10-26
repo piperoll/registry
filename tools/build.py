@@ -252,11 +252,18 @@ def build():
     # so the id sequence has no unexplained gaps and so a reserved permalink
     # resolves to a neutral holding page rather than a 404.
     reserved = []
+    retired = []
     _resv_path = os.path.join(ROOT, "reserved.json")
     if os.path.exists(_resv_path):
-        reserved = json.load(open(_resv_path, encoding="utf-8")).get("reserved", [])
+        _resv = json.load(open(_resv_path, encoding="utf-8"))
+        reserved = _resv.get("reserved", [])
+        # retired ids: assigned to a candidate in a public PR, then rejected before
+        # registration (CVE convention). Never published, never reused; the holding
+        # page says so and points at the public discussion.
+        retired = _resv.get("retired", [])
     _rec_ids = {r["id"] for r in records}
     reserved = [x for x in reserved if x["id"] not in _rec_ids]  # a published id is never also reserved
+    retired = [x for x in retired if x["id"] not in _rec_ids]    # and never also retired
 
     # per-record pages
     for r in records:
@@ -469,8 +476,7 @@ def build():
                  f'yet been published. {note}</p>'
                  f'<p>Reserved ids are permanent - they publish when verified and are never reused. '
                  f'A reserved id is not a retired id: retirement is for rejected candidates '
-                 f'(CVE convention), of which this registry has none. When this record publishes, '
-                 f'this page becomes the record.</p>'
+                 f'(CVE convention). When this record publishes, this page becomes the record.</p>'
                  f'<p><a href="../../index.html">Back to the registry</a>.</p></div>')
         rpage = PAGE.format(title=f"{x['id']}: reserved - PipeRoll", css=CSS,
                             home="../../index.html", home_prefix="../../",
@@ -479,6 +485,33 @@ def build():
                             canonical=f"https://piperoll.org/pir/{rslug}/", ogtype="website",
                             head_extra='<meta name="robots" content="noindex">\n',
                             sub="Reserved id - record in preparation", body=rbody)
+        os.makedirs(os.path.join(OUT, "pir", rslug), exist_ok=True)
+        with open(os.path.join(OUT, "pir", rslug, "index.html"), "w", encoding="utf-8") as fh:
+            fh.write(rpage)
+
+    # retired-id holding pages: a rejected candidate's id resolves to a page that
+    # says it was retired, why, and where the public discussion is - never a 404,
+    # never a record.
+    for x in retired:
+        rslug = x["id"].replace("PIR-", "").lower()
+        reason = htmlmod.escape(x.get("reason", "Candidate rejected before registration."))
+        ref = x.get("ref")
+        ref_bit = (f' Public discussion: <a href="{htmlmod.escape(ref)}">{htmlmod.escape(ref)}</a>.'
+                   if ref else "")
+        rbody = (f'<div class="record"><p>This id (<code>{htmlmod.escape(x["id"])}</code>) is '
+                 f'<strong>retired</strong> ({htmlmod.escape(x.get("date", ""))}): it was assigned to a '
+                 f'candidate that was rejected before registration. No record was ever published under it.</p>'
+                 f'<p>{reason}{ref_bit}</p>'
+                 f'<p>Retired ids are permanent and never reused (CVE convention). A retired id is not a '
+                 f'withdrawn record: withdrawal is for a published record later found outside scope.</p>'
+                 f'<p><a href="../../index.html">Back to the registry</a>.</p></div>')
+        rpage = PAGE.format(title=f"{x['id']}: retired - PipeRoll", css=CSS,
+                            home="../../index.html", home_prefix="../../",
+                            h1=f"{htmlmod.escape(x['id'])} - retired", footer_extra="",
+                            desc=f"{x['id']} is a retired PipeRoll id - a candidate rejected before registration, never published.",
+                            canonical=f"https://piperoll.org/pir/{rslug}/", ogtype="website",
+                            head_extra='<meta name="robots" content="noindex">\n',
+                            sub="Retired id - rejected candidate", body=rbody)
         os.makedirs(os.path.join(OUT, "pir", rslug), exist_ok=True)
         with open(os.path.join(OUT, "pir", rslug, "index.html"), "w", encoding="utf-8") as fh:
             fh.write(rpage)
@@ -641,8 +674,14 @@ def build():
     # out of the verified count.
     _withdrawn = [r for r in records if (r.get("status") or "").strip().lower().startswith("withdrawn")]
     _wd_bit = f" &middot; {len(_withdrawn)} withdrawn" if _withdrawn else ""
+    if retired:
+        _rtlinks = ", ".join(f'<a href="pir/{x["id"].replace("PIR-","").lower()}/">{x["id"]}</a>'
+                             for x in sorted(retired, key=lambda z: z["id"]))
+        _rt_bit = f'{len(retired)} retired id{"s" if len(retired) != 1 else ""} (<span class="meta">{_rtlinks}</span>)'
+    else:
+        _rt_bit = "0 retired ids"
     body = f"""
-<p class="stats"><strong>{len(records) - len(_withdrawn)} verified records</strong>{_wd_bit} &middot; 0 retired ids &middot; schema v0.2{updated_bit}{reserved_bit}</p>
+<p class="stats"><strong>{len(records) - len(_withdrawn)} verified records</strong>{_wd_bit} &middot; {_rt_bit} &middot; schema v0.2{updated_bit}{reserved_bit}</p>
 <p class="meta">Seen an agent failure? <a href="https://github.com/piperoll/registry/issues/new?template=incident-report.yml">Report an incident</a> -
 no code needed, sources required - or see <a href="contribute/">how contributions work</a>.</p>
 <div class="notice">Every record is individually verified against primary sources before
