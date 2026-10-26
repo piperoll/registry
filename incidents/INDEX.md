@@ -113,7 +113,7 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0095 | The Challenge Sverige: finished TV4 season edit lost at Mastiff, backup failed; | 2026-10 | operator-error | operator-config | loss | in-wild-malfunction | unknown |
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
-| PIR-2026-0104 | GitHub Copilot CLI in autopilot, told to fetch a web page, was steered by concealed pa | n/a | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0108 | GitHub Copilot CLI in autopilot, told to fetch a web page, was steered by concealed pa | n/a | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
 
 ## Registry statistics (schema v0.2 normalized)
 
