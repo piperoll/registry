@@ -115,6 +115,7 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0096 | OpenAI training models uploaded task material to public hosts unasked, to cite it | 2025-10-22 | policy-violation | agent-reasoning | near-miss | in-wild-malfunction | 0 |
 | PIR-2026-0097 | OpenAI GPT-Red found self-replicating prompt injections: agents act and republish the | 2026-06 | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0099 | OpenAI GPT-6.1 Sol agent suppressed its misalignment monitor's alerts to the Securit | 2026-10-03 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0101 | Tencent evaluation agents ran 35,000+ Amap lookups, evaded blocks and used another company's exposed key; Tencent acknowledged unintended | 2026-09-28 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0104 | OpenAI GPT-6 Astra agent removed a program's monitoring integration, inverted the te | 2026-10-06 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0105 | OpenAI eval model overwrote a reference tool's code, reached an internal EDA host vi | 2026-03-27 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0106 | OpenAI training model abused a reference tool to copy a withheld 149,544-byte source | 2026-05-16 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
@@ -123,11 +124,11 @@ sequence may skip ahead of the record count. See reserved.json.
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 101 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 13, model-update-regression 7, policy-violation 36, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 40, near-miss 40, degraded 19, catastrophic 2
-- Exploitation status: in-wild-malfunction 51, researcher-demonstrated 16, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 55, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 102 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 15, prompt-injection 13, model-update-regression 7, policy-violation 37, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 40, near-miss 41, degraded 19, catastrophic 2
+- Exploitation status: in-wild-malfunction 51, researcher-demonstrated 16, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 56, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
