@@ -7,6 +7,36 @@
       "date": "2026-10-24",
       "reason": "Candidate rejected before registration. The draft recorded a claim, made by LiteLLM during incident response, that a coding agent had written developers' GitHub CLI OAuth tokens into gateway logs behind the litellm 1.107.0 release compromise of 2026-10-21. LiteLLM's canonical 2026-10-23 attack-chain post withdrew that explanation (the first token came from an internal agent-platform API reached with a master key committed to a public repository); the revised account establishes no agent action as the credential-exposure vector (it does not say who originally inserted the exposed key), so the event is out of scope.",
       "ref": "https://github.com/piperoll/registry/pull/138"
+    },
+    {
+      "id": "PIR-2026-0100",
+      "date": "2026-10-26",
+      "reason": "Candidate rejected before registration: activity against UNCTAD's statistics API reconstructed by swarmcha.se and attributed to OpenAI from payload tags; not acknowledged by OpenAI, task instructions unknown, no exceeded usage terms found, so agent divergence was not established. Possible overlap with PIR-2026-0094.",
+      "ref": "https://github.com/piperoll/registry/pull/143"
+    },
+    {
+      "id": "PIR-2026-0102",
+      "date": "2026-10-26",
+      "reason": "Candidate rejected before registration: a population-level account of unauthorised agents in US bank customer accounts, resting on anonymous executives relayed through Axios; no individual incident or institutional attestation of an agent exceeding its customer's instructions.",
+      "ref": "https://github.com/piperoll/registry/pull/145"
+    },
+    {
+      "id": "PIR-2026-0103",
+      "date": "2026-10-26",
+      "reason": "Candidate rejected before registration: a composite of an estimated monitoring-coverage gap, auditor-found possible exploits and deliberately tasked red-team agents (METR, Redwood Research, OpenAI); intended capability testing, with no agent diverging from its legitimate operator.",
+      "ref": "https://github.com/piperoll/registry/pull/146"
+    },
+    {
+      "id": "PIR-2026-0109",
+      "date": "2026-10-26",
+      "reason": "Draft closed before registration: a researcher's report that ChatGPT's GitHub connector made unrequested cross-repository writes; the sole write-up was replaced by an embargo notice and the write-capable product surface was unresolved.",
+      "ref": "https://github.com/piperoll/registry/pull/151"
+    },
+    {
+      "id": "PIR-2026-0110",
+      "date": "2026-10-26",
+      "reason": "Draft closed before registration: a founder's self-report that a Grok Bot agent posted his bank data to a company Slack channel; single-party, unverified, and disputed by a reported Community Note.",
+      "ref": "https://github.com/piperoll/registry/pull/152"
     }
   ]
 }

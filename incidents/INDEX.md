@@ -13,7 +13,8 @@ the mapping is preserved in git history.
 Reserved ids (records in preparation, not yet published): none currently. Reserved
 ids are permanent - they publish when verified and are never reused - and are distinct from
 retired ids (rejected candidates, never published, never reused). Retired: PIR-2026-0098
-(2026-10-24, rejected before registration; see reserved.json and PR #138). Both are why the id
+(2026-10-24), PIR-2026-0100, 0102, 0103, 0109 and 0110 (2026-10-26) - candidates rejected or
+closed before registration; reasons and discussions in reserved.json. Both are why the id
 sequence may skip ahead of the record count. See reserved.json.
 
 | PIR id | title | occurred | root cause | locus | severity | exploitation | direct loss |
