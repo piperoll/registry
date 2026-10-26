@@ -15,7 +15,7 @@
 ### The agent
 - `agent_description`: what the system is, one paragraph
 - `operator_type`: individual | startup | enterprise | autonomous | unknown
-- `autonomy_level`: human-approves-each-action | human-on-the-loop | autonomous-within-policy | fully-autonomous
+- `autonomy_level`: human-approves-each-action | human-on-the-loop | autonomous-within-policy | autonomous-within-delegation | fully-autonomous | unknown
 - `model_stack`: model(s) + versions if known
 - `harness`: the scaffolding, if known
 

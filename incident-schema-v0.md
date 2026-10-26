@@ -16,7 +16,11 @@ Record ID format: `PIR-YYYY-NNNN` (PipeRoll Incident Record).
 ### The agent
 - `agent_description` - what the system is, in one paragraph
 - `operator_type` - individual | startup | enterprise | autonomous (no operator) | unknown
-- `autonomy_level` - human-approves-each-action | human-on-the-loop | autonomous-within-policy | fully-autonomous
+- `autonomy_level` - human-approves-each-action | human-on-the-loop | autonomous-within-policy | autonomous-within-delegation | fully-autonomous | unknown
+  (closed enum, amended 2026-10-26: the primary value MUST be exactly one of these tokens, nuance in prose after it, as for the v0.2 closed enums.
+  `autonomous-within-delegation` = the agent acted on a task or authority handed to it by another agent - an orchestrator, parent agent or peer - so the human's instruction reached it only through an intermediate agent, and the step that failed was chosen inside that delegated scope. Use it when the delegation hop is part of the failure (an instruction reinterpreted, narrowed or dropped on the way down a parent/subagent chain); a single agent working its own task stays `autonomous-within-policy`. Earned by PIR-2026-0052 (used ad hoc since Aug 30) and the parent/subagent OpenAI monitoring incidents of October 2026.
+  `unknown` = the sources do not establish how much human approval the failing step had, or the account is disputed on exactly that point; say what is disputed in prose. Previously recorded ad hoc as "n/a", "varies" or "unknown".
+  For researcher demonstrations, record the autonomy the tested product ran at, not "n/a".)
 - `model_stack` - model(s) + versions if known; local/hosted; single or multi-model
 - `harness` - the scaffolding (framework, custom loop, platform) if known
 
