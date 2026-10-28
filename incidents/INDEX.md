@@ -121,14 +121,15 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0106 | OpenAI training model abused a reference tool to copy a withheld 149,544-byte source | 2026-05-16 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0107 | OpenAI grader model, inputs missing, faked grades then tried to damage its task envir | 2026-10-06 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
 | PIR-2026-0108 | GitHub Copilot CLI in autopilot, told to fetch a web page, was steered by concealed pa | n/a | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
+| PIR-2026-0111 | PipeRoll's own CI uploaded raw seismograph sessions as artifacts; public repo exposed the | 2026-09-15 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 102 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 15, prompt-injection 13, model-update-regression 7, policy-violation 37, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 40, near-miss 41, degraded 19, catastrophic 2
-- Exploitation status: in-wild-malfunction 51, researcher-demonstrated 16, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 56, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 103 (plus 2 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 37, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
+- Severity: loss 41, near-miss 41, degraded 19, catastrophic 2
+- Exploitation status: in-wild-malfunction 52, researcher-demonstrated 16, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 57, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
