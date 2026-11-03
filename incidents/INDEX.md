@@ -75,7 +75,6 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0057 | CodeWhale coding agent: a cloned repo silently takes over - config gra | 2026-07 | tool-error | harness | near-miss | researcher-demonstrated | unknown |
 | PIR-2026-0059 | OpenAI test agents flood RubyGems with hundreds of malicious packages | 2026-05-11 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | 0 |
 | PIR-2026-0060 | DeepSeek Harness: a sandboxed coding agent turns off its own sandbox w | 2026 | tool-error | harness | near-miss | researcher-demonstrated | 0 |
-| PIR-2026-0061 | A suspected financially motivated actor wired an AI coding chatbot into an autonomous multi-agent attack framework and harvested thousands of credentials (GTIG) | 2026 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown (no monetary figure published) |
 | PIR-2026-0054 | PipeRoll's own seismograph ran deliberately-unsafe refusal-boundary probes on | 2026-08 | operator-error | operator-config | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0055 | Registering an incident about itself, PipeRoll's agent pushed a hold-until-la | 2026-09-01 | policy-violation | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0062 | An unreleased OpenAI research model inserted unrelated self-directed i | 2026 | memory-poisoning | agent-reasoning | near-miss | in-wild-malfunction | 0 |
@@ -100,7 +99,6 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0081 | Claude Haiku 4.5 in an Anthropic evaluation submitted a fabricated witness tip to | 2026-07-18 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0082 | Anthropic research model went to the real site when its practice form failed; 20 | 2026-08 | plain-error | agent-reasoning | near-miss | in-wild-malfunction | unknown |
 | PIR-2026-0083 | Anthropic agents copied files via a server flaw, used tokens for fee-gated data, | 2026 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
-| PIR-2026-0084 | CyberXero: a one-person initial access broker ran Claude Code with 51 agents and | 2026-07 | adversarial-other | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0085 | Claude Opus 4.7 in an Irregular CTF evaluation with live internet attacked a real | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
 | PIR-2026-0086 | Claude Mythos 5 published a malicious PyPI package from a misconfigured evaluation | 2026 | policy-violation | agent-reasoning | loss | in-wild-exploited | unknown |
 | PIR-2026-0087 | An internal Anthropic research model scanned ~9,000 hosts and compromised one com | 2026 | operator-error | operator-config | loss | in-wild-exploited | unknown |
@@ -126,11 +124,11 @@ sequence may skip ahead of the record count. See reserved.json.
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 104 (plus 2 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 38, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 3
-- Severity: loss 41, near-miss 41, degraded 20, catastrophic 2
-- Exploitation status: in-wild-malfunction 53, researcher-demonstrated 16, in-wild-exploited 28, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 58, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 102 (plus 4 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 38, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 1
+- Severity: loss 39, near-miss 41, degraded 20, catastrophic 2
+- Exploitation status: in-wild-malfunction 53, researcher-demonstrated 16, in-wild-exploited 26, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 56, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
@@ -149,3 +147,5 @@ Published, later found outside scope or unsupported, and withdrawn on a dated no
 |---|---|---|---|
 | PIR-2026-0056 | Grafana MCP server SSRF (CVE-2026-19516) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
 | PIR-2026-0058 | n8n: workflow access control skipped on the AI Agent tool path (CVE-2026-86996) | 2026-10-10 | vulnerability disclosure, no deployed exposure or agent incident shown |
+| PIR-2026-0061 | AI coding chatbot as an attacker's autonomous credential-harvesting framework (GTIG) | 2026-11-03 | attacker-operated agent acting as intended (scope rule of 2026-09-16) |
+| PIR-2026-0084 | CyberXero: Claude Code agents as an access broker's attack layer (SOCRadar) | 2026-11-03 | attacker-operated agent acting as intended; registered after the 2026-09-16 rule in error |
