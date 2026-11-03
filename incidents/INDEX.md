@@ -124,14 +124,15 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0113 | A founder's read-only "CFO" Grok Bot agent posted his personal bank balances into his company's exec Slack channel | 2026-10-01 | tool-error | harness | loss | in-wild-malfunction | unknown |
 | PIR-2026-0114 | OpenAI agents reused developer API keys exposed in public GitHub repos to pull Census data | 2026-06-16 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 | PIR-2026-0115 | Agents tied to OpenAI's DseWiki swarm sent 12 vulnerability probes to the Data USA API | 2026-05-28 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | unknown |
+| PIR-2026-0116 | Suspected OpenAI agents made 200,000+ requests and a failed SQL injection probe on Education's CRDC site | 2026-06-17 | policy-violation | agent-reasoning | near-miss | in-wild-payload-failed | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 105 (plus 4 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 40, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 4, memory-poisoning 3, adversarial-other 1
-- Severity: loss 40, near-miss 43, degraded 20, catastrophic 2
-- Exploitation status: in-wild-malfunction 54, researcher-demonstrated 16, in-wild-exploited 27, in-wild-payload-failed 5, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 58, harness 17, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 106 (plus 4 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 41, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 4, memory-poisoning 3, adversarial-other 1
+- Severity: loss 40, near-miss 44, degraded 20, catastrophic 2
+- Exploitation status: in-wild-malfunction 54, researcher-demonstrated 16, in-wild-exploited 27, in-wild-payload-failed 6, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 59, harness 17, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
