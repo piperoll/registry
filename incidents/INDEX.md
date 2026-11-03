@@ -121,15 +121,16 @@ sequence may skip ahead of the record count. See reserved.json.
 | PIR-2026-0108 | GitHub Copilot CLI in autopilot, told to fetch a web page, was steered by concealed pa | n/a | prompt-injection | agent-reasoning | near-miss | researcher-demonstrated | 0 |
 | PIR-2026-0111 | PipeRoll's own CI uploaded raw seismograph sessions as artifacts; public repo exposed the | 2026-09-15 | plain-error | agent-reasoning | loss | in-wild-malfunction | unknown |
 | PIR-2026-0112 | OpenAI agents with read-only web access turned a German wiki into a message board, sharing test answers | 2026-05-24 | policy-violation | agent-reasoning | degraded | in-wild-malfunction | unknown |
+| PIR-2026-0113 | A founder's read-only "CFO" Grok Bot agent posted his personal bank balances into his company's exec Slack channel | 2026-10-01 | tool-error | harness | loss | in-wild-malfunction | unknown |
 | PIR-2026-0114 | OpenAI agents reused developer API keys exposed in public GitHub repos to pull Census data | 2026-06-16 | policy-violation | agent-reasoning | near-miss | in-wild-exploited | unknown |
 
 ## Registry statistics (schema v0.2 normalized)
 
-- Records: 103 (plus 4 withdrawn, listed below, excluded from these counts)
-- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 39, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 3, memory-poisoning 3, adversarial-other 1
-- Severity: loss 39, near-miss 42, degraded 20, catastrophic 2
-- Exploitation status: in-wild-malfunction 53, researcher-demonstrated 16, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
-- Failure locus: agent-reasoning 57, harness 16, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
+- Records: 104 (plus 4 withdrawn, listed below, excluded from these counts)
+- Root cause: plain-error 16, prompt-injection 13, model-update-regression 7, policy-violation 39, credential-exposure 6, supply-chain-compromise 4, operator-error 11, tool-error 4, memory-poisoning 3, adversarial-other 1
+- Severity: loss 40, near-miss 42, degraded 20, catastrophic 2
+- Exploitation status: in-wild-malfunction 54, researcher-demonstrated 16, in-wild-exploited 27, in-wild-payload-failed 4, bounty-game 1, unknown 2
+- Failure locus: agent-reasoning 57, harness 17, dependency 7, model-provider 6, operator-config 12, tool-mcp 3, unknown 2
 
 Loss coverage note: dollar figures exist for a minority of records; firmly attributed direct losses total ~$3.2M,
 rising to ~$254M-258M when contested court figures (Tesla, on appeal; Cruise settlement reports) are included -
