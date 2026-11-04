@@ -55,6 +55,34 @@ every lead across every day:
 - `held: <what would flip it>` - rare; use when a primary is pending (an
   investigation update, an attribution) and name the trigger.
 
+### Before any reject: the five checks the 2026-11-03 audit added
+
+An audit of every closed discovery issue (Aug to Nov 2026) found false
+rejections with a common cause: a shortcut, not a judgement. Run these
+before writing any `out of scope` outcome.
+
+1. **Open every roundup.** A weekly recap or newsletter is never
+   `commentary` unread. Triage each item inside it on its own. (The Sep 21
+   recap closed in #71 hid Plugin4Shell.)
+2. **Judge against the registry, not the article's framing.** "All attempts
+   failed" or "no access gained" describes a near-miss, which is in scope.
+   Check how the closest existing record was classified before rejecting.
+   (#88 was rejected on "failed and unattributed" while PIR-2026-0075 had
+   registered the same swarm's failed probes; it became 0114 to 0116.)
+3. **Sweep every target a primary names**, not only the one that triggered
+   the lead. A researcher report that lists five targets is five leads.
+   (Transluce's Data USA and university-library episodes went untriaged
+   for six weeks.)
+4. **Weigh a dispute; don't count it.** A first-person account with
+   artifacts is corroborable at low-to-medium confidence (PIR-2026-0038,
+   0051, 0113). An unsupported counter-claim, such as a Community Note
+   resting on the reporter's commercial interest, lowers confidence; it does
+   not make the account unregistrable.
+5. **When a scope rule changes, re-run it on existing records.** A rule
+   tightened for new leads but never applied backwards leaves records that
+   would now be rejected (0061 and 0084 were withdrawn on 2026-11-03 for
+   this reason).
+
 ## 3. Draft the in-scope leads first, then close
 
 A `register` or `enrich` verdict goes through its skill and ends in a pull
