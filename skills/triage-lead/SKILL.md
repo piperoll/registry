@@ -55,6 +55,14 @@ divergence - the offensive agent went off-script, hit targets its own
 operator did not intend, or escaped the attacker's control. Then the agent's
 behaviour is again the incident.
 
+**Agent-authored output that a human deploys is in scope.** When code,
+configuration or a CI step written by an agent is deployed or merged by a
+person and the output itself is faulty and causes harm, the failure is the
+agent's: record the human deployment or review as a contributing factor,
+not a disqualifier. (Editor's ruling, 2026-11-04. Precedents: PIR-2026-0111,
+an agent-written CI step merged by the operator; registry issue #176, a
+Codex-written alarm loop deployed by its developer.)
+
 Also in scope, do not reject these by reflex: near-misses (full exposure,
 zero realised loss - the most under-reported class), researcher
 demonstrations against production systems, and an operator's own
